@@ -1,0 +1,155 @@
+---
+title: "Part 2: From Deep Learning to Large Language Models"
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    transition: fade
+    incremental: true
+    chalkboard: true
+    logo: images/logo.png
+    toc: false
+    css: styles.css
+    width: 1280
+    height: 720
+    center: true
+    margin: 0.1
+    fit: true
+    scrollable: true
+editor: visual
+---
+
+## [Part 2: From Deep Learning to Large Language Models]{style="color:#6C3483;"}
+### [Key neural architectures and the Transformer]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+- 🧠 **Deep Learning** = stacked layers of neurons learning complex patterns  
+- 🧱 **MLP**: dense connections, good for tabular data  
+- 🌐 **CNN**: convolutional filters, excels at images (e.g., histopathology slides)  
+- 🔄 **RNN**: sequential memory, early approach for text and time series  
+- ⚡ **Transformer**: self-attention mechanism, parallel processing, basis of modern LLMs  
+:::
+
+::: notes
+ Welcome to Part 2, where we dive under the hood of modern AI. We’ll revisit core neural architectures—MLP, CNN, RNN—understanding why each was invented, how they learn, and where they excel or fall short. Then we’ll uncover the Transformer, the breakthrough that powers today’s most advanced language models with self‑attention and parallel processing.
+
+ As we go, think about how these ideas translate to medical applications: predicting lab values, analyzing imaging, and interpreting complex patient narratives. By the end, you’ll see why Transformers form the backbone of LLMs in healthcare.
+:::
+
+---
+
+## [Multilayer Perceptron (MLP)]{style="color:#884EA0;"}
+### [Basic building block]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+- 🔢 **Structure**: input layer, hidden dense layers, output layer  
+- ⚙️ **Operation**: linear transform + non-linear activation (e.g., ReLU)  
+- 💡 **Use case in medicine**: risk prediction from lab values (e.g., predicting blood glucose)  
+:::
+
+::: comments
+Include a diagram of an MLP here (e.g., a simple network with nodes and layers). Consider using `rainbow_net.jpeg` or `backprop.png`.
+:::
+
+ ::: notes
+ Multilayer Perceptrons are the foundational building blocks of deep learning. Each neuron performs a weighted sum of its inputs, applies a non-linear activation, and forwards the result, allowing the network to learn arbitrarily complex functions. In medicine, MLPs shine when your data is structured and tabular—think risk models predicting blood sugar or cholesterol levels from lab tests.
+
+ However, MLPs treat all inputs equally and require fixed-size vectors, so they cannot exploit spatial patterns in images or the sequential structure of text. That limitation motivates specialized architectures like CNNs and RNNs.
+ :::
+
+---
+
+## [Convolutional Neural Networks (CNN)]{style="color:#D35400;"}
+### [Spatial feature extraction]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+- 🖼️ **Convolutions**: filters slide over input to detect patterns  
+- ⬇️ **Pooling**: reduces spatial dimensions, retains key features  
+- 🌟 **Medical example**: analyzing histology or radiology images to detect anomalies  
+:::
+
+::: comments
+Include a schematic of convolution and pooling layers. Might use `slide3_architectures.png` if it has CNN diagrams.
+:::
+
+ ::: notes
+ Convolutional Neural Networks extend neural layers with localized filters that slide over inputs to detect spatial features—edges, textures, and complex anatomical structures. Pooling layers then distill those features into more compact representations.
+
+ In clinical settings, CNNs revolutionize image-based diagnostics: they can highlight tumors in scans, segment organs for precise measurement, and even assist in digital pathology by recognizing histological patterns invisible to the naked eye. Despite their power, CNNs are specialized to grid‑like data and not directly applicable to text or time series.
+ :::
+
+---
+
+## [Recurrent Neural Networks (RNN)]{style="color:#2980B9;"}
+### [Sequence modeling]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+- 🔄 **Recurrent connections**: hidden state carries information across time steps  
+- 🧠 **Memory**: captures context, useful for sequences like texts or signals  
+- ⚠️ **Limitations**: vanishing gradients, difficulty with long-range dependencies  
+:::
+
+::: comments
+A diagram of an RNN cell or LSTM cell can illustrate the flow of information over time.
+:::
+
+ ::: notes
+ Recurrent Neural Networks introduced the concept of memory into neural models by maintaining a hidden state across time steps. Each new input updates that state, enabling the network to model temporal patterns in sequences—ideal for clinical time series or narrative text.
+
+ Yet vanilla RNNs suffer from vanishing gradients, making it hard to learn dependencies over longer spans. LSTM and GRU variants mitigate this but still struggle when context extends over many sentences or hours of signal. This led to the development of the Transformer architecture.
+ :::
+
+---
+
+## [Enter the Transformer]{style="color:#C0392B;"}
+### [Self-Attention and Parallelism]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+- 👁️ **Self-Attention**: each token attends to all others, capturing context  
+- 🎯 **Positional Encoding**: injects order information into tokens  
+- ⚡ **Parallel Processing**: no recurrence, faster training on GPUs  
+:::
+
+::: comments
+Use `self_attention.png` to visualize the attention mechanism.
+:::
+
+ ::: notes
+ The Transformer marked a turning point by replacing sequential recurrence with self‑attention, enabling every token to attend to all others in parallel. This design captures long-range dependencies naturally and scales efficiently across modern hardware.
+
+ For clinical narratives—where a term in one paragraph may depend on context from several pages earlier—self‑attention ensures that all relevant information stays connected. Positional encodings preserve sequence order, while multi‑head attention provides multiple “views” of context at each layer.
+ :::
+
+---
+
+## [Pretraining & Fine-tuning]{style="color:#7D3C98;"}
+### [The recipe behind GPT and BERT]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+- 📚 **Pretraining**: train on massive unlabeled text (e.g., web corpora)  
+- 🔄 **Objective**: next-token prediction (GPT) or masked-token prediction (BERT)  
+- 🛠️ **Fine-tuning**: adapt pretrained model to specific tasks (e.g., classification, summarization)  
+:::
+
+ ::: notes
+ Pretraining leaps over the need for massive labeled datasets by training on large unlabeled corpora—everything from web text to medical literature. GPT‑style models learn to predict the next token, while BERT uses masked‑token prediction, both capturing rich language patterns.
+
+ Fine‑tuning then tailors these pretrained giants to specific tasks: a general model becomes a clinical question‑answering assistant or a lab‑report summarizer by training on domain‑specific examples. This two‑step recipe underpins virtually all modern LLMs in healthcare and beyond.
+ :::
+
+---
+
+## [Key Takeaways: Part 2]{style="color:#6C3483;"}
+### [Summary of Deep Learning and Transformers]{style="color:#117A65;"}
+
+::: {style="font-size:0.85em;"}
+- 🧱 MLPs excel with structured, tabular data like lab metrics
+- 🖼️ CNNs identify patterns in images, powering radiology and pathology
+- 🔄 RNNs introduced sequence handling but struggle with long dependencies
+- 👁️ Transformers unify context through self‑attention and positional encoding
+- 📚 Pretraining + fine‑tuning is the standard workflow for LLMs
+:::
+
+::: notes
+Let’s recap Part 2: we began with MLPs for tabular prediction, moved to CNNs for spatial data, and saw how RNNs brought memory to sequences. The Transformer then smashed previous limits by attending to all tokens in parallel, making it ideal for lengthy medical documents. Finally, we reviewed the two‑step process of pretraining on vast corpora and fine‑tuning on specific tasks, which is how domain‑adapted LLMs are built.
+:::
