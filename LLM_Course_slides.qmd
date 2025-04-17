@@ -1,0 +1,404 @@
+---
+title: "Generative AI and LLMs in Clinical and Laboratory Medicine"
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    transition: fade
+    incremental: true
+    chalkboard: true
+    logo: images/logo.png
+    toc: false
+    css: styles.css
+    width: 1280
+    height: 720
+    center: true
+    margin: 0.1
+    fit: true
+    scrollable: true
+editor: visual
+---
+
+## 
+
+::: {.column width="100%"}
+![](images/slide1_intro.png)
+:::
+
+## [Generative AI and LLMs]{style="color:#2E86C1;"}
+
+### [in Clinical and Laboratory Medicine]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   [What is Generative AI and how is it transforming medicine?]{style="color:#34495E;"}\
+-   [Why focus on Large Language Models (LLMs)?]{style="color:#34495E;"}\
+-   <strong style="color:#2874A6;">Key goals of the course:</strong>
+    -   🧠 Understand the fundamentals of generative AI and LLMs\
+    -   🧪 Explore applications in clinical and lab settings\
+    -   🔄 Compare local vs commercial tools (ChatGPT, Claude, Mistral, etc.)\
+    -   🛠 Practice with LM Studio, WebLLM\
+-   <strong style="color:#7D3C98;">Course format:</strong> 2h theory + 2h practical
+:::
+
+::: notes
+Welcome to the course!
+
+We’re here to explore how **Generative AI** — and especially **Large Language Models** — are reshaping the medical and laboratory fields. This isn’t a coding class; it’s a practical, clinician-focused introduction to tools like ChatGPT, Claude, and Mistral, including those you can run locally for privacy.
+
+Today’s structure is simple:\
+👉 First, we understand how these models work.\
+👉 Then, we get hands-on with tools like LM Studio.
+
+By the end, you'll be able to try out prompts for diagnostics, automate reporting, and even think critically about when *not* to trust an LLM.
+
+Let’s dive in!
+:::
+
+------------------------------------------------------------------------
+
+## [What is Artificial Intelligence?]{style="color:#1A5276;"}
+
+### [(And why doctors and biologists should care)]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 **Artificial Intelligence (AI)** simulates human reasoning and decision-making\
+-   🤖 Two historical approaches:
+    -   <strong style="color:#2874A6;">Symbolic AI</strong> = rule-based logic (e.g., expert systems)\
+    -   <strong style="color:#AF7AC5;">Connectionist AI</strong> = inspired by the brain (neural networks)\
+-   📊 Statistical Learning forms the bridge:
+    -   Data-driven techniques to learn patterns from data\
+    -   Includes regression, classification, and clustering\
+-   🧬 Why it matters in medicine:
+    -   Many clinical tasks are decision problems under uncertainty\
+    -   From diagnosis to triage to interpretation of lab results\
+    -   AI = help, not replacement
+:::
+
+::: notes
+This slide sets the stage. Before we get to transformers and LLMs, we remind everyone that AI is not magic — it's logic and statistics at scale.
+
+We introduce two traditional visions of AI: - **Symbolic**, like if–then rules (think of early expert systems). - **Connectionist**, where intelligence emerges from networks (like modern neural nets).
+
+Then we highlight **Statistical Learning** as the bridge: the core idea that algorithms can learn from **data, not just rules**. That’s how we move toward modern AI in healthcare.
+
+This matters to clinicians and lab professionals because medical decision-making often requires synthesizing complex, uncertain data — something statistical models (and later, LLMs) are surprisingly good at helping with.
+:::
+
+------------------------------------------------------------------------
+
+## [Why Do We Need a New AI in Medicine?]{style="color:#884EA0;"}
+
+### [Limitations of classical statistical models]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📊 **Classical models** (regression, decision trees, etc.) work well with structured, tabular data\
+-   🧬 But clinical data is increasingly **unstructured and complex**:
+    -   Free-text reports, multi-language notes, EHRs, medical images\
+-   ❌ **Statistical models struggle** with:
+    -   Language ambiguity (e.g., “it” → “the liver”?)\
+    -   Missing or noisy data\
+    -   Context-dependent reasoning\
+-   🧠 **Modern AI** (LLMs) can handle this complexity with better generalization on free-text and multimodal data
+:::
+
+::: notes
+This slide sets the stage for understanding *why* we need modern AI. Traditional models like logistic regression or random forests are great on clean, structured datasets — for example, predicting risk scores from lab values.
+
+But real-world clinical data is messy. A discharge summary, an MRI image, a patient’s email — none of these fit neatly into rows and columns.
+
+Modern AI, and especially Large Language Models, can process this complexity thanks to self-supervised learning and architectures like Transformers. They can extract structure from unstructured data.
+:::
+
+## [Why Do We Need a New AI in Medicine?]{style="color:#884EA0;"}
+
+### [Limitations of classical statistical models]{style="color:#117A65;"}
+
+![](images/struct_unstruct.png)
+
+::: notes
+On the left, we see a typical example of **structured data** — a logistic regression curve predicting a probability (e.g., of disease) based on a lab value. This is the type of data most traditional models were built for: numerical, clean, and formatted in tables.
+
+On the right, we see **unstructured data**: an EHR containing free-text (“The liver is enlarged…”) with ambiguous references, embedded lab results, and even a brain image. This is what clinicians deal with daily — complex, multimodal information not easily reducible to numbers or categories.
+
+At the bottom center, a Transformer icon represents how modern AI models like LLMs can bridge this gap. These models are capable of processing unstructured inputs — understanding the context of text, extracting meaning, and integrating across formats — making them much more powerful in handling today’s clinical data.
+:::
+
+## <span style="color:#884EA0;">What Can Traditional AI Do?</span>  
+### <span style="color:#117A65;">Core Tasks in Statistical Learning</span>
+
+:::::: {.columns}
+
+::: {.column width="58%"}
+- 📈 **Regression**: Predict a **number** from input data  
+  - Example: Predict blood glucose from age + BMI  
+- 🧪 **Classification**: Assign a **label** to input data  
+  - Example: "Is this biopsy malignant or benign?"  
+- 🔍 **Clustering**: Find hidden **groups** in unlabeled data  
+  - Example: Identify subtypes of patients with similar gene expression
+:::
+
+::: {.column width="42%" .fit}
+![](images/traditional_ai.png){width=300px style="max-height: 500px;"}
+:::
+
+::::::
+
+
+::: {.notes}
+
+These are the foundations of traditional statistical learning.
+
+- **Regression** predicts continuous outcomes — useful for things like lab values or risk scores.  
+- **Classification** is probably the most used — determining if a patient has a disease or not based on test results.  
+- **Clustering** is more exploratory — no labels, just patterns. Think of how we discover new cancer subtypes from omics data.
+
+All three are still crucial, but they struggle when the inputs are free text, images, or conversations. That’s where LLMs enter the picture.
+
+:::
+
+---
+
+## <span style="color:#884EA0;">Why Statistical Models Struggle with Language</span>  
+### <span style="color:#117A65;">From structured input to real-world complexity</span>
+
+<div style="font-size: 0.85em;">
+
+- 🧱 Traditional models expect **structured, tabular input**
+- 💬 Natural language is **unstructured, ambiguous, context-dependent**
+  - Example: “It is elevated” — what is “it”?
+- 🧠 Language understanding needs:
+  - Context resolution (e.g., coreference)
+  - Syntax and semantics
+  - Long-range dependencies across sentences
+- 📉 Statistical models lack memory or reasoning — they reduce text to bags of words or fixed vectors
+
+</div>
+
+::: {.notes}
+
+This slide sets up the motivation for deep learning and Transformers.
+
+Traditional models can’t "understand" language. They only count word frequency or use basic rules. But in medicine, you need to know what “it” refers to, interpret negations, or follow a patient story over multiple paragraphs.
+
+This complexity is what made deep learning necessary — especially models like RNNs and Transformers.
+
+:::
+
+---
+
+## <span style="color:#884EA0;">What Is a Neural Network?</span>  
+### <span style="color:#117A65;">From neurons to layers to learning</span>
+
+<div style="font-size: 0.85em;">
+
+- 🔢 Neural networks are made of **units ("neurons")** connected in **layers**
+- 🧠 Each neuron takes input → does a small math operation → passes output forward
+- 📚 By adjusting **weights** during training, the network learns patterns  
+- 🧬 This structure lets it capture **non-linear** relationships (vs classical regression)
+
+</div>
+::: {style="text-align: center;"}
+![](images/rainbow_net.jpeg){width=50% height=auto}
+:::
+
+::: {.notes}
+
+Let’s now shift from classical models to the first true building blocks of modern AI: **neural networks**.
+
+A **neural network** is essentially a system made of very simple processing units — we call them **"neurons"** — that are connected in layers.
+
+Each **neuron** receives some numbers — like age, glucose, or symptoms — and applies a very basic mathematical operation: it sums the inputs, applies a function (usually non-linear), and sends the result to the next layer.
+
+This sounds trivial, but the power of a neural network comes from **stacking many of these neurons into multiple layers**, and from **adjusting the connection weights** between them during training.
+
+The process of **learning** in a neural network means:
+- Showing it many examples (e.g. patients with known outcomes),
+- Comparing its predictions to the actual results (e.g. real diagnoses or scores),
+- And gradually changing the weights to reduce the error.
+
+Over time, the network gets better at **recognizing patterns** — even **complex, non-linear relationships** that traditional models (like logistic regression) can’t capture.
+
+This structure — simple units in layers — is the foundation of **deep learning**.
+
+Even the most advanced models we use today, including ChatGPT, are built on this principle — just scaled up to billions of neurons and much more complex architectures.
+
+This is the moment when AI stopped being about just rules and formulas, and started **learning from data** in a flexible, powerful way.
+
+:::
+
+---
+
+## <span style="color:#884EA0;">How Do Neural Networks Learn?</span>  
+### <span style="color:#117A65;">The role of loss and backpropagation</span>
+
+<div style="font-size: 0.85em;">
+
+- 🧪 During training, the network makes a **prediction**
+- 📉 A **loss function** compares the prediction to the true label
+- 🔁 **Backpropagation** adjusts the weights to reduce error
+- 🔄 This is repeated over many examples → the model learns patterns
+
+</div>
+
+::: {style="text-align: center;"}
+![](images/backprop.png){width=50% height=auto}
+:::
+
+::: {.notes}
+
+Now that we've seen how a neural network is built, let’s briefly see **how it learns**.
+
+Every time the network sees an input — for example, patient age, glucose, and symptoms — it makes a **prediction**.
+
+That prediction is compared to the true outcome — for instance, whether the patient had a complication. The difference between the prediction and the actual result is measured using a **loss function**.
+
+Then comes the key step: **backpropagation**.
+
+The model calculates how much each weight contributed to the error, and uses that information to **adjust the weights** in the right direction — usually using a method called **gradient descent**.
+
+This process is repeated thousands — even millions — of times, on many examples. And that’s how the network gradually improves: by reducing the total error across the training set.
+
+We call this “learning”, but really, it’s error correction — just at scale and with lots of data.
+
+:::
+
+---
+
+## <span style="color:#884EA0;">Why Standard Neural Networks Struggle with Language</span>  
+### <span style="color:#117A65;">The need for sequential memory and attention</span>
+
+<div style="font-size: 0.85em;">
+
+- 🔁 Standard networks treat inputs as fixed-length vectors  
+- 📜 But language is a **sequence** — word order and context matter  
+- 🧠 Early models like **RNNs** and **LSTM** were designed to process sequences  
+  - They use **memory** to retain previous words  
+- 😕 Still limited: hard to capture **long-range dependencies** (“it” referring 3–4 sentences back)
+
+</div>
+
+::: {.notes}
+
+Neural networks are great for many tasks — but **not for sequences**, like language or time series.
+
+Why? Because traditional neural nets assume the input is just a fixed-size list of numbers. But in language, word order is essential, and meaning often depends on what came before — even several sentences earlier.
+
+This is where **RNNs** (Recurrent Neural Networks) were introduced: they process one word at a time and **retain memory** of previous inputs.
+
+Later, **LSTMs** added improved memory handling.
+
+But these models still struggle when context is long — say, in medical reports or dialogues, where "it" might refer to something 3 paragraphs earlier.
+
+This limitation is what led to the next big leap: the Transformer.
+
+:::
+
+
+
+
+## [From Deep Learning to LLMs]{style="color:#6C3483;"}
+
+### [Why Transformers changed everything]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 <strong>Deep Learning</strong> = layered neural networks\
+-   🧱 Types of architectures:
+    -   <strong style="color:#884EA0;">MLP</strong>: good for simple inputs\
+    -   <strong style="color:#D35400;">CNN</strong>: excels in images and spatial data\
+    -   <strong style="color:#2980B9;">RNN</strong>: handles sequences like speech and text\
+-   ⚡ <strong style="color:#C0392B;">Transformer</strong>: breakthrough architecture for language
+    -   Uses <em>self-attention</em> instead of recurrence\
+    -   Faster, more parallel, better at long sequences\
+-   🔁 <strong>Pretraining + Fine-tuning</strong>: strategy behind ChatGPT, Claude, Mistral
+:::
+
+<br>
+
+::: notes
+We now move from the idea of “neural networks” to the specific architectures that brought us to LLMs.
+
+-   First, the **MLP** — the original building block, still used in simpler tasks.
+-   Then, **CNNs** — they revolutionized image processing, and are still core to medical imaging AI.
+-   **RNNs** were our first way to work with sequences like text and speech, but they struggled with long contexts.
+
+Then came the **Transformer**.\
+By using self-attention rather than recurrence, it scaled beautifully to large data and long texts. It became the basis for LLMs like GPT, BERT, T5, and all modern variants.
+
+We also introduce **pretraining and fine-tuning** — concepts crucial to understanding how models adapt to specific tasks like medicine.
+:::
+
+------------------------------------------------------------------------
+
+## [Inside the Transformer]{style="color:#884EA0;"}
+
+### [Self-Attention and Positional Encoding]{style="color:#117A65;"}
+
+:::::: columns
+:::: {.column width="100%" style="font-size: 0.85em;"}
+::: {style="font-size: 0.85em;"}
+-   👁️ **Self-Attention**: lets the model look at all words in a sentence at once
+    -   Each word can "attend" to other words — capturing **context** and **meaning**\
+    -   Example: in “The liver is enlarged, and it may indicate...”, what does "it" refer to?\
+-   🧭 **Positional Encoding**: adds order to the sequence
+    -   Transformers process input **in parallel**, so positions must be encoded explicitly\
+-   🔍 These are what let LLMs handle **long-range dependencies** in language\
+-   🧠 Basis for ChatGPT, BERT, and every modern LLM
+:::
+::::
+
+::: {.column width="42%"}
+![](images/self_attention.png)
+:::
+::::::
+
+::: notes
+This is one of the most important innovations in modern AI.
+
+Transformers don’t rely on recurrence like RNNs or LSTMs. Instead, they look at **all the words at once** — and use a mechanism called **self-attention** to decide which ones are most relevant for each word.
+
+For example, in the phrase “The liver is enlarged, and it may indicate...”, the model can link "it" back to "liver" using attention.
+
+Since there's no recurrence, Transformers can process data **in parallel**, making training much faster.
+
+But because they process everything at once, they need to know **where each word is** in the sequence. That’s why they use **positional encoding** — a mathematical way to inject word order into the model.
+
+These two ideas — **self-attention** and **positional encoding** — are what make Transformers so powerful in language tasks.
+
+Everything that came after — BERT, GPT, ChatGPT, Claude — is built on this.
+
+:::
+
+
+###########################################################################################################################
+###########################################################################################################################
+###########################################################################################################################
+#######################################################################################################################
+Da fare la parte sotto
+
+------------------------------------------------------------------------
+
+## [General vs Medical-Specific Language Models]{style="color:#154360;"}
+
+### [What’s the difference and why it matters in clinical practice?]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🌍 **General LLMs** (e.g. ChatGPT, Claude, Mistral):
+    -   Trained on broad internet data
+    -   Good for reasoning, summarization, and multitasking
+    -   Risk of hallucinations and lack of domain depth\
+-   🩺 **Medical-specific LLMs** (e.g. PathChat, BrainGPT, LiVersa):
+    -   Trained on clinical texts, guidelines, scientific papers
+    -   Better terminology, contextual accuracy, and safety
+    -   Often **closed models** or institution-specific\
+-   ⚖️ Trade-off: **generality vs depth**, **availability vs reliability**
+:::
+
+::: notes
+This slide is key to understanding when and why to prefer a domain-specific LLM over a generalist one.
+
+-   General LLMs like ChatGPT and Claude are incredibly versatile and can be prompted to reason like a physician — but they weren’t trained on clinical records or lab manuals. So they may hallucinate or get terminology wrong.
+
+-   Medical-specific LLMs are trained on datasets like radiology reports, scientific publications, or EHR notes. That makes them **more accurate in their domain**, but often **less available** or transparent.
+
+This is also a good point to mention that most high-performing clinical models are still closed or under research — but the field is rapidly moving toward open solutions.
+:::

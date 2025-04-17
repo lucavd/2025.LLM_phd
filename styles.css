@@ -1,0 +1,18 @@
+/* styles.css */
+
+.reveal .slide h2 {
+    color: #2E86C1;
+    font-weight: bold;
+  }
+  
+  .reveal .slide h3 {
+    color: #117A65;
+    font-style: italic;
+  }
+  
+  .reveal .slide ul {
+    line-height: 1.4em;
+    margin-left: 1em;
+    font-size: 0.85em;
+  }
+  
