@@ -537,9 +537,10 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="why-statistical-models-struggle-with-language" class="slide level2 center">
-<h2><span style="color:#884EA0;">Why Statistical Models Struggle with Language</span></h2>
-<h3 id="from-structured-input-to-real-world-complexity"><span style="color:#117A65;">From structured input to real-world complexity</span></h3>
+<section class="slide level2 center">
+
+<h3 id="why-statistical-models-struggle-with-language"><span style="color:#884EA0;">Why Statistical Models Struggle with Language</span></h3>
+<h4 id="from-structured-input-to-real-world-complexity"><span style="color:#117A65;">From structured input to real-world complexity</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
 <li class="fragment">🧱 Traditional models expect <strong>structured, tabular input</strong></li>
@@ -572,9 +573,10 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="what-is-a-neural-network" class="slide level2 center">
-<h2><span style="color:#884EA0;">What Is a Neural Network?</span></h2>
-<h3 id="from-neurons-to-layers-to-learning"><span style="color:#117A65;">From neurons to layers to learning</span></h3>
+<section class="slide level2 center">
+
+<h3 id="what-is-a-neural-network"><span style="color:#884EA0;">What Is a Neural Network?</span></h3>
+<h4 id="from-neurons-to-layers-to-learning"><span style="color:#117A65;">From neurons to layers to learning</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
 <li class="fragment">🔢 Neural networks are made of <strong>units (“neurons”)</strong> connected in <strong>layers</strong></li>
@@ -609,9 +611,10 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="how-do-neural-networks-learn" class="slide level2 center">
-<h2><span style="color:#884EA0;">How Do Neural Networks Learn?</span></h2>
-<h3 id="the-role-of-loss-and-backpropagation"><span style="color:#117A65;">The role of loss and backpropagation</span></h3>
+<section class="slide level2 center">
+
+<h3 id="how-do-neural-networks-learn"><span style="color:#884EA0;">How Do Neural Networks Learn?</span></h3>
+<h4 id="the-role-of-loss-and-backpropagation"><span style="color:#117A65;">The role of loss and backpropagation</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
 <li class="fragment">🧪 During training, the network makes a <strong>prediction</strong></li>
@@ -643,9 +646,10 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="why-standard-neural-networks-struggle-with-language" class="slide level2 center">
-<h2><span style="color:#884EA0;">Why Standard Neural Networks Struggle with Language</span></h2>
-<h3 id="the-need-for-sequential-memory-and-attention"><span style="color:#117A65;">The need for sequential memory and attention</span></h3>
+<section class="slide level2 center">
+
+<h3 id="why-standard-neural-networks-struggle-with-language"><span style="color:#884EA0;">Why Standard Neural Networks Struggle with Language</span></h3>
+<h4 id="the-need-for-sequential-memory-and-attention"><span style="color:#117A65;">The need for sequential memory and attention</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
 <li class="fragment">🔁 Standard networks treat inputs as fixed-length vectors<br>
@@ -679,9 +683,10 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="from-deep-learning-to-llms" class="slide level2 center">
-<h2><span style="color:#6C3483;">From Deep Learning to LLMs</span></h2>
-<h3 id="why-transformers-changed-everything"><span style="color:#117A65;">Why Transformers changed everything</span></h3>
+<section class="slide level2 center">
+
+<h3 id="from-deep-learning-to-llms"><span style="color:#6C3483;">From Deep Learning to LLMs</span></h3>
+<h4 id="why-transformers-changed-everything"><span style="color:#117A65;">Why Transformers changed everything</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
 <li class="fragment">🧠 <strong>Deep Learning</strong> = layered neural networks<br>
@@ -728,9 +733,10 @@ By using self-attention rather than recurrence, it scaled beautifully to large d
           display:block!important;
       }</style></aside>
 </section>
-<section id="inside-the-transformer" class="slide level2 center">
-<h2><span style="color:#884EA0;">Inside the Transformer</span></h2>
-<h3 id="self-attention-and-positional-encoding"><span style="color:#117A65;">Self-Attention and Positional Encoding</span></h3>
+<section class="slide level2 center">
+
+<h3 id="inside-the-transformer"><span style="color:#884EA0;">Inside the Transformer</span></h3>
+<h4 id="self-attention-and-positional-encoding"><span style="color:#117A65;">Self-Attention and Positional Encoding</span></h4>
 <div class="columns">
 <div class="column" style="font-size: 0.85em;">
 <div style="font-size: 0.85em;">
@@ -756,13 +762,13 @@ By using self-attention rather than recurrence, it scaled beautifully to large d
 <p><img data-src="images/self_attention.png"></p>
 </div></div>
 <aside class="notes">
-<p>This is the heart of what makes LLMs work.</p>
-<ul>
-<li><p><strong>Self-attention</strong> is the mechanism that replaced recurrence. Instead of going word by word, the model considers <strong>all words simultaneously</strong>, and learns which ones are important to each other.<br>
-Example: in medical text, when you read “The liver is enlarged, and it may indicate…”, the model needs to know that “it” refers to “liver”.</p></li>
-<li><p>But Transformers process things <strong>in parallel</strong>, so the model needs to know what came first. That’s where <strong>positional encoding</strong> comes in — giving a sense of order to the tokens.</p></li>
-</ul>
-<p>These two elements — attention + position — allow LLMs to handle long and complex clinical or lab reports, reasoning across sentences and contexts.</p>
+<p>This is one of the most important innovations in modern AI.</p>
+<p>Transformers don’t rely on recurrence like RNNs or LSTMs. Instead, they look at <strong>all the words at once</strong> — and use a mechanism called <strong>self-attention</strong> to decide which ones are most relevant for each word.</p>
+<p>For example, in the phrase “The liver is enlarged, and it may indicate…”, the model can link “it” back to “liver” using attention.</p>
+<p>Since there’s no recurrence, Transformers can process data <strong>in parallel</strong>, making training much faster.</p>
+<p>But because they process everything at once, they need to know <strong>where each word is</strong> in the sequence. That’s why they use <strong>positional encoding</strong> — a mathematical way to inject word order into the model.</p>
+<p>These two ideas — <strong>self-attention</strong> and <strong>positional encoding</strong> — are what make Transformers so powerful in language tasks.</p>
+<p>Everything that came after — BERT, GPT, ChatGPT, Claude — is built on this.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -775,35 +781,1264 @@ Example: in medical text, when you read “The liver is enlarged, and it may ind
           display:block!important;
       }</style></aside>
 </section>
-<section id="general-vs-medical-specific-language-models" class="slide level2 center">
-<h2><span style="color:#154360;">General vs Medical-Specific Language Models</span></h2>
-<h3 id="whats-the-difference-and-why-it-matters-in-clinical-practice"><span style="color:#117A65;">What’s the difference and why it matters in clinical practice?</span></h3>
+<section class="slide level2 center">
+
+<h3 id="what-is-self-attention"><span style="color:#884EA0;">What is Self-Attention?</span></h3>
+<h4 id="how-transformers-understand-language"><span style="color:#117A65;">How Transformers “understand” language</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
-<li class="fragment">🌍 <strong>General LLMs</strong> (e.g.&nbsp;ChatGPT, Claude, Mistral):
+<li class="fragment">👀 In <strong>self-attention</strong>, every word looks at <strong>all other words</strong> in the sentence
 <ul>
-<li class="fragment">Trained on broad internet data</li>
-<li class="fragment">Good for reasoning, summarization, and multitasking</li>
-<li class="fragment">Risk of hallucinations and lack of domain depth<br>
-</li>
+<li class="fragment">Each word decides <strong>how much to pay attention</strong> to the others</li>
 </ul></li>
-<li class="fragment">🩺 <strong>Medical-specific LLMs</strong> (e.g.&nbsp;PathChat, BrainGPT, LiVersa):
+<li class="fragment">🧠 <strong>Example</strong>:
 <ul>
-<li class="fragment">Trained on clinical texts, guidelines, scientific papers</li>
-<li class="fragment">Better terminology, contextual accuracy, and safety</li>
-<li class="fragment">Often <strong>closed models</strong> or institution-specific<br>
-</li>
+<li class="fragment">Sentence: “The liver is enlarged because it is inflamed”</li>
+<li class="fragment">“it” should focus attention on “liver”, not “because” or “enlarged”</li>
 </ul></li>
-<li class="fragment">⚖️ Trade-off: <strong>generality vs depth</strong>, <strong>availability vs reliability</strong></li>
+<li class="fragment">🔄 The model <strong>builds a map</strong> of relationships between words
+<ul>
+<li class="fragment">Helps <strong>resolve references</strong>, <strong>capture context</strong>, <strong>understand meaning</strong></li>
+</ul></li>
+<li class="fragment">⚡ Self-attention is <strong>parallel</strong> and <strong>scales well</strong> to long texts</li>
 </ul>
 </div>
 <aside class="notes">
-<p>This slide is key to understanding when and why to prefer a domain-specific LLM over a generalist one.</p>
+<p>Self-attention is the heart of the Transformer.</p>
+<p>Instead of reading one word after another (like an RNN), the Transformer looks at the entire sentence at once.</p>
+<p>For each word, it asks: <em>“Which other words are important for understanding me?”</em></p>
+<p>For example, in “The liver is enlarged because it is inflamed”, the word “it” needs to connect to “liver” to make sense.</p>
+<p>Self-attention lets the model build these <strong>connections</strong> automatically, and it can do this <strong>for all words at the same time</strong>, not sequentially.<br>
+This makes Transformers very powerful — they handle long-range dependencies and scale efficiently to big datasets.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="how-does-self-attention-work"><span style="color:#884EA0;">How Does Self-Attention Work?</span></h3>
+<h4 id="three-steps-query-key-value"><span style="color:#117A65;">Three steps: Query, Key, Value</span></h4>
+<div style="font-size: 0.85em;">
 <ul>
-<li><p>General LLMs like ChatGPT and Claude are incredibly versatile and can be prompted to reason like a physician — but they weren’t trained on clinical records or lab manuals. So they may hallucinate or get terminology wrong.</p></li>
-<li><p>Medical-specific LLMs are trained on datasets like radiology reports, scientific publications, or EHR notes. That makes them <strong>more accurate in their domain</strong>, but often <strong>less available</strong> or transparent.</p></li>
+<li class="fragment">📚 <strong>Each word</strong> is turned into three vectors:
+<ul>
+<li class="fragment"><strong>Query (Q)</strong>: What am I looking for?</li>
+<li class="fragment"><strong>Key (K)</strong>: What do I offer?</li>
+<li class="fragment"><strong>Value (V)</strong>: What information do I carry?</li>
+</ul></li>
+<li class="fragment">🔍 <strong>Attention Score</strong> between two words:
+<ul>
+<li class="fragment">Multiply Query of one word × Key of another</li>
+</ul></li>
+<li class="fragment">🧮 Then, the scores are <strong>normalized</strong> and used to mix the <strong>Values</strong></li>
+<li class="fragment">🎯 This gives each word a <strong>new, context-aware representation</strong></li>
 </ul>
-<p>This is also a good point to mention that most high-performing clinical models are still closed or under research — but the field is rapidly moving toward open solutions.</p>
+</div>
+<aside class="notes">
+<p>Now we dive a little deeper into how self-attention is actually calculated.</p>
+<p>Each word is first transformed into three vectors: - A <strong>Query</strong> — asking “what am I looking for?” - A <strong>Key</strong> — saying “what do I have to offer?” - A <strong>Value</strong> — carrying the actual information content.</p>
+<p>To find out <strong>how much attention</strong> one word should pay to another, we multiply the Query of the first word by the Key of the second word.</p>
+<p>This gives a <strong>score</strong>: a measure of how important that second word is to the first.</p>
+<p>All the scores are <strong>normalized</strong> (typically using a softmax function) so they add up to 1, and then used to combine the <strong>Values</strong> from all words.</p>
+<p>The result is a <strong>new vector</strong> for each word, but now <strong>enriched with information from the whole sentence</strong>.</p>
+<p>That’s how the model captures complex relationships — efficiently and in parallel.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="what-is-positional-encoding"><span style="color:#884EA0;">What is Positional Encoding?</span></h3>
+<h4 id="how-transformers-know-the-order-of-words"><span style="color:#117A65;">How Transformers know the order of words</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧠 Transformers <strong>see all words together</strong> — but they need to know their <strong>order</strong></li>
+<li class="fragment">🧭 <strong>Positional Encoding</strong> adds information about <strong>position</strong> to each word</li>
+<li class="fragment">🔢 Two ways to encode position:
+<ul>
+<li class="fragment">Add <strong>fixed patterns</strong> (e.g., sine and cosine functions)</li>
+<li class="fragment">Or <strong>learn</strong> position embeddings during training</li>
+</ul></li>
+<li class="fragment">🧩 Without positional encoding:
+<ul>
+<li class="fragment">The model would treat sentences like unordered bags of words!</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img data-src="images/positional_enc.png" style="width:70.0%"></p>
+</div></div>
+<aside class="notes">
+<p>Transformers are special because they process all words <strong>in parallel</strong> — no word comes “before” another by default.</p>
+<p>But in language, <strong>order matters</strong>.</p>
+<p>For example, “The patient was treated successfully” is very different from “The patient successfully treated.”</p>
+<p>To fix this, we use <strong>Positional Encoding</strong>.</p>
+<p>Each word gets a small “position tag” — either a <strong>fixed mathematical pattern</strong> (like sine/cosine curves) or a <strong>learned embedding</strong>.</p>
+<p>Without this, a Transformer would <strong>lose the sense of sequence</strong> — treating the words like an unordered list.</p>
+<p>Thanks to positional encoding, Transformers can understand complex sentence structures while processing everything in parallel.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="what-are-word-embeddings"><span style="color:#884EA0;">What are Word Embeddings?</span></h3>
+<h4 id="turning-words-into-numbers"><span style="color:#117A65;">Turning words into numbers</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔢 Computers need <strong>numbers</strong>, not text</li>
+<li class="fragment">🧠 <strong>Embedding</strong> = representing a word as a <strong>vector</strong> of numbers</li>
+<li class="fragment">📚 Similar words → similar vectors
+<ul>
+<li class="fragment">“liver” close to “kidney”, far from “car”</li>
+</ul></li>
+<li class="fragment">➡️ Embeddings <strong>capture meaning</strong> from large corpora</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Computers can’t directly understand words — they process numbers.</p>
+<p><strong>Embeddings</strong> solve this by transforming each word into a vector of numbers — a list like [0.1, 0.3, -0.2, …].</p>
+<p>The key idea is <strong>similar words</strong> have <strong>similar vectors</strong>: - “Liver” and “Kidney” are close. - “Liver” and “Car” are far.</p>
+<p>This mapping is learned automatically by models like Word2Vec, GloVe, and also during the pretraining of Transformers.</p>
+<p>Thus, embeddings capture <strong>semantic meaning</strong> from how words appear together in large text collections.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="embeddings-in-transformers"><span style="color:#884EA0;">Embeddings in Transformers</span></h3>
+<h4 id="first-step-before-attention"><span style="color:#117A65;">First step before Attention</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🏗️ Each input word is mapped to its <strong>embedding vector</strong></li>
+<li class="fragment">➡️ Then <strong>positional encoding</strong> is added</li>
+<li class="fragment">⚡ The combined vector enters the Transformer layers</li>
+<li class="fragment">🎯 Embeddings are <strong>fine-tuned</strong> during training</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img data-src="images/embeddings.png" style="width:60.0%"></p>
+</div></div>
+<aside class="notes">
+<p>In a Transformer, the <strong>very first operation</strong> is to turn each input word into an <strong>embedding vector</strong>.</p>
+<p>Then, <strong>positional encoding</strong> is added to that embedding to insert order information.</p>
+<p>This combined vector — meaning + position — is the true input to the attention layers.</p>
+<p>Importantly, embeddings are not fixed: during training (fine-tuning), the model can <strong>adjust</strong> them for the specific task — like diagnosis, report generation, or other clinical applications.</p>
+<p>Thus, embeddings form the foundation upon which all higher understanding is built.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="what-is-pretraining"><span style="color:#884EA0;">What is Pretraining?</span></h3>
+<h4 id="teaching-a-model-general-language-skills"><span style="color:#117A65;">Teaching a model general language skills</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📚 <strong>Pretraining</strong> = training a model on <strong>huge text datasets</strong></li>
+<li class="fragment">🧠 Goal: learn grammar, facts, reasoning patterns</li>
+<li class="fragment">🔄 No specific task — model predicts missing words or next words</li>
+<li class="fragment">🌍 Data sources: books, websites, medical papers, conversations</li>
+<li class="fragment">🎯 Result: a <strong>general-purpose model</strong> ready for adaptation</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Pretraining is like giving a model a huge education.</p>
+<p>We expose it to <strong>millions or billions of sentences</strong> — covering topics from daily conversation to medicine, law, science, and more.</p>
+<p>The model’s goal isn’t to solve a particular task but to learn: - How language works (syntax, semantics) - Basic world knowledge - Common sense reasoning</p>
+<p>Typical tasks during pretraining: - Predict the next word in a sentence (autoregressive) - Fill in missing words (masked language modeling)</p>
+<p>At the end of pretraining, we get a <strong>generalist model</strong> — good at understanding and generating language but not specialized yet for a specific job (like clinical diagnosis or lab report writing).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="what-is-fine-tuning"><span style="color:#884EA0;">What is Fine-tuning?</span></h3>
+<h4 id="specializing-the-model-for-a-specific-task"><span style="color:#117A65;">Specializing the model for a specific task</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔧 <strong>Fine-tuning</strong> = additional training on <strong>specific datasets</strong></li>
+<li class="fragment">🧪 Goal: adapt the model to <strong>medical</strong>, <strong>clinical</strong>, or <strong>lab</strong> tasks</li>
+<li class="fragment">🏥 Examples:
+<ul>
+<li class="fragment">Predict disease from symptoms</li>
+<li class="fragment">Summarize lab results</li>
+<li class="fragment">Generate medical reports</li>
+</ul></li>
+<li class="fragment">🎯 Result: a <strong>specialized model</strong> focused on a domain</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img data-src="images/training.png" style="width:60.0%"></p>
+</div></div>
+<aside class="notes">
+<p>After pretraining, the model is a “jack of all trades” — good, but not optimized for specific jobs.</p>
+<p><strong>Fine-tuning</strong> is like sending the model to medical school!</p>
+<p>We train it again, but this time: - On <strong>specialized datasets</strong> (e.g., clinical notes, lab reports, patient histories) - For <strong>specific goals</strong> (diagnosis, triage, report writing)</p>
+<p>The model learns to focus on what matters in that domain: - Medical terminology - Typical reasoning patterns - Critical facts</p>
+<p>After fine-tuning, the model becomes <strong>much better at clinical and laboratory tasks</strong>, but it might also “forget” some general knowledge — it’s more <strong>domain-specialized</strong>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="interpretability-in-llms"><span style="color:#884EA0;">Interpretability in LLMs</span></h3>
+<h4 id="why-understanding-model-behavior-matters"><span style="color:#117A65;">Why understanding model behavior matters</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔍 <strong>Interpretability</strong> = understanding <strong>how and why</strong> a model gives a response</li>
+<li class="fragment">🧠 Important in clinical and laboratory settings:
+<ul>
+<li class="fragment">Explain predictions and recommendations</li>
+<li class="fragment">Build trust with users and patients</li>
+</ul></li>
+<li class="fragment">⚙️ Emerging techniques:
+<ul>
+<li class="fragment">Attention visualization</li>
+<li class="fragment">Feature attribution (e.g., SHAP, LIME)</li>
+<li class="fragment">Chain-of-thought prompting</li>
+</ul></li>
+<li class="fragment">🚨 Challenge: LLMs are complex and not fully transparent</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Interpretability means being able to <strong>understand</strong> and <strong>explain</strong> a model’s outputs.</p>
+<p>In clinical contexts, this is crucial: - Doctors need to know why a model suggests a diagnosis or treatment. - Patients need to trust AI-generated advice.</p>
+<p>Some tools can help: - <strong>Attention maps</strong>: visualize which parts of the input the model focused on. - <strong>Feature attribution methods</strong>: like SHAP and LIME, which estimate what inputs influenced the prediction. - <strong>Chain-of-thought prompting</strong>: making the model “explain its reasoning” step by step.</p>
+<p>However, current LLMs are so large and intricate that <strong>full transparency is still very hard</strong>. Interpretability remains an open research field!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="limitations-of-llms"><span style="color:#884EA0;">Limitations of LLMs</span></h3>
+<h4 id="hallucinations-and-algorithmic-bias"><span style="color:#117A65;">Hallucinations and Algorithmic Bias</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🎭 <strong>Hallucinations</strong>: model invents plausible but false information
+<ul>
+<li class="fragment">Danger: confident but wrong answers</li>
+</ul></li>
+<li class="fragment">⚖️ <strong>Algorithmic Bias</strong>: model reproduces biases from training data
+<ul>
+<li class="fragment">Risk: unfair outcomes for certain groups</li>
+</ul></li>
+<li class="fragment">🚑 In clinical use:
+<ul>
+<li class="fragment">Always require human validation</li>
+<li class="fragment">Prefer domain-specific fine-tuning</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Two major risks with LLMs are:</p>
+<ul>
+<li><strong>Hallucinations</strong>: when the model “makes up” facts that sound believable but are incorrect.
+<ul>
+<li>In medicine, this can be <strong>dangerous</strong> if wrong information is used for decision-making.</li>
+</ul></li>
+<li><strong>Algorithmic Bias</strong>: models can unintentionally reproduce societal or dataset biases (e.g., racial, gender, socioeconomic).</li>
+</ul>
+<p>In clinical and laboratory fields: - LLM outputs <strong>must always be reviewed</strong> by professionals. - Training or fine-tuning on <strong>high-quality, curated medical data</strong> can reduce but not eliminate these problems.</p>
+<p>AI should <strong>support</strong>, not <strong>replace</strong>, critical thinking!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="llms-in-clinical-and-laboratory-medicine"><span style="color:#884EA0;">LLMs in Clinical and Laboratory Medicine</span></h3>
+<h4 id="pros-and-cons"><span style="color:#117A65;">Pros and Cons</span></h4>
+<table class="caption-top">
+<colgroup>
+<col style="width: 48%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">✅ Advantages</th>
+<th style="text-align: left;">⚠️ Limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Fast information retrieval</td>
+<td style="text-align: left;">Hallucinations: plausible but wrong answers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assist in decision support</td>
+<td style="text-align: left;">Algorithmic bias from training data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Summarize complex medical texts</td>
+<td style="text-align: left;">Lack of full interpretability</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Help generate reports and documentation</td>
+<td style="text-align: left;">Risk of overconfidence in outputs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Available 24/7, scalable support</td>
+<td style="text-align: left;">Dependence on human validation for safety</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>Here we summarize the main <strong>advantages</strong> and <strong>limitations</strong> of using LLMs in clinical and laboratory settings.</p>
+<p>✅ <strong>Advantages</strong>: - Speed up information access and reporting. - Support clinicians with suggestions and summaries. - Operate continuously, without fatigue.</p>
+<p>⚠️ <strong>Limitations</strong>: - Risk of <strong>hallucinating</strong> wrong but convincing answers. - Potential <strong>biases</strong> inherited from imperfect data. - <strong>Opaque reasoning</strong>: we often can’t fully understand why a model gives a certain answer.</p>
+<p>Thus, LLMs are powerful <strong>assistants</strong>, but <strong>require expert supervision</strong> in all critical decisions.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="llms-pleasing-you-not-seeking-truth"><span style="color:#884EA0;">LLMs: Pleasing You, Not Seeking Truth</span></h3>
+<h4 id="why-plausible-correct"><span style="color:#117A65;">Why plausible ≠ correct</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🎭 LLMs are trained to <strong>sound convincing</strong>, not to <strong>tell the truth</strong></li>
+<li class="fragment">🤝 Goal: produce answers that seem <strong>helpful, coherent, pleasant</strong></li>
+<li class="fragment">❌ Risk: if unsure, the model <strong>guesses</strong> plausible but wrong facts</li>
+<li class="fragment">🚨 Danger in clinical settings: wrong information can look very credible</li>
+<li class="fragment">🧠 Always require critical review and human validation</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Large Language Models are <strong>not designed</strong> to find the truth — they are designed to <strong>predict the most likely next words</strong>.</p>
+<p>Their goal is to <strong>please the user</strong>, giving answers that sound fluent, confident, and helpful.</p>
+<p>This means: - When they “know”, they are often brilliant. - When they “don’t know”, they <strong>still produce an answer</strong>, even if it’s wrong. - They don’t say “I don’t know” unless explicitly programmed or instructed to do so.</p>
+<p>In clinical contexts, this tendency is <strong>very dangerous</strong>: - Errors can be hidden behind perfectly structured language. - Clinicians must always <strong>critically evaluate</strong> LLM outputs. - No LLM output should ever replace professional judgment.</p>
+<p>Teach users: <strong>Plausibility is not correctness</strong>!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="warning-plausibility-is-not-truth"><span style="color:#C0392B;">⚠️ Warning: Plausibility is NOT Truth</span></h3>
+<div style="font-size: 0.95em;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>A fluent, confident answer <strong>can still be wrong</strong>.</li>
+<li>LLMs are <strong>rewarded</strong> for sounding helpful, not for being accurate.</li>
+<li>In clinical and laboratory applications: <strong>always validate</strong> before trusting.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<h3 id="key-model-parameters-in-llms"><span style="color:#884EA0;">Key Model Parameters in LLMs</span></h3>
+<h4 id="how-to-control-ai-behavior"><span style="color:#117A65;">How to control AI behavior</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌡️ <strong>Temperature</strong>: randomness level (higher = more creative, lower = more focused)</li>
+<li class="fragment">🎯 <strong>Top-p (nucleus sampling)</strong>: limit choices to most probable words</li>
+<li class="fragment">✂️ <strong>Max tokens</strong>: maximum length of the output</li>
+<li class="fragment">🔁 <strong>Frequency penalty</strong>: discourage repeating the same words</li>
+<li class="fragment">🧠 Fine-tuning these helps adapt the model to clinical needs</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Let’s now take a quick but important look at key parameters that control how an LLM responds.</p>
+<p>The first is <strong>temperature</strong>.<br>
+This defines the <strong>randomness</strong> of the model’s outputs:<br>
+- A <strong>higher temperature</strong> — for example, 0.7 or 1.0 — makes the model <strong>more creative</strong>, but also <strong>more unpredictable</strong>.<br>
+- A <strong>lower temperature</strong> — like 0.2 or 0.1 — makes it <strong>more focused and repetitive</strong>.<br>
+In clinical work, we usually prefer <strong>lower temperatures</strong> to get consistent, safe answers.</p>
+<p>Second is <strong>top-p</strong>, also known as <strong>nucleus sampling</strong>.<br>
+It restricts the model to choose from the <strong>top most probable words</strong> only, instead of exploring the whole vocabulary.<br>
+Smaller top-p values make the model <strong>more conservative</strong>.</p>
+<p>Third is <strong>max tokens</strong> — the maximum number of words or characters the model is allowed to generate.<br>
+This prevents it from producing endless outputs or going off-track.</p>
+<p>Finally, there’s the <strong>frequency penalty</strong>, which tells the model:<br>
+<em>“Don’t repeat yourself too much.”</em><br>
+Useful when you want summaries that are concise and not redundant.</p>
+<p>Tuning these parameters properly makes a huge difference — especially in sensitive fields like medicine, where we want <strong>reliable, predictable</strong> outputs.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="what-are-tokens"><span style="color:#884EA0;">What Are Tokens?</span></h3>
+<h4 id="the-building-blocks-of-language-models"><span style="color:#117A65;">The building blocks of language models</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧩 <strong>Tokens</strong> = small pieces of text (words, parts of words, symbols)</li>
+<li class="fragment">📏 Models process text <strong>token by token</strong>, not character by character</li>
+<li class="fragment">🧮 1 word ≈ 1–3 tokens (depending on language and complexity)</li>
+<li class="fragment">✂️ <strong>Max tokens</strong> limits the total input + output length</li>
+<li class="fragment">⚡ Costs and speed often depend on the number of tokens used</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Now let’s quickly explain what a token actually is, because it’s fundamental to understanding how LLMs work.</p>
+<p>A <strong>token</strong> is <strong>a small chunk of text</strong>.<br>
+It could be a word, part of a word, a symbol, or even a piece of punctuation.</p>
+<p>For example: - The word “hospital” is usually <strong>one token</strong>.<br>
+- The word “discharge-summary” might be <strong>split into two or three tokens</strong>, depending on the model’s tokenizer.</p>
+<p>Models <strong>don’t read full sentences at once</strong> — they process text <strong>token by token</strong>, step by step.</p>
+<p>On average, <strong>one English word equals about 1 to 1.5 tokens</strong> — but in more complex languages or technical texts, it might go up to 2 or 3 tokens per word.</p>
+<p>The number of tokens is extremely important because: - It <strong>limits</strong> how much text you can send and receive in one call. - It <strong>affects costs</strong> if you’re using a paid API. - It <strong>impacts speed</strong>: more tokens mean slower responses.</p>
+<p>In practical terms:<br>
+Always check the <strong>token limits</strong> of your model — especially when summarizing large clinical documents or doing batch processing.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="example-how-text-becomes-tokens"><span style="color:#884EA0;">Example: How Text Becomes Tokens</span></h3>
+<h4 id="real-clinical-sentence-broken-into-tokens"><span style="color:#117A65;">Real clinical sentence broken into tokens</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>📄 Sentence: &gt; “Patient discharged in stable condition.”</p></li>
+<li class="fragment"><p>🧩 Tokenization:</p>
+<ul>
+<li class="fragment">“Patient”</li>
+<li class="fragment">” discharged”</li>
+<li class="fragment">” in”</li>
+<li class="fragment">” stable”</li>
+<li class="fragment">” condition”</li>
+<li class="fragment">“.”</li>
+</ul></li>
+<li class="fragment"><p>🔢 Total: 6 tokens</p></li>
+</ul>
+<p>✅ Even short sentences can use multiple tokens!</p>
+</div>
+<aside class="notes">
+<p>Let’s see a real example of how tokenization works.</p>
+<p>Take this simple clinical sentence:<br>
+<em>“Patient discharged in stable condition.”</em></p>
+<p>When processed by a language model, it doesn’t see it as one big chunk.<br>
+It splits it into smaller parts, called tokens.</p>
+<p>The tokens would be:<br>
+- “Patient”<br>
+- ” discharged”<br>
+- ” in”<br>
+- ” stable”<br>
+- ” condition”<br>
+- “.”</p>
+<p>Notice how even small spaces and prefixes (” discharged” with a space) can become separate tokens.</p>
+<p>In total, this tiny sentence uses <strong>6 tokens</strong>.</p>
+<p>This is why, when working with long clinical texts like discharge letters or radiology reports, <strong>token limits</strong> can become a real constraint — even if the text doesn’t look very long to a human reader!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="how-llms-process-images" class="slide level2 center">
+<h2><span style="color:#884EA0;">How LLMs Process Images</span></h2>
+<h3 id="turning-pictures-into-language"><span style="color:#117A65;">Turning pictures into language</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📸 <strong>Images are converted into numerical features</strong> (arrays of numbers)</li>
+<li class="fragment">🔎 <strong>Vision encoder</strong> extracts key elements: shapes, colors, objects, text</li>
+<li class="fragment">🧠 Features are <strong>interpreted by the language model</strong></li>
+<li class="fragment">🖋️ Model generates descriptions, answers, or captions based on visual inputs</li>
+<li class="fragment">⚡ Clinical use: analyzing X-rays, MRIs, pathology slides, diagrams</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Let’s quickly see how modern multimodal LLMs can process images and similarities to words processing.</p>
+<p>First, when you send an image to the model, it <strong>doesn’t see a picture</strong> like we do.<br>
+Instead, the image is <strong>converted into a numerical array</strong> — a long list of numbers representing colors, shapes, and pixels.</p>
+<p>A special component called a <strong>vision encoder</strong> analyzes the image.<br>
+It extracts key visual features: - Objects - Text - Positions - General patterns</p>
+<p>These extracted features are then <strong>fed into the language model</strong>, which interprets them just like a prompt in text form.</p>
+<p>Finally, the model can <strong>describe the image</strong>, <strong>answer questions about it</strong>, or <strong>reason based on what it “saw”</strong>.</p>
+<p>In clinical practice, this approach opens possibilities like: - Automatically describing X-rays - Summarizing findings from MRIs - Interpreting pathology slides - Reading hand-written notes in scanned PDFs</p>
+<p>The bridge between vision and language is what makes multimodal models so powerful.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="general-vs-medical-specific-language-models"><span style="color:#154360;">General vs Medical-Specific Language Models</span></h3>
+<h4 id="choosing-the-right-tool-for-clinical-applications"><span style="color:#117A65;">Choosing the right tool for clinical applications</span></h4>
+<div style="font-size: 0.9em;">
+<ul>
+<li class="fragment">🌍 <strong>General LLMs</strong><br>
+Trained on vast internet data ➔ Versatile but shallow in medicine.<br>
+<strong>Examples</strong>: ChatGPT, Claude, Mistral.</li>
+</ul>
+<hr>
+<ul>
+<li class="fragment">🩺 <strong>Medical-specific LLMs</strong><br>
+Trained on clinical records, guidelines, scientific papers ➔ Accurate but less flexible.<br>
+<strong>Examples</strong>: PathChat, BrainGPT, LiVersa.</li>
+</ul>
+<hr>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>⚖️ <strong>Key trade-off</strong>:<br>
+Broad skills (<strong>general models</strong>) vs Deep expertise (<strong>medical models</strong>)</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Now let’s explore a crucial distinction if you want to use AI properly in clinical or laboratory work.</p>
+<p>We have two major categories of language models:</p>
+<p>On one side, there are the <strong>general-purpose models</strong>, like ChatGPT, Claude, and Mistral.<br>
+These models are trained on massive amounts of general internet data.<br>
+This makes them extremely <strong>versatile</strong> — they can reason, summarize, improvise across many domains.<br>
+But here’s the catch: they don’t really <strong>understand medicine</strong>.<br>
+They can sound <strong>very confident</strong> even when they use the wrong terminology or miss important clinical nuances.</p>
+<p>On the other side, we have the <strong>medical-specific models</strong>, such as PathChat, BrainGPT, and LiVersa.<br>
+These models are trained <strong>exclusively</strong> on clinical datasets: patient records, guidelines, and scientific papers.<br>
+The result?<br>
+- Much better <strong>medical terminology</strong>,<br>
+- Stronger <strong>contextual accuracy</strong>,<br>
+- Higher <strong>safety</strong> when handling clinical information.<br>
+However, they tend to be <strong>less flexible</strong> outside their domain, and many are <strong>closed</strong> or institution-specific.</p>
+<p><strong>Bottom line</strong>:<br>
+When choosing an LLM for clinical work, you have to <strong>balance two needs</strong>: - <strong>Generality</strong> versus <strong>specialization</strong>, - <strong>Availability</strong> versus <strong>reliability</strong>.</p>
+<p>There’s no universal answer — it depends entirely on the specific task and the level of risk involved!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="chat-mode-vs-api-mode"><span style="color:#154360;">Chat Mode vs API Mode</span></h3>
+<h4 id="two-ways-to-interact-with-llms"><span style="color:#117A65;">Two ways to interact with LLMs</span></h4>
+<div style="font-size: 0.9em;">
+<ul>
+<li class="fragment">💬 <strong>Chat Mode</strong>:<br>
+➔ Interactive, no coding required.<br>
+➔ Best for brainstorming, exploration.<br>
+➔ ❗ Less control and reproducibility.</li>
+</ul>
+<hr>
+<ul>
+<li class="fragment">🔗 <strong>API Mode</strong>:<br>
+➔ Structured programmatic queries.<br>
+➔ Best for automation, scalability.<br>
+➔ ✅ Full control over outputs.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>⚡ <strong>Key Tip</strong>:<br>
+Use <strong>Chat Mode</strong> to explore.<br>
+Use <strong>API Mode</strong> to automate.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Here we arrive at a very practical distinction you must understand if you want to actually work with LLMs.</p>
+<p>There are two main ways to interact with these models:</p>
+<p>First, the <strong>Chat Mode</strong>.<br>
+This is the most familiar — like using ChatGPT in your browser.<br>
+It’s <strong>interactive</strong>: you send a prompt, get an answer, and you can keep refining your request step-by-step.<br>
+It’s perfect for <strong>exploring</strong>, <strong>brainstorming</strong>, and <strong>rapid prototyping</strong> clinical ideas — for example, helping draft a lab report or summarizing guidelines.<br>
+The beauty is: <strong>no coding skills are needed</strong>.<br>
+But — and this is important — <strong>you have less control</strong>.<br>
+You can’t easily automate or repeat tasks exactly the same way every time.</p>
+<p>Then we have the <strong>API Mode</strong>.<br>
+Here, instead of chatting, you send requests <strong>programmatically</strong> — via code or simple scripts.<br>
+You can automate workflows: batch-analyze clinical reports, generate hundreds of summaries, integrate LLMs into hospital systems.<br>
+It requires <strong>minimal coding</strong>: basic HTTP requests, easy to learn even for non-developers.<br>
+The huge advantage is <strong>precision and scalability</strong> — you define exactly what you want, every time.</p>
+<p><strong>Bottom line</strong>:<br>
+- Use <strong>Chat Mode</strong> to explore and think.<br>
+- Use <strong>API Mode</strong> to build and scale your solutions.</p>
+<p>Both are powerful, but they serve very different needs.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="context-window-how-much-an-llm-can-remember"><span style="color:#884EA0;">Context Window: How Much an LLM Can Remember</span></h3>
+<h4 id="why-token-limits-matter-for-conversations"><span style="color:#117A65;">Why token limits matter for conversations</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧠 <strong>Context window</strong> = maximum number of tokens model can process at once</li>
+<li class="fragment">📏 Includes both <strong>your prompt</strong> and <strong>the model’s reply</strong></li>
+<li class="fragment">🚫 If the conversation exceeds the limit, old tokens are dropped (“forgetting”)</li>
+<li class="fragment">📉 Long chats may lose important earlier information</li>
+<li class="fragment">🔍 Practical tip: keep prompts concise, summarize when needed</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Now let’s explain a very important but often overlooked concept:<br>
+the <strong>context window</strong> of a language model.</p>
+<p>The context window defines the <strong>maximum number of tokens</strong> the model can handle at once.<br>
+This includes both: - The text you write (the prompt) - And the text the model generates (the response)</p>
+<p>For example: - GPT-3.5 has a limit of about <strong>4,096 tokens</strong>. - GPT-4 can handle up to <strong>8,192</strong> or even <strong>32,768 tokens</strong> in some versions. - Local models like Mistral typically handle <strong>4,000 to 8,000 tokens</strong>.</p>
+<p>But what happens if your conversation becomes longer than this limit?</p>
+<p><strong>The model starts to forget.</strong><br>
+Older tokens are dropped automatically.<br>
+That means: if your chat is too long, the model might forget important details from the beginning.</p>
+<p>This is especially risky in clinical or scientific applications where every detail matters.</p>
+<p><strong>Practical tip</strong>: - Keep your prompts and conversations <strong>concise</strong>. - Use <strong>intermediate summaries</strong> if needed. - When chats get very long, <strong>restate the key information</strong> to keep it active in the model’s memory.</p>
+<p>Managing the context window is fundamental if you want safe and effective use of LLMs.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="context-windows-and-how-much-they-cover"><span style="color:#884EA0;">Context Windows and How Much They Cover</span></h3>
+<h4 id="memory-limits-of-major-llms"><span style="color:#117A65;">Memory limits of major LLMs</span></h4>
+<div style="font-size: 0.85em;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: left;">Context Window</th>
+<th style="text-align: left;">Approx. Pages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">🤖 GPT-3.5</td>
+<td style="text-align: left;">~4,096 tokens</td>
+<td style="text-align: left;">~10 pages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">🧠 GPT-4 (standard)</td>
+<td style="text-align: left;">~8,192 tokens</td>
+<td style="text-align: left;">~20 pages</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">🧠 GPT-4 (extended)</td>
+<td style="text-align: left;">~32,768 tokens</td>
+<td style="text-align: left;">~80 pages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">🤯 Claude 3</td>
+<td style="text-align: left;">~200,000 tokens</td>
+<td style="text-align: left;">~500 pages</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">🌟 Gemini 2.5 Pro</td>
+<td style="text-align: left;">~2,000,000 tokens</td>
+<td style="text-align: left;">~5,000 pages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">🧩 Mistral 7B</td>
+<td style="text-align: left;">~8,192 tokens</td>
+<td style="text-align: left;">~20 pages</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">🦙 Llama 2 13B</td>
+<td style="text-align: left;">~4,096 tokens</td>
+<td style="text-align: left;">~10 pages</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>Let’s now update our view of context window sizes — and make it practical by thinking in terms of book pages.</p>
+<p><strong>GPT-3.5</strong>, the classic model behind ChatGPT, handles about <strong>4,000 tokens</strong> — roughly <strong>10 pages</strong> of text.</p>
+<p><strong>GPT-4</strong>, in its standard form, covers about <strong>8,000 tokens</strong>, or about <strong>20 pages</strong>.<br>
+Its extended version, available in premium services, can process about <strong>80 pages</strong> — really powerful for longer reasoning tasks.</p>
+<p><strong>Claude 3</strong>, by Anthropic, is remarkable: it can handle <strong>around 200,000 tokens</strong>, roughly <strong>500 pages</strong> — that’s almost a full textbook.</p>
+<p><strong>Gemini 2.5 Pro</strong>, Google’s latest model, is even more extreme:<br>
+It claims to process <strong>2 million tokens</strong> — about <strong>5,000 pages</strong>.<br>
+At that scale, you could feed entire research libraries into the model.</p>
+<p><strong>Mistral 7B</strong>, a popular open-source model, handles around <strong>8,000 tokens</strong>, comparable to GPT-4 standard.</p>
+<p><strong>Llama 2 13B</strong> — another open model — handles around <strong>4,000 tokens</strong>.</p>
+<p>The big takeaway is simple:<br>
+Modern models vary enormously in how much information they can “see” at once.<br>
+Choosing the right model and designing prompts that fit the context window are key to success, especially in clinical, legal, or academic settings.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="what-happens-when-you-exceed-the-context-window"><span style="color:#884EA0;">What Happens When You Exceed the Context Window?</span></h3>
+<h4 id="how-llms-handle-too-much-information"><span style="color:#117A65;">How LLMs handle too much information</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">⏳ When token limit is exceeded, <strong>oldest tokens are dropped</strong></li>
+<li class="fragment">🧠 Model “forgets” early parts of the conversation</li>
+<li class="fragment">🚑 Critical instructions may be lost</li>
+<li class="fragment">📉 Performance and consistency degrade</li>
+<li class="fragment">🧹 Practical tip: summarize or restate key points periodically</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Now let’s discuss what happens when we exceed the model’s context window.</p>
+<p>When the number of tokens — counting both your prompts and the model’s replies — <strong>goes beyond the allowed limit</strong>, the model automatically <strong>drops</strong> the oldest tokens.</p>
+<p>It keeps only the most recent tokens that fit within the maximum window.</p>
+<p>This means the model starts to <strong>“forget”</strong> the beginning of your conversation:<br>
+- Important instructions - Critical details - Definitions you gave early on</p>
+<p>Practically, this can <strong>severely affect</strong> performance — especially in clinical, legal, or technical discussions where early context matters.</p>
+<p>To manage this, the best strategy is to: - <strong>Summarize regularly</strong>. - <strong>Restate critical information</strong> if the conversation gets long.</p>
+<p>This way, even if older parts get forgotten, the model always “sees” the essential points it needs to reason correctly.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="protecting-context-in-long-conversations"><span style="color:#884EA0;">Protecting Context in Long Conversations</span></h3>
+<h4 id="techniques-to-avoid-critical-information-loss"><span style="color:#117A65;">Techniques to avoid critical information loss</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🛡️ <strong>Anchor Instructions</strong>:
+<ul>
+<li class="fragment">Repeat critical rules or instructions every few prompts</li>
+</ul></li>
+<li class="fragment">📝 <strong>Summary Injection</strong>:
+<ul>
+<li class="fragment">Summarize key points and re-feed them during the chat</li>
+</ul></li>
+<li class="fragment">📚 <strong>Structured Prompting</strong>:
+<ul>
+<li class="fragment">Organize inputs clearly: diagnosis, treatments, follow-up</li>
+</ul></li>
+<li class="fragment">🚦 <strong>Short Sessions</strong>:
+<ul>
+<li class="fragment">Restart new chats after reaching 70–80% of the token limit</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Let’s now talk about <strong>practical techniques</strong> to protect important context in long conversations with LLMs.</p>
+<p>The first technique is called <strong>Anchor Instructions</strong>:<br>
+You <strong>repeat key instructions</strong> — like “Summarize only clinical information” — <strong>every few prompts</strong>.<br>
+This keeps the model focused, even if early tokens are dropped.</p>
+<p>The second method is <strong>Summary Injection</strong>:<br>
+Periodically, you <strong>summarize the conversation</strong> so far and <strong>re-inject</strong> the summary into the dialogue.<br>
+It acts like a memory refresh for the model.</p>
+<p>Third, use <strong>Structured Prompting</strong>:<br>
+When giving clinical or technical information, organize it explicitly:<br>
+- “Diagnosis: …”<br>
+- “Treatments: …”<br>
+- “Follow-up instructions: …”<br>
+This helps the model parse and maintain the logic of your input, even when memory shrinks.</p>
+<p>Finally, practice <strong>Short Sessions</strong>:<br>
+When you see that a conversation is getting long — and you estimate you’re at 70% or 80% of the model’s token limit — it’s safer to <strong>start a new session</strong>, copying over only the critical information.</p>
+<p>These techniques can dramatically improve consistency and safety when using LLMs for complex tasks like clinical summarization or diagnostics.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="what-are-apis"><span style="color:#884EA0;">What are APIs?</span></h3>
+<h4 id="connecting-to-llms-like-professionals"><span style="color:#117A65;">Connecting to LLMs like professionals</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔗 <strong>API</strong> = Application Programming Interface</li>
+<li class="fragment">🛠️ A way to send questions and receive answers programmatically</li>
+<li class="fragment">📬 Works like “sending a message” to the model and getting a reply</li>
+<li class="fragment">⚡ Allows automation, scaling, and integration into clinical systems</li>
+<li class="fragment">🧠 No need to “chat” manually — workflows happen automatically</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Let’s take a quick moment to define what an API actually is.</p>
+<p><strong>API</strong> stands for <strong>Application Programming Interface</strong>.<br>
+It’s a way to <strong>send a request to a model</strong> — like a question or a prompt — and <strong>receive a response automatically</strong>.</p>
+<p>Instead of chatting manually, an API lets you <strong>connect your software directly to the model</strong>.<br>
+You send a structured request, usually through a simple script, and you get a structured answer back.</p>
+<p>Think of it like sending a message to a robot — and getting a smart reply instantly, without having to open a chat window.</p>
+<p>APIs are what enable <strong>automation</strong>:<br>
+- You can process hundreds of reports overnight.<br>
+- You can integrate the model directly into hospital systems, electronic health records, lab information systems.</p>
+<p>And all of this happens <strong>without manual interaction</strong>: just programs talking to each other.</p>
+<p>In clinical practice, APIs are powerful because they make LLMs <strong>truly scalable and operational</strong> — not just a tool for brainstorming.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="practical-example-chat-mode"><span style="color:#884EA0;">Practical Example: Chat Mode</span></h3>
+<h4 id="clinical-prompt-for-exploration"><span style="color:#117A65;">Clinical Prompt for Exploration</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧪 <strong>Scenario</strong>: drafting a discharge summary</li>
+<li class="fragment">💬 <strong>Prompt</strong>:<br>
+“Summarize the patient’s hospital stay focusing on diagnosis, treatment, and follow-up instructions.”</li>
+<li class="fragment">⚡ <strong>Goal</strong>: fast text generation for clinician review</li>
+<li class="fragment">⚠️ <strong>Reminder</strong>: always validate for accuracy and clinical relevance</li>
+</ul>
+</div>
+<aside class="notes">
+<p>In this example, we are using Chat Mode to assist with a typical clinical task: writing a discharge summary.</p>
+<p>The clinician provides a free-text prompt, asking the model to <strong>summarize the patient’s hospital stay</strong> — focusing specifically on the <strong>diagnosis</strong>, the <strong>treatments performed</strong>, and <strong>what instructions were given for follow-up</strong>.</p>
+<p>This kind of task is perfect for Chat Mode because it allows for fast text generation, where the human clinician can <strong>immediately review, edit, and approve</strong> the draft.</p>
+<p>However — and this is critical — <strong>the model may sound extremely confident even if it misrepresents details</strong>.<br>
+So even when Chat Mode saves time, <strong>clinical validation is always necessary</strong> before using the output officially.</p>
+<p>The LLM should be seen as a <strong>writing assistant</strong>, not a decision-maker.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="practical-example-api-mode"><span style="color:#884EA0;">Practical Example: API Mode</span></h3>
+<h4 id="automating-clinical-workflows"><span style="color:#117A65;">Automating Clinical Workflows</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔗 <strong>Scenario</strong>: batch processing of lab reports</li>
+<li class="fragment">🛠️ <strong>API Call</strong>:<br>
+Send 100 lab report texts via API, receive 100 clinical summaries</li>
+<li class="fragment">✅ <strong>Advantage</strong>: automation, reproducibility, efficiency</li>
+<li class="fragment">⚠️ <strong>Reminder</strong>: monitor outputs for consistency and medical soundness</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Here we move into API Mode — where instead of working interactively with one case at a time, we automate entire workflows.</p>
+<p>Imagine a hospital system where hundreds of lab reports are generated every day.<br>
+With an API, we can <strong>batch-send</strong> these reports to the LLM, and automatically <strong>receive structured clinical summaries</strong> ready for validation.</p>
+<p>The main advantages here are: - <strong>Speed</strong>: dozens or hundreds of cases processed quickly. - <strong>Reproducibility</strong>: the same instructions are applied consistently.</p>
+<p>But again: even at scale, <strong>clinical supervision is critical</strong>.<br>
+Errors, misinterpretations, or hallucinations can occur — and in medicine, one mistake can have serious consequences.</p>
+<p>Automation amplifies efficiency — but also amplifies errors if left unchecked.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="commercial-vs-open-source-llms"><span style="color:#884EA0;">Commercial vs Open-source LLMs</span></h3>
+<h4 id="comparing-two-worlds-in-clinical-ai"><span style="color:#117A65;">Comparing two worlds in clinical AI</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🏢 <strong>Commercial models</strong> (e.g., ChatGPT, Claude, Gemini)
+<ul>
+<li class="fragment">Closed source, proprietary</li>
+<li class="fragment">Strong performance, constant updates</li>
+<li class="fragment">Privacy concerns, limited control</li>
+</ul></li>
+<li class="fragment">🧪 <strong>Open-source models</strong> (e.g., Llama, Mistral, Mixtral)
+<ul>
+<li class="fragment">Publicly available, customizable</li>
+<li class="fragment">Greater flexibility and privacy</li>
+<li class="fragment">Performance varies, requires local resources</li>
+</ul></li>
+<li class="fragment">⚖️ Trade-off: ease of use vs independence and control</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Now let’s look at a key distinction that matters a lot, especially in clinical applications:<br>
+<strong>Commercial models vs Open-source models</strong>.</p>
+<p><strong>Commercial models</strong> — like ChatGPT, Claude, Gemini — are created and maintained by big tech companies.<br>
+They are closed-source: we can use them, but we can’t see how they work inside.<br>
+They offer <strong>very strong performance</strong>, frequent updates, and often great usability.<br>
+However, they raise <strong>privacy concerns</strong>: patient data might pass through third-party servers.<br>
+And you have <strong>limited control</strong>: you depend on the company’s infrastructure, pricing, and policies.</p>
+<p><strong>Open-source models</strong> — like Llama, Mistral, or Mixtral — are publicly released and can be used, fine-tuned, and even self-hosted.<br>
+They offer <strong>greater flexibility</strong>, <strong>potentially better privacy</strong> (if deployed locally), and full <strong>control over customization</strong>.<br>
+The downside is that <strong>performance may vary</strong>: smaller open models often need careful tuning.<br>
+And — importantly — they <strong>require your own hardware resources</strong> to run properly.</p>
+<p><strong>Bottom line</strong>:<br>
+Choosing between commercial and open depends on your priorities:<br>
+<strong>Ease of use and immediate access</strong> — or <strong>independence, customization, and privacy</strong>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="choosing-between-commercial-and-open-source-llms"><span style="color:#884EA0;">Choosing Between Commercial and Open-source LLMs</span></h3>
+<h4 id="which-is-better-for-your-clinical-needs"><span style="color:#117A65;">Which is better for your clinical needs?</span></h4>
+<div style="font-size: 0.85em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">🏥 <strong>Scenario</strong></th>
+<th style="text-align: left;">🚀 <strong>Recommended Approach</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Rapid prototyping or brainstorming</td>
+<td style="text-align: left;"><strong>Commercial model</strong> (easy access, strong performance)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Handling sensitive patient data</td>
+<td style="text-align: left;"><strong>Open-source model</strong> (self-hosted, private)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Need for strong clinical language precision</td>
+<td style="text-align: left;"><strong>Fine-tuned open-source model</strong> (customizable)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Limited local hardware/resources</td>
+<td style="text-align: left;"><strong>Commercial model</strong> (cloud-based)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Full control over deployment and updates</td>
+<td style="text-align: left;"><strong>Open-source model</strong> (independence)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>Here’s a quick practical guide to help you decide between using a commercial model or an open-source model based on your clinical needs.</p>
+<p>If you need to <strong>prototype fast</strong>, <strong>test ideas</strong>, or <strong>brainstorm</strong>,<br>
+commercial models like ChatGPT or Claude are very convenient: they offer strong performance right out of the box and require no local setup.</p>
+<p>If you are <strong>dealing with sensitive patient information</strong> — where <strong>privacy</strong> and <strong>data security</strong> are non-negotiable —<br>
+an <strong>open-source model</strong>, hosted on your own secure servers, becomes a safer option.</p>
+<p>If your goal is to achieve <strong>highly specialized clinical language understanding</strong> — for instance, generating precise medical summaries —<br>
+then fine-tuning an open-source model on clinical datasets could give you better domain-specific results.</p>
+<p>If you <strong>lack strong local hardware</strong> (for example, no GPUs available),<br>
+commercial cloud-based solutions might be more practical.</p>
+<p>But if you want <strong>complete control</strong> over your AI system, including updates, deployment, and custom behavior,<br>
+then <strong>open-source models</strong> are the way to go — at the cost of a little more technical management.</p>
+<p>Ultimately, the choice depends on <strong>the balance between ease, cost, control, and risk</strong> in your specific setting.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="lm-studio-webllm-local-llms-for-clinical-use"><span style="color:#884EA0;">LM Studio &amp; WebLLM: Local LLMs for Clinical Use</span></h3>
+<h4 id="run-ai-models-privately-and-offline"><span style="color:#117A65;">Run AI models privately and offline</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🖥️ <strong>LM Studio</strong>:
+<ul>
+<li class="fragment">Desktop app for Windows, macOS, Linux</li>
+<li class="fragment">Download and run open-source models locally</li>
+<li class="fragment">Offers chat interface and API server</li>
+<li class="fragment">Ideal for offline, privacy-sensitive tasks</li>
+</ul></li>
+<li class="fragment">🌐 <strong>WebLLM</strong>:
+<ul>
+<li class="fragment">Runs LLMs directly in your browser</li>
+<li class="fragment">No installation or backend needed</li>
+<li class="fragment">Powered by WebGPU for fast inference</li>
+<li class="fragment">Great for lightweight, portable deployments</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Let’s now explore two powerful tools that allow you to run large language models locally: <strong>LM Studio</strong> and <strong>WebLLM</strong>.</p>
+<p><strong>LM Studio</strong> is a desktop application compatible with Windows, macOS, and Linux. It enables you to download and run open-source models directly on your machine. With its user-friendly chat interface and built-in API server, LM Studio is ideal for offline tasks where data privacy is paramount.</p>
+<p>On the other hand, <strong>WebLLM</strong> operates entirely within your web browser. It leverages WebGPU to run models efficiently without any installation or backend infrastructure. This makes it perfect for lightweight and portable applications.</p>
+<p>The key advantage of both tools is the <strong>full control over your data and models</strong>, eliminating the need for cloud services and enhancing privacy and security in clinical settings.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="webllm-running-llms-directly-in-your-browser"><span style="color:#884EA0;">WebLLM: Running LLMs directly in your browser</span></h3>
+<h4 id="a-simple-and-private-way-to-use-ai-locally"><span style="color:#117A65;">A simple and private way to use AI locally</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌐 Runs directly in Chrome, Edge, Safari (no install)</li>
+<li class="fragment">⚡ Powered by WebGPU: fast local inference</li>
+<li class="fragment">🔒 No data leaves your computer</li>
+<li class="fragment">🛠️ Supports chat, document summarization, Q&amp;A</li>
+<li class="fragment">🧠 Great for lightweight clinical tasks and experiments</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Now let’s introduce <strong>WebLLM</strong>, a powerful but simple tool to run language models locally.</p>
+<p>WebLLM works entirely in your browser — Chrome, Edge, or Safari.<br>
+There’s <strong>no installation</strong> needed, no backend server.<br>
+It uses <strong>WebGPU</strong>, a modern browser technology, to run models efficiently on your device.</p>
+<p>The huge advantage is <strong>privacy</strong>:<br>
+All the processing happens locally — nothing is sent to external servers.</p>
+<p>WebLLM supports not only basic chatting, but also <strong>document summarization</strong> and <strong>question-answering</strong> over uploaded files.</p>
+<p>It’s a great lightweight solution for clinical environments where privacy and speed matter.</p>
+<p>Of course, models running in-browser are smaller compared to cloud LLMs — but for many tasks, they are surprisingly effective.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+</section>
+<section class="slide level2 center">
+
+<h3 id="how-to-use-webllm-for-clinical-summaries"><span style="color:#884EA0;">How to Use WebLLM for Clinical Summaries</span></h3>
+<h4 id="simple-steps-to-summarize-clinical-documents"><span style="color:#117A65;">Simple steps to summarize clinical documents</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌐 Open WebLLM in your browser</li>
+<li class="fragment">📋 Copy and paste the clinical text into the chat</li>
+<li class="fragment">💬 Write this prompt:</li>
+</ul>
+<blockquote>
+<p>“Summarize the key clinical information, focusing on:<br>
+- Primary diagnosis<br>
+- Treatments administered<br>
+- Follow-up instructions<br>
+- Patient condition at discharge.”</p>
+</blockquote>
+<p>✅ The model will process the text locally and generate a summary!</p>
+</div>
+<aside class="notes">
+<p>WebLLM does not support uploading files like PDFs directly.</p>
+<p>Instead, you <strong>copy the text</strong> from the document — for example, a discharge summary — and <strong>paste it into the chat interface</strong>.</p>
+<p>After pasting the clinical text, you write a structured prompt, like: <em>“Summarize the key clinical information, focusing on primary diagnosis, treatments administered, follow-up instructions, and patient condition at discharge.”</em></p>
+<p>The model will then <strong>process the text locally</strong> and generate a private summary — without sending any data to the cloud.</p>
+<p>Always remember to review and validate the output before clinical use!</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
