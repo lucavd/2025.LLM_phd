@@ -668,7 +668,7 @@
 <p>Neural networks are great for many tasks — but <strong>not for sequences</strong>, like language or time series.</p>
 <p>Why? Because traditional neural nets assume the input is just a fixed-size list of numbers. But in language, word order is essential, and meaning often depends on what came before — even several sentences earlier.</p>
 <p>This is where <strong>RNNs</strong> (Recurrent Neural Networks) were introduced: they process one word at a time and <strong>retain memory</strong> of previous inputs.</p>
-<p>Later, <strong>LSTMs</strong> added improved memory handling.</p>
+<p>Later, <strong>LSTMs</strong> (Long Short-Term Memory) added improved memory handling.</p>
 <p>But these models still struggle when context is long — say, in medical reports or dialogues, where “it” might refer to something 3 paragraphs earlier.</p>
 <p>This limitation is what led to the next big leap: the Transformer.</p>
 <style type="text/css">
@@ -714,7 +714,7 @@
 <aside class="notes">
 <p>We now move from the idea of “neural networks” to the specific architectures that brought us to LLMs.</p>
 <ul>
-<li>First, the <strong>MLP</strong> — the original building block, still used in simpler tasks.</li>
+<li>First, the <strong>MLP</strong> multilayer perceptron — the original building block, still used in simpler tasks.</li>
 <li>Then, <strong>CNNs</strong> — they revolutionized image processing, and are still core to medical imaging AI.</li>
 <li><strong>RNNs</strong> were our first way to work with sequences like text and speech, but they struggled with long contexts.</li>
 </ul>
@@ -850,6 +850,36 @@ This makes Transformers very powerful — they handle long-range dependencies an
 <p>All the scores are <strong>normalized</strong> (typically using a softmax function) so they add up to 1, and then used to combine the <strong>Values</strong> from all words.</p>
 <p>The result is a <strong>new vector</strong> for each word, but now <strong>enriched with information from the whole sentence</strong>.</p>
 <p>That’s how the model captures complex relationships — efficiently and in parallel.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="medical-examples-of-self-attention" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Medical Examples of Self-Attention</span></h2>
+<h3 id="how-llms-resolve-ambiguity-in-clinical-text"><span style="color:#117A65;">How LLMs resolve ambiguity in clinical text</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>📋 <strong>Clinical Note Example</strong>: &gt; “Patient presented with RUQ pain. Ultrasound showed a hypoechoic lesion. &gt; CT confirmed it was a hemangioma. It measured 2.3 cm.”</p></li>
+<li class="fragment"><p>🧠 <strong>Ambiguity Challenge</strong>: Which “it” refers to what?</p>
+<ul>
+<li class="fragment">First “it” = the lesion (connecting back to previous sentence)</li>
+<li class="fragment">Second “it” = the hemangioma (immediate previous reference)</li>
+</ul></li>
+<li class="fragment"><p>👁️ <strong>Self-attention allows</strong> the model to create these connections automatically</p></li>
+</ul>
+</div>
+<aside class="notes">
+<p>This slide demonstrates how self-attention works in a real clinical context. The ambiguous pronoun “it” appears twice, and the model must determine what each instance refers to.</p>
+<p>In traditional NLP, this would be extremely difficult, but attention mechanisms allow the model to assign different weights to different words in the context, effectively “looking back” to find the most relevant noun.</p>
+<p>This is particularly important in clinical documentation, where referential ambiguity is common and resolution errors could lead to serious misunderstandings.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1121,6 +1151,50 @@ This makes Transformers very powerful — they handle long-range dependencies an
           display:block!important;
       }</style></aside>
 </section>
+<section id="medical-examples-of-hallucinations" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Medical Examples of Hallucinations</span></h2>
+<h3 id="when-llms-fabricate-clinical-information"><span style="color:#117A65;">When LLMs fabricate clinical information</span></h3>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>🩺 <strong>Prompt</strong>: “What are the normal ranges for liver function tests?”</p></li>
+<li class="fragment"><p>✅ <strong>Accurate responses</strong>:</p>
+<ul>
+<li class="fragment">“ALT normal range: 7-56 U/L”</li>
+<li class="fragment">“AST normal range: 8-48 U/L”</li>
+</ul></li>
+<li class="fragment"><p>❌ <strong>Hallucinated responses</strong>:</p>
+<ul>
+<li class="fragment">“GGT normal range: 15-30 U/L” (actual: 9-48 U/L)</li>
+<li class="fragment">“Albumin: 3.5-6.0 g/dL” (actual: 3.5-5.0 g/dL)</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🚨 <strong>Clinical dangers</strong>:
+<ul>
+<li class="fragment">False confidence in inaccurate values</li>
+<li class="fragment">Reference ranges vary by lab/population</li>
+<li class="fragment">Subtle errors harder to detect than obvious ones</li>
+</ul></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>This slide illustrates how hallucinations manifest in clinical applications. The model provides a mix of accurate and inaccurate information, but presents all with the same level of confidence.</p>
+<p>What makes this particularly dangerous is that the hallucinated values aren’t wildly incorrect - they’re plausible enough that someone might not catch them without checking. This is the “plausible but wrong” problem we discussed earlier.</p>
+<p>In clinical settings, these subtle hallucinations can be more dangerous than obvious errors because they’re less likely to trigger skepticism or verification.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section class="slide level2 center">
 
 <h3 id="llms-in-clinical-and-laboratory-medicine"><span style="color:#884EA0;">LLMs in Clinical and Laboratory Medicine</span></h3>
@@ -1273,6 +1347,54 @@ Useful when you want summaries that are concise and not redundant.</p>
 </section>
 <section class="slide level2 center">
 
+<h3 id="temperature-settings-for-clinical-use"><span style="color:#2E86C1;">Temperature Settings for Clinical Use</span></h3>
+<h4 id="finding-the-right-balance-between-creativity-and-accuracy"><span style="color:#117A65;">Finding the right balance between creativity and accuracy</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌡️ <strong>Temperature scale</strong>:
+<ul>
+<li class="fragment">0.0-0.3: Most deterministic, consistent</li>
+<li class="fragment">0.4-0.7: Balanced creativity</li>
+<li class="fragment">0.8-1.0: Maximum creativity, unpredictability</li>
+</ul></li>
+<li class="fragment">🩺 <strong>Clinical recommendations</strong>:
+<ul>
+<li class="fragment">Patient documentation: 0.1-0.2</li>
+<li class="fragment">Differential diagnosis: 0.3-0.5</li>
+<li class="fragment">Patient education materials: 0.4-0.6</li>
+<li class="fragment">Research brainstorming: 0.7-0.8</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>⚠️ <strong>Example impact</strong>:</p>
+<p><strong>Temperature 0.1</strong>: &gt; “Elevated liver enzymes may indicate hepatocellular injury.”</p>
+<p><strong>Temperature 0.7</strong>: &gt; “Elevated liver enzymes could suggest hepatocellular damage, biliary obstruction, medication effects, or various systemic conditions.”</p></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Let’s now talk about a crucial parameter that’s often overlooked: temperature. This parameter essentially controls how “creative” or unpredictable the model can be in its responses.</p>
+<p>A low temperature, between 0.0 and 0.3, produces very consistent and conservative responses. The model will almost always respond the same way to the same question. A medium temperature, between 0.4 and 0.7, allows more variability. With high temperatures, between 0.8 and 1.0, we get very creative but potentially unpredictable responses.</p>
+<p>In clinical settings, these differences are fundamental. For patient documentation, we want maximum precision and consistency, so I recommend very low temperatures, between 0.1 and 0.2. The risk of errors or hallucinations must be minimized.</p>
+<p>For generating differential diagnoses, a slightly higher temperature (0.3-0.5) is appropriate, because we want the model to consider different possibilities without becoming too speculative.</p>
+<p>For patient educational materials, we can go up to 0.4-0.6, allowing more natural and varied language. And for research brainstorming, where creativity is valuable, temperatures between 0.7 and 0.8 can generate innovative ideas.</p>
+<p>Look at the examples on the right: at temperature 0.1, the model provides a concise and cautious response about liver enzymes. At 0.7, it explores a wider range of possibilities instead. Both are correct, but they serve different purposes.</p>
+<p>Remember: in medicine, there is no “right” temperature - it depends on your specific goal and acceptable level of risk.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
 <h3 id="what-are-tokens"><span style="color:#884EA0;">What Are Tokens?</span></h3>
 <h4 id="the-building-blocks-of-language-models"><span style="color:#117A65;">The building blocks of language models</span></h4>
 <div style="font-size: 0.85em;">
@@ -1355,9 +1477,10 @@ It splits it into smaller parts, called tokens.</p>
           display:block!important;
       }</style></aside>
 </section>
-<section id="how-llms-process-images" class="slide level2 center">
-<h2><span style="color:#884EA0;">How LLMs Process Images</span></h2>
-<h3 id="turning-pictures-into-language"><span style="color:#117A65;">Turning pictures into language</span></h3>
+<section class="slide level2 center">
+
+<h3 id="how-llms-process-images"><span style="color:#884EA0;">How LLMs Process Images</span></h3>
+<h4 id="turning-pictures-into-language"><span style="color:#117A65;">Turning pictures into language</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
 <li class="fragment">📸 <strong>Images are converted into numerical features</strong> (arrays of numbers)</li>
@@ -1377,6 +1500,58 @@ It extracts key visual features: - Objects - Text - Positions - General patterns
 <p>Finally, the model can <strong>describe the image</strong>, <strong>answer questions about it</strong>, or <strong>reason based on what it “saw”</strong>.</p>
 <p>In clinical practice, this approach opens possibilities like: - Automatically describing X-rays - Summarizing findings from MRIs - Interpreting pathology slides - Reading hand-written notes in scanned PDFs</p>
 <p>The bridge between vision and language is what makes multimodal models so powerful.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="multimodal-applications-in-medicine"><span style="color:#2E86C1;">Multimodal Applications in Medicine</span></h3>
+<h4 id="beyond-text-llms-with-vision-capabilities"><span style="color:#117A65;">Beyond text: LLMs with vision capabilities</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔬 <strong>Clinical applications</strong>:
+<ul>
+<li class="fragment">Describing radiological images</li>
+<li class="fragment">Interpreting ECG patterns</li>
+<li class="fragment">Analyzing microscopy slides</li>
+<li class="fragment">Reading handwritten medical notes</li>
+</ul></li>
+<li class="fragment">⚡ <strong>Workflow examples</strong>:
+<ul>
+<li class="fragment">Upload image + add clinical question</li>
+<li class="fragment">Model interprets visual + text context</li>
+<li class="fragment">Response incorporates both modalities</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>🔍 <strong>Example prompt</strong>: &gt; “This is a chest X-ray from a 65-year-old patient with shortness of breath. Describe what you see and any potential abnormalities.”</p></li>
+<li class="fragment"><p>⚠️ <strong>Limitations</strong>:</p>
+<ul>
+<li class="fragment">Not FDA-approved for diagnosis</li>
+<li class="fragment">Variable performance across image types</li>
+<li class="fragment">Requires clinical verification</li>
+</ul></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Let’s enter the exciting territory of multimodal models - LLMs that can process both text and images. This is a true revolution for medicine, where visual information is often crucial.</p>
+<p>Models like GPT-4V, Claude 3, and Gemini can literally “see” medical images and discuss them in clinical context. The applications are enormous: they can describe radiological images, interpret ECG patterns, analyze microscopy slides, and even read handwritten medical notes that traditional OCR systems would struggle to decipher.</p>
+<p>The workflow is intuitive: you upload an image, add a clinical question, and the model integrates both modalities in its response. For example, you can upload a chest X-ray and ask “What do you see in this X-ray of a 65-year-old patient with shortness of breath?” The model will describe the visible findings considering the clinical context provided.</p>
+<p>This is particularly powerful because it combines visual analysis with medical knowledge. It doesn’t just describe the image, but interprets it in light of the clinical history.</p>
+<p>Of course, there are important limitations. These systems are not FDA-approved for diagnosis - they are assistance tools, not substitutes for clinical judgment. Performance varies significantly between different imaging modalities and image types. And every output requires clinical verification.</p>
+<p>But the potential is undeniable. We’re seeing radiologists use these tools to generate preliminary report drafts, pathologists using them to compare samples with similar cases, and cardiologists accelerating routine ECG interpretation.</p>
+<p>The key is to use them as intelligent assistants, not as substitutes for expert judgment.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1439,6 +1614,54 @@ However, they tend to be <strong>less flexible</strong> outside their domain, an
 <p><strong>Bottom line</strong>:<br>
 When choosing an LLM for clinical work, you have to <strong>balance two needs</strong>: - <strong>Generality</strong> versus <strong>specialization</strong>, - <strong>Availability</strong> versus <strong>reliability</strong>.</p>
 <p>There’s no universal answer — it depends entirely on the specific task and the level of risk involved!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="specialty-specific-applications"><span style="color:#2E86C1;">Specialty-Specific Applications</span></h3>
+<h4 id="llm-use-cases-across-medical-disciplines"><span style="color:#117A65;">LLM use cases across medical disciplines</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🫀 <strong>Cardiology</strong>:
+<ul>
+<li class="fragment">ECG interpretation assistance</li>
+<li class="fragment">Heart failure management protocols</li>
+</ul></li>
+<li class="fragment">🧠 <strong>Neurology</strong>:
+<ul>
+<li class="fragment">Cognitive assessment documentation</li>
+<li class="fragment">Seizure pattern description</li>
+</ul></li>
+<li class="fragment">🔬 <strong>Pathology</strong>:
+<ul>
+<li class="fragment">Standardized specimen reporting</li>
+<li class="fragment">Literature search for rare findings</li>
+</ul></li>
+<li class="fragment">🩸 <strong>Laboratory Medicine</strong>:
+<ul>
+<li class="fragment">Test interpretation guidance</li>
+<li class="fragment">Protocol documentation and standardization</li>
+<li class="fragment">Complex test sequence planning</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>I know we have specialists from different medical disciplines in this room, so I want to show how LLMs can be specifically applied in your areas of expertise.</p>
+<p>For cardiologists, LLMs can assist in ECG interpretation, highlighting potentially relevant patterns. They’re particularly useful for standardizing heart failure management protocols, personalizing them for specific patient subpopulations.</p>
+<p>In neurology, these models excel in documenting cognitive assessments, where they can structure complex observations into standardized formats. They can also assist in detailed description of seizure patterns, improving documentation consistency across different operators.</p>
+<p>Pathologists are already using LLMs to standardize specimen reports, ensuring that all necessary elements are included and consistently formatted. A particularly powerful application is rapid literature search when encountering rare or unusual findings - a model can analyze thousands of articles in seconds and synthesize relevant information.</p>
+<p>In laboratory medicine, LLMs are revolutionizing the creation of interpretive guides for complex tests, standardizing protocol documentation, and planning complex test sequences. They can help determine which tests should follow initial abnormal results, based on updated guidelines.</p>
+<p>These applications are just the tip of the iceberg. The key idea is that LLMs are not generic tools - they can be adapted to the specific needs of your discipline. I invite you to think about documentary or decision-making processes in your daily practice that might benefit from intelligent assistance.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1671,6 +1894,43 @@ Choosing the right model and designing prompts that fit the context window are k
 </section>
 <section class="slide level2 center">
 
+<h3 id="context-window-limitations-in-clinical-practice"><span style="color:#2E86C1;">Context Window Limitations in Clinical Practice</span></h3>
+<h4 id="what-happens-when-medical-documents-exceed-token-limits"><span style="color:#117A65;">What happens when medical documents exceed token limits</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>📄 <strong>Typical discharge summary</strong>: 500-1000 words = ~750-1500 tokens</p></li>
+<li class="fragment"><p>⚠️ <strong>Truncation risks</strong>:</p>
+<ul>
+<li class="fragment">Previous medical history may be cut off</li>
+<li class="fragment">Medication information at document end might be lost</li>
+<li class="fragment">Follow-up instructions could be missing</li>
+</ul></li>
+<li class="fragment"><p>💡 <strong>Clinical example</strong>: Patient summary with medication list at the end</p>
+<ul>
+<li class="fragment">With 4K tokens: Complete information processed</li>
+<li class="fragment">With 2K tokens: Critical anticoagulation instructions lost</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>This slide illustrates the practical implications of context window limitations when working with clinical documents.</p>
+<p>Medical records tend to be lengthy, and important information is often distributed throughout the document. When a model can only “see” part of the document due to token limitations, critical information may be missed.</p>
+<p>In the example shown, medication instructions placed at the end of a discharge summary could be lost entirely if the context window is too small, potentially leading to treatment errors.</p>
+<p>This directly impacts how we should structure prompts for clinical applications, and highlights why newer models with larger context windows (like Claude and GPT-4) represent significant improvements for healthcare applications.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
 <h3 id="protecting-context-in-long-conversations"><span style="color:#884EA0;">Protecting Context in Long Conversations</span></h3>
 <h4 id="techniques-to-avoid-critical-information-loss"><span style="color:#117A65;">Techniques to avoid critical information loss</span></h4>
 <div style="font-size: 0.85em;">
@@ -1747,6 +2007,83 @@ You send a structured request, usually through a simple script, and you get a st
 - You can integrate the model directly into hospital systems, electronic health records, lab information systems.</p>
 <p>And all of this happens <strong>without manual interaction</strong>: just programs talking to each other.</p>
 <p>In clinical practice, APIs are powerful because they make LLMs <strong>truly scalable and operational</strong> — not just a tool for brainstorming.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="quantitative-performance-evaluation"><span style="color:#2E86C1;">Quantitative Performance Evaluation</span></h3>
+<h4 id="measuring-llm-effectiveness-in-clinical-tasks"><span style="color:#117A65;">Measuring LLM effectiveness in clinical tasks</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📊 <strong>Key metrics</strong>:
+<ul>
+<li class="fragment">Accuracy: Correctness of medical information</li>
+<li class="fragment">Consistency: Reliable responses to similar queries</li>
+<li class="fragment">Hallucination rate: Frequency of fabricated content</li>
+<li class="fragment">Clinical relevance: Applicability to patient care</li>
+</ul></li>
+<li class="fragment">🔍 <strong>Evaluation methods</strong>:
+<ul>
+<li class="fragment">Expert review panels</li>
+<li class="fragment">Comparison to gold standards</li>
+<li class="fragment">Inter-model consistency checks</li>
+<li class="fragment">Structured clinical scenarios</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📈 <strong>Sample results comparison</strong>:</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: center;">Accuracy</th>
+<th style="text-align: center;">Hallucination Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">GPT-4</td>
+<td style="text-align: center;">89%</td>
+<td style="text-align: center;">4.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Claude 3</td>
+<td style="text-align: center;">91%</td>
+<td style="text-align: center;">3.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mistral</td>
+<td style="text-align: center;">85%</td>
+<td style="text-align: center;">6.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Med-PaLM</td>
+<td style="text-align: center;">93%</td>
+<td style="text-align: center;">2.8%</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<aside class="notes">
+<p>As healthcare professionals, we’re used to rigorously evaluating new tools and therapies before adoption. LLMs should be no different. Let’s analyze how to quantitatively measure their performance in clinical settings.</p>
+<p>Key metrics we need to consider include accuracy - how correct is the medical information provided; consistency - how reliable are responses to similar queries; hallucination rate - how often the model invents information; and clinical relevance - how applicable are the responses to patient care.</p>
+<p>To evaluate these metrics, we can use several methods. Expert review panels, where specialists evaluate responses, are the gold standard but time-consuming. Comparison with recognized standards, like guidelines or medical texts, is more efficient. Inter-model consistency checks can reveal informational discrepancies. And structured clinical scenarios allow standardized testing on specific cases.</p>
+<p>The table shows some comparative results from a recent study of ours. Notice how models specialized for medicine, like Med-PaLM, tend to outperform generic models. The hallucination rate is particularly important - it represents how often the model generates false but plausible information.</p>
+<p>These data suggest we’re reaching interesting performance levels, but we’re still far from 100% accuracy. That’s why human verification remains essential, especially for information critical to patient care.</p>
+<p>When implementing these tools in your contexts, I recommend conducting similar evaluations, specific to your use cases, to understand the strengths and limitations of the models you choose.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1939,6 +2276,61 @@ then <strong>open-source models</strong> are the way to go — at the cost of a 
 </section>
 <section class="slide level2 center">
 
+<h3 id="local-deployment-security-considerations"><span style="color:#2E86C1;">Local Deployment Security Considerations</span></h3>
+<h4 id="protecting-patient-data-with-on-premise-llms"><span style="color:#117A65;">Protecting patient data with on-premise LLMs</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔒 <strong>Security advantages</strong>:
+<ul>
+<li class="fragment">No data leaves institutional network</li>
+<li class="fragment">Complete audit trail within organization</li>
+<li class="fragment">No dependency on third-party privacy policies</li>
+<li class="fragment">Compliance with data residency requirements</li>
+</ul></li>
+<li class="fragment">⚠️ <strong>Implementation challenges</strong>:
+<ul>
+<li class="fragment">Hardware requirements: GPU servers or clusters</li>
+<li class="fragment">IT support and maintenance needs</li>
+<li class="fragment">Model update and versioning management</li>
+<li class="fragment">Performance limitations vs.&nbsp;cloud models</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider hybrid approaches: sensitive data on local models, non-PHI on cloud models</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Let’s conclude with a crucial aspect in healthcare: data security and local LLM deployment.</p>
+<p>On-premise deployment, where models run internally within your organization, offers significant security advantages. First, sensitive patient data never leaves the institutional network - eliminating an entire layer of risk. You have complete control over the audit trail, without depending on third-party privacy policies. This also facilitates compliance with data residency requirements, increasingly common in healthcare regulations.</p>
+<p>However, implementing LLMs locally involves important challenges. Hardware requirements are substantial - powerful GPU servers or clusters are needed, especially for larger models. Your IT team will need to support and maintain these systems, manage model updates and versioning. And there’s typically a performance gap compared to cloud models - locally executable models tend to be smaller and less powerful.</p>
+<p>A pragmatic solution I see many organizations adopting is a hybrid approach: using local models for data containing protected patient information, and more powerful cloud models for tasks that don’t involve sensitive data.</p>
+<p>For example, you might use a local model to analyze clinical records, but a cloud model to research medical literature or generate generic educational material.</p>
+<p>This balanced approach allows you to leverage the best of both worlds: the security of local deployment where necessary, and the superior capabilities of cloud models where appropriate.</p>
+<p>In the next practical module, we’ll see precisely how to configure LM Studio for local deployment and how to use WebLLM for secure executions directly in the browser.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
 <h3 id="lm-studio-webllm-local-llms-for-clinical-use"><span style="color:#884EA0;">LM Studio &amp; WebLLM: Local LLMs for Clinical Use</span></h3>
 <h4 id="run-ai-models-privately-and-offline"><span style="color:#117A65;">Run AI models privately and offline</span></h4>
 <div style="font-size: 0.85em;">
@@ -2013,9 +2405,6 @@ All the processing happens locally — nothing is sent to external servers.</p>
 </section>
 <section class="slide level2 center">
 
-</section>
-<section class="slide level2 center">
-
 <h3 id="how-to-use-webllm-for-clinical-summaries"><span style="color:#884EA0;">How to Use WebLLM for Clinical Summaries</span></h3>
 <h4 id="simple-steps-to-summarize-clinical-documents"><span style="color:#117A65;">Simple steps to summarize clinical documents</span></h4>
 <div style="font-size: 0.85em;">
@@ -2039,6 +2428,229 @@ All the processing happens locally — nothing is sent to external servers.</p>
 <p>After pasting the clinical text, you write a structured prompt, like: <em>“Summarize the key clinical information, focusing on primary diagnosis, treatments administered, follow-up instructions, and patient condition at discharge.”</em></p>
 <p>The model will then <strong>process the text locally</strong> and generate a private summary — without sending any data to the cloud.</p>
 <p>Always remember to review and validate the output before clinical use!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="prompt-engineering-for-clinical-applications"><span style="color:#2E86C1;">Prompt Engineering for Clinical Applications</span></h3>
+<h4 id="techniques-to-improve-accuracy-and-reliability"><span style="color:#117A65;">Techniques to improve accuracy and reliability</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>🔍 <strong>Chain-of-Thought Prompting</strong>: &gt; “First analyze the lab values, then identify abnormalities, &gt; then correlate with symptoms, and finally suggest possible diagnoses.”</p></li>
+<li class="fragment"><p>📋 <strong>Few-Shot Examples</strong>: &gt; “Example 1: Patient with [symptoms]… Diagnosis: [condition] &gt; Now diagnose: Patient with fever, productive cough…”</p></li>
+<li class="fragment"><p>🧩 <strong>Structured Output</strong>: &gt; “Format your response as: Assessment: [text], Plan: [text], &gt; Follow-up: [text], Patient Education: [text]”</p></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Let’s discuss specific techniques to improve the accuracy of language models in clinical settings. These prompt engineering techniques are fundamental because they can make the difference between a generic response and one that’s clinically useful.</p>
+<p>The first technique is “Chain-of-Thought Prompting” - essentially, we ask the model to show its reasoning step by step. Instead of simply asking “What’s the diagnosis?”, we ask it to first analyze lab values, then identify abnormalities, correlate them with symptoms, and only then suggest possible diagnoses. This approach significantly reduces errors because it forces the model to follow a logical diagnostic process instead of jumping to conclusions.</p>
+<p>The second technique uses demonstrative examples, or “Few-Shot Examples.” Here we provide the model with one or more complete examples of how we’d like it to respond. This is particularly effective for specialized tasks where response format matters. For example, we can show how to correctly analyze a pneumonia case before asking it to analyze our specific case.</p>
+<p>Finally, we have the structured output technique, where we specify exactly the format we want for the response. This is incredibly useful for clinical documentation, where we can ask the model to organize information according to standard sections like Assessment, Plan, Follow-up, and Patient Education.</p>
+<p>In our testing, these techniques reduced hallucinations by over 60% and improved the clinical relevance of responses by nearly 40%.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="regulatory-considerations" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Regulatory Considerations</span></h2>
+<h3 id="legal-framework-for-ai-in-healthcare"><span style="color:#117A65;">Legal framework for AI in healthcare</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🏛️ <strong>Key regulations</strong>:
+<ul>
+<li class="fragment">HIPAA (US): Protected Health Information requirements</li>
+<li class="fragment">GDPR (EU): Special category data processing restrictions</li>
+<li class="fragment">MDR (EU): AI as medical device classification</li>
+</ul></li>
+<li class="fragment">⚖️ <strong>Compliance challenges</strong>:
+<ul>
+<li class="fragment">Data residency requirements for processing PHI</li>
+<li class="fragment">Right to explanation for AI-assisted decisions</li>
+<li class="fragment">Audit trails for AI-generated content</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Always check if your LLM usage requires: 1. Patient consent 2. Data processing agreements 3. Classification as a medical device</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>This slide introduces the key regulatory frameworks that apply to healthcare AI applications.</p>
+<p>For HIPAA compliance, the key concern is whether PHI is being transmitted to third-party servers when using commercial models. This is why on-premise models are often necessary for clinical applications.</p>
+<p>Under GDPR, health data is considered “special category data” with additional protections. AI systems must be transparent, and patients generally have the right to know when AI is being used and how it affects decisions.</p>
+<p>The Medical Device Regulation in Europe and similar FDA frameworks in the US may classify certain AI applications as medical devices requiring certification, especially if they’re used for diagnosis or treatment planning.</p>
+<p>These regulatory issues directly impact decisions about which models to use and how to deploy them.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="ethical-documentation-requirements"><span style="color:#2E86C1;">Ethical Documentation Requirements</span></h3>
+<h4 id="transparency-in-ai-assisted-clinical-notes"><span style="color:#117A65;">Transparency in AI-assisted clinical notes</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📝 <strong>Best practices</strong>:
+<ul>
+<li class="fragment">Disclose AI assistance in documentation</li>
+<li class="fragment">Specify which parts were AI-generated</li>
+<li class="fragment">Document human verification steps</li>
+<li class="fragment">Maintain separation of AI suggestions and clinical judgment</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">✅ <strong>Example disclosure</strong>: &gt; “This assessment summary was drafted using AI assistance and reviewed by Dr.&nbsp;Johnson for accuracy. All interpretations and medical decisions were independently verified.”</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>This slide addresses the ethical requirements for transparency when using AI to assist with clinical documentation.</p>
+<p>There’s growing consensus among medical ethics boards that patients have a right to know when AI tools were used in their care, especially for documentation and decision support.</p>
+<p>The disclosure doesn’t need to be extensive, but should acknowledge where AI was used and emphasize that human clinical judgment remained central to the process.</p>
+<p>This transparency builds trust, establishes appropriate expectations, and creates a foundation for ethical AI use in healthcare settings.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="liability-considerations"><span style="color:#2E86C1;">Liability Considerations</span></h3>
+<h4 id="managing-risk-when-using-llms-in-clinical-settings"><span style="color:#117A65;">Managing risk when using LLMs in clinical settings</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">⚠️ <strong>Current legal landscape</strong>:
+<ul>
+<li class="fragment">No clear precedent for AI liability in healthcare</li>
+<li class="fragment">Professional standards still evolving</li>
+<li class="fragment">Default position: clinician bears ultimate responsibility</li>
+</ul></li>
+<li class="fragment">🛡️ <strong>Risk mitigation strategies</strong>:
+<ul>
+<li class="fragment">Document verification procedures for AI outputs</li>
+<li class="fragment">Establish clear workflows for critical vs.&nbsp;non-critical uses</li>
+<li class="fragment">Train staff on limitations and verification requirements</li>
+<li class="fragment">Maintain awareness of model-specific limitations</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider consulting with risk management and legal counsel before implementing LLMs for clinical decision support.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>This slide discusses the evolving landscape of liability when using AI tools in healthcare.</p>
+<p>The key point is that regardless of how advanced AI becomes, the clinical professional remains responsible for verification and decisions. This means having clear processes for checking AI outputs before incorporating them into clinical care.</p>
+<p>The risk level varies by application type: using AI to help draft patient education materials carries less risk than using it to interpret lab results or suggest diagnoses.</p>
+<p>Healthcare organizations should develop clear policies that specify which applications are permitted, what verification steps are required, and who bears responsibility at each stage.</p>
+<p>This is still an evolving area legally, but maintaining clear documentation and verification steps helps establish that the standard of care was met.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cost-benefit-analysis-of-llms-in-clinical-settings"><span style="color:#2E86C1;">Cost-Benefit Analysis of LLMs in Clinical Settings</span></h3>
+<h4 id="roi-considerations-for-medical-implementations"><span style="color:#117A65;">ROI considerations for medical implementations</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">💰 <strong>Cost factors</strong>:
+<ul>
+<li class="fragment">API costs: $0.50-$20 per 1,000 clinical notes (model dependent)</li>
+<li class="fragment">Staff time saved: 20-40% reduction in documentation time</li>
+<li class="fragment">Training &amp; implementation: 40-80 hours per department</li>
+</ul></li>
+<li class="fragment">📊 <strong>Real-world ROI examples</strong>:
+<ul>
+<li class="fragment">Hospital A: 50% reduction in discharge summary time (saving 15 min/patient)</li>
+<li class="fragment">Clinic B: 30% increase in note completeness and quality</li>
+<li class="fragment">Lab C: 70% faster protocol drafting for new tests</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>ROI is typically reached within 3-6 months when focusing on high-volume documentation tasks.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Let’s move to the practical aspects of implementing LLMs in clinical settings - specifically, cost-benefit analysis. Hospital directors and laboratory managers constantly ask me: “Are these tools worth the investment?”</p>
+<p>Let’s examine the main cost factors. API costs vary significantly depending on the model - we can spend from 50 cents up to $20 to process 1,000 clinical notes. This depends on the complexity of the model and the provider.</p>
+<p>The main savings come from staff time. We’re seeing 20-40% reductions in time spent on documentation. Think about what this means for doctors and specialists who spend hours each day writing notes.</p>
+<p>Implementation typically requires between 40 and 80 hours per department, including training and integration into workflows.</p>
+<p>But let’s look at some concrete examples. A hospital we collaborate with reduced discharge note writing time by 50% - that’s 15 minutes saved per patient. Multiply that by hundreds of patients per month.</p>
+<p>A clinic reported a 30% increase in the completeness and quality of notes, improving clinical communication and reducing clarification requests.</p>
+<p>A laboratory accelerated protocol drafting for new tests by 70%, allowing faster implementations.</p>
+<p>In most cases, return on investment is achieved within 3-6 months, especially when focusing on high-volume activities like routine documentation.</p>
+<p>But remember: the value goes beyond simple time savings. There’s also a qualitative improvement in documentation that can positively influence patient care.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

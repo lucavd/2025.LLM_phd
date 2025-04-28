@@ -12,17 +12,11 @@ format:
 ### [Techniques to improve accuracy and reliability]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
--   🔍 **Chain-of-Thought Prompting**:
-    > "First analyze the lab values, then identify abnormalities, 
-    > then correlate with symptoms, and finally suggest possible diagnoses."
+-   🔍 **Chain-of-Thought Prompting**: \> "First analyze the lab values, then identify abnormalities, \> then correlate with symptoms, and finally suggest possible diagnoses."
 
--   📋 **Few-Shot Examples**:
-    > "Example 1: Patient with [symptoms]... Diagnosis: [condition]
-    > Now diagnose: Patient with fever, productive cough..."
+-   📋 **Few-Shot Examples**: \> "Example 1: Patient with \[symptoms\]... Diagnosis: \[condition\] \> Now diagnose: Patient with fever, productive cough..."
 
--   🧩 **Structured Output**:
-    > "Format your response as: Assessment: [text], Plan: [text], 
-    > Follow-up: [text], Patient Education: [text]"
+-   🧩 **Structured Output**: \> "Format your response as: Assessment: \[text\], Plan: \[text\], \> Follow-up: \[text\], Patient Education: \[text\]"
 :::
 
 ::: notes
@@ -37,7 +31,7 @@ Finally, we have the structured output technique, where we specify exactly the f
 In our testing, these techniques reduced hallucinations by over 60% and improved the clinical relevance of responses by nearly 40%.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Temperature Settings for Clinical Use]{style="color:#2E86C1;"}
 
@@ -49,7 +43,6 @@ In our testing, these techniques reduced hallucinations by over 60% and improved
     -   0.0-0.3: Most deterministic, consistent
     -   0.4-0.7: Balanced creativity
     -   0.8-1.0: Maximum creativity, unpredictability
-
 -   🩺 **Clinical recommendations**:
     -   Patient documentation: 0.1-0.2
     -   Differential diagnosis: 0.3-0.5
@@ -60,11 +53,9 @@ In our testing, these techniques reduced hallucinations by over 60% and improved
 ::: {.column width="45%" style="font-size: 0.85em;"}
 -   ⚠️ **Example impact**:
 
-    **Temperature 0.1**:
-    > "Elevated liver enzymes may indicate hepatocellular injury."
+    **Temperature 0.1**: \> "Elevated liver enzymes may indicate hepatocellular injury."
 
-    **Temperature 0.7**:
-    > "Elevated liver enzymes could suggest hepatocellular damage, biliary obstruction, medication effects, or various systemic conditions."
+    **Temperature 0.7**: \> "Elevated liver enzymes could suggest hepatocellular damage, biliary obstruction, medication effects, or various systemic conditions."
 :::
 :::::
 
@@ -84,7 +75,7 @@ Look at the examples on the right: at temperature 0.1, the model provides a conc
 Remember: in medicine, there is no "right" temperature - it depends on your specific goal and acceptable level of risk.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Cost-Benefit Analysis of LLMs in Clinical Settings]{style="color:#2E86C1;"}
 
@@ -92,10 +83,9 @@ Remember: in medicine, there is no "right" temperature - it depends on your spec
 
 ::: {style="font-size: 0.85em;"}
 -   💰 **Cost factors**:
-    -   API costs: $0.50-$20 per 1,000 clinical notes (model dependent)
+    -   API costs: \$0.50-\$20 per 1,000 clinical notes (model dependent)
     -   Staff time saved: 20-40% reduction in documentation time
     -   Training & implementation: 40-80 hours per department
-
 -   📊 **Real-world ROI examples**:
     -   Hospital A: 50% reduction in discharge summary time (saving 15 min/patient)
     -   Clinic B: 30% increase in note completeness and quality
@@ -109,7 +99,7 @@ ROI is typically reached within 3-6 months when focusing on high-volume document
 ::: notes
 Let's move to the practical aspects of implementing LLMs in clinical settings - specifically, cost-benefit analysis. Hospital directors and laboratory managers constantly ask me: "Are these tools worth the investment?"
 
-Let's examine the main cost factors. API costs vary significantly depending on the model - we can spend from 50 cents up to $20 to process 1,000 clinical notes. This depends on the complexity of the model and the provider.
+Let's examine the main cost factors. API costs vary significantly depending on the model - we can spend from 50 cents up to \$20 to process 1,000 clinical notes. This depends on the complexity of the model and the provider.
 
 The main savings come from staff time. We're seeing 20-40% reductions in time spent on documentation. Think about what this means for doctors and specialists who spend hours each day writing notes.
 
@@ -126,7 +116,7 @@ In most cases, return on investment is achieved within 3-6 months, especially wh
 But remember: the value goes beyond simple time savings. There's also a qualitative improvement in documentation that can positively influence patient care.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Multimodal Applications in Medicine]{style="color:#2E86C1;"}
 
@@ -139,7 +129,6 @@ But remember: the value goes beyond simple time savings. There's also a qualitat
     -   Interpreting ECG patterns
     -   Analyzing microscopy slides
     -   Reading handwritten medical notes
-    
 -   ⚡ **Workflow examples**:
     -   Upload image + add clinical question
     -   Model interprets visual + text context
@@ -147,10 +136,10 @@ But remember: the value goes beyond simple time savings. There's also a qualitat
 :::
 
 ::: {.column width="50%" style="font-size: 0.85em;"}
--   🔍 **Example prompt**:
-    > "This is a chest X-ray from a 65-year-old patient with shortness of breath. Describe what you see and any potential abnormalities."
+-   🔍 **Example prompt**: \> "This is a chest X-ray from a 65-year-old patient with shortness of breath. Describe what you see and any potential abnormalities."
 
 -   ⚠️ **Limitations**:
+
     -   Not FDA-approved for diagnosis
     -   Variable performance across image types
     -   Requires clinical verification
@@ -173,7 +162,7 @@ But the potential is undeniable. We're seeing radiologists use these tools to ge
 The key is to use them as intelligent assistants, not as substitutes for expert judgment.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Creating Effective Clinical Workflows]{style="color:#2E86C1;"}
 
@@ -185,7 +174,6 @@ The key is to use them as intelligent assistants, not as substitutes for expert 
     -   EHR-integrated sidebar
     -   Automated background processing
     -   Document pre-processing and draft
-
 -   ✅ **Best practices**:
     -   Clear demarcation of AI vs. human input
     -   Verification checkpoints for critical information
@@ -213,7 +201,7 @@ In my experience, organizations that have been most successful started with simp
 Remember: the goal is not to completely automate, but to amplify human clinical capabilities while keeping professional judgment at the center of the process.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Specialty-Specific Applications]{style="color:#2E86C1;"}
 
@@ -223,15 +211,12 @@ Remember: the goal is not to completely automate, but to amplify human clinical 
 -   🫀 **Cardiology**:
     -   ECG interpretation assistance
     -   Heart failure management protocols
-    
 -   🧠 **Neurology**:
     -   Cognitive assessment documentation
     -   Seizure pattern description
-    
 -   🔬 **Pathology**:
     -   Standardized specimen reporting
     -   Literature search for rare findings
-    
 -   🩸 **Laboratory Medicine**:
     -   Test interpretation guidance
     -   Protocol documentation and standardization
@@ -252,7 +237,7 @@ In laboratory medicine, LLMs are revolutionizing the creation of interpretive gu
 These applications are just the tip of the iceberg. The key idea is that LLMs are not generic tools - they can be adapted to the specific needs of your discipline. I invite you to think about documentary or decision-making processes in your daily practice that might benefit from intelligent assistance.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Quantitative Performance Evaluation]{style="color:#2E86C1;"}
 
@@ -265,7 +250,6 @@ These applications are just the tip of the iceberg. The key idea is that LLMs ar
     -   Consistency: Reliable responses to similar queries
     -   Hallucination rate: Frequency of fabricated content
     -   Clinical relevance: Applicability to patient care
-    
 -   🔍 **Evaluation methods**:
     -   Expert review panels
     -   Comparison to gold standards
@@ -276,12 +260,12 @@ These applications are just the tip of the iceberg. The key idea is that LLMs ar
 ::: {.column width="45%" style="font-size: 0.85em;"}
 -   📈 **Sample results comparison**:
 
-| Model | Accuracy | Hallucination Rate |
-|:------|:--------:|:------------------:|
-| GPT-4 | 89% | 4.5% |
-| Claude 3 | 91% | 3.2% |
-| Mistral | 85% | 6.7% |
-| Med-PaLM | 93% | 2.8% |
+| Model    | Accuracy | Hallucination Rate |
+|:---------|:--------:|:------------------:|
+| GPT-4    |   89%    |        4.5%        |
+| Claude 3 |   91%    |        3.2%        |
+| Mistral  |   85%    |        6.7%        |
+| Med-PaLM |   93%    |        2.8%        |
 :::
 :::::
 
@@ -299,7 +283,7 @@ These data suggest we're reaching interesting performance levels, but we're stil
 When implementing these tools in your contexts, I recommend conducting similar evaluations, specific to your use cases, to understand the strengths and limitations of the models you choose.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Local Deployment Security Considerations]{style="color:#2E86C1;"}
 
@@ -311,7 +295,6 @@ When implementing these tools in your contexts, I recommend conducting similar e
     -   Complete audit trail within organization
     -   No dependency on third-party privacy policies
     -   Compliance with data residency requirements
-    
 -   ⚠️ **Implementation challenges**:
     -   Hardware requirements: GPU servers or clusters
     -   IT support and maintenance needs
