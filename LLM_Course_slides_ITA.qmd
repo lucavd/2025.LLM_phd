@@ -1,0 +1,1266 @@
+---
+title: "IA Generativa e LLM in Medicina Clinica e di Laboratorio"
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    transition: fade
+    incremental: true
+    chalkboard: true
+    logo: images/logo.png
+    toc: false
+    css: styles.css
+    width: 1280
+    height: 720
+    center: true
+    margin: 0.1
+    fit: true
+    scrollable: true
+editor: visual
+---
+
+## 
+
+::: {.column width="100%"}
+![](images/slide1_intro.png)
+:::
+
+## [IA Generativa e LLM]{style="color:#2E86C1;"}
+
+### [in Medicina Clinica e di Laboratorio]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   [Cos'è l'IA Generativa e come sta trasformando la medicina?]{style="color:#34495E;"}
+-   [Perché concentrarsi sui Grandi Modelli Linguistici (LLM)?]{style="color:#34495E;"}
+-   <strong style="color:#2874A6;">Obiettivi chiave del corso:</strong>
+    -   🧠 Comprendere i fondamenti dell'IA generativa e degli LLM
+    -   🧪 Esplorare le applicazioni in ambito clinico e di laboratorio
+    -   🔄 Confrontare strumenti locali vs commerciali (ChatGPT, Claude, Mistral, ecc.)
+    -   🛠 Esercitarsi con LM Studio, WebLLM
+-   <strong style="color:#7D3C98;">Formato del corso:</strong> 2 ore di teoria + 2 ore di pratica
+:::
+
+::: notes
+Benvenuti al corso! Siamo qui per esplorare come l'**IA Generativa** — e in particolare i **Grandi Modelli Linguistici** — stanno rimodellando i campi medico e di laboratorio. Questa non è una lezione di programmazione; è un'introduzione pratica, focalizzata sui clinici, a strumenti come ChatGPT, Claude e Mistral, inclusi quelli che potete eseguire localmente per la privacy. La struttura di oggi è semplice: 👉 Prima, capiamo come funzionano questi modelli. 👉 Poi, mettiamo le mani in pasta con strumenti come LM Studio. Alla fine, sarete in grado di provare prompt per la diagnostica, automatizzare la refertazione e persino pensare criticamente a quando *non* fidarsi di un LLM. Iniziamo!
+:::
+
+------------------------------------------------------------------------
+
+## [Cos'è l'Intelligenza Artificiale?]{style="color:#1A5276;"}
+
+### [(E perché medici e biologi dovrebbero interessarsene)]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 **Intelligenza Artificiale (IA)** simula il ragionamento e il processo decisionale umano
+-   🤖 Due approcci storici:
+    -   <strong style="color:#2874A6;">IA Simbolica</strong> = logica basata su regole (es., sistemi esperti)
+    -   <strong style="color:#AF7AC5;">IA Connessionista</strong> = ispirata al cervello (reti neurali)
+-   📊 L'Apprendimento Statistico fa da ponte:
+    -   Tecniche basate sui dati per apprendere pattern dai dati
+    -   Include regressione, classificazione e clustering
+-   🧬 Perché è importante in medicina:
+    -   Molti compiti clinici sono problemi decisionali in condizioni di incertezza
+    -   Dalla diagnosi al triage all'interpretazione dei risultati di laboratorio
+    -   IA = aiuto, non sostituzione
+:::
+
+::: notes
+Questa slide prepara il terreno. Prima di arrivare ai Transformer e agli LLM, ricordiamo a tutti che l'IA non è magia — è logica e statistica su larga scala. Introduciamo due visioni tradizionali dell'IA: - **Simbolica**, come le regole se-allora (pensate ai primi sistemi esperti). - **Connessionista**, dove l'intelligenza emerge dalle reti (come le moderne reti neurali). Poi evidenziamo l'**Apprendimento Statistico** come ponte: l'idea centrale che gli algoritmi possono imparare dai **dati, non solo dalle regole**. È così che ci muoviamo verso l'IA moderna in sanità.
+
+Questo è importante per i clinici e i professionisti di laboratorio perché il processo decisionale medico richiede spesso la sintesi di dati complessi e incerti — qualcosa in cui i modelli statistici (e successivamente, gli LLM) sono sorprendentemente bravi ad aiutare.
+:::
+
+------------------------------------------------------------------------
+
+## [Perché abbiamo bisogno di una nuova IA in Medicina?]{style="color:#884EA0;"}
+
+### [Limitazioni dei modelli statistici classici]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📊 I **modelli classici** (regressione, alberi decisionali, ecc.) funzionano bene con dati strutturati e tabellari
+-   🧬 Ma i dati clinici sono sempre più **non strutturati e complessi**:
+    -   Referti in testo libero, note multilingue, cartelle cliniche elettroniche, immagini mediche
+-   ❌ I **modelli statistici faticano** con:
+    -   Ambiguità linguistiche (es., "esso" → "il fegato"?)
+    -   Dati mancanti o rumorosi
+    -   Ragionamento dipendente dal contesto
+-   🧠 L'**IA moderna** (LLM) può gestire questa complessità con una migliore generalizzazione su dati testuali liberi e multimodali
+:::
+
+::: notes
+Questa slide prepara il terreno per capire *perché* abbiamo bisogno dell'IA moderna. I modelli tradizionali come la regressione logistica o le foreste casuali sono ottimi su dataset puliti e strutturati — ad esempio, per prevedere punteggi di rischio dai valori di laboratorio. Ma i dati clinici del mondo reale sono disordinati. Un riassunto di dimissione, un'immagine MRI, l'email di un paziente — nessuno di questi si adatta perfettamente a righe e colonne. L'IA moderna, e in particolare i Grandi Modelli Linguistici, possono elaborare questa complessità grazie all'apprendimento auto-supervisionato e ad architetture come i Transformer. Possono estrarre struttura da dati non strutturati.
+:::
+
+## [Perché abbiamo bisogno di una nuova IA in Medicina?]{style="color:#884EA0;"}
+
+### [Limitazioni dei modelli statistici classici]{style="color:#117A65;"}
+
+![](images/struct_unstruct.png)
+
+::: notes
+A sinistra, vediamo un tipico esempio di **dati strutturati** — una curva di regressione logistica che prevede una probabilità (es., di malattia) basata su un valore di laboratorio. Questo è il tipo di dati per cui la maggior parte dei modelli tradizionali è stata costruita: numerici, puliti e formattati in tabelle. A destra, vediamo **dati non strutturati**: una cartella clinica elettronica contenente testo libero ("Il fegato è ingrossato...") con riferimenti ambigui, risultati di laboratorio incorporati e persino un'immagine cerebrale. Questo è ciò con cui i clinici hanno a che fare quotidianamente — informazioni complesse e multimodali non facilmente riducibili a numeri o categorie. In basso al centro, un'icona di transformer rappresenta come i modelli di IA moderni come gli LLM possono colmare questo divario. Questi modelli sono capaci di elaborare input non strutturati — comprendendo il contesto del testo, estraendo significato e integrando tra formati — rendendoli molto più potenti nella gestione dei dati clinici odierni.
+:::
+
+## [Cosa può fare l'IA tradizionale?]{style="color:#884EA0;"}
+
+### [Compiti fondamentali nell'Apprendimento Statistico]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="58%"}
+-   📈 **Regressione**: Prevedere un **numero** dai dati di input
+    -   Esempio: Prevedere la glicemia da età + BMI
+-   🧪 **Classificazione**: Assegnare un'**etichetta** ai dati di input
+    -   Esempio: "Questa biopsia è maligna o benigna?"
+-   🔍 **Clustering**: Trovare **gruppi** nascosti in dati non etichettati
+    -   Esempio: Identificare sottotipi di pazienti con espressione genica simile
+:::
+
+::: {.column .fit width="42%"}
+![](images/traditional_ai.png){width="300px" style="max-height: 500px;"}
+:::
+:::::
+
+::: notes
+Queste sono le fondamenta dell'apprendimento statistico tradizionale. - La **Regressione** prevede risultati continui — utile per cose come valori di laboratorio o punteggi di rischio. - La **Classificazione** è probabilmente la più usata — determinare se un paziente ha una malattia o meno basandosi sui risultati dei test. - Il **Clustering** è più esplorativo — nessuna etichetta, solo pattern. Pensate a come scopriamo nuovi sottotipi di cancro dai dati omici. Tutti e tre sono ancora cruciali, ma faticano quando gli input sono testo libero, immagini o conversazioni. È qui che entrano in gioco gli LLM.
+:::
+
+------------------------------------------------------------------------
+
+### [Perché i modelli statistici faticano con il linguaggio]{style="color:#884EA0;"}
+
+#### [Dall'input strutturato alla complessità del mondo reale]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧱 I modelli tradizionali si aspettano **input strutturati e tabellari**
+-   💬 Il linguaggio naturale è **non strutturato, ambiguo, dipendente dal contesto**
+    -   Esempio: "È elevato" — cos'è "esso"?
+-   🧠 La comprensione del linguaggio necessita di:
+    -   Risoluzione del contesto (es., coreferenza)
+    -   Sintassi e semantica
+    -   Dipendenze a lungo raggio tra le frasi
+-   📉 I modelli statistici mancano di memoria o ragionamento — riducono il testo a sacchi di parole o vettori fissi
+:::
+
+::: notes
+Questa slide imposta la motivazione per il deep learning e i Transformer. I modelli tradizionali non possono "capire" il linguaggio. Contano solo la frequenza delle parole o usano regole di base. Ma in medicina, devi sapere a cosa si riferisce "esso", interpretare le negazioni o seguire la storia di un paziente su più paragrafi. Questa complessità è ciò che ha reso necessario il deep learning — specialmente modelli come RNN e Transformer.
+:::
+
+------------------------------------------------------------------------
+
+### [Cos'è una Rete Neurale?]{style="color:#884EA0;"}
+
+#### [Dai neuroni ai layer all'apprendimento]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔢 Le reti neurali sono fatte di **unità ("neuroni")** connesse in **layer**
+-   🧠 Ogni neurone prende input → esegue una piccola operazione matematica → passa l'output avanti
+-   📚 Regolando i **pesi** durante l'addestramento, la rete impara i pattern
+-   🧬 Questa struttura le permette di catturare relazioni **non lineari** (vs regressione classica)
+:::
+
+::: {style="text-align: center;"}
+![](images/rainbow_net.jpeg){width="50%" height="auto"}
+:::
+
+::: notes
+Passiamo ora dai modelli classici ai primi veri mattoni dell'IA moderna: le **reti neurali**. Una **rete neurale** è essenzialmente un sistema fatto di unità di elaborazione molto semplici — le chiamiamo **"neuroni"** — che sono connesse in layer. Ogni **neurone** riceve alcuni numeri — come età, glucosio o sintomi — e applica un'operazione matematica molto basilare: somma gli input, applica una funzione (di solito non lineare) e invia il risultato al layer successivo. Sembra banale, ma la potenza di una rete neurale deriva dall'**impilare molti di questi neuroni in più layer** e dall'**aggiustare i pesi delle connessioni** tra di loro durante l'addestramento. Il processo di **apprendimento** in una rete neurale significa: - Mostrarle molti esempi (es. pazienti con esiti noti), - Confrontare le sue previsioni con i risultati reali (es. diagnosi o punteggi reali), - E cambiare gradualmente i pesi per ridurre l'errore. Col tempo, la rete diventa migliore nel **riconoscere pattern** — anche **relazioni complesse e non lineari** che i modelli tradizionali (come la regressione logistica) non possono catturare. Questa struttura — unità semplici in layer — è il fondamento del **deep learning**. Anche i modelli più avanzati che usiamo oggi, incluso ChatGPT, sono costruiti su questo principio — solo scalati fino a miliardi di neuroni e architetture molto più complesse. Questo è il momento in cui l'IA ha smesso di riguardare solo regole e formule, e ha iniziato ad **apprendere dai dati** in modo flessibile e potente.
+:::
+
+------------------------------------------------------------------------
+
+### [Come imparano le Reti Neurali?]{style="color:#884EA0;"}
+
+#### [Il ruolo della loss e della backpropagation]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧪 Durante l'addestramento, la rete fa una **previsione**
+-   📉 Una **funzione di loss** confronta la previsione con l'etichetta vera
+-   🔁 La **Backpropagation** aggiusta i pesi per ridurre l'errore
+-   🔄 Questo viene ripetuto su molti esempi → il modello impara i pattern
+:::
+
+::: {style="text-align: center;"}
+![](images/backprop.png){width="50%" height="auto"}
+:::
+
+::: notes
+Ora che abbiamo visto come è costruita una rete neurale, vediamo brevemente **come impara**. Ogni volta che la rete vede un input — ad esempio, età del paziente, glucosio e sintomi — fa una **previsione**. Quella previsione viene confrontata con l'esito vero — ad esempio, se il paziente ha avuto una complicazione. La differenza tra la previsione e il risultato reale viene misurata usando una **funzione di loss**. Poi arriva il passo chiave: la **backpropagation**.
+
+Il modello calcola quanto ogni peso ha contribuito all'errore e usa quell'informazione per **aggiustare i pesi** nella direzione giusta — di solito usando un metodo chiamato **discesa del gradiente**. Questo processo viene ripetuto migliaia — persino milioni — di volte, su molti esempi. Ed è così che la rete migliora gradualmente: riducendo l'errore totale sull'insieme di addestramento. Lo chiamiamo "apprendimento", ma in realtà è correzione degli errori — solo su larga scala e con molti dati.
+:::
+
+------------------------------------------------------------------------
+
+### [Perché le Reti Neurali Standard faticano con il Linguaggio]{style="color:#884EA0;"}
+
+#### [La necessità di memoria sequenziale e attenzione]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔁 Le reti standard trattano gli input come vettori di lunghezza fissa
+-   📜 Ma il linguaggio è una **sequenza** — l'ordine delle parole e il contesto contano
+-   🧠 I primi modelli come **RNN** e **LSTM** sono stati progettati per elaborare sequenze
+    -   Usano la **memoria** per ricordare le parole precedenti
+-   😕 Ancora limitati: difficile catturare **dipendenze a lungo raggio** ("esso" riferito a 3–4 frasi prima)
+:::
+
+::: notes
+Le reti neurali sono ottime per molti compiti — ma **non per le sequenze**, come il linguaggio o le serie temporali. Perché? Perché le reti neurali tradizionali assumono che l'input sia solo una lista di numeri di dimensione fissa. Ma nel linguaggio, l'ordine delle parole è essenziale, e il significato dipende spesso da ciò che è venuto prima — anche diverse frasi prima. È qui che sono state introdotte le **RNN** (Reti Neurali Ricorrenti): elaborano una parola alla volta e **mantengono memoria** degli input precedenti. Successivamente, le **LSTM** (Long Short-Term Memory) hanno aggiunto una gestione migliorata della memoria.
+
+Ma questi modelli faticano ancora quando il contesto è lungo — diciamo, nei referti medici o nei dialoghi, dove "esso" potrebbe riferirsi a qualcosa di 3 paragrafi prima. Questa limitazione è ciò che ha portato al prossimo grande salto: il Transformer.
+:::
+
+------------------------------------------------------------------------
+
+### [Dal Deep Learning agli LLM]{style="color:#6C3483;"}
+
+#### [Perché i Transformer hanno cambiato tutto]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 <strong>Deep Learning</strong> = reti neurali a strati
+-   🧱 Tipi di architetture:
+    -   <strong style="color:#884EA0;">MLP</strong>: buono per input semplici
+    -   <strong style="color:#D35400;">CNN</strong>: eccelle in immagini e dati spaziali
+    -   <strong style="color:#2980B9;">RNN</strong>: gestisce sequenze come parlato e testo
+-   ⚡ <strong style="color:#C0392B;">Transformer</strong>: architettura rivoluzionaria per il linguaggio
+    -   Usa <em>auto-attenzione</em> invece della ricorrenza
+    -   Più veloce, più parallelo, migliore con sequenze lunghe
+-   🔁 <strong>Pre-addestramento + Fine-tuning</strong>: strategia dietro ChatGPT, Claude, Mistral
+:::
+
+<br>
+
+::: notes
+Passiamo ora dall'idea di "reti neurali" alle architetture specifiche che ci hanno portato agli LLM. - Primo, il **MLP** (Multilayer Perceptron) — il blocco costruttivo originale, ancora usato in compiti più semplici. - Poi, le **CNN** — hanno rivoluzionato l'elaborazione delle immagini e sono ancora fondamentali per l'IA nell'imaging medico. - Le **RNN** sono state il nostro primo modo per lavorare con sequenze like testo e parlato, ma faticavano con contesti lunghi. Poi è arrivato il **Transformer**. Usando l'auto-attenzione invece della ricorrenza, si è scalato magnificamente a grandi dati e testi lunghi. È diventato la base per LLM come GPT, BERT, T5 e tutte le varianti moderne. Introduciamo anche **pre-addestramento e fine-tuning** — concetti cruciali per capire come i modelli si adattano a compiti specifici come la medicina.
+:::
+
+------------------------------------------------------------------------
+
+### [Dentro il Transformer]{style="color:#884EA0;"}
+
+#### [Auto-Attenzione e Codifica Posizionale]{style="color:#117A65;"}
+
+:::::: columns
+:::: {.column width="100%" style="font-size: 0.85em;"}
+::: {style="font-size: 0.85em;"}
+-   👁️ **Auto-Attenzione**: permette al modello di guardare tutte le parole in una frase contemporaneamente
+    -   Ogni parola può "prestare attenzione" ad altre parole — catturando **contesto** e **significato**
+    -   Esempio: in “Il fegato è ingrossato, e ciò potrebbe indicare...”, a cosa si riferisce "ciò"?
+-   🧭 **Codifica Posizionale**: aggiunge ordine alla sequenza
+    -   I Transformer elaborano l'input **in parallelo**, quindi le posizioni devono essere codificate esplicitamente
+-   🔍 Questi sono ciò che permette agli LLM di gestire le **dipendenze a lungo raggio** nel linguaggio
+-   🧠 Base per ChatGPT, BERT e ogni LLM moderno
+:::
+::::
+
+::: {.column width="42%"}
+![](images/self_attention.png)
+:::
+::::::
+
+::: notes
+Questa è una delle innovazioni più importanti nell'IA moderna. I Transformer non si basano sulla ricorrenza come RNN o LSTM. Invece, guardano **tutte le parole contemporaneamente** — e usano un meccanismo chiamato **auto-attenzione** per decidere quali sono le più rilevanti per ogni parola. Ad esempio, nella frase “Il fegato è ingrossato, e ciò potrebbe indicare...”, il modello può collegare "ciò" a "fegato" usando l'attenzione. Poiché non c'è ricorrenza, i Transformer possono elaborare i dati **in parallelo**, rendendo l'addestramento molto più veloce. Ma poiché elaborano tutto contemporaneamente, devono sapere **dove si trova ogni parola** nella sequenza. È per questo che usano la **codifica posizionale** — un modo matematico per iniettare l'ordine delle parole nel modello. Queste due idee — **auto-attenzione** e **codifica posizionale** — sono ciò che rende i Transformer così potenti nei compiti linguistici. Tutto ciò che è venuto dopo — BERT, GPT, ChatGPT, Claude — è costruito su questo.
+:::
+
+------------------------------------------------------------------------
+
+### [Cos'è l'Auto-Attenzione?]{style="color:#884EA0;"}
+
+#### [Come i Transformer "capiscono" il linguaggio]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   👀 Nell'**auto-attenzione**, ogni parola guarda **tutte le altre parole** nella frase
+    -   Ogni parola decide **quanta attenzione prestare** alle altre
+-   🧠 **Esempio**:
+    -   Frase: "Il fegato è ingrossato perché è infiammato"
+    -   "è" (il secondo) dovrebbe focalizzare l'attenzione su "fegato", non su "perché" o "ingrossato"
+-   🔄 Il modello **costruisce una mappa** di relazioni tra le parole
+    -   Aiuta a **risolvere riferimenti**, **catturare contesto**, **capire significato**
+-   ⚡ L'auto-attenzione è **parallela** e **scala bene** a testi lunghi
+:::
+
+::: notes
+L'auto-attenzione è il cuore del Transformer. Invece di leggere una parola dopo l'altra (come un RNN), il Transformer guarda l'intera frase contemporaneamente. Per ogni parola, si chiede: *"Quali altre parole sono importanti per capirmi?"*
+
+Ad esempio, in "Il fegato è ingrossato perché è infiammato", la parola "è" (il secondo) deve connettersi a "fegato" per avere senso. L'auto-attenzione permette al modello di costruire queste **connessioni** automaticamente, e può farlo **per tutte le parole contemporaneamente**, non sequenzialmente. Questo rende i Transformer molto potenti — gestiscono dipendenze a lungo raggio e scalano efficientemente a grandi dataset.
+:::
+
+------------------------------------------------------------------------
+
+### [Come funziona l'Auto-Attenzione?]{style="color:#884EA0;"}
+
+#### [Tre passi: Query, Key, Value]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📚 **Ogni parola** è trasformata in tre vettori:
+    -   **Query (Q)**: Cosa sto cercando?
+    -   **Key (K)**: Cosa offro?
+    -   **Value (V)**: Quale informazione porto?
+-   🔍 **Punteggio di Attenzione** tra due parole:
+    -   Moltiplica Query di una parola × Key di un'altra
+-   🧮 Poi, i punteggi sono **normalizzati** e usati per mescolare i **Values**
+-   🎯 Questo dà a ogni parola una **nuova rappresentazione, consapevole del contesto**
+:::
+
+::: notes
+Ora approfondiamo un po' come viene effettivamente calcolata l'auto-attenzione. Ogni parola viene prima trasformata in tre vettori: - Una **Query** — che chiede "cosa sto cercando?" - Una **Key** — che dice "cosa ho da offrire?" - Un **Value** — che porta il contenuto informativo effettivo. Per scoprire **quanta attenzione** una parola dovrebbe prestare a un'altra, moltiplichiamo la Query della prima parola per la Key della seconda parola. Questo dà un **punteggio**: una misura di quanto sia importante quella seconda parola per la prima. Tutti i punteggi vengono **normalizzati** (tipicamente usando una funzione softmax) in modo che sommino a 1, e poi usati per combinare i **Values** di tutte le parole. Il risultato è un **nuovo vettore** per ogni parola, ma ora **arricchito con informazioni dall'intera frase**. È così che il modello cattura relazioni complesse — efficientemente e in parallelo.
+:::
+
+------------------------------------------------------------------------
+
+## [Esempi Medici di Auto-Attenzione]{style="color:#2E86C1;"}
+
+### [Come gli LLM risolvono l'ambiguità nel testo clinico]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📋 **Esempio di Nota Clinica**: \> "Paziente presentato con dolore in QSD. Ecografia ha mostrato una lesione ipoecogena. \> La TC ha confermato che si trattava di un emangioma. Misurava 2.3 cm."
+-   🧠 **Sfida dell'Ambiguità**: Quale "si" / "esso" si riferisce a cosa?
+    -   Il primo riferimento ("si trattava") = la lesione (collegandosi alla frase precedente)
+    -   Il secondo riferimento ("Misurava") = l'emangioma (riferimento immediatamente precedente)
+-   👁️ L'**Auto-attenzione permette** al modello di creare queste connessioni automaticamente
+:::
+
+::: notes
+Questa slide dimostra come l'auto-attenzione funziona in un contesto clinico reale. Il pronome ambiguo appare due volte (nell'originale inglese "it"), e il modello deve determinare a cosa si riferisce ogni istanza. Nella NLP tradizionale, questo sarebbe estremamente difficile, ma i meccanismi di attenzione permettono al modello di assegnare pesi diversi a parole diverse nel contesto, effettivamente "guardando indietro" per trovare il sostantivo più rilevante. Questo è particolarmente importante nella documentazione clinica, dove l'ambiguità referenziale è comune e gli errori di risoluzione potrebbero portare a gravi malintesi.
+:::
+
+------------------------------------------------------------------------
+
+### [Cos'è la Codifica Posizionale?]{style="color:#884EA0;"}
+
+#### [Come i Transformer conoscono l'ordine delle parole]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   🧠 I Transformer **vedono tutte le parole insieme** — ma devono conoscere il loro **ordine**
+-   🧭 La **Codifica Posizionale** aggiunge informazione sulla **posizione** a ogni parola
+-   🔢 Due modi per codificare la posizione:
+    -   Aggiungere **pattern fissi** (es., funzioni seno e coseno)
+    -   Oppure **apprendere** gli embedding di posizione durante l'addestramento
+-   🧩 Senza codifica posizionale:
+    -   Il modello tratterebbe le frasi come sacchi di parole non ordinati!
+:::
+
+::: {.column width="45%"}
+![](images/positional_enc.png){width="70%"}
+:::
+:::::
+
+::: notes
+I Transformer sono speciali perché elaborano tutte le parole **in parallelo** — nessuna parola viene "prima" di un'altra per impostazione predefinita. Ma nel linguaggio, l'**ordine conta**.
+
+Ad esempio, "Il paziente è stato trattato con successo" è molto diverso da "Il paziente ha trattato con successo." Per risolvere questo, usiamo la **Codifica Posizionale**.
+
+Ogni parola riceve un piccolo "tag di posizione" — o un **pattern matematico fisso** (like curve seno/coseno) o un **embedding appreso**. Senza questo, un Transformer **perderebbe il senso della sequenza** — trattando le parole come una lista non ordinata. Grazie alla codifica posizionale, i Transformer possono capire strutture complesse di frasi elaborando tutto in parallelo.
+:::
+
+------------------------------------------------------------------------
+
+### [Cosa sono gli Embedding di Parole?]{style="color:#884EA0;"}
+
+#### [Trasformare le parole in numeri]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔢 I computer hanno bisogno di **numeri**, non di testo
+-   🧠 **Embedding** = rappresentare una parola come un **vettore** di numeri
+-   📚 Parole simili → vettori simili
+    -   "fegato" vicino a "rene", lontano da "auto"
+-   ➡️ Gli embedding **catturano il significato** da grandi corpora
+:::
+
+::: notes
+I computer non possono capire direttamente le parole — elaborano numeri. Gli **Embedding** risolvono questo problema trasformando ogni parola in un vettore di numeri — una lista come \[0.1, 0.3, -0.2, ...\]. L'idea chiave è che **parole simili** hanno **vettori simili**: - "Fegato" e "Rene" sono vicini. - "Fegato" e "Auto" sono lontani.
+
+Questa mappatura viene appresa automaticamente da modelli come Word2Vec, GloVe, e anche durante il pre-addestramento dei Transformer. Quindi, gli embedding catturano il **significato semantico** da come le parole appaiono insieme in grandi collezioni di testo.
+:::
+
+------------------------------------------------------------------------
+
+### [Embedding nei Transformer]{style="color:#884EA0;"}
+
+#### [Primo passo prima dell'Attenzione]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   🏗️ Ogni parola di input è mappata al suo **vettore di embedding**
+-   ➡️ Poi viene aggiunta la **codifica posizionale**
+-   ⚡ Il vettore combinato entra nei layer del Transformer
+-   🎯 Gli embedding sono **affinati** durante l'addestramento
+:::
+
+::: {.column width="45%"}
+![](images/embeddings.png){width="60%"}
+:::
+:::::
+
+::: notes
+In un Transformer, la **primissima operazione** è trasformare ogni parola di input in un **vettore di embedding**. Poi, la **codifica posizionale** viene aggiunta a quell'embedding per inserire l'informazione sull'ordine. Questo vettore combinato — significato + posizione — è il vero input ai layer di attenzione. È importante notare che gli embedding non sono fissi: durante l'addestramento (fine-tuning), il modello può **aggiustarli** per il compito specifico — come diagnosi, generazione di referti o altre applicazioni cliniche. Quindi, gli embedding formano la base su cui viene costruita tutta la comprensione superiore.
+:::
+
+------------------------------------------------------------------------
+
+### [Cos'è il Pre-addestramento?]{style="color:#884EA0;"}
+
+#### [Insegnare a un modello competenze linguistiche generali]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📚 **Pre-addestramento** = addestrare un modello su **enormi dataset di testo**
+-   🧠 Obiettivo: imparare grammatica, fatti, pattern di ragionamento
+-   🔄 Nessun compito specifico — il modello prevede parole mancanti o parole successive
+-   🌍 Fonti di dati: libri, siti web, articoli medici, conversazioni
+-   🎯 Risultato: un **modello di uso generale** pronto per l'adattamento
+:::
+
+::: notes
+Il pre-addestramento è come dare a un modello un'enorme educazione. Lo esponiamo a **milioni o miliardi di frasi** — coprendo argomenti dalla conversazione quotidiana alla medicina, legge, scienza e altro ancora. L'obiettivo del modello non è risolvere un compito particolare ma imparare: - Come funziona il linguaggio (sintassi, semantica) - Conoscenza generale del mondo - Ragionamento di senso comune
+
+Compiti tipici durante il pre-addestramento: - Prevedere la parola successiva in una frase (autoregressivo) - Riempire le parole mancanti (modellazione del linguaggio mascherato)
+
+Alla fine del pre-addestramento, otteniamo un **modello generalista** — bravo a capire e generare linguaggio ma non ancora specializzato per un lavoro specifico (come la diagnosi clinica o la scrittura di referti di laboratorio).
+:::
+
+------------------------------------------------------------------------
+
+### [Cos'è il Fine-tuning?]{style="color:#884EA0;"}
+
+#### [Specializzare il modello per un compito specifico]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   🔧 **Fine-tuning** = addestramento aggiuntivo su **dataset specifici**
+-   🧪 Obiettivo: adattare il modello a compiti **medici**, **clinici** o di **laboratorio**
+-   🏥 Esempi:
+    -   Prevedere malattie dai sintomi
+    -   Riassumere risultati di laboratorio
+    -   Generare referti medici
+-   🎯 Risultato: un **modello specializzato** focalizzato su un dominio
+:::
+
+::: {.column width="45%"}
+![](images/training.png){width="60%"}
+:::
+:::::
+
+::: notes
+Dopo il pre-addestramento, il modello è un "tuttofare" — bravo, ma non ottimizzato per lavori specifici.
+
+Il **Fine-tuning** è come mandare il modello alla scuola di medicina! Lo addestriamo di nuovo, ma questa volta: - Su **dataset specializzati** (es., note cliniche, referti di laboratorio, storie dei pazienti) - Per **obiettivi specifici** (diagnosi, triage, scrittura di referti)
+
+Il modello impara a concentrarsi su ciò che conta in quel dominio: - Terminologia medica - Pattern di ragionamento tipici - Fatti critici
+
+Dopo il fine-tuning, il modello diventa **molto migliore nei compiti clinici e di laboratorio**, ma potrebbe anche "dimenticare" alcune conoscenze generali — è più **specializzato sul dominio**.
+:::
+
+------------------------------------------------------------------------
+
+### [Interpretabilità negli LLM]{style="color:#884EA0;"}
+
+#### [Perché capire il comportamento del modello è importante]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔍 **Interpretabilità** = capire **come e perché** un modello dà una risposta
+-   🧠 Importante in contesti clinici e di laboratorio:
+    -   Spiegare previsioni e raccomandazioni
+    -   Costruire fiducia con utenti e pazienti
+-   ⚙️ Tecniche emergenti:
+    -   Visualizzazione dell'attenzione
+    -   Attribuzione delle feature (es., SHAP, LIME)
+    -   Prompting Chain-of-thought
+-   🚨 Sfida: gli LLM sono complessi e non completamente trasparenti
+:::
+
+::: notes
+Interpretabilità significa essere in grado di **capire** e **spiegare** gli output di un modello. In contesti clinici, questo è cruciale: - I medici devono sapere perché un modello suggerisce una diagnosi o un trattamento. - I pazienti devono fidarsi dei consigli generati dall'IA.
+
+Alcuni strumenti possono aiutare: - **Mappe di attenzione**: visualizzano su quali parti dell'input il modello si è concentrato. - **Metodi di attribuzione delle feature**: come SHAP e LIME, che stimano quali input hanno influenzato la previsione. - **Prompting Chain-of-thought**: far sì che il modello "spieghi il suo ragionamento" passo dopo passo. Tuttavia, gli LLM attuali sono così grandi e intricati che la **piena trasparenza è ancora molto difficile**. L'interpretabilità rimane un campo di ricerca aperto!
+:::
+
+------------------------------------------------------------------------
+
+### [Limitazioni degli LLM]{style="color:#884EA0;"}
+
+#### [Allucinazioni e Bias Algoritmico]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🎭 **Allucinazioni**: il modello inventa informazioni plausibili ma false
+    -   Pericolo: risposte sicure ma sbagliate
+-   ⚖️ **Bias Algoritmico**: il modello riproduce i bias dai dati di addestramento
+    -   Rischio: risultati ingiusti per certi gruppi
+-   🚑 Nell'uso clinico:
+    -   Richiedere sempre la validazione umana
+    -   Preferire il fine-tuning specifico del dominio
+:::
+
+::: notes
+Due rischi principali con gli LLM sono:
+
+-   **Allucinazioni**: quando il modello "inventa" fatti che sembrano credibili ma sono errati.
+    -   In medicina, questo può essere **pericoloso** se informazioni sbagliate vengono usate per prendere decisioni.
+-   **Bias Algoritmico**: i modelli possono riprodurre involontariamente bias sociali o dei dataset (es., razziali, di genere, socioeconomici). Nei campi clinico e di laboratorio:
+-   Gli output degli LLM **devono sempre essere revisionati** da professionisti.
+-   L'addestramento o il fine-tuning su **dati medici di alta qualità e curati** può ridurre ma non eliminare questi problemi. L'IA dovrebbe **supportare**, non **sostituire**, il pensiero critico!
+:::
+
+------------------------------------------------------------------------
+
+## [Esempi Medici di Allucinazioni]{style="color:#2E86C1;"}
+
+### [Quando gli LLM inventano informazioni cliniche]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   🩺 **Prompt**: "Quali sono gli intervalli normali per i test di funzionalità epatica?"
+-   ✅ **Risposte accurate**:
+    -   "Intervallo normale ALT: 7-56 U/L"
+    -   "Intervallo normale AST: 8-48 U/L"
+-   ❌ **Risposte allucinate**:
+    -   "Intervallo normale GGT: 15-30 U/L" (reale: 9-48 U/L)
+    -   "Albumina: 3.5-6.0 g/dL" (reale: 3.5-5.0 g/dL)
+:::
+
+::: {.column width="45%" style="font-size: 0.85em;"}
+-   🚨 **Pericoli clinici**:
+    -   Falsa sicurezza in valori inaccurati
+    -   Gli intervalli di riferimento variano per laboratorio/popolazione
+    -   Errori sottili più difficili da rilevare di quelli evidenti
+:::
+:::::
+
+::: notes
+Questa slide illustra come le allucinazioni si manifestano nelle applicazioni cliniche. Il modello fornisce un mix di informazioni accurate e inaccurate, ma le presenta tutte con lo stesso livello di confidenza. Ciò che rende questo particolarmente pericoloso è che i valori allucinati non sono selvaggiamente errati - sono abbastanza plausibili che qualcuno potrebbe non notarli senza controllare. Questo è il problema "plausibile ma sbagliato" di cui abbiamo discusso prima. In contesti clinici, queste sottili allucinazioni possono essere più pericolose degli errori evidenti perché è meno probabile che scatenino scetticismo o verifica.
+:::
+
+------------------------------------------------------------------------
+
+### [LLM in Medicina Clinica e di Laboratorio]{style="color:#884EA0;"}
+
+#### [Pro e Contro]{style="color:#117A65;"}
+
+| ✅ Vantaggi | ⚠️ Limitazioni |
+|:----------------------------------|:------------------------------------|
+| Recupero rapido delle informazioni | Allucinazioni: risposte plausibili ma sbagliate |
+| Assistenza nel supporto decisionale | Bias algoritmico dai dati di addestramento |
+| Riassumere testi medici complessi | Mancanza di piena interpretabilità |
+| Aiuto nella generazione di referti e documentazione | Rischio di eccessiva fiducia negli output |
+| Supporto disponibile 24/7, scalabile | Dipendenza dalla validazione umana per la sicurezza |
+
+::: notes
+Qui riassumiamo i principali **vantaggi** e **limitazioni** dell'uso degli LLM in contesti clinici e di laboratorio. ✅ **Vantaggi**: - Accelerare l'accesso alle informazioni e la refertazione. - Supportare i clinici con suggerimenti e riassunti. - Operare continuamente, senza affaticamento.
+
+⚠️ **Limitazioni**: - Rischio di **allucinare** risposte sbagliate ma convincenti. - Potenziali **bias** ereditati da dati imperfetti. - **Ragionamento opaco**: spesso non possiamo capire appieno perché un modello dà una certa risposta. Quindi, gli LLM sono potenti **assistenti**, ma **richiedono la supervisione di esperti** in tutte le decisioni critiche.
+:::
+
+------------------------------------------------------------------------
+
+### [LLM: Piacerti, Non Cercare la Verità]{style="color:#884EA0;"}
+
+#### [Perché plausibile ≠ corretto]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🎭 Gli LLM sono addestrati per **sembrare convincenti**, non per **dire la verità**
+-   🤝 Obiettivo: produrre risposte che sembrano **utili, coerenti, piacevoli**
+-   ❌ Rischio: se incerto, il modello **indovina** fatti plausibili ma sbagliati
+-   🚨 Pericolo in contesti clinici: informazioni sbagliate possono sembrare molto credibili
+-   🧠 Richiedere sempre revisione critica e validazione umana
+:::
+
+::: notes
+I Grandi Modelli Linguistici **non sono progettati** per trovare la verità — sono progettati per **prevedere le parole successive più probabili**. Il loro obiettivo è **soddisfare l'utente**, dando risposte che suonano fluenti, sicure e utili. Questo significa: - Quando "sanno", sono spesso brillanti. - Quando "non sanno", **producono comunque una risposta**, anche se è sbagliata. - Non dicono "Non lo so" a meno che non siano esplicitamente programmati o istruiti a farlo. In contesti clinici, questa tendenza è **molto pericolosa**: - Gli errori possono essere nascosti dietro un linguaggio perfettamente strutturato. - I clinici devono sempre **valutare criticamente** gli output degli LLM. - Nessun output LLM dovrebbe mai sostituire il giudizio professionale. Insegnare agli utenti: **Plausibilità non è correttezza**!
+:::
+
+------------------------------------------------------------------------
+
+### [⚠️ Attenzione: Plausibilità NON è Verità]{style="color:#C0392B;"}
+
+:::: {style="font-size: 0.95em;"}
+::: callout-warning
+> -   Una risposta fluente e sicura **può comunque essere sbagliata**.
+> -   Gli LLM sono **premiati** per sembrare utili, non per essere accurati.
+> -   Nelle applicazioni cliniche e di laboratorio: **validare sempre** prima di fidarsi.
+:::
+::::
+
+------------------------------------------------------------------------
+
+### [Parametri Chiave del Modello negli LLM]{style="color:#884EA0;"}
+
+#### [Come controllare il comportamento dell'IA]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🌡️ **Temperatura**: livello di casualità (più alto = più creativo, più basso = più focalizzato)
+-   🎯 **Top-p (nucleus sampling)**: limita le scelte alle parole più probabili
+-   ✂️ **Max tokens**: lunghezza massima dell'output
+-   🔁 **Penalità di frequenza**: scoraggia la ripetizione delle stesse parole
+-   🧠 Affinare questi aiuta ad adattare il modello alle esigenze cliniche
+:::
+
+::: notes
+Diamo ora uno sguardo rapido ma importante ai parametri chiave che controllano come risponde un LLM. Il primo è la **temperatura**. Questo definisce la **casualità** degli output del modello: - Una **temperatura più alta** — ad esempio, 0.7 o 1.0 — rende il modello **più creativo**, ma anche **più imprevedibile**. - Una **temperatura più bassa** — come 0.2 o 0.1 — lo rende **più focalizzato e ripetitivo**. Nel lavoro clinico, di solito preferiamo **temperature più basse** per ottenere risposte coerenti e sicure. Il secondo è **top-p**, noto anche come **nucleus sampling**. Limita il modello a scegliere solo tra le **parole più probabili**, invece di esplorare l'intero vocabolario. Valori di top-p più piccoli rendono il modello **più conservativo**. Il terzo è **max tokens** — il numero massimo di parole o caratteri che il modello è autorizzato a generare. Questo gli impedisce di produrre output infiniti o andare fuori tema. Infine, c'è la **penalità di frequenza**, che dice al modello: *"Non ripeterti troppo."* Utile quando si desiderano riassunti concisi e non ridondanti. Regolare correttamente questi parametri fa un'enorme differenza — specialmente in campi sensibili come la medicina, dove vogliamo output **affidabili e prevedibili**.
+:::
+
+------------------------------------------------------------------------
+
+### [Impostazioni della Temperatura per Uso Clinico]{style="color:#2E86C1;"}
+
+#### [Trovare il giusto equilibrio tra creatività e accuratezza]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   🌡️ **Scala della temperatura**:
+    -   0.0-0.3: Più deterministico, coerente
+    -   0.4-0.7: Creatività bilanciata
+    -   0.8-1.0: Massima creatività, imprevedibilità
+-   🩺 **Raccomandazioni cliniche**:
+    -   Documentazione del paziente: 0.1-0.2
+    -   Diagnosi differenziale: 0.3-0.5
+    -   Materiali educativi per pazienti: 0.4-0.6
+    -   Brainstorming di ricerca: 0.7-0.8
+:::
+
+::: {.column width="45%" style="font-size: 0.85em;"}
+-   ⚠️ **Esempio di impatto**: **Temperatura 0.1**: \> "Enzimi epatici elevati possono indicare danno epatocellulare." **Temperatura 0.7**: \> "Enzimi epatici elevati potrebbero suggerire danno epatocellulare, ostruzione biliare, effetti di farmaci o varie condizioni sistemiche."
+:::
+:::::
+
+::: notes
+Parliamo ora di un parametro cruciale che viene spesso trascurato: la temperatura. Questo parametro controlla essenzialmente quanto "creativo" o imprevedibile può essere il modello nelle sue risposte. Una bassa temperatura, tra 0.0 e 0.3, produce risposte molto coerenti e conservative. Il modello risponderà quasi sempre allo stesso modo alla stessa domanda. Una temperatura media, tra 0.4 e 0.7, consente una maggiore variabilità. Con temperature elevate, tra 0.8 e 1.0, otteniamo risposte molto creative ma potenzialmente imprevedibili. In contesti clinici, queste differenze sono fondamentali. Per la documentazione del paziente, vogliamo massima precisione e coerenza, quindi consiglio temperature molto basse, tra 0.1 e 0.2. Il rischio di errori o allucinazioni deve essere minimizzato.
+
+Per generare diagnosi differenziali, una temperatura leggermente più alta (0.3-0.5) è appropriata, perché vogliamo che il modello consideri diverse possibilità senza diventare troppo speculativo. Per i materiali educativi per i pazienti, possiamo salire a 0.4-0.6, consentendo un linguaggio più naturale e vario. E per il brainstorming di ricerca, dove la creatività è preziosa, temperature tra 0.7 e 0.8 possono generare idee innovative. Guardate gli esempi a destra: a temperatura 0.1, il modello fornisce una risposta concisa e cauta sugli enzimi epatici. A 0.7, esplora invece una gamma più ampia di possibilità. Entrambi sono corretti, ma servono a scopi diversi. Ricordate: in medicina, non esiste una temperatura "giusta" - dipende dal vostro obiettivo specifico e dal livello di rischio accettabile.
+:::
+
+------------------------------------------------------------------------
+
+### [Cosa sono i Token?]{style="color:#884EA0;"}
+
+#### [I mattoni dei modelli linguistici]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧩 **Token** = piccoli pezzi di testo (parole, parti di parole, simboli)
+-   📏 I modelli elaborano il testo **token per token**, non carattere per carattere
+-   🧮 1 parola ≈ 1–3 token (a seconda della lingua e della complessità)
+-   ✂️ **Max tokens** limita la lunghezza totale dell'input + output
+-   ⚡ Costi e velocità dipendono spesso dal numero di token utilizzati
+:::
+
+::: notes
+Ora spieghiamo rapidamente cos'è effettivamente un token, perché è fondamentale per capire come funzionano gli LLM. Un **token** è **un piccolo pezzo di testo**. Potrebbe essere una parola, parte di una parola, un simbolo o anche un pezzo di punteggiatura. Ad esempio: - La parola "ospedale" è di solito **un token**. - La parola "referto-dimissione" potrebbe essere **divisa in due o tre token**, a seconda del tokenizer del modello. I modelli **non leggono frasi intere contemporaneamente** — elaborano il testo **token per token**, passo dopo passo. In media, **una parola inglese equivale a circa 1-1.5 token** — ma in lingue più complesse o testi tecnici, potrebbe arrivare a 2 o 3 token per parola. Il numero di token è estremamente importante perché: - **Limita** quanto testo puoi inviare e ricevere in una chiamata. - **Influisce sui costi** se stai usando un'API a pagamento. - **Influenza la velocità**: più token significano risposte più lente. In termini pratici: Controlla sempre i **limiti di token** del tuo modello — specialmente quando riassumi grandi documenti clinici o fai elaborazioni batch.
+:::
+
+------------------------------------------------------------------------
+
+### [Esempio: Come il Testo Diventa Token]{style="color:#884EA0;"}
+
+#### [Frase clinica reale suddivisa in token]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📄 Frase: \> "Paziente dimesso in condizioni stabili."
+-   🧩 Tokenizzazione:
+    -   "Paziente"
+    -   " dimesso"
+    -   " in"
+    -   " condizioni"
+    -   " stabili"
+    -   "."
+-   🔢 Totale: 6 token
+
+✅ Anche frasi brevi possono usare più token!
+:::
+
+::: notes
+Vediamo un esempio reale di come funziona la tokenizzazione. Prendiamo questa semplice frase clinica: *"Paziente dimesso in condizioni stabili."*
+
+Quando elaborata da un modello linguistico, non la vede come un unico grande blocco. La divide in parti più piccole, chiamate token. I token sarebbero: - "Paziente" - " dimesso" - " in" - " condizioni" - " stabili" - "." Notate come anche piccoli spazi e prefissi (" dimesso" con uno spazio) possano diventare token separati. In totale, questa minuscola frase usa **6 token**.
+
+Questo è il motivo per cui, lavorando con lunghi testi clinici come lettere di dimissione o referti radiologici, i **limiti di token** possono diventare un vincolo reale — anche se il testo non sembra molto lungo a un lettore umano!
+:::
+
+------------------------------------------------------------------------
+
+### [Come gli LLM Elaborano le Immagini]{style="color:#884EA0;"}
+
+#### [Trasformare le immagini in linguaggio]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📸 **Le immagini vengono convertite in feature numeriche** (array di numeri)
+-   🔎 **Un codificatore di visione** estrae elementi chiave: forme, colori, oggetti, testo
+-   🧠 Le feature sono **interpretate dal modello linguistico**
+-   🖋️ Il modello genera descrizioni, risposte o didascalie basate sugli input visivi
+-   ⚡ Uso clinico: analisi di raggi X, MRI, vetrini patologici, diagrammi
+:::
+
+::: notes
+Vediamo rapidamente come i moderni LLM multimodali possono elaborare immagini e le somiglianze con l'elaborazione delle parole. Primo, quando invii un'immagine al modello, **non vede un'immagine** come noi. Invece, l'immagine viene **convertita in un array numerico** — una lunga lista di numeri che rappresentano colori, forme e pixel. Un componente speciale chiamato **codificatore di visione** analizza l'immagine. Estrae le feature visive chiave: - Oggetti - Testo - Posizioni - Pattern generali
+
+Queste feature estratte vengono poi **inserite nel modello linguistico**, che le interpreta proprio come un prompt in forma testuale. Infine, il modello può **descrivere l'immagine**, **rispondere a domande su di essa** o **ragionare basandosi su ciò che ha "visto"**. Nella pratica clinica, questo approccio apre possibilità come: - Descrivere automaticamente i raggi X - Riassumere i risultati delle MRI - Interpretare i vetrini patologici - Leggere note scritte a mano in PDF scansionati
+
+Il ponte tra visione e linguaggio è ciò che rende i modelli multimodali così potenti.
+:::
+
+------------------------------------------------------------------------
+
+### [Applicazioni Multimodali in Medicina]{style="color:#2E86C1;"}
+
+#### [Oltre il testo: LLM con capacità visive]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   🔬 **Applicazioni cliniche**:
+    -   Descrivere immagini radiologiche
+    -   Interpretare pattern ECG
+    -   Analizzare vetrini di microscopia
+    -   Leggere note mediche scritte a mano
+-   ⚡ **Esempi di workflow**:
+    -   Carica immagine + aggiungi domanda clinica
+    -   Il modello interpreta contesto visivo + testuale
+    -   La risposta incorpora entrambe le modalità
+:::
+
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   🔍 **Esempio di prompt**: \> "Questa è una radiografia del torace di un paziente di 65 anni con dispnea. Descrivi ciò che vedi e eventuali anomalie potenziali."
+-   ⚠️ **Limitazioni**:
+    -   Non approvato dalla FDA per la diagnosi
+    -   Prestazioni variabili tra tipi di immagine
+    -   Richiede verifica clinica
+:::
+:::::
+
+::: notes
+Entriamo nell'eccitante territorio dei modelli multimodali - LLM che possono elaborare sia testo che immagini. Questa è una vera rivoluzione per la medicina, dove l'informazione visiva è spesso cruciale. Modelli come GPT-4V, Claude 3 e Gemini possono letteralmente "vedere" immagini mediche e discuterne in contesto clinico. Le applicazioni sono enormi: possono descrivere immagini radiologiche, interpretare pattern ECG, analizzare vetrini di microscopia e persino leggere note mediche scritte a mano che i sistemi OCR tradizionali faticherebbero a decifrare. Il workflow è intuitivo: carichi un'immagine, aggiungi una domanda clinica e il modello integra entrambe le modalità nella sua risposta. Ad esempio, puoi caricare una radiografia del torace e chiedere "Cosa vedi in questa radiografia di un paziente di 65 anni con dispnea?" Il modello descriverà i reperti visibili considerando il contesto clinico fornito. Questo è particolarmente potente perché combina l'analisi visiva con la conoscenza medica. Non descrive solo l'immagine, ma la interpreta alla luce della storia clinica. Naturalmente, ci sono limitazioni importanti. Questi sistemi non sono approvati dalla FDA per la diagnosi - sono strumenti di assistenza, non sostituti del giudizio clinico. Le prestazioni variano significativamente tra diverse modalità di imaging e tipi di immagine. E ogni output richiede verifica clinica. Ma il potenziale è innegabile. Stiamo vedendo radiologi usare questi strumenti per generare bozze preliminari di referti, patologi usarli per confrontare campioni con casi simili e cardiologi accelerare l'interpretazione ECG di routine. La chiave è usarli come assistenti intelligenti, non come sostituti del giudizio esperto.
+:::
+
+------------------------------------------------------------------------
+
+### [Modelli Linguistici Generali vs Specifici per la Medicina]{style="color:#154360;"}
+
+#### [Scegliere lo strumento giusto per le applicazioni cliniche]{style="color:#117A65;"}
+
+:::: {style="font-size: 0.9em;"}
+-   🌍 **LLM Generali** Addestrati su vasti dati internet ➔ Versatili ma superficiali in medicina. **Esempi**: ChatGPT, Claude, Mistral. 
+
+---
+
+-   🩺 **LLM Specifici per la Medicina** Addestrati su cartelle cliniche, linee guida, articoli scientifici ➔ Accurati ma meno flessibili. **Esempi**: PathChat, BrainGPT, LiVersa.
+
+---
+
+::: callout-note
+⚖️ **Compromesso chiave**: Ampie competenze (**modelli generali**) vs Expertise profonda (**modelli medici**)
+:::
+::::
+
+::: notes
+Esploriamo ora una distinzione cruciale se volete usare correttamente l'IA nel lavoro clinico o di laboratorio. Abbiamo due categorie principali di modelli linguistici:
+
+Da un lato, ci sono i **modelli di uso generale**, come ChatGPT, Claude e Mistral. Questi modelli sono addestrati su enormi quantità di dati internet generali. Questo li rende estremamente **versatili** — possono ragionare, riassumere, improvvisare in molti domini. Ma ecco il tranello: non **capiscono veramente la medicina**. Possono sembrare **molto sicuri** anche quando usano la terminologia sbagliata o mancano importanti sfumature cliniche. Dall'altro lato, abbiamo i **modelli specifici per la medicina**, come PathChat, BrainGPT e LiVersa. Questi modelli sono addestrati **esclusivamente** su dataset clinici: cartelle cliniche, linee guida e articoli scientifici. Il risultato? - Terminologia medica **molto migliore**, - Maggiore **accuratezza contestuale**, - Maggiore **sicurezza** nel gestire informazioni cliniche. Tuttavia, tendono ad essere **meno flessibili** fuori dal loro dominio, e molti sono **chiusi** o specifici dell'istituzione. **In conclusione**: Quando si sceglie un LLM per il lavoro clinico, bisogna **bilanciare due esigenze**: - **Generalità** versus **specializzazione**, - **Disponibilità** versus **affidabilità**. Non c'è una risposta universale — dipende interamente dal compito specifico e dal livello di rischio coinvolto!
+:::
+
+------------------------------------------------------------------------
+
+### [Applicazioni Specifiche per Specialità]{style="color:#2E86C1;"}
+
+#### [Casi d'uso degli LLM nelle discipline mediche]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🫀 **Cardiologia**:
+    -   Assistenza all'interpretazione ECG
+    -   Protocolli di gestione dell'insufficienza cardiaca
+-   🧠 **Neurologia**:
+    -   Documentazione della valutazione cognitiva
+    -   Descrizione dei pattern epilettici
+-   🔬 **Patologia**:
+    -   Refertazione standardizzata dei campioni
+    -   Ricerca bibliografica per reperti rari
+-   🩸 **Medicina di Laboratorio**:
+    -   Guida all'interpretazione dei test
+    -   Documentazione e standardizzazione dei protocolli
+    -   Pianificazione di sequenze complesse di test
+:::
+
+::: notes
+So che abbiamo specialisti di diverse discipline mediche in questa stanza, quindi voglio mostrare come gli LLM possono essere applicati specificamente nelle vostre aree di competenza. Per i cardiologi, gli LLM possono assistere nell'interpretazione ECG, evidenziando pattern potenzialmente rilevanti. Sono particolarmente utili per standardizzare i protocolli di gestione dell'insufficienza cardiaca, personalizzandoli per specifiche sottopopolazioni di pazienti. In neurologia, questi modelli eccellono nella documentazione delle valutazioni cognitive, dove possono strutturare osservazioni complesse in formati standardizzati. Possono anche assistere nella descrizione dettagliata dei pattern epilettici, migliorando la coerenza della documentazione tra diversi operatori. I patologi stanno già usando gli LLM per standardizzare i referti dei campioni, assicurando che tutti gli elementi necessari siano inclusi e formattati in modo coerente. Un'applicazione particolarmente potente è la rapida ricerca bibliografica quando si incontrano reperti rari o insoliti - un modello può analizzare migliaia di articoli in secondi e sintetizzare informazioni rilevanti. Nella medicina di laboratorio, gli LLM stanno rivoluzionando la creazione di guide interpretative per test complessi, la standardizzazione della documentazione dei protocolli e la pianificazione di sequenze complesse di test. Possono aiutare a determinare quali test dovrebbero seguire i risultati iniziali anormali, basandosi su linee guida aggiornate. Queste applicazioni sono solo la punta dell'iceberg. L'idea chiave è che gli LLM non sono strumenti generici - possono essere adattati alle esigenze specifiche della vostra disciplina. Vi invito a pensare ai processi documentali o decisionali nella vostra pratica quotidiana che potrebbero beneficiare di un'assistenza intelligente.
+:::
+
+------------------------------------------------------------------------
+
+### [Modalità Chat vs Modalità API]{style="color:#154360;"}
+
+#### [Due modi per interagire con gli LLM]{style="color:#117A65;"}
+
+::: {style="font-size: 0.9em;"}
+-   💬 **Modalità Chat**: ➔ Interattiva, non richiede programmazione. ➔ Ideale per brainstorming, esplorazione. ➔ ❗ Meno controllo e riproducibilità.
+
+---
+
+-   🔗 **Modalità API**: ➔ Query programmatiche strutturate. ➔ Ideale per automazione, scalabilità. ➔ ✅ Pieno controllo sugli output.
+:::
+
+---
+
+::: callout-note
+⚡ **Consiglio Chiave**: Usa la **Modalità Chat** per esplorare. Usa la **Modalità API** per automatizzare.
+:::
+
+::: notes
+Arriviamo ora a una distinzione molto pratica che dovete capire se volete lavorare effettivamente con gli LLM. Ci sono due modi principali per interagire con questi modelli:
+
+Primo, la **Modalità Chat**. Questa è la più familiare — come usare ChatGPT nel browser. È **interattiva**: invii un prompt, ottieni una risposta e puoi continuare a perfezionare la tua richiesta passo dopo passo. È perfetta per **esplorare**, **fare brainstorming** e **prototipare rapidamente** idee cliniche — ad esempio, aiutare a redigere un referto di laboratorio o riassumere linee guida. La bellezza è: **non sono richieste competenze di programmazione**. Ma — e questo è importante — **hai meno controllo**. Non puoi facilmente automatizzare o ripetere compiti esattamente allo stesso modo ogni volta. Poi abbiamo la **Modalità API**. Qui, invece di chattare, invii richieste **programmaticamente** — tramite codice o semplici script. Puoi automatizzare i workflow: analizzare in batch referti clinici, generare centinaia di riassunti, integrare gli LLM nei sistemi ospedalieri. Richiede **programmazione minima**: richieste HTTP di base, facili da imparare anche per i non sviluppatori. L'enorme vantaggio è la **precisione e la scalabilità** — definisci esattamente cosa vuoi, ogni volta. **In conclusione**: - Usa la **Modalità Chat** per esplorare e pensare. - Usa la **Modalità API** per costruire e scalare le tue soluzioni. Entrambe sono potenti, ma servono esigenze molto diverse.
+:::
+
+------------------------------------------------------------------------
+
+### [Finestra di Contesto: Quanto un LLM Può Ricordare]{style="color:#884EA0;"}
+
+#### [Perché i limiti di token contano per le conversazioni]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 **Finestra di contesto** = numero massimo di token che il modello può elaborare contemporaneamente
+-   📏 Include sia **il tuo prompt** che **la risposta del modello**
+-   🚫 Se la conversazione supera il limite, i token vecchi vengono scartati ("dimenticanza")
+-   📉 Chat lunghe possono perdere informazioni importanti precedenti
+-   🔍 Consiglio pratico: mantieni i prompt concisi, riassumi quando necessario
+:::
+
+::: notes
+Spieghiamo ora un concetto molto importante ma spesso trascurato: la **finestra di contesto** di un modello linguistico.
+
+La finestra di contesto definisce il **numero massimo di token** che il modello può gestire contemporaneamente. Questo include sia: - Il testo che scrivi (il prompt) - E il testo che il modello genera (la risposta)
+
+Ad esempio: - GPT-3.5 ha un limite di circa **4.096 token**. - GPT-4 può gestire fino a **8.192** o persino **32.768 token** in alcune versioni. - Modelli locali come Mistral gestiscono tipicamente **da 4.000 a 8.000 token**. Ma cosa succede se la tua conversazione diventa più lunga di questo limite? **Il modello inizia a dimenticare.** I token più vecchi vengono scartati automaticamente. Ciò significa: se la tua chat è troppo lunga, il modello potrebbe dimenticare dettagli importanti dall'inizio. Questo è particolarmente rischioso nelle applicazioni cliniche o scientifiche dove ogni dettaglio conta. **Consiglio pratico**: - Mantieni i tuoi prompt e le conversazioni **concisi**. - Usa **riassunti intermedi** se necessario. - Quando le chat diventano molto lunghe, **riafferma le informazioni chiave** per mantenerle attive nella memoria del modello. Gestire la finestra di contesto è fondamentale se si desidera un uso sicuro ed efficace degli LLM.
+:::
+
+------------------------------------------------------------------------
+
+### [Finestre di Contesto e Quanto Coprono]{style="color:#884EA0;"}
+
+#### [Limiti di memoria dei principali LLM]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+| Modello             | Finestra di Contesto | Pagine Appross. |
+|:--------------------|:---------------------|:----------------|
+| 🤖 GPT-3.5          | \~4,096 token        | \~10 pagine     |
+| 🧠 GPT-4 (standard) | \~8,192 token        | \~20 pagine     |
+| 🧠 GPT-4 (esteso)   | \~32,768 token       | \~80 pagine     |
+| 🤯 Claude 3         | \~200,000 token      | \~500 pagine    |
+| 🌟 Gemini 2.5 Pro   | \~2,000,000 token    | \~5,000 pagine  |
+| 🧩 Mistral 7B       | \~8,192 token        | \~20 pagine     |
+| 🦙 Llama 2 13B      | \~4,096 token        | \~10 pagine     |
+:::
+
+::: notes
+Aggiorniamo ora la nostra visione delle dimensioni della finestra di contesto — e rendiamola pratica pensando in termini di pagine di libro. **GPT-3.5**, il modello classico dietro ChatGPT, gestisce circa **4.000 token** — circa **10 pagine** di testo. **GPT-4**, nella sua forma standard, copre circa **8.000 token**, o circa **20 pagine**. La sua versione estesa, disponibile nei servizi premium, può elaborare circa **80 pagine** — davvero potente per compiti di ragionamento più lunghi. **Claude 3**, di Anthropic, è notevole: può gestire **circa 200.000 token**, circa **500 pagine** — quasi un intero libro di testo. **Gemini 2.5 Pro**, l'ultimo modello di Google, è ancora più estremo: Afferma di elaborare **2 milioni di token** — circa **5.000 pagine**. A quella scala, potresti inserire intere biblioteche di ricerca nel modello. **Mistral 7B**, un popolare modello open-source, gestisce circa **8.000 token**, paragonabile a GPT-4 standard. **Llama 2 13B** — un altro modello aperto — gestisce circa **4.000 token**. Il concetto chiave è semplice: I modelli moderni variano enormemente in quanta informazione possono "vedere" contemporaneamente. Scegliere il modello giusto e progettare prompt che si adattino alla finestra di contesto sono la chiave del successo, specialmente in contesti clinici, legali o accademici.
+:::
+
+------------------------------------------------------------------------
+
+### [Cosa Succede Quando Superi la Finestra di Contesto?]{style="color:#884EA0;"}
+
+#### [Come gli LLM gestiscono troppe informazioni]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   ⏳ Quando il limite di token viene superato, i **token più vecchi vengono scartati**
+-   🧠 Il modello "dimentica" le parti iniziali della conversazione
+-   🚑 Istruzioni critiche potrebbero andare perse
+-   📉 Prestazioni e coerenza si degradano
+-   🧹 Consiglio pratico: riassumi o riafferma periodicamente i punti chiave
+:::
+
+::: notes
+Discutiamo ora cosa succede quando superiamo la finestra di contesto del modello. Quando il numero di token — contando sia i tuoi prompt che le risposte del modello — **va oltre il limite consentito**, il modello automaticamente **scarta** i token più vecchi. Conserva solo i token più recenti che rientrano nella finestra massima. Questo significa che il modello inizia a **"dimenticare"** l'inizio della tua conversazione: - Istruzioni importanti - Dettagli critici - Definizioni che hai dato all'inizio
+
+In pratica, questo può **influenzare gravemente** le prestazioni — specialmente in discussioni cliniche, legali o tecniche dove il contesto iniziale conta. Per gestire questo, la migliore strategia è: - **Riassumere regolarmente**. - **Riaffermare le informazioni critiche** se la conversazione diventa lunga. In questo modo, anche se le parti più vecchie vengono dimenticate, il modello "vede" sempre i punti essenziali di cui ha bisogno per ragionare correttamente.
+:::
+
+------------------------------------------------------------------------
+
+### [Limitazioni della Finestra di Contesto nella Pratica Clinica]{style="color:#2E86C1;"}
+
+#### [Cosa succede quando i documenti medici superano i limiti di token]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📄 **Tipico riassunto di dimissione**: 500-1000 parole = \~750-1500 token
+
+-   ⚠️ **Rischi di troncamento**:
+
+    -   L'anamnesi medica precedente potrebbe essere tagliata
+    -   Le informazioni sui farmaci alla fine del documento potrebbero andare perse
+    -   Le istruzioni di follow-up potrebbero mancare
+
+-   💡 **Esempio clinico**: Riassunto del paziente con lista farmaci alla fine
+
+    -   Con 4K token: Informazioni complete elaborate
+    -   Con 2K token: Istruzioni critiche sull'anticoagulazione perse
+:::
+
+::: notes
+Questa slide illustra le implicazioni pratiche delle limitazioni della finestra di contesto quando si lavora con documenti clinici. Le cartelle cliniche tendono ad essere lunghe e informazioni importanti sono spesso distribuite in tutto il documento. Quando un modello può "vedere" solo una parte del documento a causa dei limiti di token, informazioni critiche possono essere perse. Nell'esempio mostrato, le istruzioni sui farmaci poste alla fine di un riassunto di dimissione potrebbero essere perse interamente se la finestra di contesto è troppo piccola, portando potenzialmente a errori di trattamento. Questo influisce direttamente su come dovremmo strutturare i prompt per le applicazioni cliniche e sottolinea perché i modelli più recenti con finestre di contesto più ampie (come Claude e GPT-4) rappresentano miglioramenti significativi per le applicazioni sanitarie.
+:::
+
+------------------------------------------------------------------------
+
+### [Proteggere il Contesto nelle Conversazioni Lunghe]{style="color:#884EA0;"}
+
+#### [Tecniche per evitare la perdita di informazioni critiche]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🛡️ **Istruzioni di Ancoraggio**:
+    -   Ripeti regole o istruzioni critiche ogni pochi prompt
+-   📝 **Iniezione di Riassunto**:
+    -   Riassumi i punti chiave e reinseriscili durante la chat
+-   📚 **Prompting Strutturato**:
+    -   Organizza chiaramente gli input: diagnosi, trattamenti, follow-up
+-   🚦 **Sessioni Brevi**:
+    -   Riavvia nuove chat dopo aver raggiunto il 70–80% del limite di token
+:::
+
+::: notes
+Parliamo ora di **tecniche pratiche** per proteggere il contesto importante nelle lunghe conversazioni con gli LLM.
+
+La prima tecnica si chiama **Istruzioni di Ancoraggio**: **Ripeti le istruzioni chiave** — come "Riassumi solo informazioni cliniche" — **ogni pochi prompt**. Questo mantiene il modello concentrato, anche se i token iniziali vengono scartati. Il secondo metodo è l'**Iniezione di Riassunto**: Periodicamente, **riassumi la conversazione** finora e **re-inietta** il riassunto nel dialogo. Agisce come un aggiornamento della memoria per il modello. Terzo, usa il **Prompting Strutturato**: Quando fornisci informazioni cliniche o tecniche, organizzale esplicitamente: - "Diagnosi: ..." - "Trattamenti: ..." - "Istruzioni di follow-up: ..." Questo aiuta il modello a parsare e mantenere la logica del tuo input, anche quando la memoria si riduce. Infine, pratica le **Sessioni Brevi**: Quando vedi che una conversazione sta diventando lunga — e stimi di essere al 70% o 80% del limite di token del modello — è più sicuro **iniziare una nuova sessione**, copiando solo le informazioni critiche. Queste tecniche possono migliorare drasticamente la coerenza e la sicurezza quando si usano gli LLM per compiti complessi come il riassunto clinico o la diagnostica.
+:::
+
+------------------------------------------------------------------------
+
+### [Cosa sono le API?]{style="color:#884EA0;"}
+
+#### [Connettersi agli LLM come professionisti]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔗 **API** = Application Programming Interface
+-   🛠️ Un modo per inviare domande e ricevere risposte programmaticamente
+-   📬 Funziona come "inviare un messaggio" al modello e ricevere una risposta
+-   ⚡ Permette automazione, scalabilità e integrazione nei sistemi clinici
+-   🧠 Non c'è bisogno di "chattare" manualmente — i workflow avvengono automaticamente
+:::
+
+::: notes
+Prendiamoci un momento per definire cosa sia effettivamente un'API. **API** sta per **Application Programming Interface**. È un modo per **inviare una richiesta a un modello** — come una domanda o un prompt — e **ricevere una risposta automaticamente**. Invece di chattare manualmente, un'API ti permette di **connettere il tuo software direttamente al modello**. Invii una richiesta strutturata, di solito tramite un semplice script, e ottieni una risposta strutturata indietro. Pensalo come inviare un messaggio a un robot — e ottenere una risposta intelligente istantaneamente, senza dover aprire una finestra di chat. Le API sono ciò che abilita l'**automazione**: - Puoi elaborare centinaia di referti durante la notte. - Puoi integrare il modello direttamente nei sistemi ospedalieri, nelle cartelle cliniche elettroniche, nei sistemi informativi di laboratorio. E tutto questo avviene **senza interazione manuale**: solo programmi che parlano tra loro. Nella pratica clinica, le API sono potenti perché rendono gli LLM **veramente scalabili e operativi** — non solo uno strumento per il brainstorming.
+:::
+
+------------------------------------------------------------------------
+
+### [Valutazione Quantitativa delle Prestazioni]{style="color:#2E86C1;"}
+
+#### [Misurare l'efficacia degli LLM nei compiti clinici]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   📊 **Metriche chiave**:
+    -   Accuratezza: Correttezza delle informazioni mediche
+    -   Coerenza: Risposte affidabili a query simili
+    -   Tasso di allucinazione: Frequenza di contenuti fabbricati
+    -   Rilevanza clinica: Applicabilità alla cura del paziente
+-   🔍 **Metodi di valutazione**:
+    -   Panel di revisori esperti
+    -   Confronto con gold standard
+    -   Controlli di coerenza tra modelli
+    -   Scenari clinici strutturati
+:::
+
+::: {.column width="45%" style="font-size: 0.85em;"}
+-   📈 **Confronto risultati campione**:
+
+| Modello  | Accuratezza | Tasso di Allucinazione |
+|:---------|:-----------:|:----------------------:|
+| GPT-4    |     89%     |          4.5%          |
+| Claude 3 |     91%     |          3.2%          |
+| Mistral  |     85%     |          6.7%          |
+| Med-PaLM |     93%     |          2.8%          |
+:::
+:::::
+
+::: notes
+Come professionisti sanitari, siamo abituati a valutare rigorosamente nuovi strumenti e terapie prima dell'adozione. Gli LLM non dovrebbero fare eccezione. Analizziamo come misurare quantitativamente le loro prestazioni in contesti clinici. Le metriche chiave che dobbiamo considerare includono l'accuratezza - quanto sono corrette le informazioni mediche fornite; la coerenza - quanto sono affidabili le risposte a query simili; il tasso di allucinazione - quanto spesso il modello inventa informazioni; e la rilevanza clinica - quanto sono applicabili le risposte alla cura del paziente. Per valutare queste metriche, possiamo usare diversi metodi. I panel di revisori esperti, dove gli specialisti valutano le risposte, sono il gold standard ma richiedono tempo. Il confronto con standard riconosciuti, come linee guida o testi medici, è più efficiente. I controlli di coerenza tra modelli possono rivelare discrepanze informative. E gli scenari clinici strutturati consentono test standardizzati su casi specifici. La tabella mostra alcuni risultati comparativi di un nostro recente studio. Notate come i modelli specializzati per la medicina, come Med-PaLM, tendano a superare i modelli generici. Il tasso di allucinazione è particolarmente importante - rappresenta quanto spesso il modello genera informazioni false ma plausibili. Questi dati suggeriscono che stiamo raggiungendo livelli di prestazioni interessanti, ma siamo ancora lontani dal 100% di accuratezza. Ecco perché la verifica umana rimane essenziale, specialmente per informazioni critiche per la cura del paziente. Quando implementate questi strumenti nei vostri contesti, consiglio di condurre valutazioni simili, specifiche per i vostri casi d'uso, per comprendere i punti di forza e le limitazioni dei modelli che scegliete.
+:::
+
+------------------------------------------------------------------------
+
+### [Esempio Pratico: Modalità Chat]{style="color:#884EA0;"}
+
+#### [Prompt Clinico per Esplorazione]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧪 **Scenario**: redazione di un riassunto di dimissione
+-   💬 **Prompt**: "Riassumi la degenza ospedaliera del paziente focalizzandoti su diagnosi, trattamento e istruzioni di follow-up."
+-   ⚡ **Obiettivo**: generazione rapida di testo per revisione del clinico
+-   ⚠️ **Promemoria**: validare sempre per accuratezza e rilevanza clinica
+:::
+
+::: notes
+In questo esempio, stiamo usando la Modalità Chat per assistere con un compito clinico tipico: scrivere un riassunto di dimissione. Il clinico fornisce un prompt in testo libero, chiedendo al modello di **riassumere la degenza ospedaliera del paziente** — focalizzandosi specificamente sulla **diagnosi**, sui **trattamenti eseguiti** e su **quali istruzioni sono state date per il follow-up**. Questo tipo di compito è perfetto per la Modalità Chat perché permette una generazione rapida di testo, dove il clinico umano può **immediatamente revisionare, modificare e approvare** la bozza. Tuttavia — e questo è critico — **il modello può sembrare estremamente sicuro anche se travisa i dettagli**. Quindi, anche quando la Modalità Chat fa risparmiare tempo, **la validazione clinica è sempre necessaria** prima di usare l'output ufficialmente. L'LLM dovrebbe essere visto come un **assistente alla scrittura**, non un decisore.
+:::
+
+------------------------------------------------------------------------
+
+### [Esempio Pratico: Modalità API]{style="color:#884EA0;"}
+
+#### [Automatizzare i Workflow Clinici]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔗 **Scenario**: elaborazione batch di referti di laboratorio
+-   🛠️ **Chiamata API**: Invia 100 testi di referti di laboratorio tramite API, ricevi 100 riassunti clinici
+-   ✅ **Vantaggio**: automazione, riproducibilità, efficienza
+-   ⚠️ **Promemoria**: monitorare gli output per coerenza e solidità medica
+:::
+
+::: notes
+Passiamo ora alla Modalità API — dove invece di lavorare interattivamente con un caso alla volta, automatizziamo interi workflow. Immaginate un sistema ospedaliero dove centinaia di referti di laboratorio vengono generati ogni giorno. Con un'API, possiamo **inviare in batch** questi referti all'LLM e **ricevere automaticamente riassunti clinici strutturati** pronti per la validazione. I principali vantaggi qui sono: - **Velocità**: decine o centinaia di casi elaborati rapidamente. - **Riproducibilità**: le stesse istruzioni vengono applicate coerentemente.
+
+Ma di nuovo: anche su larga scala, **la supervisione clinica è critica**. Errori, interpretazioni errate o allucinazioni possono occurrere — e in medicina, un errore può avere conseguenze gravi. L'automazione amplifica l'efficienza — ma amplifica anche gli errori se lasciata incontrollata.
+:::
+
+------------------------------------------------------------------------
+
+### [LLM Commerciali vs Open-source]{style="color:#884EA0;"}
+
+#### [Confronto tra due mondi nell'IA clinica]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🏢 **Modelli commerciali** (es., ChatGPT, Claude, Gemini)
+    -   Closed source, proprietari
+    -   Forti prestazioni, aggiornamenti costanti
+    -   Preoccupazioni sulla privacy, controllo limitato
+-   🧪 **Modelli open-source** (es., Llama, Mistral, Mixtral)
+    -   Disponibili pubblicamente, personalizzabili
+    -   Maggiore flessibilità e privacy
+    -   Le prestazioni variano, richiedono risorse locali
+-   ⚖️ Compromesso: facilità d'uso vs indipendenza e controllo
+:::
+
+::: notes
+Vediamo ora una distinzione chiave che conta molto, specialmente nelle applicazioni cliniche: **Modelli commerciali vs Modelli open-source**. I **modelli commerciali** — come ChatGPT, Claude, Gemini — sono creati e mantenuti da grandi aziende tecnologiche. Sono closed-source: possiamo usarli, ma non possiamo vedere come funzionano internamente. Offrono **prestazioni molto forti**, aggiornamenti frequenti e spesso grande usabilità. Tuttavia, sollevano **preoccupazioni sulla privacy**: i dati dei pazienti potrebbero passare attraverso server di terze parti. E hai **controllo limitato**: dipendi dall'infrastruttura, dai prezzi e dalle politiche dell'azienda. I **modelli open-source** — come Llama, Mistral o Mixtral — sono rilasciati pubblicamente e possono essere usati, affinati e persino auto-ospitati. Offrono **maggiore flessibilità**, **potenzialmente migliore privacy** (se distribuiti localmente) e pieno **controllo sulla personalizzazione**. Lo svantaggio è che le **prestazioni possono variare**: i modelli aperti più piccoli spesso necessitano di un'attenta messa a punto. E — cosa importante — **richiedono le tue risorse hardware** per funzionare correttamente. **In conclusione**: Scegliere tra commerciale e aperto dipende dalle tue priorità: **Facilità d'uso e accesso immediato** — o **indipendenza, personalizzazione e privacy**.
+:::
+
+------------------------------------------------------------------------
+
+### [Scegliere tra LLM Commerciali e Open-source]{style="color:#884EA0;"}
+
+#### [Qual è meglio per le tue esigenze cliniche?]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+| 🏥 **Scenario** | 🚀 **Approccio Raccomandato** |
+|:--------------------------|:--------------------------------------------|
+| Prototipazione rapida o brainstorming | **Modello commerciale** (accesso facile, forti prestazioni) |
+| Gestione di dati sensibili dei pazienti | **Modello open-source** (auto-ospitato, privato) |
+| Necessità di forte precisione linguistica clinica | **Modello open-source affinato** (personalizzabile) |
+| Risorse/hardware locali limitati | **Modello commerciale** (basato su cloud) |
+| Pieno controllo su deployment e aggiornamenti | **Modello open-source** (indipendenza) |
+:::
+
+::: notes
+Ecco una guida pratica rapida per aiutarti a decidere tra l'uso di un modello commerciale o un modello open-source in base alle tue esigenze cliniche. Se hai bisogno di **prototipare velocemente**, **testare idee** o **fare brainstorming**, i modelli commerciali come ChatGPT o Claude sono molto convenienti: offrono forti prestazioni pronte all'uso e non richiedono configurazione locale. Se stai **gestendo informazioni sensibili sui pazienti** — dove **privacy** e **sicurezza dei dati** non sono negoziabili — un **modello open-source**, ospitato sui tuoi server sicuri, diventa un'opzione più sicura. Se il tuo obiettivo è ottenere una **comprensione linguistica clinica altamente specializzata** — ad esempio, generare riassunti medici precisi — allora affinare un modello open-source su dataset clinici potrebbe darti risultati specifici del dominio migliori. Se **mancano risorse hardware locali forti** (ad esempio, nessuna GPU disponibile), le soluzioni commerciali basate su cloud potrebbero essere più pratiche. Ma se vuoi **controllo completo** sul tuo sistema IA, inclusi aggiornamenti, deployment e comportamento personalizzato, allora i **modelli open-source** sono la strada da percorrere — al costo di un po' più di gestione tecnica. In definitiva, la scelta dipende dall'**equilibrio tra facilità, costo, controllo e rischio** nel tuo contesto specifico.
+:::
+
+------------------------------------------------------------------------
+
+### [Considerazioni sulla Sicurezza del Deployment Locale]{style="color:#2E86C1;"}
+
+#### [Proteggere i dati dei pazienti con LLM on-premise]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔒 **Vantaggi di sicurezza**:
+    -   Nessun dato lascia la rete istituzionale
+    -   Traccia di audit completa all'interno dell'organizzazione
+    -   Nessuna dipendenza dalle politiche sulla privacy di terze parti
+    -   Conformità ai requisiti di residenza dei dati
+-   ⚠️ **Sfide di implementazione**:
+    -   Requisiti hardware: server GPU o cluster
+    -   Necessità di supporto IT e manutenzione
+    -   Gestione degli aggiornamenti e del versioning del modello
+    -   Limitazioni delle prestazioni vs. modelli cloud
+:::
+
+::: callout-note
+Considerare approcci ibridi: dati sensibili su modelli locali, dati non-PHI su modelli cloud
+:::
+
+::: notes
+Concludiamo con un aspetto cruciale in sanità: sicurezza dei dati e deployment locale degli LLM. Il deployment on-premise, dove i modelli girano internamente alla vostra organizzazione, offre significativi vantaggi di sicurezza. Primo, i dati sensibili dei pazienti non lasciano mai la rete istituzionale - eliminando un intero strato di rischio. Avete il controllo completo sulla traccia di audit, senza dipendere dalle politiche sulla privacy di terze parti. Questo facilita anche la conformità ai requisiti di residenza dei dati, sempre più comuni nelle normative sanitarie.
+
+Tuttavia, implementare LLM localmente comporta sfide importanti. I requisiti hardware sono sostanziali - sono necessari potenti server GPU o cluster, specialmente per modelli più grandi. Il vostro team IT dovrà supportare e mantenere questi sistemi, gestire gli aggiornamenti e il versioning dei modelli. E c'è tipicamente un divario di prestazioni rispetto ai modelli cloud - i modelli eseguibili localmente tendono ad essere più piccoli e meno potenti. Una soluzione pragmatica che vedo molte organizzazioni adottare è un approccio ibrido: usare modelli locali per dati contenenti informazioni protette sui pazienti, e modelli cloud più potenti per compiti che non coinvolgono dati sensibili. Ad esempio, potreste usare un modello locale per analizzare le cartelle cliniche, ma un modello cloud per ricercare letteratura medica o generare materiale educativo generico. Questo approccio bilanciato vi permette di sfruttare il meglio di entrambi i mondi: la sicurezza del deployment locale dove necessario, e le capacità superiori dei modelli cloud dove appropriato. Nel prossimo modulo pratico, vedremo precisamente come configurare LM Studio per il deployment locale e come usare WebLLM per esecuzioni sicure direttamente nel browser.
+:::
+
+------------------------------------------------------------------------
+
+### [LM Studio & WebLLM: LLM Locali per Uso Clinico]{style="color:#884EA0;"}
+
+#### [Eseguire modelli IA privatamente e offline]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🖥️ **LM Studio**:
+    -   App desktop per Windows, macOS, Linux
+    -   Scarica ed esegui modelli open-source localmente
+    -   Offre interfaccia chat e server API
+    -   Ideale per compiti offline e sensibili alla privacy
+-   🌐 **WebLLM**:
+    -   Esegue LLM direttamente nel tuo browser
+    -   Nessuna installazione o backend necessario
+    -   Alimentato da WebGPU per inferenza veloce
+    -   Ottimo per deployment leggeri e portatili
+:::
+
+::: notes
+Esploriamo ora due potenti strumenti che vi permettono di eseguire grandi modelli linguistici localmente: **LM Studio** e **WebLLM**. **LM Studio** è un'applicazione desktop compatibile con Windows, macOS e Linux. Permette di scaricare ed eseguire modelli open-source direttamente sulla vostra macchina. Con la sua interfaccia chat user-friendly e il server API integrato, LM Studio è ideale per compiti offline dove la privacy dei dati è fondamentale. D'altra parte, **WebLLM** opera interamente all'interno del vostro browser web. Sfrutta WebGPU per eseguire modelli efficientemente senza alcuna installazione o infrastruttura backend. Questo lo rende perfetto per applicazioni leggere e portatili.
+
+Il vantaggio chiave di entrambi gli strumenti è il **pieno controllo sui vostri dati e modelli**, eliminando la necessità di servizi cloud e migliorando privacy e sicurezza in contesti clinici.
+:::
+
+------------------------------------------------------------------------
+
+### [WebLLM: Eseguire LLM direttamente nel tuo browser]{style="color:#884EA0;"}
+
+#### [Un modo semplice e privato per usare l'IA localmente]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🌐 Gira direttamente in Chrome, Edge, Safari (nessuna installazione)
+-   ⚡ Alimentato da WebGPU: inferenza locale veloce
+-   🔒 Nessun dato lascia il tuo computer
+-   🛠️ Supporta chat, riassunto documenti, Q&A
+-   🧠 Ottimo per compiti clinici leggeri ed esperimenti
+:::
+
+::: notes
+Introduciamo ora **WebLLM**, uno strumento potente ma semplice per eseguire modelli linguistici localmente. WebLLM funziona interamente nel tuo browser — Chrome, Edge o Safari. Non c'è **nessuna installazione** necessaria, nessun server backend. Usa **WebGPU**, una tecnologia browser moderna, per eseguire modelli efficientemente sul tuo dispositivo. L'enorme vantaggio è la **privacy**: Tutta l'elaborazione avviene localmente — nulla viene inviato a server esterni. WebLLM supporta non solo la chat di base, ma anche il **riassunto di documenti** e il **question-answering** su file caricati. È un'ottima soluzione leggera per ambienti clinici dove privacy e velocità contano. Naturalmente, i modelli che girano in-browser sono più piccoli rispetto agli LLM cloud — ma per molti compiti, sono sorprendentemente efficaci.
+:::
+
+------------------------------------------------------------------------
+
+### [Come Usare WebLLM per Riassunti Clinici]{style="color:#884EA0;"}
+
+#### [Passi semplici per riassumere documenti clinici]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🌐 Apri WebLLM nel tuo browser
+-   📋 Copia e incolla il testo clinico nella chat
+-   💬 Scrivi questo prompt:
+
+> "Riassumi le informazioni cliniche chiave, focalizzandoti su: - Diagnosi primaria - Trattamenti somministrati - Istruzioni di follow-up - Condizioni del paziente alla dimissione." ✅ Il modello elaborerà il testo localmente e genererà un riassunto!
+:::
+
+::: notes
+WebLLM non supporta il caricamento diretto di file come i PDF. Invece, **copi il testo** dal documento — ad esempio, un riassunto di dimissione — e lo **incolli nell'interfaccia chat**. Dopo aver incollato il testo clinico, scrivi un prompt strutturato, come: *"Riassumi le informazioni cliniche chiave, focalizzandoti su diagnosi primaria, trattamenti somministrati, istruzioni di follow-up e condizioni del paziente alla dimissione."*
+
+Il modello elaborerà quindi il **testo localmente** e genererà un riassunto privato — senza inviare alcun dato al cloud. Ricorda sempre di revisionare e validare l'output prima dell'uso clinico!
+:::
+
+------------------------------------------------------------------------
+
+### [Prompt Engineering per Applicazioni Cliniche]{style="color:#2E86C1;"}
+
+#### [Tecniche per migliorare accuratezza e affidabilità]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔍 **Prompting Chain-of-Thought**: \> "Prima analizza i valori di laboratorio, poi identifica le anomalie, \> poi correla con i sintomi, e infine suggerisci possibili diagnosi."
+
+-   📋 **Esempi Few-Shot**: \> "Esempio 1: Paziente con \[sintomi\]... Diagnosi: \[condizione\] \> Ora diagnostica: Paziente con febbre, tosse produttiva..."
+
+-   🧩 **Output Strutturato**: \> "Formatta la tua risposta come: Valutazione: \[testo\], Piano: \[testo\], \> Follow-up: \[testo\], Educazione Paziente: \[testo\]"
+:::
+
+::: notes
+Discutiamo tecniche specifiche per migliorare l'accuratezza dei modelli linguistici in contesti clinici. Queste tecniche di prompt engineering sono fondamentali perché possono fare la differenza tra una risposta generica e una clinicamente utile. La prima tecnica è il "Prompting Chain-of-Thought" - essenzialmente, chiediamo al modello di mostrare il suo ragionamento passo dopo passo. Invece di chiedere semplicemente "Qual è la diagnosi?", gli chiediamo di analizzare prima i valori di laboratorio, poi identificare le anomalie, correlarle con i sintomi, e solo allora suggerire possibili diagnosi. Questo approccio riduce significativamente gli errori perché costringe il modello a seguire un processo diagnostico logico invece di saltare alle conclusioni. La seconda tecnica usa esempi dimostrativi, o "Esempi Few-Shot." Qui forniamo al modello uno o più esempi completi di come vorremmo che rispondesse. Questo è particolarmente efficace per compiti specializzati dove il formato della risposta conta. Ad esempio, possiamo mostrare come analizzare correttamente un caso di polmonite prima di chiedergli di analizzare il nostro caso specifico. Infine, abbiamo la tecnica dell'output strutturato, dove specifichiamo esattamente il formato che vogliamo per la risposta. Questo è incredibilmente utile per la documentazione clinica, dove possiamo chiedere al modello di organizzare le informazioni secondo sezioni standard come Valutazione, Piano, Follow-up ed Educazione Paziente. Nei nostri test, queste tecniche hanno ridotto le allucinazioni di oltre il 60% e migliorato la rilevanza clinica delle risposte di quasi il 40%.
+:::
+
+------------------------------------------------------------------------
+
+## [Considerazioni Normative]{style="color:#2E86C1;"}
+
+### [Quadro legale per l'IA in sanità]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🏛️ **Normative chiave**:
+    -   HIPAA (USA): Requisiti per le Informazioni Sanitarie Protette
+    -   GDPR (UE): Restrizioni sul trattamento dei dati di categoria speciale
+    -   MDR (UE): Classificazione dell'IA come dispositivo medico
+-   ⚖️ **Sfide di conformità**:
+    -   Requisiti di residenza dei dati per il trattamento di PHI
+    -   Diritto alla spiegazione per decisioni assistite da IA
+    -   Tracce di audit per contenuti generati da IA
+:::
+
+::: callout-warning
+Verifica sempre se il tuo uso di LLM richiede: 1. Consenso del paziente 2. Accordi sul trattamento dei dati 3. Classificazione come dispositivo medico
+:::
+
+::: notes
+Questa slide introduce i quadri normativi chiave che si applicano alle applicazioni IA in sanità. Per la conformità HIPAA, la preoccupazione chiave è se le PHI vengono trasmesse a server di terze parti quando si usano modelli commerciali. Questo è il motivo per cui i modelli on-premise sono spesso necessari per le applicazioni cliniche. Sotto il GDPR, i dati sanitari sono considerati "dati di categoria speciale" con protezioni aggiuntive. I sistemi IA devono essere trasparenti e i pazienti hanno generalmente il diritto di sapere quando viene utilizzata l'IA e come influisce sulle decisioni. Il Regolamento sui Dispositivi Medici in Europa e quadri simili della FDA negli USA possono classificare alcune applicazioni IA come dispositivi medici che richiedono certificazione, specialmente se usate per diagnosi o pianificazione del trattamento. Queste questioni normative influenzano direttamente le decisioni su quali modelli usare e come distribuirli.
+:::
+
+------------------------------------------------------------------------
+
+### [Requisiti Etici di Documentazione]{style="color:#2E86C1;"}
+
+#### [Trasparenza nelle note cliniche assistite da IA]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   📝 **Migliori pratiche**:
+    -   Divulgare l'assistenza IA nella documentazione
+    -   Specificare quali parti sono state generate da IA
+    -   Documentare i passaggi di verifica umana
+    -   Mantenere la separazione tra suggerimenti IA e giudizio clinico
+:::
+
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   ✅ **Esempio di divulgazione**: \> "Questo riassunto della valutazione è stato redatto con assistenza IA e revisionato dal Dr. Johnson per l'accuratezza. Tutte le interpretazioni e le decisioni mediche sono state verificate indipendentemente."
+:::
+:::::
+
+::: notes
+Questa slide affronta i requisiti etici per la trasparenza quando si usa l'IA per assistere con la documentazione clinica. C'è un crescente consenso tra i comitati etici medici sul fatto che i pazienti abbiano il diritto di sapere quando sono stati utilizzati strumenti IA nella loro cura, specialmente per la documentazione e il supporto decisionale. La divulgazione non deve essere estesa, ma dovrebbe riconoscere dove è stata utilizzata l'IA e sottolineare che il giudizio clinico umano è rimasto centrale nel processo. Questa trasparenza costruisce fiducia, stabilisce aspettative appropriate e crea una base per un uso etico dell'IA in contesti sanitari.
+:::
+
+------------------------------------------------------------------------
+
+### [Considerazioni sulla Responsabilità]{style="color:#2E86C1;"}
+
+#### [Gestire il rischio quando si usano LLM in contesti clinici]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   ⚠️ **Panorama legale attuale**:
+    -   Nessun precedente chiaro per la responsabilità IA in sanità
+    -   Standard professionali ancora in evoluzione
+    -   Posizione predefinita: il clinico ha la responsabilità ultima
+-   🛡️ **Strategie di mitigazione del rischio**:
+    -   Documentare le procedure di verifica per gli output IA
+    -   Stabilire workflow chiari per usi critici vs. non critici
+    -   Formare il personale su limitazioni e requisiti di verifica
+    -   Mantenere la consapevolezza delle limitazioni specifiche del modello
+:::
+
+::: callout-note
+Considerare la consulenza con la gestione del rischio e il consulente legale prima di implementare LLM per il supporto decisionale clinico.
+:::
+
+::: notes
+Questa slide discute il panorama in evoluzione della responsabilità quando si utilizzano strumenti IA in sanità. Il punto chiave è che, indipendentemente da quanto avanzata diventi l'IA, il professionista clinico rimane responsabile della verifica e delle decisioni. Ciò significa avere processi chiari per controllare gli output IA prima di incorporarli nella cura clinica. Il livello di rischio varia per tipo di applicazione: usare l'IA per aiutare a redigere materiali educativi per i pazienti comporta meno rischi che usarla per interpretare risultati di laboratorio o suggerire diagnosi. Le organizzazioni sanitarie dovrebbero sviluppare politiche chiare che specificano quali applicazioni sono consentite, quali passaggi di verifica sono richiesti e chi ha la responsabilità in ogni fase. Questa è ancora un'area legalmente in evoluzione, ma mantenere una documentazione chiara e passaggi di verifica aiuta a stabilire che lo standard di cura è stato soddisfatto.
+:::
+
+------------------------------------------------------------------------
+
+### [Analisi Costi-Benefici degli LLM in Contesti Clinici]{style="color:#2E86C1;"}
+
+#### [Considerazioni sul ROI per implementazioni mediche]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   💰 **Fattori di costo**:
+    -   Costi API: \$0.50-\$20 per 1.000 note cliniche (dipende dal modello)
+    -   Tempo del personale risparmiato: riduzione del 20-40% del tempo di documentazione
+    -   Formazione e implementazione: 40-80 ore per dipartimento
+-   📊 **Esempi di ROI nel mondo reale**:
+    -   Ospedale A: riduzione del 50% del tempo per i riassunti di dimissione (risparmio di 15 min/paziente)
+    -   Clinica B: aumento del 30% della completezza e qualità delle note
+    -   Laboratorio C: redazione protocolli per nuovi test più veloce del 70%
+:::
+
+::: callout-note
+Il ROI viene tipicamente raggiunto entro 3-6 mesi concentrandosi su compiti di documentazione ad alto volume.
+:::
+
+::: notes
+Passiamo agli aspetti pratici dell'implementazione degli LLM in contesti clinici - specificamente, l'analisi costi-benefici. Direttori ospedalieri e responsabili di laboratorio mi chiedono costantemente: "Questi strumenti valgono l'investimento?"
+
+Esaminiamo i principali fattori di costo. I costi API variano significativamente a seconda del modello - possiamo spendere da 50 centesimi fino a \$20 per elaborare 1.000 note cliniche. Questo dipende dalla complessità del modello e dal fornitore.
+
+Il risparmio principale deriva dal tempo del personale. Stiamo vedendo riduzioni del 20-40% del tempo speso per la documentazione. Pensate a cosa significa per medici e specialisti che passano ore ogni giorno a scrivere note. L'implementazione richiede tipicamente tra 40 e 80 ore per dipartimento, inclusa formazione e integrazione nei workflow. Ma guardiamo alcuni esempi concreti. Un ospedale con cui collaboriamo ha ridotto il tempo di scrittura delle note di dimissione del 50% - sono 15 minuti risparmiati per paziente. Moltiplicate per centinaia di pazienti al mese.
+
+Una clinica ha riportato un aumento del 30% nella completezza e qualità delle note, migliorando la comunicazione clinica e riducendo le richieste di chiarimenti. Un laboratorio ha accelerato la redazione dei protocolli per nuovi test del 70%, consentendo implementazioni più rapide. Nella maggior parte dei casi, il ritorno sull'investimento (ROI) viene raggiunto entro 3-6 mesi, specialmente concentrandosi su attività ad alto volume come la documentazione di routine. Ma ricordate: il valore va oltre il semplice risparmio di tempo. C'è anche un miglioramento qualitativo nella documentazione che può influenzare positivamente la cura del paziente.
+:::

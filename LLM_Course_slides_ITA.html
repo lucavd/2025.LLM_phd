@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="LLM_Course_slides_ITA_files/libs/clipboard/clipboard.min.js"></script>
+<script src="LLM_Course_slides_ITA_files/libs/quarto-html/tabby.min.js"></script>
+<script src="LLM_Course_slides_ITA_files/libs/quarto-html/popper.min.js"></script>
+<script src="LLM_Course_slides_ITA_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="LLM_Course_slides_ITA_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="LLM_Course_slides_ITA_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="LLM_Course_slides_ITA_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="LLM_Course_slides_ITA_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.5.57">
+
+  <title>IA Generativa e LLM in Medicina Clinica e di Laboratorio</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="LLM_Course_slides_ITA_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="LLM_Course_slides_ITA_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="LLM_Course_slides_ITA_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="LLM_Course_slides_ITA_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="LLM_Course_slides_ITA_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="LLM_Course_slides_ITA_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="LLM_Course_slides_ITA_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="LLM_Course_slides_ITA_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="LLM_Course_slides_ITA_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">IA Generativa e LLM in Medicina Clinica e di Laboratorio</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="section" class="slide level2 center">
+<h2></h2>
+<div class="column" style="width:100%;">
+<p><img data-src="images/slide1_intro.png"></p>
+</div></section>
+<section id="ia-generativa-e-llm" class="slide level2 center">
+<h2><span style="color:#2E86C1;">IA Generativa e LLM</span></h2>
+<h3 id="in-medicina-clinica-e-di-laboratorio"><span style="color:#117A65;">in Medicina Clinica e di Laboratorio</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><span style="color:#34495E;">Cos’è l’IA Generativa e come sta trasformando la medicina?</span></li>
+<li class="fragment"><span style="color:#34495E;">Perché concentrarsi sui Grandi Modelli Linguistici (LLM)?</span></li>
+<li class="fragment"><strong style="color:#2874A6;">Obiettivi chiave del corso:</strong>
+<ul>
+<li class="fragment">🧠 Comprendere i fondamenti dell’IA generativa e degli LLM</li>
+<li class="fragment">🧪 Esplorare le applicazioni in ambito clinico e di laboratorio</li>
+<li class="fragment">🔄 Confrontare strumenti locali vs commerciali (ChatGPT, Claude, Mistral, ecc.)</li>
+<li class="fragment">🛠 Esercitarsi con LM Studio, WebLLM</li>
+</ul></li>
+<li class="fragment"><strong style="color:#7D3C98;">Formato del corso:</strong> 2 ore di teoria + 2 ore di pratica</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Benvenuti al corso! Siamo qui per esplorare come l’<strong>IA Generativa</strong> — e in particolare i <strong>Grandi Modelli Linguistici</strong> — stanno rimodellando i campi medico e di laboratorio. Questa non è una lezione di programmazione; è un’introduzione pratica, focalizzata sui clinici, a strumenti come ChatGPT, Claude e Mistral, inclusi quelli che potete eseguire localmente per la privacy. La struttura di oggi è semplice: 👉 Prima, capiamo come funzionano questi modelli. 👉 Poi, mettiamo le mani in pasta con strumenti come LM Studio. Alla fine, sarete in grado di provare prompt per la diagnostica, automatizzare la refertazione e persino pensare criticamente a quando <em>non</em> fidarsi di un LLM. Iniziamo!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="cosè-lintelligenza-artificiale" class="slide level2 center">
+<h2><span style="color:#1A5276;">Cos’è l’Intelligenza Artificiale?</span></h2>
+<h3 id="e-perché-medici-e-biologi-dovrebbero-interessarsene"><span style="color:#117A65;">(E perché medici e biologi dovrebbero interessarsene)</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧠 <strong>Intelligenza Artificiale (IA)</strong> simula il ragionamento e il processo decisionale umano</li>
+<li class="fragment">🤖 Due approcci storici:
+<ul>
+<li class="fragment"><strong style="color:#2874A6;">IA Simbolica</strong> = logica basata su regole (es., sistemi esperti)</li>
+<li class="fragment"><strong style="color:#AF7AC5;">IA Connessionista</strong> = ispirata al cervello (reti neurali)</li>
+</ul></li>
+<li class="fragment">📊 L’Apprendimento Statistico fa da ponte:
+<ul>
+<li class="fragment">Tecniche basate sui dati per apprendere pattern dai dati</li>
+<li class="fragment">Include regressione, classificazione e clustering</li>
+</ul></li>
+<li class="fragment">🧬 Perché è importante in medicina:
+<ul>
+<li class="fragment">Molti compiti clinici sono problemi decisionali in condizioni di incertezza</li>
+<li class="fragment">Dalla diagnosi al triage all’interpretazione dei risultati di laboratorio</li>
+<li class="fragment">IA = aiuto, non sostituzione</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Questa slide prepara il terreno. Prima di arrivare ai Transformer e agli LLM, ricordiamo a tutti che l’IA non è magia — è logica e statistica su larga scala. Introduciamo due visioni tradizionali dell’IA: - <strong>Simbolica</strong>, come le regole se-allora (pensate ai primi sistemi esperti). - <strong>Connessionista</strong>, dove l’intelligenza emerge dalle reti (come le moderne reti neurali). Poi evidenziamo l’<strong>Apprendimento Statistico</strong> come ponte: l’idea centrale che gli algoritmi possono imparare dai <strong>dati, non solo dalle regole</strong>. È così che ci muoviamo verso l’IA moderna in sanità.</p>
+<p>Questo è importante per i clinici e i professionisti di laboratorio perché il processo decisionale medico richiede spesso la sintesi di dati complessi e incerti — qualcosa in cui i modelli statistici (e successivamente, gli LLM) sono sorprendentemente bravi ad aiutare.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="perché-abbiamo-bisogno-di-una-nuova-ia-in-medicina" class="slide level2 center">
+<h2><span style="color:#884EA0;">Perché abbiamo bisogno di una nuova IA in Medicina?</span></h2>
+<h3 id="limitazioni-dei-modelli-statistici-classici"><span style="color:#117A65;">Limitazioni dei modelli statistici classici</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📊 I <strong>modelli classici</strong> (regressione, alberi decisionali, ecc.) funzionano bene con dati strutturati e tabellari</li>
+<li class="fragment">🧬 Ma i dati clinici sono sempre più <strong>non strutturati e complessi</strong>:
+<ul>
+<li class="fragment">Referti in testo libero, note multilingue, cartelle cliniche elettroniche, immagini mediche</li>
+</ul></li>
+<li class="fragment">❌ I <strong>modelli statistici faticano</strong> con:
+<ul>
+<li class="fragment">Ambiguità linguistiche (es., “esso” → “il fegato”?)</li>
+<li class="fragment">Dati mancanti o rumorosi</li>
+<li class="fragment">Ragionamento dipendente dal contesto</li>
+</ul></li>
+<li class="fragment">🧠 L’<strong>IA moderna</strong> (LLM) può gestire questa complessità con una migliore generalizzazione su dati testuali liberi e multimodali</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Questa slide prepara il terreno per capire <em>perché</em> abbiamo bisogno dell’IA moderna. I modelli tradizionali come la regressione logistica o le foreste casuali sono ottimi su dataset puliti e strutturati — ad esempio, per prevedere punteggi di rischio dai valori di laboratorio. Ma i dati clinici del mondo reale sono disordinati. Un riassunto di dimissione, un’immagine MRI, l’email di un paziente — nessuno di questi si adatta perfettamente a righe e colonne. L’IA moderna, e in particolare i Grandi Modelli Linguistici, possono elaborare questa complessità grazie all’apprendimento auto-supervisionato e ad architetture come i Transformer. Possono estrarre struttura da dati non strutturati.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="perché-abbiamo-bisogno-di-una-nuova-ia-in-medicina-1" class="slide level2 center">
+<h2><span style="color:#884EA0;">Perché abbiamo bisogno di una nuova IA in Medicina?</span></h2>
+<h3 id="limitazioni-dei-modelli-statistici-classici-1"><span style="color:#117A65;">Limitazioni dei modelli statistici classici</span></h3>
+
+<img data-src="images/struct_unstruct.png" class="r-stretch"><aside class="notes">
+<p>A sinistra, vediamo un tipico esempio di <strong>dati strutturati</strong> — una curva di regressione logistica che prevede una probabilità (es., di malattia) basata su un valore di laboratorio. Questo è il tipo di dati per cui la maggior parte dei modelli tradizionali è stata costruita: numerici, puliti e formattati in tabelle. A destra, vediamo <strong>dati non strutturati</strong>: una cartella clinica elettronica contenente testo libero (“Il fegato è ingrossato…”) con riferimenti ambigui, risultati di laboratorio incorporati e persino un’immagine cerebrale. Questo è ciò con cui i clinici hanno a che fare quotidianamente — informazioni complesse e multimodali non facilmente riducibili a numeri o categorie. In basso al centro, un’icona di transformer rappresenta come i modelli di IA moderni come gli LLM possono colmare questo divario. Questi modelli sono capaci di elaborare input non strutturati — comprendendo il contesto del testo, estraendo significato e integrando tra formati — rendendoli molto più potenti nella gestione dei dati clinici odierni.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="cosa-può-fare-lia-tradizionale" class="slide level2 center">
+<h2><span style="color:#884EA0;">Cosa può fare l’IA tradizionale?</span></h2>
+<h3 id="compiti-fondamentali-nellapprendimento-statistico"><span style="color:#117A65;">Compiti fondamentali nell’Apprendimento Statistico</span></h3>
+<div class="columns">
+<div class="column" style="width:58%;">
+<ul>
+<li class="fragment">📈 <strong>Regressione</strong>: Prevedere un <strong>numero</strong> dai dati di input
+<ul>
+<li class="fragment">Esempio: Prevedere la glicemia da età + BMI</li>
+</ul></li>
+<li class="fragment">🧪 <strong>Classificazione</strong>: Assegnare un’<strong>etichetta</strong> ai dati di input
+<ul>
+<li class="fragment">Esempio: “Questa biopsia è maligna o benigna?”</li>
+</ul></li>
+<li class="fragment">🔍 <strong>Clustering</strong>: Trovare <strong>gruppi</strong> nascosti in dati non etichettati
+<ul>
+<li class="fragment">Esempio: Identificare sottotipi di pazienti con espressione genica simile</li>
+</ul></li>
+</ul>
+</div><div class="column fit" style="width:42%;">
+<p><img data-src="images/traditional_ai.png" style="max-height: 500px;" width="300"></p>
+</div></div>
+<aside class="notes">
+<p>Queste sono le fondamenta dell’apprendimento statistico tradizionale. - La <strong>Regressione</strong> prevede risultati continui — utile per cose come valori di laboratorio o punteggi di rischio. - La <strong>Classificazione</strong> è probabilmente la più usata — determinare se un paziente ha una malattia o meno basandosi sui risultati dei test. - Il <strong>Clustering</strong> è più esplorativo — nessuna etichetta, solo pattern. Pensate a come scopriamo nuovi sottotipi di cancro dai dati omici. Tutti e tre sono ancora cruciali, ma faticano quando gli input sono testo libero, immagini o conversazioni. È qui che entrano in gioco gli LLM.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="perché-i-modelli-statistici-faticano-con-il-linguaggio"><span style="color:#884EA0;">Perché i modelli statistici faticano con il linguaggio</span></h3>
+<h4 id="dallinput-strutturato-alla-complessità-del-mondo-reale"><span style="color:#117A65;">Dall’input strutturato alla complessità del mondo reale</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧱 I modelli tradizionali si aspettano <strong>input strutturati e tabellari</strong></li>
+<li class="fragment">💬 Il linguaggio naturale è <strong>non strutturato, ambiguo, dipendente dal contesto</strong>
+<ul>
+<li class="fragment">Esempio: “È elevato” — cos’è “esso”?</li>
+</ul></li>
+<li class="fragment">🧠 La comprensione del linguaggio necessita di:
+<ul>
+<li class="fragment">Risoluzione del contesto (es., coreferenza)</li>
+<li class="fragment">Sintassi e semantica</li>
+<li class="fragment">Dipendenze a lungo raggio tra le frasi</li>
+</ul></li>
+<li class="fragment">📉 I modelli statistici mancano di memoria o ragionamento — riducono il testo a sacchi di parole o vettori fissi</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Questa slide imposta la motivazione per il deep learning e i Transformer. I modelli tradizionali non possono “capire” il linguaggio. Contano solo la frequenza delle parole o usano regole di base. Ma in medicina, devi sapere a cosa si riferisce “esso”, interpretare le negazioni o seguire la storia di un paziente su più paragrafi. Questa complessità è ciò che ha reso necessario il deep learning — specialmente modelli come RNN e Transformer.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosè-una-rete-neurale"><span style="color:#884EA0;">Cos’è una Rete Neurale?</span></h3>
+<h4 id="dai-neuroni-ai-layer-allapprendimento"><span style="color:#117A65;">Dai neuroni ai layer all’apprendimento</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔢 Le reti neurali sono fatte di <strong>unità (“neuroni”)</strong> connesse in <strong>layer</strong></li>
+<li class="fragment">🧠 Ogni neurone prende input → esegue una piccola operazione matematica → passa l’output avanti</li>
+<li class="fragment">📚 Regolando i <strong>pesi</strong> durante l’addestramento, la rete impara i pattern</li>
+<li class="fragment">🧬 Questa struttura le permette di catturare relazioni <strong>non lineari</strong> (vs regressione classica)</li>
+</ul>
+</div>
+<div style="text-align: center;">
+<p><img data-src="images/rainbow_net.jpeg" style="width:50.0%"></p>
+</div>
+<aside class="notes">
+<p>Passiamo ora dai modelli classici ai primi veri mattoni dell’IA moderna: le <strong>reti neurali</strong>. Una <strong>rete neurale</strong> è essenzialmente un sistema fatto di unità di elaborazione molto semplici — le chiamiamo <strong>“neuroni”</strong> — che sono connesse in layer. Ogni <strong>neurone</strong> riceve alcuni numeri — come età, glucosio o sintomi — e applica un’operazione matematica molto basilare: somma gli input, applica una funzione (di solito non lineare) e invia il risultato al layer successivo. Sembra banale, ma la potenza di una rete neurale deriva dall’<strong>impilare molti di questi neuroni in più layer</strong> e dall’<strong>aggiustare i pesi delle connessioni</strong> tra di loro durante l’addestramento. Il processo di <strong>apprendimento</strong> in una rete neurale significa: - Mostrarle molti esempi (es. pazienti con esiti noti), - Confrontare le sue previsioni con i risultati reali (es. diagnosi o punteggi reali), - E cambiare gradualmente i pesi per ridurre l’errore. Col tempo, la rete diventa migliore nel <strong>riconoscere pattern</strong> — anche <strong>relazioni complesse e non lineari</strong> che i modelli tradizionali (come la regressione logistica) non possono catturare. Questa struttura — unità semplici in layer — è il fondamento del <strong>deep learning</strong>. Anche i modelli più avanzati che usiamo oggi, incluso ChatGPT, sono costruiti su questo principio — solo scalati fino a miliardi di neuroni e architetture molto più complesse. Questo è il momento in cui l’IA ha smesso di riguardare solo regole e formule, e ha iniziato ad <strong>apprendere dai dati</strong> in modo flessibile e potente.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="come-imparano-le-reti-neurali"><span style="color:#884EA0;">Come imparano le Reti Neurali?</span></h3>
+<h4 id="il-ruolo-della-loss-e-della-backpropagation"><span style="color:#117A65;">Il ruolo della loss e della backpropagation</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧪 Durante l’addestramento, la rete fa una <strong>previsione</strong></li>
+<li class="fragment">📉 Una <strong>funzione di loss</strong> confronta la previsione con l’etichetta vera</li>
+<li class="fragment">🔁 La <strong>Backpropagation</strong> aggiusta i pesi per ridurre l’errore</li>
+<li class="fragment">🔄 Questo viene ripetuto su molti esempi → il modello impara i pattern</li>
+</ul>
+</div>
+<div style="text-align: center;">
+<p><img data-src="images/backprop.png" style="width:50.0%"></p>
+</div>
+<aside class="notes">
+<p>Ora che abbiamo visto come è costruita una rete neurale, vediamo brevemente <strong>come impara</strong>. Ogni volta che la rete vede un input — ad esempio, età del paziente, glucosio e sintomi — fa una <strong>previsione</strong>. Quella previsione viene confrontata con l’esito vero — ad esempio, se il paziente ha avuto una complicazione. La differenza tra la previsione e il risultato reale viene misurata usando una <strong>funzione di loss</strong>. Poi arriva il passo chiave: la <strong>backpropagation</strong>.</p>
+<p>Il modello calcola quanto ogni peso ha contribuito all’errore e usa quell’informazione per <strong>aggiustare i pesi</strong> nella direzione giusta — di solito usando un metodo chiamato <strong>discesa del gradiente</strong>. Questo processo viene ripetuto migliaia — persino milioni — di volte, su molti esempi. Ed è così che la rete migliora gradualmente: riducendo l’errore totale sull’insieme di addestramento. Lo chiamiamo “apprendimento”, ma in realtà è correzione degli errori — solo su larga scala e con molti dati.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="perché-le-reti-neurali-standard-faticano-con-il-linguaggio"><span style="color:#884EA0;">Perché le Reti Neurali Standard faticano con il Linguaggio</span></h3>
+<h4 id="la-necessità-di-memoria-sequenziale-e-attenzione"><span style="color:#117A65;">La necessità di memoria sequenziale e attenzione</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔁 Le reti standard trattano gli input come vettori di lunghezza fissa</li>
+<li class="fragment">📜 Ma il linguaggio è una <strong>sequenza</strong> — l’ordine delle parole e il contesto contano</li>
+<li class="fragment">🧠 I primi modelli come <strong>RNN</strong> e <strong>LSTM</strong> sono stati progettati per elaborare sequenze
+<ul>
+<li class="fragment">Usano la <strong>memoria</strong> per ricordare le parole precedenti</li>
+</ul></li>
+<li class="fragment">😕 Ancora limitati: difficile catturare <strong>dipendenze a lungo raggio</strong> (“esso” riferito a 3–4 frasi prima)</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Le reti neurali sono ottime per molti compiti — ma <strong>non per le sequenze</strong>, come il linguaggio o le serie temporali. Perché? Perché le reti neurali tradizionali assumono che l’input sia solo una lista di numeri di dimensione fissa. Ma nel linguaggio, l’ordine delle parole è essenziale, e il significato dipende spesso da ciò che è venuto prima — anche diverse frasi prima. È qui che sono state introdotte le <strong>RNN</strong> (Reti Neurali Ricorrenti): elaborano una parola alla volta e <strong>mantengono memoria</strong> degli input precedenti. Successivamente, le <strong>LSTM</strong> (Long Short-Term Memory) hanno aggiunto una gestione migliorata della memoria.</p>
+<p>Ma questi modelli faticano ancora quando il contesto è lungo — diciamo, nei referti medici o nei dialoghi, dove “esso” potrebbe riferirsi a qualcosa di 3 paragrafi prima. Questa limitazione è ciò che ha portato al prossimo grande salto: il Transformer.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="dal-deep-learning-agli-llm"><span style="color:#6C3483;">Dal Deep Learning agli LLM</span></h3>
+<h4 id="perché-i-transformer-hanno-cambiato-tutto"><span style="color:#117A65;">Perché i Transformer hanno cambiato tutto</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧠 <strong>Deep Learning</strong> = reti neurali a strati</li>
+<li class="fragment">🧱 Tipi di architetture:
+<ul>
+<li class="fragment"><strong style="color:#884EA0;">MLP</strong>: buono per input semplici</li>
+<li class="fragment"><strong style="color:#D35400;">CNN</strong>: eccelle in immagini e dati spaziali</li>
+<li class="fragment"><strong style="color:#2980B9;">RNN</strong>: gestisce sequenze come parlato e testo</li>
+</ul></li>
+<li class="fragment">⚡ <strong style="color:#C0392B;">Transformer</strong>: architettura rivoluzionaria per il linguaggio
+<ul>
+<li class="fragment">Usa <em>auto-attenzione</em> invece della ricorrenza</li>
+<li class="fragment">Più veloce, più parallelo, migliore con sequenze lunghe</li>
+</ul></li>
+<li class="fragment">🔁 <strong>Pre-addestramento + Fine-tuning</strong>: strategia dietro ChatGPT, Claude, Mistral</li>
+</ul>
+</div>
+<p><br></p>
+<aside class="notes">
+<p>Passiamo ora dall’idea di “reti neurali” alle architetture specifiche che ci hanno portato agli LLM. - Primo, il <strong>MLP</strong> (Multilayer Perceptron) — il blocco costruttivo originale, ancora usato in compiti più semplici. - Poi, le <strong>CNN</strong> — hanno rivoluzionato l’elaborazione delle immagini e sono ancora fondamentali per l’IA nell’imaging medico. - Le <strong>RNN</strong> sono state il nostro primo modo per lavorare con sequenze like testo e parlato, ma faticavano con contesti lunghi. Poi è arrivato il <strong>Transformer</strong>. Usando l’auto-attenzione invece della ricorrenza, si è scalato magnificamente a grandi dati e testi lunghi. È diventato la base per LLM come GPT, BERT, T5 e tutte le varianti moderne. Introduciamo anche <strong>pre-addestramento e fine-tuning</strong> — concetti cruciali per capire come i modelli si adattano a compiti specifici come la medicina.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="dentro-il-transformer"><span style="color:#884EA0;">Dentro il Transformer</span></h3>
+<h4 id="auto-attenzione-e-codifica-posizionale"><span style="color:#117A65;">Auto-Attenzione e Codifica Posizionale</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">👁️ <strong>Auto-Attenzione</strong>: permette al modello di guardare tutte le parole in una frase contemporaneamente
+<ul>
+<li class="fragment">Ogni parola può “prestare attenzione” ad altre parole — catturando <strong>contesto</strong> e <strong>significato</strong></li>
+<li class="fragment">Esempio: in “Il fegato è ingrossato, e ciò potrebbe indicare…”, a cosa si riferisce “ciò”?</li>
+</ul></li>
+<li class="fragment">🧭 <strong>Codifica Posizionale</strong>: aggiunge ordine alla sequenza
+<ul>
+<li class="fragment">I Transformer elaborano l’input <strong>in parallelo</strong>, quindi le posizioni devono essere codificate esplicitamente</li>
+</ul></li>
+<li class="fragment">🔍 Questi sono ciò che permette agli LLM di gestire le <strong>dipendenze a lungo raggio</strong> nel linguaggio</li>
+<li class="fragment">🧠 Base per ChatGPT, BERT e ogni LLM moderno</li>
+</ul>
+</div>
+</div><div class="column" style="width:42%;">
+<p><img data-src="images/self_attention.png"></p>
+</div></div>
+<aside class="notes">
+<p>Questa è una delle innovazioni più importanti nell’IA moderna. I Transformer non si basano sulla ricorrenza come RNN o LSTM. Invece, guardano <strong>tutte le parole contemporaneamente</strong> — e usano un meccanismo chiamato <strong>auto-attenzione</strong> per decidere quali sono le più rilevanti per ogni parola. Ad esempio, nella frase “Il fegato è ingrossato, e ciò potrebbe indicare…”, il modello può collegare “ciò” a “fegato” usando l’attenzione. Poiché non c’è ricorrenza, i Transformer possono elaborare i dati <strong>in parallelo</strong>, rendendo l’addestramento molto più veloce. Ma poiché elaborano tutto contemporaneamente, devono sapere <strong>dove si trova ogni parola</strong> nella sequenza. È per questo che usano la <strong>codifica posizionale</strong> — un modo matematico per iniettare l’ordine delle parole nel modello. Queste due idee — <strong>auto-attenzione</strong> e <strong>codifica posizionale</strong> — sono ciò che rende i Transformer così potenti nei compiti linguistici. Tutto ciò che è venuto dopo — BERT, GPT, ChatGPT, Claude — è costruito su questo.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosè-lauto-attenzione"><span style="color:#884EA0;">Cos’è l’Auto-Attenzione?</span></h3>
+<h4 id="come-i-transformer-capiscono-il-linguaggio"><span style="color:#117A65;">Come i Transformer “capiscono” il linguaggio</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">👀 Nell’<strong>auto-attenzione</strong>, ogni parola guarda <strong>tutte le altre parole</strong> nella frase
+<ul>
+<li class="fragment">Ogni parola decide <strong>quanta attenzione prestare</strong> alle altre</li>
+</ul></li>
+<li class="fragment">🧠 <strong>Esempio</strong>:
+<ul>
+<li class="fragment">Frase: “Il fegato è ingrossato perché è infiammato”</li>
+<li class="fragment">“è” (il secondo) dovrebbe focalizzare l’attenzione su “fegato”, non su “perché” o “ingrossato”</li>
+</ul></li>
+<li class="fragment">🔄 Il modello <strong>costruisce una mappa</strong> di relazioni tra le parole
+<ul>
+<li class="fragment">Aiuta a <strong>risolvere riferimenti</strong>, <strong>catturare contesto</strong>, <strong>capire significato</strong></li>
+</ul></li>
+<li class="fragment">⚡ L’auto-attenzione è <strong>parallela</strong> e <strong>scala bene</strong> a testi lunghi</li>
+</ul>
+</div>
+<aside class="notes">
+<p>L’auto-attenzione è il cuore del Transformer. Invece di leggere una parola dopo l’altra (come un RNN), il Transformer guarda l’intera frase contemporaneamente. Per ogni parola, si chiede: <em>“Quali altre parole sono importanti per capirmi?”</em></p>
+<p>Ad esempio, in “Il fegato è ingrossato perché è infiammato”, la parola “è” (il secondo) deve connettersi a “fegato” per avere senso. L’auto-attenzione permette al modello di costruire queste <strong>connessioni</strong> automaticamente, e può farlo <strong>per tutte le parole contemporaneamente</strong>, non sequenzialmente. Questo rende i Transformer molto potenti — gestiscono dipendenze a lungo raggio e scalano efficientemente a grandi dataset.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="come-funziona-lauto-attenzione"><span style="color:#884EA0;">Come funziona l’Auto-Attenzione?</span></h3>
+<h4 id="tre-passi-query-key-value"><span style="color:#117A65;">Tre passi: Query, Key, Value</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📚 <strong>Ogni parola</strong> è trasformata in tre vettori:
+<ul>
+<li class="fragment"><strong>Query (Q)</strong>: Cosa sto cercando?</li>
+<li class="fragment"><strong>Key (K)</strong>: Cosa offro?</li>
+<li class="fragment"><strong>Value (V)</strong>: Quale informazione porto?</li>
+</ul></li>
+<li class="fragment">🔍 <strong>Punteggio di Attenzione</strong> tra due parole:
+<ul>
+<li class="fragment">Moltiplica Query di una parola × Key di un’altra</li>
+</ul></li>
+<li class="fragment">🧮 Poi, i punteggi sono <strong>normalizzati</strong> e usati per mescolare i <strong>Values</strong></li>
+<li class="fragment">🎯 Questo dà a ogni parola una <strong>nuova rappresentazione, consapevole del contesto</strong></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Ora approfondiamo un po’ come viene effettivamente calcolata l’auto-attenzione. Ogni parola viene prima trasformata in tre vettori: - Una <strong>Query</strong> — che chiede “cosa sto cercando?” - Una <strong>Key</strong> — che dice “cosa ho da offrire?” - Un <strong>Value</strong> — che porta il contenuto informativo effettivo. Per scoprire <strong>quanta attenzione</strong> una parola dovrebbe prestare a un’altra, moltiplichiamo la Query della prima parola per la Key della seconda parola. Questo dà un <strong>punteggio</strong>: una misura di quanto sia importante quella seconda parola per la prima. Tutti i punteggi vengono <strong>normalizzati</strong> (tipicamente usando una funzione softmax) in modo che sommino a 1, e poi usati per combinare i <strong>Values</strong> di tutte le parole. Il risultato è un <strong>nuovo vettore</strong> per ogni parola, ma ora <strong>arricchito con informazioni dall’intera frase</strong>. È così che il modello cattura relazioni complesse — efficientemente e in parallelo.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="esempi-medici-di-auto-attenzione" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Esempi Medici di Auto-Attenzione</span></h2>
+<h3 id="come-gli-llm-risolvono-lambiguità-nel-testo-clinico"><span style="color:#117A65;">Come gli LLM risolvono l’ambiguità nel testo clinico</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📋 <strong>Esempio di Nota Clinica</strong>: &gt; “Paziente presentato con dolore in QSD. Ecografia ha mostrato una lesione ipoecogena. &gt; La TC ha confermato che si trattava di un emangioma. Misurava 2.3 cm.”</li>
+<li class="fragment">🧠 <strong>Sfida dell’Ambiguità</strong>: Quale “si” / “esso” si riferisce a cosa?
+<ul>
+<li class="fragment">Il primo riferimento (“si trattava”) = la lesione (collegandosi alla frase precedente)</li>
+<li class="fragment">Il secondo riferimento (“Misurava”) = l’emangioma (riferimento immediatamente precedente)</li>
+</ul></li>
+<li class="fragment">👁️ L’<strong>Auto-attenzione permette</strong> al modello di creare queste connessioni automaticamente</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Questa slide dimostra come l’auto-attenzione funziona in un contesto clinico reale. Il pronome ambiguo appare due volte (nell’originale inglese “it”), e il modello deve determinare a cosa si riferisce ogni istanza. Nella NLP tradizionale, questo sarebbe estremamente difficile, ma i meccanismi di attenzione permettono al modello di assegnare pesi diversi a parole diverse nel contesto, effettivamente “guardando indietro” per trovare il sostantivo più rilevante. Questo è particolarmente importante nella documentazione clinica, dove l’ambiguità referenziale è comune e gli errori di risoluzione potrebbero portare a gravi malintesi.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosè-la-codifica-posizionale"><span style="color:#884EA0;">Cos’è la Codifica Posizionale?</span></h3>
+<h4 id="come-i-transformer-conoscono-lordine-delle-parole"><span style="color:#117A65;">Come i Transformer conoscono l’ordine delle parole</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧠 I Transformer <strong>vedono tutte le parole insieme</strong> — ma devono conoscere il loro <strong>ordine</strong></li>
+<li class="fragment">🧭 La <strong>Codifica Posizionale</strong> aggiunge informazione sulla <strong>posizione</strong> a ogni parola</li>
+<li class="fragment">🔢 Due modi per codificare la posizione:
+<ul>
+<li class="fragment">Aggiungere <strong>pattern fissi</strong> (es., funzioni seno e coseno)</li>
+<li class="fragment">Oppure <strong>apprendere</strong> gli embedding di posizione durante l’addestramento</li>
+</ul></li>
+<li class="fragment">🧩 Senza codifica posizionale:
+<ul>
+<li class="fragment">Il modello tratterebbe le frasi come sacchi di parole non ordinati!</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img data-src="images/positional_enc.png" style="width:70.0%"></p>
+</div></div>
+<aside class="notes">
+<p>I Transformer sono speciali perché elaborano tutte le parole <strong>in parallelo</strong> — nessuna parola viene “prima” di un’altra per impostazione predefinita. Ma nel linguaggio, l’<strong>ordine conta</strong>.</p>
+<p>Ad esempio, “Il paziente è stato trattato con successo” è molto diverso da “Il paziente ha trattato con successo.” Per risolvere questo, usiamo la <strong>Codifica Posizionale</strong>.</p>
+<p>Ogni parola riceve un piccolo “tag di posizione” — o un <strong>pattern matematico fisso</strong> (like curve seno/coseno) o un <strong>embedding appreso</strong>. Senza questo, un Transformer <strong>perderebbe il senso della sequenza</strong> — trattando le parole come una lista non ordinata. Grazie alla codifica posizionale, i Transformer possono capire strutture complesse di frasi elaborando tutto in parallelo.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosa-sono-gli-embedding-di-parole"><span style="color:#884EA0;">Cosa sono gli Embedding di Parole?</span></h3>
+<h4 id="trasformare-le-parole-in-numeri"><span style="color:#117A65;">Trasformare le parole in numeri</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔢 I computer hanno bisogno di <strong>numeri</strong>, non di testo</li>
+<li class="fragment">🧠 <strong>Embedding</strong> = rappresentare una parola come un <strong>vettore</strong> di numeri</li>
+<li class="fragment">📚 Parole simili → vettori simili
+<ul>
+<li class="fragment">“fegato” vicino a “rene”, lontano da “auto”</li>
+</ul></li>
+<li class="fragment">➡️ Gli embedding <strong>catturano il significato</strong> da grandi corpora</li>
+</ul>
+</div>
+<aside class="notes">
+<p>I computer non possono capire direttamente le parole — elaborano numeri. Gli <strong>Embedding</strong> risolvono questo problema trasformando ogni parola in un vettore di numeri — una lista come [0.1, 0.3, -0.2, …]. L’idea chiave è che <strong>parole simili</strong> hanno <strong>vettori simili</strong>: - “Fegato” e “Rene” sono vicini. - “Fegato” e “Auto” sono lontani.</p>
+<p>Questa mappatura viene appresa automaticamente da modelli come Word2Vec, GloVe, e anche durante il pre-addestramento dei Transformer. Quindi, gli embedding catturano il <strong>significato semantico</strong> da come le parole appaiono insieme in grandi collezioni di testo.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="embedding-nei-transformer"><span style="color:#884EA0;">Embedding nei Transformer</span></h3>
+<h4 id="primo-passo-prima-dellattenzione"><span style="color:#117A65;">Primo passo prima dell’Attenzione</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🏗️ Ogni parola di input è mappata al suo <strong>vettore di embedding</strong></li>
+<li class="fragment">➡️ Poi viene aggiunta la <strong>codifica posizionale</strong></li>
+<li class="fragment">⚡ Il vettore combinato entra nei layer del Transformer</li>
+<li class="fragment">🎯 Gli embedding sono <strong>affinati</strong> durante l’addestramento</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img data-src="images/embeddings.png" style="width:60.0%"></p>
+</div></div>
+<aside class="notes">
+<p>In un Transformer, la <strong>primissima operazione</strong> è trasformare ogni parola di input in un <strong>vettore di embedding</strong>. Poi, la <strong>codifica posizionale</strong> viene aggiunta a quell’embedding per inserire l’informazione sull’ordine. Questo vettore combinato — significato + posizione — è il vero input ai layer di attenzione. È importante notare che gli embedding non sono fissi: durante l’addestramento (fine-tuning), il modello può <strong>aggiustarli</strong> per il compito specifico — come diagnosi, generazione di referti o altre applicazioni cliniche. Quindi, gli embedding formano la base su cui viene costruita tutta la comprensione superiore.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosè-il-pre-addestramento"><span style="color:#884EA0;">Cos’è il Pre-addestramento?</span></h3>
+<h4 id="insegnare-a-un-modello-competenze-linguistiche-generali"><span style="color:#117A65;">Insegnare a un modello competenze linguistiche generali</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📚 <strong>Pre-addestramento</strong> = addestrare un modello su <strong>enormi dataset di testo</strong></li>
+<li class="fragment">🧠 Obiettivo: imparare grammatica, fatti, pattern di ragionamento</li>
+<li class="fragment">🔄 Nessun compito specifico — il modello prevede parole mancanti o parole successive</li>
+<li class="fragment">🌍 Fonti di dati: libri, siti web, articoli medici, conversazioni</li>
+<li class="fragment">🎯 Risultato: un <strong>modello di uso generale</strong> pronto per l’adattamento</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Il pre-addestramento è come dare a un modello un’enorme educazione. Lo esponiamo a <strong>milioni o miliardi di frasi</strong> — coprendo argomenti dalla conversazione quotidiana alla medicina, legge, scienza e altro ancora. L’obiettivo del modello non è risolvere un compito particolare ma imparare: - Come funziona il linguaggio (sintassi, semantica) - Conoscenza generale del mondo - Ragionamento di senso comune</p>
+<p>Compiti tipici durante il pre-addestramento: - Prevedere la parola successiva in una frase (autoregressivo) - Riempire le parole mancanti (modellazione del linguaggio mascherato)</p>
+<p>Alla fine del pre-addestramento, otteniamo un <strong>modello generalista</strong> — bravo a capire e generare linguaggio ma non ancora specializzato per un lavoro specifico (come la diagnosi clinica o la scrittura di referti di laboratorio).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosè-il-fine-tuning"><span style="color:#884EA0;">Cos’è il Fine-tuning?</span></h3>
+<h4 id="specializzare-il-modello-per-un-compito-specifico"><span style="color:#117A65;">Specializzare il modello per un compito specifico</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔧 <strong>Fine-tuning</strong> = addestramento aggiuntivo su <strong>dataset specifici</strong></li>
+<li class="fragment">🧪 Obiettivo: adattare il modello a compiti <strong>medici</strong>, <strong>clinici</strong> o di <strong>laboratorio</strong></li>
+<li class="fragment">🏥 Esempi:
+<ul>
+<li class="fragment">Prevedere malattie dai sintomi</li>
+<li class="fragment">Riassumere risultati di laboratorio</li>
+<li class="fragment">Generare referti medici</li>
+</ul></li>
+<li class="fragment">🎯 Risultato: un <strong>modello specializzato</strong> focalizzato su un dominio</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img data-src="images/training.png" style="width:60.0%"></p>
+</div></div>
+<aside class="notes">
+<p>Dopo il pre-addestramento, il modello è un “tuttofare” — bravo, ma non ottimizzato per lavori specifici.</p>
+<p>Il <strong>Fine-tuning</strong> è come mandare il modello alla scuola di medicina! Lo addestriamo di nuovo, ma questa volta: - Su <strong>dataset specializzati</strong> (es., note cliniche, referti di laboratorio, storie dei pazienti) - Per <strong>obiettivi specifici</strong> (diagnosi, triage, scrittura di referti)</p>
+<p>Il modello impara a concentrarsi su ciò che conta in quel dominio: - Terminologia medica - Pattern di ragionamento tipici - Fatti critici</p>
+<p>Dopo il fine-tuning, il modello diventa <strong>molto migliore nei compiti clinici e di laboratorio</strong>, ma potrebbe anche “dimenticare” alcune conoscenze generali — è più <strong>specializzato sul dominio</strong>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="interpretabilità-negli-llm"><span style="color:#884EA0;">Interpretabilità negli LLM</span></h3>
+<h4 id="perché-capire-il-comportamento-del-modello-è-importante"><span style="color:#117A65;">Perché capire il comportamento del modello è importante</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔍 <strong>Interpretabilità</strong> = capire <strong>come e perché</strong> un modello dà una risposta</li>
+<li class="fragment">🧠 Importante in contesti clinici e di laboratorio:
+<ul>
+<li class="fragment">Spiegare previsioni e raccomandazioni</li>
+<li class="fragment">Costruire fiducia con utenti e pazienti</li>
+</ul></li>
+<li class="fragment">⚙️ Tecniche emergenti:
+<ul>
+<li class="fragment">Visualizzazione dell’attenzione</li>
+<li class="fragment">Attribuzione delle feature (es., SHAP, LIME)</li>
+<li class="fragment">Prompting Chain-of-thought</li>
+</ul></li>
+<li class="fragment">🚨 Sfida: gli LLM sono complessi e non completamente trasparenti</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Interpretabilità significa essere in grado di <strong>capire</strong> e <strong>spiegare</strong> gli output di un modello. In contesti clinici, questo è cruciale: - I medici devono sapere perché un modello suggerisce una diagnosi o un trattamento. - I pazienti devono fidarsi dei consigli generati dall’IA.</p>
+<p>Alcuni strumenti possono aiutare: - <strong>Mappe di attenzione</strong>: visualizzano su quali parti dell’input il modello si è concentrato. - <strong>Metodi di attribuzione delle feature</strong>: come SHAP e LIME, che stimano quali input hanno influenzato la previsione. - <strong>Prompting Chain-of-thought</strong>: far sì che il modello “spieghi il suo ragionamento” passo dopo passo. Tuttavia, gli LLM attuali sono così grandi e intricati che la <strong>piena trasparenza è ancora molto difficile</strong>. L’interpretabilità rimane un campo di ricerca aperto!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="limitazioni-degli-llm"><span style="color:#884EA0;">Limitazioni degli LLM</span></h3>
+<h4 id="allucinazioni-e-bias-algoritmico"><span style="color:#117A65;">Allucinazioni e Bias Algoritmico</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🎭 <strong>Allucinazioni</strong>: il modello inventa informazioni plausibili ma false
+<ul>
+<li class="fragment">Pericolo: risposte sicure ma sbagliate</li>
+</ul></li>
+<li class="fragment">⚖️ <strong>Bias Algoritmico</strong>: il modello riproduce i bias dai dati di addestramento
+<ul>
+<li class="fragment">Rischio: risultati ingiusti per certi gruppi</li>
+</ul></li>
+<li class="fragment">🚑 Nell’uso clinico:
+<ul>
+<li class="fragment">Richiedere sempre la validazione umana</li>
+<li class="fragment">Preferire il fine-tuning specifico del dominio</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Due rischi principali con gli LLM sono:</p>
+<ul>
+<li><strong>Allucinazioni</strong>: quando il modello “inventa” fatti che sembrano credibili ma sono errati.
+<ul>
+<li>In medicina, questo può essere <strong>pericoloso</strong> se informazioni sbagliate vengono usate per prendere decisioni.</li>
+</ul></li>
+<li><strong>Bias Algoritmico</strong>: i modelli possono riprodurre involontariamente bias sociali o dei dataset (es., razziali, di genere, socioeconomici). Nei campi clinico e di laboratorio:</li>
+<li>Gli output degli LLM <strong>devono sempre essere revisionati</strong> da professionisti.</li>
+<li>L’addestramento o il fine-tuning su <strong>dati medici di alta qualità e curati</strong> può ridurre ma non eliminare questi problemi. L’IA dovrebbe <strong>supportare</strong>, non <strong>sostituire</strong>, il pensiero critico!</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="esempi-medici-di-allucinazioni" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Esempi Medici di Allucinazioni</span></h2>
+<h3 id="quando-gli-llm-inventano-informazioni-cliniche"><span style="color:#117A65;">Quando gli LLM inventano informazioni cliniche</span></h3>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🩺 <strong>Prompt</strong>: “Quali sono gli intervalli normali per i test di funzionalità epatica?”</li>
+<li class="fragment">✅ <strong>Risposte accurate</strong>:
+<ul>
+<li class="fragment">“Intervallo normale ALT: 7-56 U/L”</li>
+<li class="fragment">“Intervallo normale AST: 8-48 U/L”</li>
+</ul></li>
+<li class="fragment">❌ <strong>Risposte allucinate</strong>:
+<ul>
+<li class="fragment">“Intervallo normale GGT: 15-30 U/L” (reale: 9-48 U/L)</li>
+<li class="fragment">“Albumina: 3.5-6.0 g/dL” (reale: 3.5-5.0 g/dL)</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🚨 <strong>Pericoli clinici</strong>:
+<ul>
+<li class="fragment">Falsa sicurezza in valori inaccurati</li>
+<li class="fragment">Gli intervalli di riferimento variano per laboratorio/popolazione</li>
+<li class="fragment">Errori sottili più difficili da rilevare di quelli evidenti</li>
+</ul></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Questa slide illustra come le allucinazioni si manifestano nelle applicazioni cliniche. Il modello fornisce un mix di informazioni accurate e inaccurate, ma le presenta tutte con lo stesso livello di confidenza. Ciò che rende questo particolarmente pericoloso è che i valori allucinati non sono selvaggiamente errati - sono abbastanza plausibili che qualcuno potrebbe non notarli senza controllare. Questo è il problema “plausibile ma sbagliato” di cui abbiamo discusso prima. In contesti clinici, queste sottili allucinazioni possono essere più pericolose degli errori evidenti perché è meno probabile che scatenino scetticismo o verifica.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="llm-in-medicina-clinica-e-di-laboratorio"><span style="color:#884EA0;">LLM in Medicina Clinica e di Laboratorio</span></h3>
+<h4 id="pro-e-contro"><span style="color:#117A65;">Pro e Contro</span></h4>
+<table class="caption-top">
+<colgroup>
+<col style="width: 48%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">✅ Vantaggi</th>
+<th style="text-align: left;">⚠️ Limitazioni</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Recupero rapido delle informazioni</td>
+<td style="text-align: left;">Allucinazioni: risposte plausibili ma sbagliate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistenza nel supporto decisionale</td>
+<td style="text-align: left;">Bias algoritmico dai dati di addestramento</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Riassumere testi medici complessi</td>
+<td style="text-align: left;">Mancanza di piena interpretabilità</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Aiuto nella generazione di referti e documentazione</td>
+<td style="text-align: left;">Rischio di eccessiva fiducia negli output</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Supporto disponibile 24/7, scalabile</td>
+<td style="text-align: left;">Dipendenza dalla validazione umana per la sicurezza</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>Qui riassumiamo i principali <strong>vantaggi</strong> e <strong>limitazioni</strong> dell’uso degli LLM in contesti clinici e di laboratorio. ✅ <strong>Vantaggi</strong>: - Accelerare l’accesso alle informazioni e la refertazione. - Supportare i clinici con suggerimenti e riassunti. - Operare continuamente, senza affaticamento.</p>
+<p>⚠️ <strong>Limitazioni</strong>: - Rischio di <strong>allucinare</strong> risposte sbagliate ma convincenti. - Potenziali <strong>bias</strong> ereditati da dati imperfetti. - <strong>Ragionamento opaco</strong>: spesso non possiamo capire appieno perché un modello dà una certa risposta. Quindi, gli LLM sono potenti <strong>assistenti</strong>, ma <strong>richiedono la supervisione di esperti</strong> in tutte le decisioni critiche.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="llm-piacerti-non-cercare-la-verità"><span style="color:#884EA0;">LLM: Piacerti, Non Cercare la Verità</span></h3>
+<h4 id="perché-plausibile-corretto"><span style="color:#117A65;">Perché plausibile ≠ corretto</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🎭 Gli LLM sono addestrati per <strong>sembrare convincenti</strong>, non per <strong>dire la verità</strong></li>
+<li class="fragment">🤝 Obiettivo: produrre risposte che sembrano <strong>utili, coerenti, piacevoli</strong></li>
+<li class="fragment">❌ Rischio: se incerto, il modello <strong>indovina</strong> fatti plausibili ma sbagliati</li>
+<li class="fragment">🚨 Pericolo in contesti clinici: informazioni sbagliate possono sembrare molto credibili</li>
+<li class="fragment">🧠 Richiedere sempre revisione critica e validazione umana</li>
+</ul>
+</div>
+<aside class="notes">
+<p>I Grandi Modelli Linguistici <strong>non sono progettati</strong> per trovare la verità — sono progettati per <strong>prevedere le parole successive più probabili</strong>. Il loro obiettivo è <strong>soddisfare l’utente</strong>, dando risposte che suonano fluenti, sicure e utili. Questo significa: - Quando “sanno”, sono spesso brillanti. - Quando “non sanno”, <strong>producono comunque una risposta</strong>, anche se è sbagliata. - Non dicono “Non lo so” a meno che non siano esplicitamente programmati o istruiti a farlo. In contesti clinici, questa tendenza è <strong>molto pericolosa</strong>: - Gli errori possono essere nascosti dietro un linguaggio perfettamente strutturato. - I clinici devono sempre <strong>valutare criticamente</strong> gli output degli LLM. - Nessun output LLM dovrebbe mai sostituire il giudizio professionale. Insegnare agli utenti: <strong>Plausibilità non è correttezza</strong>!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="attenzione-plausibilità-non-è-verità"><span style="color:#C0392B;">⚠️ Attenzione: Plausibilità NON è Verità</span></h3>
+<div style="font-size: 0.95em;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Una risposta fluente e sicura <strong>può comunque essere sbagliata</strong>.</li>
+<li>Gli LLM sono <strong>premiati</strong> per sembrare utili, non per essere accurati.</li>
+<li>Nelle applicazioni cliniche e di laboratorio: <strong>validare sempre</strong> prima di fidarsi.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<h3 id="parametri-chiave-del-modello-negli-llm"><span style="color:#884EA0;">Parametri Chiave del Modello negli LLM</span></h3>
+<h4 id="come-controllare-il-comportamento-dellia"><span style="color:#117A65;">Come controllare il comportamento dell’IA</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌡️ <strong>Temperatura</strong>: livello di casualità (più alto = più creativo, più basso = più focalizzato)</li>
+<li class="fragment">🎯 <strong>Top-p (nucleus sampling)</strong>: limita le scelte alle parole più probabili</li>
+<li class="fragment">✂️ <strong>Max tokens</strong>: lunghezza massima dell’output</li>
+<li class="fragment">🔁 <strong>Penalità di frequenza</strong>: scoraggia la ripetizione delle stesse parole</li>
+<li class="fragment">🧠 Affinare questi aiuta ad adattare il modello alle esigenze cliniche</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Diamo ora uno sguardo rapido ma importante ai parametri chiave che controllano come risponde un LLM. Il primo è la <strong>temperatura</strong>. Questo definisce la <strong>casualità</strong> degli output del modello: - Una <strong>temperatura più alta</strong> — ad esempio, 0.7 o 1.0 — rende il modello <strong>più creativo</strong>, ma anche <strong>più imprevedibile</strong>. - Una <strong>temperatura più bassa</strong> — come 0.2 o 0.1 — lo rende <strong>più focalizzato e ripetitivo</strong>. Nel lavoro clinico, di solito preferiamo <strong>temperature più basse</strong> per ottenere risposte coerenti e sicure. Il secondo è <strong>top-p</strong>, noto anche come <strong>nucleus sampling</strong>. Limita il modello a scegliere solo tra le <strong>parole più probabili</strong>, invece di esplorare l’intero vocabolario. Valori di top-p più piccoli rendono il modello <strong>più conservativo</strong>. Il terzo è <strong>max tokens</strong> — il numero massimo di parole o caratteri che il modello è autorizzato a generare. Questo gli impedisce di produrre output infiniti o andare fuori tema. Infine, c’è la <strong>penalità di frequenza</strong>, che dice al modello: <em>“Non ripeterti troppo.”</em> Utile quando si desiderano riassunti concisi e non ridondanti. Regolare correttamente questi parametri fa un’enorme differenza — specialmente in campi sensibili come la medicina, dove vogliamo output <strong>affidabili e prevedibili</strong>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="impostazioni-della-temperatura-per-uso-clinico"><span style="color:#2E86C1;">Impostazioni della Temperatura per Uso Clinico</span></h3>
+<h4 id="trovare-il-giusto-equilibrio-tra-creatività-e-accuratezza"><span style="color:#117A65;">Trovare il giusto equilibrio tra creatività e accuratezza</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌡️ <strong>Scala della temperatura</strong>:
+<ul>
+<li class="fragment">0.0-0.3: Più deterministico, coerente</li>
+<li class="fragment">0.4-0.7: Creatività bilanciata</li>
+<li class="fragment">0.8-1.0: Massima creatività, imprevedibilità</li>
+</ul></li>
+<li class="fragment">🩺 <strong>Raccomandazioni cliniche</strong>:
+<ul>
+<li class="fragment">Documentazione del paziente: 0.1-0.2</li>
+<li class="fragment">Diagnosi differenziale: 0.3-0.5</li>
+<li class="fragment">Materiali educativi per pazienti: 0.4-0.6</li>
+<li class="fragment">Brainstorming di ricerca: 0.7-0.8</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">⚠️ <strong>Esempio di impatto</strong>: <strong>Temperatura 0.1</strong>: &gt; “Enzimi epatici elevati possono indicare danno epatocellulare.” <strong>Temperatura 0.7</strong>: &gt; “Enzimi epatici elevati potrebbero suggerire danno epatocellulare, ostruzione biliare, effetti di farmaci o varie condizioni sistemiche.”</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Parliamo ora di un parametro cruciale che viene spesso trascurato: la temperatura. Questo parametro controlla essenzialmente quanto “creativo” o imprevedibile può essere il modello nelle sue risposte. Una bassa temperatura, tra 0.0 e 0.3, produce risposte molto coerenti e conservative. Il modello risponderà quasi sempre allo stesso modo alla stessa domanda. Una temperatura media, tra 0.4 e 0.7, consente una maggiore variabilità. Con temperature elevate, tra 0.8 e 1.0, otteniamo risposte molto creative ma potenzialmente imprevedibili. In contesti clinici, queste differenze sono fondamentali. Per la documentazione del paziente, vogliamo massima precisione e coerenza, quindi consiglio temperature molto basse, tra 0.1 e 0.2. Il rischio di errori o allucinazioni deve essere minimizzato.</p>
+<p>Per generare diagnosi differenziali, una temperatura leggermente più alta (0.3-0.5) è appropriata, perché vogliamo che il modello consideri diverse possibilità senza diventare troppo speculativo. Per i materiali educativi per i pazienti, possiamo salire a 0.4-0.6, consentendo un linguaggio più naturale e vario. E per il brainstorming di ricerca, dove la creatività è preziosa, temperature tra 0.7 e 0.8 possono generare idee innovative. Guardate gli esempi a destra: a temperatura 0.1, il modello fornisce una risposta concisa e cauta sugli enzimi epatici. A 0.7, esplora invece una gamma più ampia di possibilità. Entrambi sono corretti, ma servono a scopi diversi. Ricordate: in medicina, non esiste una temperatura “giusta” - dipende dal vostro obiettivo specifico e dal livello di rischio accettabile.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosa-sono-i-token"><span style="color:#884EA0;">Cosa sono i Token?</span></h3>
+<h4 id="i-mattoni-dei-modelli-linguistici"><span style="color:#117A65;">I mattoni dei modelli linguistici</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧩 <strong>Token</strong> = piccoli pezzi di testo (parole, parti di parole, simboli)</li>
+<li class="fragment">📏 I modelli elaborano il testo <strong>token per token</strong>, non carattere per carattere</li>
+<li class="fragment">🧮 1 parola ≈ 1–3 token (a seconda della lingua e della complessità)</li>
+<li class="fragment">✂️ <strong>Max tokens</strong> limita la lunghezza totale dell’input + output</li>
+<li class="fragment">⚡ Costi e velocità dipendono spesso dal numero di token utilizzati</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Ora spieghiamo rapidamente cos’è effettivamente un token, perché è fondamentale per capire come funzionano gli LLM. Un <strong>token</strong> è <strong>un piccolo pezzo di testo</strong>. Potrebbe essere una parola, parte di una parola, un simbolo o anche un pezzo di punteggiatura. Ad esempio: - La parola “ospedale” è di solito <strong>un token</strong>. - La parola “referto-dimissione” potrebbe essere <strong>divisa in due o tre token</strong>, a seconda del tokenizer del modello. I modelli <strong>non leggono frasi intere contemporaneamente</strong> — elaborano il testo <strong>token per token</strong>, passo dopo passo. In media, <strong>una parola inglese equivale a circa 1-1.5 token</strong> — ma in lingue più complesse o testi tecnici, potrebbe arrivare a 2 o 3 token per parola. Il numero di token è estremamente importante perché: - <strong>Limita</strong> quanto testo puoi inviare e ricevere in una chiamata. - <strong>Influisce sui costi</strong> se stai usando un’API a pagamento. - <strong>Influenza la velocità</strong>: più token significano risposte più lente. In termini pratici: Controlla sempre i <strong>limiti di token</strong> del tuo modello — specialmente quando riassumi grandi documenti clinici o fai elaborazioni batch.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="esempio-come-il-testo-diventa-token"><span style="color:#884EA0;">Esempio: Come il Testo Diventa Token</span></h3>
+<h4 id="frase-clinica-reale-suddivisa-in-token"><span style="color:#117A65;">Frase clinica reale suddivisa in token</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📄 Frase: &gt; “Paziente dimesso in condizioni stabili.”</li>
+<li class="fragment">🧩 Tokenizzazione:
+<ul>
+<li class="fragment">“Paziente”</li>
+<li class="fragment">” dimesso”</li>
+<li class="fragment">” in”</li>
+<li class="fragment">” condizioni”</li>
+<li class="fragment">” stabili”</li>
+<li class="fragment">“.”</li>
+</ul></li>
+<li class="fragment">🔢 Totale: 6 token</li>
+</ul>
+<p>✅ Anche frasi brevi possono usare più token!</p>
+</div>
+<aside class="notes">
+<p>Vediamo un esempio reale di come funziona la tokenizzazione. Prendiamo questa semplice frase clinica: <em>“Paziente dimesso in condizioni stabili.”</em></p>
+<p>Quando elaborata da un modello linguistico, non la vede come un unico grande blocco. La divide in parti più piccole, chiamate token. I token sarebbero: - “Paziente” - ” dimesso” - ” in” - ” condizioni” - ” stabili” - “.” Notate come anche piccoli spazi e prefissi (” dimesso” con uno spazio) possano diventare token separati. In totale, questa minuscola frase usa <strong>6 token</strong>.</p>
+<p>Questo è il motivo per cui, lavorando con lunghi testi clinici come lettere di dimissione o referti radiologici, i <strong>limiti di token</strong> possono diventare un vincolo reale — anche se il testo non sembra molto lungo a un lettore umano!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="come-gli-llm-elaborano-le-immagini"><span style="color:#884EA0;">Come gli LLM Elaborano le Immagini</span></h3>
+<h4 id="trasformare-le-immagini-in-linguaggio"><span style="color:#117A65;">Trasformare le immagini in linguaggio</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📸 <strong>Le immagini vengono convertite in feature numeriche</strong> (array di numeri)</li>
+<li class="fragment">🔎 <strong>Un codificatore di visione</strong> estrae elementi chiave: forme, colori, oggetti, testo</li>
+<li class="fragment">🧠 Le feature sono <strong>interpretate dal modello linguistico</strong></li>
+<li class="fragment">🖋️ Il modello genera descrizioni, risposte o didascalie basate sugli input visivi</li>
+<li class="fragment">⚡ Uso clinico: analisi di raggi X, MRI, vetrini patologici, diagrammi</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Vediamo rapidamente come i moderni LLM multimodali possono elaborare immagini e le somiglianze con l’elaborazione delle parole. Primo, quando invii un’immagine al modello, <strong>non vede un’immagine</strong> come noi. Invece, l’immagine viene <strong>convertita in un array numerico</strong> — una lunga lista di numeri che rappresentano colori, forme e pixel. Un componente speciale chiamato <strong>codificatore di visione</strong> analizza l’immagine. Estrae le feature visive chiave: - Oggetti - Testo - Posizioni - Pattern generali</p>
+<p>Queste feature estratte vengono poi <strong>inserite nel modello linguistico</strong>, che le interpreta proprio come un prompt in forma testuale. Infine, il modello può <strong>descrivere l’immagine</strong>, <strong>rispondere a domande su di essa</strong> o <strong>ragionare basandosi su ciò che ha “visto”</strong>. Nella pratica clinica, questo approccio apre possibilità come: - Descrivere automaticamente i raggi X - Riassumere i risultati delle MRI - Interpretare i vetrini patologici - Leggere note scritte a mano in PDF scansionati</p>
+<p>Il ponte tra visione e linguaggio è ciò che rende i modelli multimodali così potenti.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="applicazioni-multimodali-in-medicina"><span style="color:#2E86C1;">Applicazioni Multimodali in Medicina</span></h3>
+<h4 id="oltre-il-testo-llm-con-capacità-visive"><span style="color:#117A65;">Oltre il testo: LLM con capacità visive</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔬 <strong>Applicazioni cliniche</strong>:
+<ul>
+<li class="fragment">Descrivere immagini radiologiche</li>
+<li class="fragment">Interpretare pattern ECG</li>
+<li class="fragment">Analizzare vetrini di microscopia</li>
+<li class="fragment">Leggere note mediche scritte a mano</li>
+</ul></li>
+<li class="fragment">⚡ <strong>Esempi di workflow</strong>:
+<ul>
+<li class="fragment">Carica immagine + aggiungi domanda clinica</li>
+<li class="fragment">Il modello interpreta contesto visivo + testuale</li>
+<li class="fragment">La risposta incorpora entrambe le modalità</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔍 <strong>Esempio di prompt</strong>: &gt; “Questa è una radiografia del torace di un paziente di 65 anni con dispnea. Descrivi ciò che vedi e eventuali anomalie potenziali.”</li>
+<li class="fragment">⚠️ <strong>Limitazioni</strong>:
+<ul>
+<li class="fragment">Non approvato dalla FDA per la diagnosi</li>
+<li class="fragment">Prestazioni variabili tra tipi di immagine</li>
+<li class="fragment">Richiede verifica clinica</li>
+</ul></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Entriamo nell’eccitante territorio dei modelli multimodali - LLM che possono elaborare sia testo che immagini. Questa è una vera rivoluzione per la medicina, dove l’informazione visiva è spesso cruciale. Modelli come GPT-4V, Claude 3 e Gemini possono letteralmente “vedere” immagini mediche e discuterne in contesto clinico. Le applicazioni sono enormi: possono descrivere immagini radiologiche, interpretare pattern ECG, analizzare vetrini di microscopia e persino leggere note mediche scritte a mano che i sistemi OCR tradizionali faticherebbero a decifrare. Il workflow è intuitivo: carichi un’immagine, aggiungi una domanda clinica e il modello integra entrambe le modalità nella sua risposta. Ad esempio, puoi caricare una radiografia del torace e chiedere “Cosa vedi in questa radiografia di un paziente di 65 anni con dispnea?” Il modello descriverà i reperti visibili considerando il contesto clinico fornito. Questo è particolarmente potente perché combina l’analisi visiva con la conoscenza medica. Non descrive solo l’immagine, ma la interpreta alla luce della storia clinica. Naturalmente, ci sono limitazioni importanti. Questi sistemi non sono approvati dalla FDA per la diagnosi - sono strumenti di assistenza, non sostituti del giudizio clinico. Le prestazioni variano significativamente tra diverse modalità di imaging e tipi di immagine. E ogni output richiede verifica clinica. Ma il potenziale è innegabile. Stiamo vedendo radiologi usare questi strumenti per generare bozze preliminari di referti, patologi usarli per confrontare campioni con casi simili e cardiologi accelerare l’interpretazione ECG di routine. La chiave è usarli come assistenti intelligenti, non come sostituti del giudizio esperto.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="modelli-linguistici-generali-vs-specifici-per-la-medicina"><span style="color:#154360;">Modelli Linguistici Generali vs Specifici per la Medicina</span></h3>
+<h4 id="scegliere-lo-strumento-giusto-per-le-applicazioni-cliniche"><span style="color:#117A65;">Scegliere lo strumento giusto per le applicazioni cliniche</span></h4>
+<div style="font-size: 0.9em;">
+<ul>
+<li class="fragment">🌍 <strong>LLM Generali</strong> Addestrati su vasti dati internet ➔ Versatili ma superficiali in medicina. <strong>Esempi</strong>: ChatGPT, Claude, Mistral.</li>
+</ul>
+<hr>
+<ul>
+<li class="fragment">🩺 <strong>LLM Specifici per la Medicina</strong> Addestrati su cartelle cliniche, linee guida, articoli scientifici ➔ Accurati ma meno flessibili. <strong>Esempi</strong>: PathChat, BrainGPT, LiVersa.</li>
+</ul>
+<hr>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>⚖️ <strong>Compromesso chiave</strong>: Ampie competenze (<strong>modelli generali</strong>) vs Expertise profonda (<strong>modelli medici</strong>)</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Esploriamo ora una distinzione cruciale se volete usare correttamente l’IA nel lavoro clinico o di laboratorio. Abbiamo due categorie principali di modelli linguistici:</p>
+<p>Da un lato, ci sono i <strong>modelli di uso generale</strong>, come ChatGPT, Claude e Mistral. Questi modelli sono addestrati su enormi quantità di dati internet generali. Questo li rende estremamente <strong>versatili</strong> — possono ragionare, riassumere, improvvisare in molti domini. Ma ecco il tranello: non <strong>capiscono veramente la medicina</strong>. Possono sembrare <strong>molto sicuri</strong> anche quando usano la terminologia sbagliata o mancano importanti sfumature cliniche. Dall’altro lato, abbiamo i <strong>modelli specifici per la medicina</strong>, come PathChat, BrainGPT e LiVersa. Questi modelli sono addestrati <strong>esclusivamente</strong> su dataset clinici: cartelle cliniche, linee guida e articoli scientifici. Il risultato? - Terminologia medica <strong>molto migliore</strong>, - Maggiore <strong>accuratezza contestuale</strong>, - Maggiore <strong>sicurezza</strong> nel gestire informazioni cliniche. Tuttavia, tendono ad essere <strong>meno flessibili</strong> fuori dal loro dominio, e molti sono <strong>chiusi</strong> o specifici dell’istituzione. <strong>In conclusione</strong>: Quando si sceglie un LLM per il lavoro clinico, bisogna <strong>bilanciare due esigenze</strong>: - <strong>Generalità</strong> versus <strong>specializzazione</strong>, - <strong>Disponibilità</strong> versus <strong>affidabilità</strong>. Non c’è una risposta universale — dipende interamente dal compito specifico e dal livello di rischio coinvolto!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="applicazioni-specifiche-per-specialità"><span style="color:#2E86C1;">Applicazioni Specifiche per Specialità</span></h3>
+<h4 id="casi-duso-degli-llm-nelle-discipline-mediche"><span style="color:#117A65;">Casi d’uso degli LLM nelle discipline mediche</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🫀 <strong>Cardiologia</strong>:
+<ul>
+<li class="fragment">Assistenza all’interpretazione ECG</li>
+<li class="fragment">Protocolli di gestione dell’insufficienza cardiaca</li>
+</ul></li>
+<li class="fragment">🧠 <strong>Neurologia</strong>:
+<ul>
+<li class="fragment">Documentazione della valutazione cognitiva</li>
+<li class="fragment">Descrizione dei pattern epilettici</li>
+</ul></li>
+<li class="fragment">🔬 <strong>Patologia</strong>:
+<ul>
+<li class="fragment">Refertazione standardizzata dei campioni</li>
+<li class="fragment">Ricerca bibliografica per reperti rari</li>
+</ul></li>
+<li class="fragment">🩸 <strong>Medicina di Laboratorio</strong>:
+<ul>
+<li class="fragment">Guida all’interpretazione dei test</li>
+<li class="fragment">Documentazione e standardizzazione dei protocolli</li>
+<li class="fragment">Pianificazione di sequenze complesse di test</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>So che abbiamo specialisti di diverse discipline mediche in questa stanza, quindi voglio mostrare come gli LLM possono essere applicati specificamente nelle vostre aree di competenza. Per i cardiologi, gli LLM possono assistere nell’interpretazione ECG, evidenziando pattern potenzialmente rilevanti. Sono particolarmente utili per standardizzare i protocolli di gestione dell’insufficienza cardiaca, personalizzandoli per specifiche sottopopolazioni di pazienti. In neurologia, questi modelli eccellono nella documentazione delle valutazioni cognitive, dove possono strutturare osservazioni complesse in formati standardizzati. Possono anche assistere nella descrizione dettagliata dei pattern epilettici, migliorando la coerenza della documentazione tra diversi operatori. I patologi stanno già usando gli LLM per standardizzare i referti dei campioni, assicurando che tutti gli elementi necessari siano inclusi e formattati in modo coerente. Un’applicazione particolarmente potente è la rapida ricerca bibliografica quando si incontrano reperti rari o insoliti - un modello può analizzare migliaia di articoli in secondi e sintetizzare informazioni rilevanti. Nella medicina di laboratorio, gli LLM stanno rivoluzionando la creazione di guide interpretative per test complessi, la standardizzazione della documentazione dei protocolli e la pianificazione di sequenze complesse di test. Possono aiutare a determinare quali test dovrebbero seguire i risultati iniziali anormali, basandosi su linee guida aggiornate. Queste applicazioni sono solo la punta dell’iceberg. L’idea chiave è che gli LLM non sono strumenti generici - possono essere adattati alle esigenze specifiche della vostra disciplina. Vi invito a pensare ai processi documentali o decisionali nella vostra pratica quotidiana che potrebbero beneficiare di un’assistenza intelligente.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="modalità-chat-vs-modalità-api"><span style="color:#154360;">Modalità Chat vs Modalità API</span></h3>
+<h4 id="due-modi-per-interagire-con-gli-llm"><span style="color:#117A65;">Due modi per interagire con gli LLM</span></h4>
+<div style="font-size: 0.9em;">
+<ul>
+<li class="fragment">💬 <strong>Modalità Chat</strong>: ➔ Interattiva, non richiede programmazione. ➔ Ideale per brainstorming, esplorazione. ➔ ❗ Meno controllo e riproducibilità.</li>
+</ul>
+<hr>
+<ul>
+<li class="fragment">🔗 <strong>Modalità API</strong>: ➔ Query programmatiche strutturate. ➔ Ideale per automazione, scalabilità. ➔ ✅ Pieno controllo sugli output.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>⚡ <strong>Consiglio Chiave</strong>: Usa la <strong>Modalità Chat</strong> per esplorare. Usa la <strong>Modalità API</strong> per automatizzare.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Arriviamo ora a una distinzione molto pratica che dovete capire se volete lavorare effettivamente con gli LLM. Ci sono due modi principali per interagire con questi modelli:</p>
+<p>Primo, la <strong>Modalità Chat</strong>. Questa è la più familiare — come usare ChatGPT nel browser. È <strong>interattiva</strong>: invii un prompt, ottieni una risposta e puoi continuare a perfezionare la tua richiesta passo dopo passo. È perfetta per <strong>esplorare</strong>, <strong>fare brainstorming</strong> e <strong>prototipare rapidamente</strong> idee cliniche — ad esempio, aiutare a redigere un referto di laboratorio o riassumere linee guida. La bellezza è: <strong>non sono richieste competenze di programmazione</strong>. Ma — e questo è importante — <strong>hai meno controllo</strong>. Non puoi facilmente automatizzare o ripetere compiti esattamente allo stesso modo ogni volta. Poi abbiamo la <strong>Modalità API</strong>. Qui, invece di chattare, invii richieste <strong>programmaticamente</strong> — tramite codice o semplici script. Puoi automatizzare i workflow: analizzare in batch referti clinici, generare centinaia di riassunti, integrare gli LLM nei sistemi ospedalieri. Richiede <strong>programmazione minima</strong>: richieste HTTP di base, facili da imparare anche per i non sviluppatori. L’enorme vantaggio è la <strong>precisione e la scalabilità</strong> — definisci esattamente cosa vuoi, ogni volta. <strong>In conclusione</strong>: - Usa la <strong>Modalità Chat</strong> per esplorare e pensare. - Usa la <strong>Modalità API</strong> per costruire e scalare le tue soluzioni. Entrambe sono potenti, ma servono esigenze molto diverse.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="finestra-di-contesto-quanto-un-llm-può-ricordare"><span style="color:#884EA0;">Finestra di Contesto: Quanto un LLM Può Ricordare</span></h3>
+<h4 id="perché-i-limiti-di-token-contano-per-le-conversazioni"><span style="color:#117A65;">Perché i limiti di token contano per le conversazioni</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧠 <strong>Finestra di contesto</strong> = numero massimo di token che il modello può elaborare contemporaneamente</li>
+<li class="fragment">📏 Include sia <strong>il tuo prompt</strong> che <strong>la risposta del modello</strong></li>
+<li class="fragment">🚫 Se la conversazione supera il limite, i token vecchi vengono scartati (“dimenticanza”)</li>
+<li class="fragment">📉 Chat lunghe possono perdere informazioni importanti precedenti</li>
+<li class="fragment">🔍 Consiglio pratico: mantieni i prompt concisi, riassumi quando necessario</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Spieghiamo ora un concetto molto importante ma spesso trascurato: la <strong>finestra di contesto</strong> di un modello linguistico.</p>
+<p>La finestra di contesto definisce il <strong>numero massimo di token</strong> che il modello può gestire contemporaneamente. Questo include sia: - Il testo che scrivi (il prompt) - E il testo che il modello genera (la risposta)</p>
+<p>Ad esempio: - GPT-3.5 ha un limite di circa <strong>4.096 token</strong>. - GPT-4 può gestire fino a <strong>8.192</strong> o persino <strong>32.768 token</strong> in alcune versioni. - Modelli locali come Mistral gestiscono tipicamente <strong>da 4.000 a 8.000 token</strong>. Ma cosa succede se la tua conversazione diventa più lunga di questo limite? <strong>Il modello inizia a dimenticare.</strong> I token più vecchi vengono scartati automaticamente. Ciò significa: se la tua chat è troppo lunga, il modello potrebbe dimenticare dettagli importanti dall’inizio. Questo è particolarmente rischioso nelle applicazioni cliniche o scientifiche dove ogni dettaglio conta. <strong>Consiglio pratico</strong>: - Mantieni i tuoi prompt e le conversazioni <strong>concisi</strong>. - Usa <strong>riassunti intermedi</strong> se necessario. - Quando le chat diventano molto lunghe, <strong>riafferma le informazioni chiave</strong> per mantenerle attive nella memoria del modello. Gestire la finestra di contesto è fondamentale se si desidera un uso sicuro ed efficace degli LLM.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="finestre-di-contesto-e-quanto-coprono"><span style="color:#884EA0;">Finestre di Contesto e Quanto Coprono</span></h3>
+<h4 id="limiti-di-memoria-dei-principali-llm"><span style="color:#117A65;">Limiti di memoria dei principali LLM</span></h4>
+<div style="font-size: 0.85em;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Modello</th>
+<th style="text-align: left;">Finestra di Contesto</th>
+<th style="text-align: left;">Pagine Appross.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">🤖 GPT-3.5</td>
+<td style="text-align: left;">~4,096 token</td>
+<td style="text-align: left;">~10 pagine</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">🧠 GPT-4 (standard)</td>
+<td style="text-align: left;">~8,192 token</td>
+<td style="text-align: left;">~20 pagine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">🧠 GPT-4 (esteso)</td>
+<td style="text-align: left;">~32,768 token</td>
+<td style="text-align: left;">~80 pagine</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">🤯 Claude 3</td>
+<td style="text-align: left;">~200,000 token</td>
+<td style="text-align: left;">~500 pagine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">🌟 Gemini 2.5 Pro</td>
+<td style="text-align: left;">~2,000,000 token</td>
+<td style="text-align: left;">~5,000 pagine</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">🧩 Mistral 7B</td>
+<td style="text-align: left;">~8,192 token</td>
+<td style="text-align: left;">~20 pagine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">🦙 Llama 2 13B</td>
+<td style="text-align: left;">~4,096 token</td>
+<td style="text-align: left;">~10 pagine</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>Aggiorniamo ora la nostra visione delle dimensioni della finestra di contesto — e rendiamola pratica pensando in termini di pagine di libro. <strong>GPT-3.5</strong>, il modello classico dietro ChatGPT, gestisce circa <strong>4.000 token</strong> — circa <strong>10 pagine</strong> di testo. <strong>GPT-4</strong>, nella sua forma standard, copre circa <strong>8.000 token</strong>, o circa <strong>20 pagine</strong>. La sua versione estesa, disponibile nei servizi premium, può elaborare circa <strong>80 pagine</strong> — davvero potente per compiti di ragionamento più lunghi. <strong>Claude 3</strong>, di Anthropic, è notevole: può gestire <strong>circa 200.000 token</strong>, circa <strong>500 pagine</strong> — quasi un intero libro di testo. <strong>Gemini 2.5 Pro</strong>, l’ultimo modello di Google, è ancora più estremo: Afferma di elaborare <strong>2 milioni di token</strong> — circa <strong>5.000 pagine</strong>. A quella scala, potresti inserire intere biblioteche di ricerca nel modello. <strong>Mistral 7B</strong>, un popolare modello open-source, gestisce circa <strong>8.000 token</strong>, paragonabile a GPT-4 standard. <strong>Llama 2 13B</strong> — un altro modello aperto — gestisce circa <strong>4.000 token</strong>. Il concetto chiave è semplice: I modelli moderni variano enormemente in quanta informazione possono “vedere” contemporaneamente. Scegliere il modello giusto e progettare prompt che si adattino alla finestra di contesto sono la chiave del successo, specialmente in contesti clinici, legali o accademici.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosa-succede-quando-superi-la-finestra-di-contesto"><span style="color:#884EA0;">Cosa Succede Quando Superi la Finestra di Contesto?</span></h3>
+<h4 id="come-gli-llm-gestiscono-troppe-informazioni"><span style="color:#117A65;">Come gli LLM gestiscono troppe informazioni</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">⏳ Quando il limite di token viene superato, i <strong>token più vecchi vengono scartati</strong></li>
+<li class="fragment">🧠 Il modello “dimentica” le parti iniziali della conversazione</li>
+<li class="fragment">🚑 Istruzioni critiche potrebbero andare perse</li>
+<li class="fragment">📉 Prestazioni e coerenza si degradano</li>
+<li class="fragment">🧹 Consiglio pratico: riassumi o riafferma periodicamente i punti chiave</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Discutiamo ora cosa succede quando superiamo la finestra di contesto del modello. Quando il numero di token — contando sia i tuoi prompt che le risposte del modello — <strong>va oltre il limite consentito</strong>, il modello automaticamente <strong>scarta</strong> i token più vecchi. Conserva solo i token più recenti che rientrano nella finestra massima. Questo significa che il modello inizia a <strong>“dimenticare”</strong> l’inizio della tua conversazione: - Istruzioni importanti - Dettagli critici - Definizioni che hai dato all’inizio</p>
+<p>In pratica, questo può <strong>influenzare gravemente</strong> le prestazioni — specialmente in discussioni cliniche, legali o tecniche dove il contesto iniziale conta. Per gestire questo, la migliore strategia è: - <strong>Riassumere regolarmente</strong>. - <strong>Riaffermare le informazioni critiche</strong> se la conversazione diventa lunga. In questo modo, anche se le parti più vecchie vengono dimenticate, il modello “vede” sempre i punti essenziali di cui ha bisogno per ragionare correttamente.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="limitazioni-della-finestra-di-contesto-nella-pratica-clinica"><span style="color:#2E86C1;">Limitazioni della Finestra di Contesto nella Pratica Clinica</span></h3>
+<h4 id="cosa-succede-quando-i-documenti-medici-superano-i-limiti-di-token"><span style="color:#117A65;">Cosa succede quando i documenti medici superano i limiti di token</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>📄 <strong>Tipico riassunto di dimissione</strong>: 500-1000 parole = ~750-1500 token</p></li>
+<li class="fragment"><p>⚠️ <strong>Rischi di troncamento</strong>:</p>
+<ul>
+<li class="fragment">L’anamnesi medica precedente potrebbe essere tagliata</li>
+<li class="fragment">Le informazioni sui farmaci alla fine del documento potrebbero andare perse</li>
+<li class="fragment">Le istruzioni di follow-up potrebbero mancare</li>
+</ul></li>
+<li class="fragment"><p>💡 <strong>Esempio clinico</strong>: Riassunto del paziente con lista farmaci alla fine</p>
+<ul>
+<li class="fragment">Con 4K token: Informazioni complete elaborate</li>
+<li class="fragment">Con 2K token: Istruzioni critiche sull’anticoagulazione perse</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Questa slide illustra le implicazioni pratiche delle limitazioni della finestra di contesto quando si lavora con documenti clinici. Le cartelle cliniche tendono ad essere lunghe e informazioni importanti sono spesso distribuite in tutto il documento. Quando un modello può “vedere” solo una parte del documento a causa dei limiti di token, informazioni critiche possono essere perse. Nell’esempio mostrato, le istruzioni sui farmaci poste alla fine di un riassunto di dimissione potrebbero essere perse interamente se la finestra di contesto è troppo piccola, portando potenzialmente a errori di trattamento. Questo influisce direttamente su come dovremmo strutturare i prompt per le applicazioni cliniche e sottolinea perché i modelli più recenti con finestre di contesto più ampie (come Claude e GPT-4) rappresentano miglioramenti significativi per le applicazioni sanitarie.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="proteggere-il-contesto-nelle-conversazioni-lunghe"><span style="color:#884EA0;">Proteggere il Contesto nelle Conversazioni Lunghe</span></h3>
+<h4 id="tecniche-per-evitare-la-perdita-di-informazioni-critiche"><span style="color:#117A65;">Tecniche per evitare la perdita di informazioni critiche</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🛡️ <strong>Istruzioni di Ancoraggio</strong>:
+<ul>
+<li class="fragment">Ripeti regole o istruzioni critiche ogni pochi prompt</li>
+</ul></li>
+<li class="fragment">📝 <strong>Iniezione di Riassunto</strong>:
+<ul>
+<li class="fragment">Riassumi i punti chiave e reinseriscili durante la chat</li>
+</ul></li>
+<li class="fragment">📚 <strong>Prompting Strutturato</strong>:
+<ul>
+<li class="fragment">Organizza chiaramente gli input: diagnosi, trattamenti, follow-up</li>
+</ul></li>
+<li class="fragment">🚦 <strong>Sessioni Brevi</strong>:
+<ul>
+<li class="fragment">Riavvia nuove chat dopo aver raggiunto il 70–80% del limite di token</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Parliamo ora di <strong>tecniche pratiche</strong> per proteggere il contesto importante nelle lunghe conversazioni con gli LLM.</p>
+<p>La prima tecnica si chiama <strong>Istruzioni di Ancoraggio</strong>: <strong>Ripeti le istruzioni chiave</strong> — come “Riassumi solo informazioni cliniche” — <strong>ogni pochi prompt</strong>. Questo mantiene il modello concentrato, anche se i token iniziali vengono scartati. Il secondo metodo è l’<strong>Iniezione di Riassunto</strong>: Periodicamente, <strong>riassumi la conversazione</strong> finora e <strong>re-inietta</strong> il riassunto nel dialogo. Agisce come un aggiornamento della memoria per il modello. Terzo, usa il <strong>Prompting Strutturato</strong>: Quando fornisci informazioni cliniche o tecniche, organizzale esplicitamente: - “Diagnosi: …” - “Trattamenti: …” - “Istruzioni di follow-up: …” Questo aiuta il modello a parsare e mantenere la logica del tuo input, anche quando la memoria si riduce. Infine, pratica le <strong>Sessioni Brevi</strong>: Quando vedi che una conversazione sta diventando lunga — e stimi di essere al 70% o 80% del limite di token del modello — è più sicuro <strong>iniziare una nuova sessione</strong>, copiando solo le informazioni critiche. Queste tecniche possono migliorare drasticamente la coerenza e la sicurezza quando si usano gli LLM per compiti complessi come il riassunto clinico o la diagnostica.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="cosa-sono-le-api"><span style="color:#884EA0;">Cosa sono le API?</span></h3>
+<h4 id="connettersi-agli-llm-come-professionisti"><span style="color:#117A65;">Connettersi agli LLM come professionisti</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔗 <strong>API</strong> = Application Programming Interface</li>
+<li class="fragment">🛠️ Un modo per inviare domande e ricevere risposte programmaticamente</li>
+<li class="fragment">📬 Funziona come “inviare un messaggio” al modello e ricevere una risposta</li>
+<li class="fragment">⚡ Permette automazione, scalabilità e integrazione nei sistemi clinici</li>
+<li class="fragment">🧠 Non c’è bisogno di “chattare” manualmente — i workflow avvengono automaticamente</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Prendiamoci un momento per definire cosa sia effettivamente un’API. <strong>API</strong> sta per <strong>Application Programming Interface</strong>. È un modo per <strong>inviare una richiesta a un modello</strong> — come una domanda o un prompt — e <strong>ricevere una risposta automaticamente</strong>. Invece di chattare manualmente, un’API ti permette di <strong>connettere il tuo software direttamente al modello</strong>. Invii una richiesta strutturata, di solito tramite un semplice script, e ottieni una risposta strutturata indietro. Pensalo come inviare un messaggio a un robot — e ottenere una risposta intelligente istantaneamente, senza dover aprire una finestra di chat. Le API sono ciò che abilita l’<strong>automazione</strong>: - Puoi elaborare centinaia di referti durante la notte. - Puoi integrare il modello direttamente nei sistemi ospedalieri, nelle cartelle cliniche elettroniche, nei sistemi informativi di laboratorio. E tutto questo avviene <strong>senza interazione manuale</strong>: solo programmi che parlano tra loro. Nella pratica clinica, le API sono potenti perché rendono gli LLM <strong>veramente scalabili e operativi</strong> — non solo uno strumento per il brainstorming.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="valutazione-quantitativa-delle-prestazioni"><span style="color:#2E86C1;">Valutazione Quantitativa delle Prestazioni</span></h3>
+<h4 id="misurare-lefficacia-degli-llm-nei-compiti-clinici"><span style="color:#117A65;">Misurare l’efficacia degli LLM nei compiti clinici</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📊 <strong>Metriche chiave</strong>:
+<ul>
+<li class="fragment">Accuratezza: Correttezza delle informazioni mediche</li>
+<li class="fragment">Coerenza: Risposte affidabili a query simili</li>
+<li class="fragment">Tasso di allucinazione: Frequenza di contenuti fabbricati</li>
+<li class="fragment">Rilevanza clinica: Applicabilità alla cura del paziente</li>
+</ul></li>
+<li class="fragment">🔍 <strong>Metodi di valutazione</strong>:
+<ul>
+<li class="fragment">Panel di revisori esperti</li>
+<li class="fragment">Confronto con gold standard</li>
+<li class="fragment">Controlli di coerenza tra modelli</li>
+<li class="fragment">Scenari clinici strutturati</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📈 <strong>Confronto risultati campione</strong>:</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Modello</th>
+<th style="text-align: center;">Accuratezza</th>
+<th style="text-align: center;">Tasso di Allucinazione</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">GPT-4</td>
+<td style="text-align: center;">89%</td>
+<td style="text-align: center;">4.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Claude 3</td>
+<td style="text-align: center;">91%</td>
+<td style="text-align: center;">3.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mistral</td>
+<td style="text-align: center;">85%</td>
+<td style="text-align: center;">6.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Med-PaLM</td>
+<td style="text-align: center;">93%</td>
+<td style="text-align: center;">2.8%</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<aside class="notes">
+<p>Come professionisti sanitari, siamo abituati a valutare rigorosamente nuovi strumenti e terapie prima dell’adozione. Gli LLM non dovrebbero fare eccezione. Analizziamo come misurare quantitativamente le loro prestazioni in contesti clinici. Le metriche chiave che dobbiamo considerare includono l’accuratezza - quanto sono corrette le informazioni mediche fornite; la coerenza - quanto sono affidabili le risposte a query simili; il tasso di allucinazione - quanto spesso il modello inventa informazioni; e la rilevanza clinica - quanto sono applicabili le risposte alla cura del paziente. Per valutare queste metriche, possiamo usare diversi metodi. I panel di revisori esperti, dove gli specialisti valutano le risposte, sono il gold standard ma richiedono tempo. Il confronto con standard riconosciuti, come linee guida o testi medici, è più efficiente. I controlli di coerenza tra modelli possono rivelare discrepanze informative. E gli scenari clinici strutturati consentono test standardizzati su casi specifici. La tabella mostra alcuni risultati comparativi di un nostro recente studio. Notate come i modelli specializzati per la medicina, come Med-PaLM, tendano a superare i modelli generici. Il tasso di allucinazione è particolarmente importante - rappresenta quanto spesso il modello genera informazioni false ma plausibili. Questi dati suggeriscono che stiamo raggiungendo livelli di prestazioni interessanti, ma siamo ancora lontani dal 100% di accuratezza. Ecco perché la verifica umana rimane essenziale, specialmente per informazioni critiche per la cura del paziente. Quando implementate questi strumenti nei vostri contesti, consiglio di condurre valutazioni simili, specifiche per i vostri casi d’uso, per comprendere i punti di forza e le limitazioni dei modelli che scegliete.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="esempio-pratico-modalità-chat"><span style="color:#884EA0;">Esempio Pratico: Modalità Chat</span></h3>
+<h4 id="prompt-clinico-per-esplorazione"><span style="color:#117A65;">Prompt Clinico per Esplorazione</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🧪 <strong>Scenario</strong>: redazione di un riassunto di dimissione</li>
+<li class="fragment">💬 <strong>Prompt</strong>: “Riassumi la degenza ospedaliera del paziente focalizzandoti su diagnosi, trattamento e istruzioni di follow-up.”</li>
+<li class="fragment">⚡ <strong>Obiettivo</strong>: generazione rapida di testo per revisione del clinico</li>
+<li class="fragment">⚠️ <strong>Promemoria</strong>: validare sempre per accuratezza e rilevanza clinica</li>
+</ul>
+</div>
+<aside class="notes">
+<p>In questo esempio, stiamo usando la Modalità Chat per assistere con un compito clinico tipico: scrivere un riassunto di dimissione. Il clinico fornisce un prompt in testo libero, chiedendo al modello di <strong>riassumere la degenza ospedaliera del paziente</strong> — focalizzandosi specificamente sulla <strong>diagnosi</strong>, sui <strong>trattamenti eseguiti</strong> e su <strong>quali istruzioni sono state date per il follow-up</strong>. Questo tipo di compito è perfetto per la Modalità Chat perché permette una generazione rapida di testo, dove il clinico umano può <strong>immediatamente revisionare, modificare e approvare</strong> la bozza. Tuttavia — e questo è critico — <strong>il modello può sembrare estremamente sicuro anche se travisa i dettagli</strong>. Quindi, anche quando la Modalità Chat fa risparmiare tempo, <strong>la validazione clinica è sempre necessaria</strong> prima di usare l’output ufficialmente. L’LLM dovrebbe essere visto come un <strong>assistente alla scrittura</strong>, non un decisore.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="esempio-pratico-modalità-api"><span style="color:#884EA0;">Esempio Pratico: Modalità API</span></h3>
+<h4 id="automatizzare-i-workflow-clinici"><span style="color:#117A65;">Automatizzare i Workflow Clinici</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔗 <strong>Scenario</strong>: elaborazione batch di referti di laboratorio</li>
+<li class="fragment">🛠️ <strong>Chiamata API</strong>: Invia 100 testi di referti di laboratorio tramite API, ricevi 100 riassunti clinici</li>
+<li class="fragment">✅ <strong>Vantaggio</strong>: automazione, riproducibilità, efficienza</li>
+<li class="fragment">⚠️ <strong>Promemoria</strong>: monitorare gli output per coerenza e solidità medica</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Passiamo ora alla Modalità API — dove invece di lavorare interattivamente con un caso alla volta, automatizziamo interi workflow. Immaginate un sistema ospedaliero dove centinaia di referti di laboratorio vengono generati ogni giorno. Con un’API, possiamo <strong>inviare in batch</strong> questi referti all’LLM e <strong>ricevere automaticamente riassunti clinici strutturati</strong> pronti per la validazione. I principali vantaggi qui sono: - <strong>Velocità</strong>: decine o centinaia di casi elaborati rapidamente. - <strong>Riproducibilità</strong>: le stesse istruzioni vengono applicate coerentemente.</p>
+<p>Ma di nuovo: anche su larga scala, <strong>la supervisione clinica è critica</strong>. Errori, interpretazioni errate o allucinazioni possono occurrere — e in medicina, un errore può avere conseguenze gravi. L’automazione amplifica l’efficienza — ma amplifica anche gli errori se lasciata incontrollata.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="llm-commerciali-vs-open-source"><span style="color:#884EA0;">LLM Commerciali vs Open-source</span></h3>
+<h4 id="confronto-tra-due-mondi-nellia-clinica"><span style="color:#117A65;">Confronto tra due mondi nell’IA clinica</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🏢 <strong>Modelli commerciali</strong> (es., ChatGPT, Claude, Gemini)
+<ul>
+<li class="fragment">Closed source, proprietari</li>
+<li class="fragment">Forti prestazioni, aggiornamenti costanti</li>
+<li class="fragment">Preoccupazioni sulla privacy, controllo limitato</li>
+</ul></li>
+<li class="fragment">🧪 <strong>Modelli open-source</strong> (es., Llama, Mistral, Mixtral)
+<ul>
+<li class="fragment">Disponibili pubblicamente, personalizzabili</li>
+<li class="fragment">Maggiore flessibilità e privacy</li>
+<li class="fragment">Le prestazioni variano, richiedono risorse locali</li>
+</ul></li>
+<li class="fragment">⚖️ Compromesso: facilità d’uso vs indipendenza e controllo</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Vediamo ora una distinzione chiave che conta molto, specialmente nelle applicazioni cliniche: <strong>Modelli commerciali vs Modelli open-source</strong>. I <strong>modelli commerciali</strong> — come ChatGPT, Claude, Gemini — sono creati e mantenuti da grandi aziende tecnologiche. Sono closed-source: possiamo usarli, ma non possiamo vedere come funzionano internamente. Offrono <strong>prestazioni molto forti</strong>, aggiornamenti frequenti e spesso grande usabilità. Tuttavia, sollevano <strong>preoccupazioni sulla privacy</strong>: i dati dei pazienti potrebbero passare attraverso server di terze parti. E hai <strong>controllo limitato</strong>: dipendi dall’infrastruttura, dai prezzi e dalle politiche dell’azienda. I <strong>modelli open-source</strong> — come Llama, Mistral o Mixtral — sono rilasciati pubblicamente e possono essere usati, affinati e persino auto-ospitati. Offrono <strong>maggiore flessibilità</strong>, <strong>potenzialmente migliore privacy</strong> (se distribuiti localmente) e pieno <strong>controllo sulla personalizzazione</strong>. Lo svantaggio è che le <strong>prestazioni possono variare</strong>: i modelli aperti più piccoli spesso necessitano di un’attenta messa a punto. E — cosa importante — <strong>richiedono le tue risorse hardware</strong> per funzionare correttamente. <strong>In conclusione</strong>: Scegliere tra commerciale e aperto dipende dalle tue priorità: <strong>Facilità d’uso e accesso immediato</strong> — o <strong>indipendenza, personalizzazione e privacy</strong>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="scegliere-tra-llm-commerciali-e-open-source"><span style="color:#884EA0;">Scegliere tra LLM Commerciali e Open-source</span></h3>
+<h4 id="qual-è-meglio-per-le-tue-esigenze-cliniche"><span style="color:#117A65;">Qual è meglio per le tue esigenze cliniche?</span></h4>
+<div style="font-size: 0.85em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">🏥 <strong>Scenario</strong></th>
+<th style="text-align: left;">🚀 <strong>Approccio Raccomandato</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Prototipazione rapida o brainstorming</td>
+<td style="text-align: left;"><strong>Modello commerciale</strong> (accesso facile, forti prestazioni)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gestione di dati sensibili dei pazienti</td>
+<td style="text-align: left;"><strong>Modello open-source</strong> (auto-ospitato, privato)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Necessità di forte precisione linguistica clinica</td>
+<td style="text-align: left;"><strong>Modello open-source affinato</strong> (personalizzabile)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Risorse/hardware locali limitati</td>
+<td style="text-align: left;"><strong>Modello commerciale</strong> (basato su cloud)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pieno controllo su deployment e aggiornamenti</td>
+<td style="text-align: left;"><strong>Modello open-source</strong> (indipendenza)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>Ecco una guida pratica rapida per aiutarti a decidere tra l’uso di un modello commerciale o un modello open-source in base alle tue esigenze cliniche. Se hai bisogno di <strong>prototipare velocemente</strong>, <strong>testare idee</strong> o <strong>fare brainstorming</strong>, i modelli commerciali come ChatGPT o Claude sono molto convenienti: offrono forti prestazioni pronte all’uso e non richiedono configurazione locale. Se stai <strong>gestendo informazioni sensibili sui pazienti</strong> — dove <strong>privacy</strong> e <strong>sicurezza dei dati</strong> non sono negoziabili — un <strong>modello open-source</strong>, ospitato sui tuoi server sicuri, diventa un’opzione più sicura. Se il tuo obiettivo è ottenere una <strong>comprensione linguistica clinica altamente specializzata</strong> — ad esempio, generare riassunti medici precisi — allora affinare un modello open-source su dataset clinici potrebbe darti risultati specifici del dominio migliori. Se <strong>mancano risorse hardware locali forti</strong> (ad esempio, nessuna GPU disponibile), le soluzioni commerciali basate su cloud potrebbero essere più pratiche. Ma se vuoi <strong>controllo completo</strong> sul tuo sistema IA, inclusi aggiornamenti, deployment e comportamento personalizzato, allora i <strong>modelli open-source</strong> sono la strada da percorrere — al costo di un po’ più di gestione tecnica. In definitiva, la scelta dipende dall’<strong>equilibrio tra facilità, costo, controllo e rischio</strong> nel tuo contesto specifico.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="considerazioni-sulla-sicurezza-del-deployment-locale"><span style="color:#2E86C1;">Considerazioni sulla Sicurezza del Deployment Locale</span></h3>
+<h4 id="proteggere-i-dati-dei-pazienti-con-llm-on-premise"><span style="color:#117A65;">Proteggere i dati dei pazienti con LLM on-premise</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🔒 <strong>Vantaggi di sicurezza</strong>:
+<ul>
+<li class="fragment">Nessun dato lascia la rete istituzionale</li>
+<li class="fragment">Traccia di audit completa all’interno dell’organizzazione</li>
+<li class="fragment">Nessuna dipendenza dalle politiche sulla privacy di terze parti</li>
+<li class="fragment">Conformità ai requisiti di residenza dei dati</li>
+</ul></li>
+<li class="fragment">⚠️ <strong>Sfide di implementazione</strong>:
+<ul>
+<li class="fragment">Requisiti hardware: server GPU o cluster</li>
+<li class="fragment">Necessità di supporto IT e manutenzione</li>
+<li class="fragment">Gestione degli aggiornamenti e del versioning del modello</li>
+<li class="fragment">Limitazioni delle prestazioni vs.&nbsp;modelli cloud</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Considerare approcci ibridi: dati sensibili su modelli locali, dati non-PHI su modelli cloud</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Concludiamo con un aspetto cruciale in sanità: sicurezza dei dati e deployment locale degli LLM. Il deployment on-premise, dove i modelli girano internamente alla vostra organizzazione, offre significativi vantaggi di sicurezza. Primo, i dati sensibili dei pazienti non lasciano mai la rete istituzionale - eliminando un intero strato di rischio. Avete il controllo completo sulla traccia di audit, senza dipendere dalle politiche sulla privacy di terze parti. Questo facilita anche la conformità ai requisiti di residenza dei dati, sempre più comuni nelle normative sanitarie.</p>
+<p>Tuttavia, implementare LLM localmente comporta sfide importanti. I requisiti hardware sono sostanziali - sono necessari potenti server GPU o cluster, specialmente per modelli più grandi. Il vostro team IT dovrà supportare e mantenere questi sistemi, gestire gli aggiornamenti e il versioning dei modelli. E c’è tipicamente un divario di prestazioni rispetto ai modelli cloud - i modelli eseguibili localmente tendono ad essere più piccoli e meno potenti. Una soluzione pragmatica che vedo molte organizzazioni adottare è un approccio ibrido: usare modelli locali per dati contenenti informazioni protette sui pazienti, e modelli cloud più potenti per compiti che non coinvolgono dati sensibili. Ad esempio, potreste usare un modello locale per analizzare le cartelle cliniche, ma un modello cloud per ricercare letteratura medica o generare materiale educativo generico. Questo approccio bilanciato vi permette di sfruttare il meglio di entrambi i mondi: la sicurezza del deployment locale dove necessario, e le capacità superiori dei modelli cloud dove appropriato. Nel prossimo modulo pratico, vedremo precisamente come configurare LM Studio per il deployment locale e come usare WebLLM per esecuzioni sicure direttamente nel browser.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="lm-studio-webllm-llm-locali-per-uso-clinico"><span style="color:#884EA0;">LM Studio &amp; WebLLM: LLM Locali per Uso Clinico</span></h3>
+<h4 id="eseguire-modelli-ia-privatamente-e-offline"><span style="color:#117A65;">Eseguire modelli IA privatamente e offline</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🖥️ <strong>LM Studio</strong>:
+<ul>
+<li class="fragment">App desktop per Windows, macOS, Linux</li>
+<li class="fragment">Scarica ed esegui modelli open-source localmente</li>
+<li class="fragment">Offre interfaccia chat e server API</li>
+<li class="fragment">Ideale per compiti offline e sensibili alla privacy</li>
+</ul></li>
+<li class="fragment">🌐 <strong>WebLLM</strong>:
+<ul>
+<li class="fragment">Esegue LLM direttamente nel tuo browser</li>
+<li class="fragment">Nessuna installazione o backend necessario</li>
+<li class="fragment">Alimentato da WebGPU per inferenza veloce</li>
+<li class="fragment">Ottimo per deployment leggeri e portatili</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Esploriamo ora due potenti strumenti che vi permettono di eseguire grandi modelli linguistici localmente: <strong>LM Studio</strong> e <strong>WebLLM</strong>. <strong>LM Studio</strong> è un’applicazione desktop compatibile con Windows, macOS e Linux. Permette di scaricare ed eseguire modelli open-source direttamente sulla vostra macchina. Con la sua interfaccia chat user-friendly e il server API integrato, LM Studio è ideale per compiti offline dove la privacy dei dati è fondamentale. D’altra parte, <strong>WebLLM</strong> opera interamente all’interno del vostro browser web. Sfrutta WebGPU per eseguire modelli efficientemente senza alcuna installazione o infrastruttura backend. Questo lo rende perfetto per applicazioni leggere e portatili.</p>
+<p>Il vantaggio chiave di entrambi gli strumenti è il <strong>pieno controllo sui vostri dati e modelli</strong>, eliminando la necessità di servizi cloud e migliorando privacy e sicurezza in contesti clinici.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="webllm-eseguire-llm-direttamente-nel-tuo-browser"><span style="color:#884EA0;">WebLLM: Eseguire LLM direttamente nel tuo browser</span></h3>
+<h4 id="un-modo-semplice-e-privato-per-usare-lia-localmente"><span style="color:#117A65;">Un modo semplice e privato per usare l’IA localmente</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌐 Gira direttamente in Chrome, Edge, Safari (nessuna installazione)</li>
+<li class="fragment">⚡ Alimentato da WebGPU: inferenza locale veloce</li>
+<li class="fragment">🔒 Nessun dato lascia il tuo computer</li>
+<li class="fragment">🛠️ Supporta chat, riassunto documenti, Q&amp;A</li>
+<li class="fragment">🧠 Ottimo per compiti clinici leggeri ed esperimenti</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Introduciamo ora <strong>WebLLM</strong>, uno strumento potente ma semplice per eseguire modelli linguistici localmente. WebLLM funziona interamente nel tuo browser — Chrome, Edge o Safari. Non c’è <strong>nessuna installazione</strong> necessaria, nessun server backend. Usa <strong>WebGPU</strong>, una tecnologia browser moderna, per eseguire modelli efficientemente sul tuo dispositivo. L’enorme vantaggio è la <strong>privacy</strong>: Tutta l’elaborazione avviene localmente — nulla viene inviato a server esterni. WebLLM supporta non solo la chat di base, ma anche il <strong>riassunto di documenti</strong> e il <strong>question-answering</strong> su file caricati. È un’ottima soluzione leggera per ambienti clinici dove privacy e velocità contano. Naturalmente, i modelli che girano in-browser sono più piccoli rispetto agli LLM cloud — ma per molti compiti, sono sorprendentemente efficaci.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="come-usare-webllm-per-riassunti-clinici"><span style="color:#884EA0;">Come Usare WebLLM per Riassunti Clinici</span></h3>
+<h4 id="passi-semplici-per-riassumere-documenti-clinici"><span style="color:#117A65;">Passi semplici per riassumere documenti clinici</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🌐 Apri WebLLM nel tuo browser</li>
+<li class="fragment">📋 Copia e incolla il testo clinico nella chat</li>
+<li class="fragment">💬 Scrivi questo prompt:</li>
+</ul>
+<blockquote>
+<p>“Riassumi le informazioni cliniche chiave, focalizzandoti su: - Diagnosi primaria - Trattamenti somministrati - Istruzioni di follow-up - Condizioni del paziente alla dimissione.” ✅ Il modello elaborerà il testo localmente e genererà un riassunto!</p>
+</blockquote>
+</div>
+<aside class="notes">
+<p>WebLLM non supporta il caricamento diretto di file come i PDF. Invece, <strong>copi il testo</strong> dal documento — ad esempio, un riassunto di dimissione — e lo <strong>incolli nell’interfaccia chat</strong>. Dopo aver incollato il testo clinico, scrivi un prompt strutturato, come: <em>“Riassumi le informazioni cliniche chiave, focalizzandoti su diagnosi primaria, trattamenti somministrati, istruzioni di follow-up e condizioni del paziente alla dimissione.”</em></p>
+<p>Il modello elaborerà quindi il <strong>testo localmente</strong> e genererà un riassunto privato — senza inviare alcun dato al cloud. Ricorda sempre di revisionare e validare l’output prima dell’uso clinico!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="prompt-engineering-per-applicazioni-cliniche"><span style="color:#2E86C1;">Prompt Engineering per Applicazioni Cliniche</span></h3>
+<h4 id="tecniche-per-migliorare-accuratezza-e-affidabilità"><span style="color:#117A65;">Tecniche per migliorare accuratezza e affidabilità</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment"><p>🔍 <strong>Prompting Chain-of-Thought</strong>: &gt; “Prima analizza i valori di laboratorio, poi identifica le anomalie, &gt; poi correla con i sintomi, e infine suggerisci possibili diagnosi.”</p></li>
+<li class="fragment"><p>📋 <strong>Esempi Few-Shot</strong>: &gt; “Esempio 1: Paziente con [sintomi]… Diagnosi: [condizione] &gt; Ora diagnostica: Paziente con febbre, tosse produttiva…”</p></li>
+<li class="fragment"><p>🧩 <strong>Output Strutturato</strong>: &gt; “Formatta la tua risposta come: Valutazione: [testo], Piano: [testo], &gt; Follow-up: [testo], Educazione Paziente: [testo]”</p></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Discutiamo tecniche specifiche per migliorare l’accuratezza dei modelli linguistici in contesti clinici. Queste tecniche di prompt engineering sono fondamentali perché possono fare la differenza tra una risposta generica e una clinicamente utile. La prima tecnica è il “Prompting Chain-of-Thought” - essenzialmente, chiediamo al modello di mostrare il suo ragionamento passo dopo passo. Invece di chiedere semplicemente “Qual è la diagnosi?”, gli chiediamo di analizzare prima i valori di laboratorio, poi identificare le anomalie, correlarle con i sintomi, e solo allora suggerire possibili diagnosi. Questo approccio riduce significativamente gli errori perché costringe il modello a seguire un processo diagnostico logico invece di saltare alle conclusioni. La seconda tecnica usa esempi dimostrativi, o “Esempi Few-Shot.” Qui forniamo al modello uno o più esempi completi di come vorremmo che rispondesse. Questo è particolarmente efficace per compiti specializzati dove il formato della risposta conta. Ad esempio, possiamo mostrare come analizzare correttamente un caso di polmonite prima di chiedergli di analizzare il nostro caso specifico. Infine, abbiamo la tecnica dell’output strutturato, dove specifichiamo esattamente il formato che vogliamo per la risposta. Questo è incredibilmente utile per la documentazione clinica, dove possiamo chiedere al modello di organizzare le informazioni secondo sezioni standard come Valutazione, Piano, Follow-up ed Educazione Paziente. Nei nostri test, queste tecniche hanno ridotto le allucinazioni di oltre il 60% e migliorato la rilevanza clinica delle risposte di quasi il 40%.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="considerazioni-normative" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Considerazioni Normative</span></h2>
+<h3 id="quadro-legale-per-lia-in-sanità"><span style="color:#117A65;">Quadro legale per l’IA in sanità</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">🏛️ <strong>Normative chiave</strong>:
+<ul>
+<li class="fragment">HIPAA (USA): Requisiti per le Informazioni Sanitarie Protette</li>
+<li class="fragment">GDPR (UE): Restrizioni sul trattamento dei dati di categoria speciale</li>
+<li class="fragment">MDR (UE): Classificazione dell’IA come dispositivo medico</li>
+</ul></li>
+<li class="fragment">⚖️ <strong>Sfide di conformità</strong>:
+<ul>
+<li class="fragment">Requisiti di residenza dei dati per il trattamento di PHI</li>
+<li class="fragment">Diritto alla spiegazione per decisioni assistite da IA</li>
+<li class="fragment">Tracce di audit per contenuti generati da IA</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Verifica sempre se il tuo uso di LLM richiede: 1. Consenso del paziente 2. Accordi sul trattamento dei dati 3. Classificazione come dispositivo medico</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Questa slide introduce i quadri normativi chiave che si applicano alle applicazioni IA in sanità. Per la conformità HIPAA, la preoccupazione chiave è se le PHI vengono trasmesse a server di terze parti quando si usano modelli commerciali. Questo è il motivo per cui i modelli on-premise sono spesso necessari per le applicazioni cliniche. Sotto il GDPR, i dati sanitari sono considerati “dati di categoria speciale” con protezioni aggiuntive. I sistemi IA devono essere trasparenti e i pazienti hanno generalmente il diritto di sapere quando viene utilizzata l’IA e come influisce sulle decisioni. Il Regolamento sui Dispositivi Medici in Europa e quadri simili della FDA negli USA possono classificare alcune applicazioni IA come dispositivi medici che richiedono certificazione, specialmente se usate per diagnosi o pianificazione del trattamento. Queste questioni normative influenzano direttamente le decisioni su quali modelli usare e come distribuirli.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="requisiti-etici-di-documentazione"><span style="color:#2E86C1;">Requisiti Etici di Documentazione</span></h3>
+<h4 id="trasparenza-nelle-note-cliniche-assistite-da-ia"><span style="color:#117A65;">Trasparenza nelle note cliniche assistite da IA</span></h4>
+<div class="columns">
+<div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">📝 <strong>Migliori pratiche</strong>:
+<ul>
+<li class="fragment">Divulgare l’assistenza IA nella documentazione</li>
+<li class="fragment">Specificare quali parti sono state generate da IA</li>
+<li class="fragment">Documentare i passaggi di verifica umana</li>
+<li class="fragment">Mantenere la separazione tra suggerimenti IA e giudizio clinico</li>
+</ul></li>
+</ul>
+</div><div class="column" style="font-size: 0.85em;">
+<ul>
+<li class="fragment">✅ <strong>Esempio di divulgazione</strong>: &gt; “Questo riassunto della valutazione è stato redatto con assistenza IA e revisionato dal Dr.&nbsp;Johnson per l’accuratezza. Tutte le interpretazioni e le decisioni mediche sono state verificate indipendentemente.”</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Questa slide affronta i requisiti etici per la trasparenza quando si usa l’IA per assistere con la documentazione clinica. C’è un crescente consenso tra i comitati etici medici sul fatto che i pazienti abbiano il diritto di sapere quando sono stati utilizzati strumenti IA nella loro cura, specialmente per la documentazione e il supporto decisionale. La divulgazione non deve essere estesa, ma dovrebbe riconoscere dove è stata utilizzata l’IA e sottolineare che il giudizio clinico umano è rimasto centrale nel processo. Questa trasparenza costruisce fiducia, stabilisce aspettative appropriate e crea una base per un uso etico dell’IA in contesti sanitari.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="considerazioni-sulla-responsabilità"><span style="color:#2E86C1;">Considerazioni sulla Responsabilità</span></h3>
+<h4 id="gestire-il-rischio-quando-si-usano-llm-in-contesti-clinici"><span style="color:#117A65;">Gestire il rischio quando si usano LLM in contesti clinici</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">⚠️ <strong>Panorama legale attuale</strong>:
+<ul>
+<li class="fragment">Nessun precedente chiaro per la responsabilità IA in sanità</li>
+<li class="fragment">Standard professionali ancora in evoluzione</li>
+<li class="fragment">Posizione predefinita: il clinico ha la responsabilità ultima</li>
+</ul></li>
+<li class="fragment">🛡️ <strong>Strategie di mitigazione del rischio</strong>:
+<ul>
+<li class="fragment">Documentare le procedure di verifica per gli output IA</li>
+<li class="fragment">Stabilire workflow chiari per usi critici vs.&nbsp;non critici</li>
+<li class="fragment">Formare il personale su limitazioni e requisiti di verifica</li>
+<li class="fragment">Mantenere la consapevolezza delle limitazioni specifiche del modello</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Considerare la consulenza con la gestione del rischio e il consulente legale prima di implementare LLM per il supporto decisionale clinico.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Questa slide discute il panorama in evoluzione della responsabilità quando si utilizzano strumenti IA in sanità. Il punto chiave è che, indipendentemente da quanto avanzata diventi l’IA, il professionista clinico rimane responsabile della verifica e delle decisioni. Ciò significa avere processi chiari per controllare gli output IA prima di incorporarli nella cura clinica. Il livello di rischio varia per tipo di applicazione: usare l’IA per aiutare a redigere materiali educativi per i pazienti comporta meno rischi che usarla per interpretare risultati di laboratorio o suggerire diagnosi. Le organizzazioni sanitarie dovrebbero sviluppare politiche chiare che specificano quali applicazioni sono consentite, quali passaggi di verifica sono richiesti e chi ha la responsabilità in ogni fase. Questa è ancora un’area legalmente in evoluzione, ma mantenere una documentazione chiara e passaggi di verifica aiuta a stabilire che lo standard di cura è stato soddisfatto.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="analisi-costi-benefici-degli-llm-in-contesti-clinici"><span style="color:#2E86C1;">Analisi Costi-Benefici degli LLM in Contesti Clinici</span></h3>
+<h4 id="considerazioni-sul-roi-per-implementazioni-mediche"><span style="color:#117A65;">Considerazioni sul ROI per implementazioni mediche</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li class="fragment">💰 <strong>Fattori di costo</strong>:
+<ul>
+<li class="fragment">Costi API: $0.50-$20 per 1.000 note cliniche (dipende dal modello)</li>
+<li class="fragment">Tempo del personale risparmiato: riduzione del 20-40% del tempo di documentazione</li>
+<li class="fragment">Formazione e implementazione: 40-80 ore per dipartimento</li>
+</ul></li>
+<li class="fragment">📊 <strong>Esempi di ROI nel mondo reale</strong>:
+<ul>
+<li class="fragment">Ospedale A: riduzione del 50% del tempo per i riassunti di dimissione (risparmio di 15 min/paziente)</li>
+<li class="fragment">Clinica B: aumento del 30% della completezza e qualità delle note</li>
+<li class="fragment">Laboratorio C: redazione protocolli per nuovi test più veloce del 70%</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Il ROI viene tipicamente raggiunto entro 3-6 mesi concentrandosi su compiti di documentazione ad alto volume.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Passiamo agli aspetti pratici dell’implementazione degli LLM in contesti clinici - specificamente, l’analisi costi-benefici. Direttori ospedalieri e responsabili di laboratorio mi chiedono costantemente: “Questi strumenti valgono l’investimento?”</p>
+<p>Esaminiamo i principali fattori di costo. I costi API variano significativamente a seconda del modello - possiamo spendere da 50 centesimi fino a $20 per elaborare 1.000 note cliniche. Questo dipende dalla complessità del modello e dal fornitore.</p>
+<p>Il risparmio principale deriva dal tempo del personale. Stiamo vedendo riduzioni del 20-40% del tempo speso per la documentazione. Pensate a cosa significa per medici e specialisti che passano ore ogni giorno a scrivere note. L’implementazione richiede tipicamente tra 40 e 80 ore per dipartimento, inclusa formazione e integrazione nei workflow. Ma guardiamo alcuni esempi concreti. Un ospedale con cui collaboriamo ha ridotto il tempo di scrittura delle note di dimissione del 50% - sono 15 minuti risparmiati per paziente. Moltiplicate per centinaia di pazienti al mese.</p>
+<p>Una clinica ha riportato un aumento del 30% nella completezza e qualità delle note, migliorando la comunicazione clinica e riducendo le richieste di chiarimenti. Un laboratorio ha accelerato la redazione dei protocolli per nuovi test del 70%, consentendo implementazioni più rapide. Nella maggior parte dei casi, il ritorno sull’investimento (ROI) viene raggiunto entro 3-6 mesi, specialmente concentrandosi su attività ad alto volume come la documentazione di routine. Ma ricordate: il valore va oltre il semplice risparmio di tempo. C’è anche un miglioramento qualitativo nella documentazione che può influenzare positivamente la cura del paziente.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="quarto-auto-generated-content">
+<p><img src="images/logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="LLM_Course_slides_ITA_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
