@@ -1,0 +1,199 @@
+---
+title: "Example Additional Slides"
+format:
+  revealjs:
+    theme: default
+    incremental: true
+    logo: images/logo.png
+---
+
+## [Medical Examples of Self-Attention]{style="color:#2E86C1;"}
+
+### [How LLMs resolve ambiguity in clinical text]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📋 **Clinical Note Example**:
+    > "Patient presented with RUQ pain. Ultrasound showed a hypoechoic lesion.
+    > CT confirmed it was a hemangioma. It measured 2.3 cm."
+
+-   🧠 **Ambiguity Challenge**: Which "it" refers to what?
+    -   First "it" = the lesion (connecting back to previous sentence)
+    -   Second "it" = the hemangioma (immediate previous reference)
+
+-   👁️ **Self-attention allows** the model to create these connections automatically
+:::
+
+::: notes
+This slide demonstrates how self-attention works in a real clinical context. The ambiguous pronoun "it" appears twice, and the model must determine what each instance refers to.
+
+In traditional NLP, this would be extremely difficult, but attention mechanisms allow the model to assign different weights to different words in the context, effectively "looking back" to find the most relevant noun.
+
+This is particularly important in clinical documentation, where referential ambiguity is common and resolution errors could lead to serious misunderstandings.
+:::
+
+---
+
+## [Medical Examples of Hallucinations]{style="color:#2E86C1;"}
+
+### [When LLMs fabricate clinical information]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   🩺 **Prompt**: "What are the normal ranges for liver function tests?"
+
+-   ✅ **Accurate responses**:
+    -   "ALT normal range: 7-56 U/L"
+    -   "AST normal range: 8-48 U/L"
+
+-   ❌ **Hallucinated responses**:
+    -   "GGT normal range: 15-30 U/L" (actual: 9-48 U/L)
+    -   "Albumin: 3.5-6.0 g/dL" (actual: 3.5-5.0 g/dL)
+:::
+
+::: {.column width="45%" style="font-size: 0.85em;"}
+-   🚨 **Clinical dangers**:
+    -   False confidence in inaccurate values
+    -   Reference ranges vary by lab/population
+    -   Subtle errors harder to detect than obvious ones
+:::
+:::::
+
+::: notes
+This slide illustrates how hallucinations manifest in clinical applications. The model provides a mix of accurate and inaccurate information, but presents all with the same level of confidence.
+
+What makes this particularly dangerous is that the hallucinated values aren't wildly incorrect - they're plausible enough that someone might not catch them without checking. This is the "plausible but wrong" problem we discussed earlier.
+
+In clinical settings, these subtle hallucinations can be more dangerous than obvious errors because they're less likely to trigger skepticism or verification.
+:::
+
+---
+
+## [Context Window Limitations in Clinical Practice]{style="color:#2E86C1;"}
+
+### [What happens when medical documents exceed token limits]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📄 **Typical discharge summary**: 500-1000 words = ~750-1500 tokens
+
+-   ⚠️ **Truncation risks**:
+    -   Previous medical history may be cut off
+    -   Medication information at document end might be lost
+    -   Follow-up instructions could be missing
+
+-   💡 **Clinical example**: Patient summary with medication list at the end
+    -   With 4K tokens: Complete information processed
+    -   With 2K tokens: Critical anticoagulation instructions lost
+:::
+
+::: notes
+This slide illustrates the practical implications of context window limitations when working with clinical documents.
+
+Medical records tend to be lengthy, and important information is often distributed throughout the document. When a model can only "see" part of the document due to token limitations, critical information may be missed.
+
+In the example shown, medication instructions placed at the end of a discharge summary could be lost entirely if the context window is too small, potentially leading to treatment errors.
+
+This directly impacts how we should structure prompts for clinical applications, and highlights why newer models with larger context windows (like Claude and GPT-4) represent significant improvements for healthcare applications.
+:::
+
+---
+
+## [Regulatory Considerations]{style="color:#2E86C1;"}
+
+### [Legal framework for AI in healthcare]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🏛️ **Key regulations**:
+    -   HIPAA (US): Protected Health Information requirements
+    -   GDPR (EU): Special category data processing restrictions
+    -   MDR (EU): AI as medical device classification
+
+-   ⚖️ **Compliance challenges**:
+    -   Data residency requirements for processing PHI
+    -   Right to explanation for AI-assisted decisions
+    -   Audit trails for AI-generated content
+:::
+
+::: callout-warning
+Always check if your LLM usage requires:
+1. Patient consent
+2. Data processing agreements
+3. Classification as a medical device
+:::
+
+::: notes
+This slide introduces the key regulatory frameworks that apply to healthcare AI applications.
+
+For HIPAA compliance, the key concern is whether PHI is being transmitted to third-party servers when using commercial models. This is why on-premise models are often necessary for clinical applications.
+
+Under GDPR, health data is considered "special category data" with additional protections. AI systems must be transparent, and patients generally have the right to know when AI is being used and how it affects decisions.
+
+The Medical Device Regulation in Europe and similar FDA frameworks in the US may classify certain AI applications as medical devices requiring certification, especially if they're used for diagnosis or treatment planning.
+
+These regulatory issues directly impact decisions about which models to use and how to deploy them.
+:::
+
+---
+
+## [Ethical Documentation Requirements]{style="color:#2E86C1;"}
+
+### [Transparency in AI-assisted clinical notes]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   📝 **Best practices**:
+    -   Disclose AI assistance in documentation
+    -   Specify which parts were AI-generated
+    -   Document human verification steps
+    -   Maintain separation of AI suggestions and clinical judgment
+:::
+
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   ✅ **Example disclosure**:
+    > "This assessment summary was drafted using AI assistance and reviewed by Dr. Johnson for accuracy. All interpretations and medical decisions were independently verified."
+:::
+:::::
+
+::: notes
+This slide addresses the ethical requirements for transparency when using AI to assist with clinical documentation.
+
+There's growing consensus among medical ethics boards that patients have a right to know when AI tools were used in their care, especially for documentation and decision support.
+
+The disclosure doesn't need to be extensive, but should acknowledge where AI was used and emphasize that human clinical judgment remained central to the process.
+
+This transparency builds trust, establishes appropriate expectations, and creates a foundation for ethical AI use in healthcare settings.
+:::
+
+---
+
+## [Liability Considerations]{style="color:#2E86C1;"}
+
+### [Managing risk when using LLMs in clinical settings]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   ⚠️ **Current legal landscape**:
+    -   No clear precedent for AI liability in healthcare
+    -   Professional standards still evolving
+    -   Default position: clinician bears ultimate responsibility
+
+-   🛡️ **Risk mitigation strategies**:
+    -   Document verification procedures for AI outputs
+    -   Establish clear workflows for critical vs. non-critical uses
+    -   Train staff on limitations and verification requirements
+    -   Maintain awareness of model-specific limitations
+:::
+
+::: callout-note
+Consider consulting with risk management and legal counsel before implementing LLMs for clinical decision support.
+:::
+
+::: notes
+This slide discusses the evolving landscape of liability when using AI tools in healthcare.
+
+The key point is that regardless of how advanced AI becomes, the clinical professional remains responsible for verification and decisions. This means having clear processes for checking AI outputs before incorporating them into clinical care.
+
+The risk level varies by application type: using AI to help draft patient education materials carries less risk than using it to interpret lab results or suggest diagnoses.
+
+Healthcare organizations should develop clear policies that specify which applications are permitted, what verification steps are required, and who bears responsibility at each stage.
+
+This is still an evolving area legally, but maintaining clear documentation and verification steps helps establish that the standard of care was met.
+:::

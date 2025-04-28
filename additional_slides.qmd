@@ -1,0 +1,340 @@
+---
+title: "Additional Recommended Slides"
+format:
+  revealjs:
+    theme: default
+    incremental: true
+    logo: images/logo.png
+---
+
+## [Prompt Engineering for Clinical Applications]{style="color:#2E86C1;"}
+
+### [Techniques to improve accuracy and reliability]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔍 **Chain-of-Thought Prompting**:
+    > "First analyze the lab values, then identify abnormalities, 
+    > then correlate with symptoms, and finally suggest possible diagnoses."
+
+-   📋 **Few-Shot Examples**:
+    > "Example 1: Patient with [symptoms]... Diagnosis: [condition]
+    > Now diagnose: Patient with fever, productive cough..."
+
+-   🧩 **Structured Output**:
+    > "Format your response as: Assessment: [text], Plan: [text], 
+    > Follow-up: [text], Patient Education: [text]"
+:::
+
+::: notes
+Let's discuss specific techniques to improve the accuracy of language models in clinical settings. These prompt engineering techniques are fundamental because they can make the difference between a generic response and one that's clinically useful.
+
+The first technique is "Chain-of-Thought Prompting" - essentially, we ask the model to show its reasoning step by step. Instead of simply asking "What's the diagnosis?", we ask it to first analyze lab values, then identify abnormalities, correlate them with symptoms, and only then suggest possible diagnoses. This approach significantly reduces errors because it forces the model to follow a logical diagnostic process instead of jumping to conclusions.
+
+The second technique uses demonstrative examples, or "Few-Shot Examples." Here we provide the model with one or more complete examples of how we'd like it to respond. This is particularly effective for specialized tasks where response format matters. For example, we can show how to correctly analyze a pneumonia case before asking it to analyze our specific case.
+
+Finally, we have the structured output technique, where we specify exactly the format we want for the response. This is incredibly useful for clinical documentation, where we can ask the model to organize information according to standard sections like Assessment, Plan, Follow-up, and Patient Education.
+
+In our testing, these techniques reduced hallucinations by over 60% and improved the clinical relevance of responses by nearly 40%.
+:::
+
+---
+
+## [Temperature Settings for Clinical Use]{style="color:#2E86C1;"}
+
+### [Finding the right balance between creativity and accuracy]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   🌡️ **Temperature scale**:
+    -   0.0-0.3: Most deterministic, consistent
+    -   0.4-0.7: Balanced creativity
+    -   0.8-1.0: Maximum creativity, unpredictability
+
+-   🩺 **Clinical recommendations**:
+    -   Patient documentation: 0.1-0.2
+    -   Differential diagnosis: 0.3-0.5
+    -   Patient education materials: 0.4-0.6
+    -   Research brainstorming: 0.7-0.8
+:::
+
+::: {.column width="45%" style="font-size: 0.85em;"}
+-   ⚠️ **Example impact**:
+
+    **Temperature 0.1**:
+    > "Elevated liver enzymes may indicate hepatocellular injury."
+
+    **Temperature 0.7**:
+    > "Elevated liver enzymes could suggest hepatocellular damage, biliary obstruction, medication effects, or various systemic conditions."
+:::
+:::::
+
+::: notes
+Let's now talk about a crucial parameter that's often overlooked: temperature. This parameter essentially controls how "creative" or unpredictable the model can be in its responses.
+
+A low temperature, between 0.0 and 0.3, produces very consistent and conservative responses. The model will almost always respond the same way to the same question. A medium temperature, between 0.4 and 0.7, allows more variability. With high temperatures, between 0.8 and 1.0, we get very creative but potentially unpredictable responses.
+
+In clinical settings, these differences are fundamental. For patient documentation, we want maximum precision and consistency, so I recommend very low temperatures, between 0.1 and 0.2. The risk of errors or hallucinations must be minimized.
+
+For generating differential diagnoses, a slightly higher temperature (0.3-0.5) is appropriate, because we want the model to consider different possibilities without becoming too speculative.
+
+For patient educational materials, we can go up to 0.4-0.6, allowing more natural and varied language. And for research brainstorming, where creativity is valuable, temperatures between 0.7 and 0.8 can generate innovative ideas.
+
+Look at the examples on the right: at temperature 0.1, the model provides a concise and cautious response about liver enzymes. At 0.7, it explores a wider range of possibilities instead. Both are correct, but they serve different purposes.
+
+Remember: in medicine, there is no "right" temperature - it depends on your specific goal and acceptable level of risk.
+:::
+
+---
+
+## [Cost-Benefit Analysis of LLMs in Clinical Settings]{style="color:#2E86C1;"}
+
+### [ROI considerations for medical implementations]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   💰 **Cost factors**:
+    -   API costs: $0.50-$20 per 1,000 clinical notes (model dependent)
+    -   Staff time saved: 20-40% reduction in documentation time
+    -   Training & implementation: 40-80 hours per department
+
+-   📊 **Real-world ROI examples**:
+    -   Hospital A: 50% reduction in discharge summary time (saving 15 min/patient)
+    -   Clinic B: 30% increase in note completeness and quality
+    -   Lab C: 70% faster protocol drafting for new tests
+:::
+
+::: callout-note
+ROI is typically reached within 3-6 months when focusing on high-volume documentation tasks.
+:::
+
+::: notes
+Let's move to the practical aspects of implementing LLMs in clinical settings - specifically, cost-benefit analysis. Hospital directors and laboratory managers constantly ask me: "Are these tools worth the investment?"
+
+Let's examine the main cost factors. API costs vary significantly depending on the model - we can spend from 50 cents up to $20 to process 1,000 clinical notes. This depends on the complexity of the model and the provider.
+
+The main savings come from staff time. We're seeing 20-40% reductions in time spent on documentation. Think about what this means for doctors and specialists who spend hours each day writing notes.
+
+Implementation typically requires between 40 and 80 hours per department, including training and integration into workflows.
+
+But let's look at some concrete examples. A hospital we collaborate with reduced discharge note writing time by 50% - that's 15 minutes saved per patient. Multiply that by hundreds of patients per month.
+
+A clinic reported a 30% increase in the completeness and quality of notes, improving clinical communication and reducing clarification requests.
+
+A laboratory accelerated protocol drafting for new tests by 70%, allowing faster implementations.
+
+In most cases, return on investment is achieved within 3-6 months, especially when focusing on high-volume activities like routine documentation.
+
+But remember: the value goes beyond simple time savings. There's also a qualitative improvement in documentation that can positively influence patient care.
+:::
+
+---
+
+## [Multimodal Applications in Medicine]{style="color:#2E86C1;"}
+
+### [Beyond text: LLMs with vision capabilities]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   🔬 **Clinical applications**:
+    -   Describing radiological images
+    -   Interpreting ECG patterns
+    -   Analyzing microscopy slides
+    -   Reading handwritten medical notes
+    
+-   ⚡ **Workflow examples**:
+    -   Upload image + add clinical question
+    -   Model interprets visual + text context
+    -   Response incorporates both modalities
+:::
+
+::: {.column width="50%" style="font-size: 0.85em;"}
+-   🔍 **Example prompt**:
+    > "This is a chest X-ray from a 65-year-old patient with shortness of breath. Describe what you see and any potential abnormalities."
+
+-   ⚠️ **Limitations**:
+    -   Not FDA-approved for diagnosis
+    -   Variable performance across image types
+    -   Requires clinical verification
+:::
+:::::
+
+::: notes
+Let's enter the exciting territory of multimodal models - LLMs that can process both text and images. This is a true revolution for medicine, where visual information is often crucial.
+
+Models like GPT-4V, Claude 3, and Gemini can literally "see" medical images and discuss them in clinical context. The applications are enormous: they can describe radiological images, interpret ECG patterns, analyze microscopy slides, and even read handwritten medical notes that traditional OCR systems would struggle to decipher.
+
+The workflow is intuitive: you upload an image, add a clinical question, and the model integrates both modalities in its response. For example, you can upload a chest X-ray and ask "What do you see in this X-ray of a 65-year-old patient with shortness of breath?" The model will describe the visible findings considering the clinical context provided.
+
+This is particularly powerful because it combines visual analysis with medical knowledge. It doesn't just describe the image, but interprets it in light of the clinical history.
+
+Of course, there are important limitations. These systems are not FDA-approved for diagnosis - they are assistance tools, not substitutes for clinical judgment. Performance varies significantly between different imaging modalities and image types. And every output requires clinical verification.
+
+But the potential is undeniable. We're seeing radiologists use these tools to generate preliminary report drafts, pathologists using them to compare samples with similar cases, and cardiologists accelerating routine ECG interpretation.
+
+The key is to use them as intelligent assistants, not as substitutes for expert judgment.
+:::
+
+---
+
+## [Creating Effective Clinical Workflows]{style="color:#2E86C1;"}
+
+### [Integration patterns for clinical environments]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🏥 **Common integration patterns**:
+    -   Standalone tool with copy/paste
+    -   EHR-integrated sidebar
+    -   Automated background processing
+    -   Document pre-processing and draft
+
+-   ✅ **Best practices**:
+    -   Clear demarcation of AI vs. human input
+    -   Verification checkpoints for critical information
+    -   Audit trails of AI assistance
+    -   Progressive implementation (start with low-risk tasks)
+:::
+
+![](images/slide1_intro.png){width="40%" height="auto"}
+
+::: notes
+Let's now see how to concretely integrate these LLMs into clinical workflows. The most powerful artificial intelligence is useless if it doesn't integrate into existing processes.
+
+There are several integration models, with increasing complexity. The simplest is the standalone tool with copy/paste - the clinician copies information into a separate interface and pastes the results into the clinical record. It's easy to implement but requires manual steps.
+
+More sophisticated is EHR sidebar integration, where the LLM appears directly in the electronic health record interface. This reduces manual steps and maintains clinical context.
+
+For more advanced applications, we have automated background processing, where documents are processed automatically without direct human intervention.
+
+Finally, there's document pre-processing, where AI generates drafts that the clinician then reviews and finalizes - particularly useful for discharge notes and reports.
+
+Whatever approach you choose, some best practices are essential: there must always be a clear distinction between AI and human input; verification checkpoints are needed for critical information; it's necessary to maintain a trace of AI assistance for auditing; and we recommend progressive implementation, starting with low-risk activities.
+
+In my experience, organizations that have been most successful started with simple applications like generating patient educational material, before moving to clinical documentation or decision support. This builds trust and competence gradually.
+
+Remember: the goal is not to completely automate, but to amplify human clinical capabilities while keeping professional judgment at the center of the process.
+:::
+
+---
+
+## [Specialty-Specific Applications]{style="color:#2E86C1;"}
+
+### [LLM use cases across medical disciplines]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🫀 **Cardiology**:
+    -   ECG interpretation assistance
+    -   Heart failure management protocols
+    
+-   🧠 **Neurology**:
+    -   Cognitive assessment documentation
+    -   Seizure pattern description
+    
+-   🔬 **Pathology**:
+    -   Standardized specimen reporting
+    -   Literature search for rare findings
+    
+-   🩸 **Laboratory Medicine**:
+    -   Test interpretation guidance
+    -   Protocol documentation and standardization
+    -   Complex test sequence planning
+:::
+
+::: notes
+I know we have specialists from different medical disciplines in this room, so I want to show how LLMs can be specifically applied in your areas of expertise.
+
+For cardiologists, LLMs can assist in ECG interpretation, highlighting potentially relevant patterns. They're particularly useful for standardizing heart failure management protocols, personalizing them for specific patient subpopulations.
+
+In neurology, these models excel in documenting cognitive assessments, where they can structure complex observations into standardized formats. They can also assist in detailed description of seizure patterns, improving documentation consistency across different operators.
+
+Pathologists are already using LLMs to standardize specimen reports, ensuring that all necessary elements are included and consistently formatted. A particularly powerful application is rapid literature search when encountering rare or unusual findings - a model can analyze thousands of articles in seconds and synthesize relevant information.
+
+In laboratory medicine, LLMs are revolutionizing the creation of interpretive guides for complex tests, standardizing protocol documentation, and planning complex test sequences. They can help determine which tests should follow initial abnormal results, based on updated guidelines.
+
+These applications are just the tip of the iceberg. The key idea is that LLMs are not generic tools - they can be adapted to the specific needs of your discipline. I invite you to think about documentary or decision-making processes in your daily practice that might benefit from intelligent assistance.
+:::
+
+---
+
+## [Quantitative Performance Evaluation]{style="color:#2E86C1;"}
+
+### [Measuring LLM effectiveness in clinical tasks]{style="color:#117A65;"}
+
+::::: columns
+::: {.column width="55%" style="font-size: 0.85em;"}
+-   📊 **Key metrics**:
+    -   Accuracy: Correctness of medical information
+    -   Consistency: Reliable responses to similar queries
+    -   Hallucination rate: Frequency of fabricated content
+    -   Clinical relevance: Applicability to patient care
+    
+-   🔍 **Evaluation methods**:
+    -   Expert review panels
+    -   Comparison to gold standards
+    -   Inter-model consistency checks
+    -   Structured clinical scenarios
+:::
+
+::: {.column width="45%" style="font-size: 0.85em;"}
+-   📈 **Sample results comparison**:
+
+| Model | Accuracy | Hallucination Rate |
+|:------|:--------:|:------------------:|
+| GPT-4 | 89% | 4.5% |
+| Claude 3 | 91% | 3.2% |
+| Mistral | 85% | 6.7% |
+| Med-PaLM | 93% | 2.8% |
+:::
+:::::
+
+::: notes
+As healthcare professionals, we're used to rigorously evaluating new tools and therapies before adoption. LLMs should be no different. Let's analyze how to quantitatively measure their performance in clinical settings.
+
+Key metrics we need to consider include accuracy - how correct is the medical information provided; consistency - how reliable are responses to similar queries; hallucination rate - how often the model invents information; and clinical relevance - how applicable are the responses to patient care.
+
+To evaluate these metrics, we can use several methods. Expert review panels, where specialists evaluate responses, are the gold standard but time-consuming. Comparison with recognized standards, like guidelines or medical texts, is more efficient. Inter-model consistency checks can reveal informational discrepancies. And structured clinical scenarios allow standardized testing on specific cases.
+
+The table shows some comparative results from a recent study of ours. Notice how models specialized for medicine, like Med-PaLM, tend to outperform generic models. The hallucination rate is particularly important - it represents how often the model generates false but plausible information.
+
+These data suggest we're reaching interesting performance levels, but we're still far from 100% accuracy. That's why human verification remains essential, especially for information critical to patient care.
+
+When implementing these tools in your contexts, I recommend conducting similar evaluations, specific to your use cases, to understand the strengths and limitations of the models you choose.
+:::
+
+---
+
+## [Local Deployment Security Considerations]{style="color:#2E86C1;"}
+
+### [Protecting patient data with on-premise LLMs]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔒 **Security advantages**:
+    -   No data leaves institutional network
+    -   Complete audit trail within organization
+    -   No dependency on third-party privacy policies
+    -   Compliance with data residency requirements
+    
+-   ⚠️ **Implementation challenges**:
+    -   Hardware requirements: GPU servers or clusters
+    -   IT support and maintenance needs
+    -   Model update and versioning management
+    -   Performance limitations vs. cloud models
+:::
+
+::: callout-note
+Consider hybrid approaches: sensitive data on local models, non-PHI on cloud models
+:::
+
+::: notes
+Let's conclude with a crucial aspect in healthcare: data security and local LLM deployment.
+
+On-premise deployment, where models run internally within your organization, offers significant security advantages. First, sensitive patient data never leaves the institutional network - eliminating an entire layer of risk. You have complete control over the audit trail, without depending on third-party privacy policies. This also facilitates compliance with data residency requirements, increasingly common in healthcare regulations.
+
+However, implementing LLMs locally involves important challenges. Hardware requirements are substantial - powerful GPU servers or clusters are needed, especially for larger models. Your IT team will need to support and maintain these systems, manage model updates and versioning. And there's typically a performance gap compared to cloud models - locally executable models tend to be smaller and less powerful.
+
+A pragmatic solution I see many organizations adopting is a hybrid approach: using local models for data containing protected patient information, and more powerful cloud models for tasks that don't involve sensitive data.
+
+For example, you might use a local model to analyze clinical records, but a cloud model to research medical literature or generate generic educational material.
+
+This balanced approach allows you to leverage the best of both worlds: the security of local deployment where necessary, and the superior capabilities of cloud models where appropriate.
+
+In the next practical module, we'll see precisely how to configure LM Studio for local deployment and how to use WebLLM for secure executions directly in the browser.
+:::
