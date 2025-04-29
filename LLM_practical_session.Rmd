@@ -1,163 +1,263 @@
 ---
-title: "LLM_practical_session"
+title: "LLM Practical Session: Clinical Applications"
 author: "LV"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
 ---
 
-# Practical Kit for "Generative AI and LLMs in Clinical-Laboratory Applications"
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
 
-## 📅 2-hour Practice Session Content (English)
+# Practical Workshop: LLMs in Clinical Applications
 
-### Part 1: Setting up a Local LLM (30 minutes)
-- **Tool**: LM Studio
-- **Steps**:
-  1. Install LM Studio.
-  2. Download and launch a small open LLM model (e.g., *Mistral 7B*, *Llama 3 8B*).
-  3. Confirm it is operational by asking: `"What is hepatitis?"`
+## 📋 Workshop Overview
 
----
+This hands-on session will guide you through:
 
-### Part 2: Testing Chat Mode (40 minutes)
+1. Setting up a local Large Language Model (LLM)
+2. Testing clinical prompts with the model
+3. Connecting to the model via API in R
+4. Applying LLMs to clinical data extraction tasks
 
-**Interact with the model via GUI.**
+## 📥 Part 1: Setting up Local LLM (30 minutes)
 
-#### Basic Clinical Prompt (5 minutes)
-- Prompt: "A patient presents with elevated AST and ALT. List possible causes."
+### Setting up LM Studio
 
-#### Multi-turn Clinical Conversation (10 minutes)
-- Prompt: "A 45-year-old man presents with chest pain. What initial questions would you ask?"
-- Student inputs: "The pain worsens with exertion, improves at rest."
-- Expected: Differential diagnosis suggestions.
+1. **Download and Install LM Studio**
+   - Visit [https://lmstudio.ai/](https://lmstudio.ai/) and download the appropriate version
+   - Follow installation instructions for your operating system
+   
+2. **Launch LM Studio and Download a Model**
+   - Recommended models:
+     - Mistral 7B Instruct v0.2
+     - Llama 3 8B Instruct
+     - Gemma 7B Instruct
+   - These models balance capability and reasonable hardware requirements
 
-#### Chain-of-Thought Reasoning (10 minutes)
-- Prompt: "A patient has jaundice, right upper quadrant pain, and fever. Think step-by-step: what is the most likely diagnosis?"
+3. **Start the Local Server**
+   - In LM Studio, select your downloaded model
+   - Click "Local Server" in the sidebar
+   - Click "Start Server"
+   - Note the URL (typically http://localhost:1234)
 
-#### Role Play Specialist Mode (10 minutes)
-- Prompt: "You are an infectious disease specialist. A 35-year-old man has persistent fever despite antibiotic therapy. Provide differential diagnoses considering his travel history to Africa."
+4. **Test the model**
+   - In the Chat interface, ask: `"What is hepatitis?"`
+   - Verify you get a reasonable medical response
 
-#### Critique Mode (5 minutes)
-- Initial Prompt: "Summarize the key findings of this lab report."
-- Follow-up Prompt: "Now review your own summary. Identify possible mistakes or missing information."
+## 🗣️ Part 2: Testing Chat Mode (40 minutes)
 
-**Discussion Points:**
-- Ability of the LLM to reason over time.
-- Identification of hallucinations or inconsistencies.
-- Importance of specifying roles and contexts.
-- Observing LLMs' ability to self-critique.
+### Basic Clinical Prompts (5 minutes)
 
-**Ready-to-use Clinical Prompts Set:**
+Use the LM Studio chat interface to test this prompt:
+
+```
+A patient presents with elevated AST and ALT. List possible causes.
+```
+
+### Multi-turn Clinical Conversation (10 minutes)
+
+Create a dialogue:
+
+1. Initial prompt:
+```
+A 45-year-old man presents with chest pain. What initial questions would you ask?
+```
+
+2. Follow up with:
+```
+The pain worsens with exertion, improves at rest.
+```
+
+### Chain-of-Thought Reasoning (10 minutes)
+
+Test this prompt:
+
+```
+A patient has jaundice, right upper quadrant pain, and fever. Think step-by-step: what is the most likely diagnosis?
+```
+
+### Role Play Specialist Mode (10 minutes)
+
+```
+You are an infectious disease specialist. A 35-year-old man has persistent fever despite antibiotic therapy. Provide differential diagnoses considering his travel history to Africa.
+```
+
+### Critique Mode (5 minutes)
+
+1. First prompt:
+```
+Summarize the key findings of this lab report: WBC 12,000/μL with left shift, hemoglobin 10.2 g/dL, platelets 450,000/μL, CRP 75 mg/L.
+```
+
+2. Then ask:
+```
+Now review your own summary. Identify possible mistakes or missing information.
+```
+
+### Ready-to-use Clinical Prompts Set
+
 1. "Patient with fever, cough, and dyspnea: suggest differential diagnoses."
 2. "Elevated D-dimer and chest pain: what would you recommend?"
 3. "Interpret these liver function test results: AST 80, ALT 90, GGT 200."
 4. "List common causes of microcytic anemia."
 5. "Summarize the main treatments for community-acquired pneumonia."
 
----
+### Discussion Points
+- Note the model's reasoning capabilities
+- Identify any hallucinations or inconsistencies
+- Observe how specifying roles affects responses
+- Evaluate the model's ability to self-critique
 
-### Part 3: Using the Local API with `ellmer` in R (30 minutes)
+## 🧪 Part 3: Using the Local API in R (30 minutes)
 
-**Example R script to query the local LM Studio API:**
-
-**First, install `ellmer` package:**
+### Setup: Connecting to LM Studio API
 
 ```{r}
-install.packages("ellmer")
+# Install required packages
+install.packages(c("httr", "jsonlite", "tibble", "dplyr", "stringr"))
 
-library(ellmer)
+library(httr)
+library(jsonlite)
+```
 
-# Setup your local server URL (adjust port if needed)
-llm <- ChatLLM(
-  url = "http://localhost:1234/v1/chat/completions", # LM Studio default API endpoint
-  model = "your-model-name-here" # e.g., "mistral-7b-instruct-v0.1"
-)
+### Creating a Helper Function to Call the LM Studio API
 
-# Create a prompt
-response <- llm$complete(
-  messages = list(
-    list(role = "user", content = "Summarize these lab results: Hb 10.5, MCV 70, RDW high.")
+```{r}
+# Create a function to communicate with the LM Studio API
+call_lm_studio <- function(prompt, 
+                           system_prompt = NULL,
+                           api_url = "http://localhost:1234/v1/chat/completions",
+                           model = "local-model",
+                           temperature = 0.7,
+                           max_tokens = 1000) {
+  
+  # Create messages array
+  messages <- list()
+  
+  # Add system message if provided
+  if (!is.null(system_prompt)) {
+    messages <- append(messages, list(list(
+      role = "system",
+      content = system_prompt
+    )))
+  }
+  
+  # Add user message
+  messages <- append(messages, list(list(
+    role = "user",
+    content = prompt
+  )))
+  
+  # Prepare request body
+  body <- list(
+    model = model,
+    messages = messages,
+    temperature = temperature,
+    max_tokens = max_tokens
   )
-)
-
-# View response
-cat(response$content)
-```
-
-
-```{r connect-to-llm}
-# Connect to the local LLM
-llm <- ChatLLM(
-  url = "http://localhost:1234/v1/chat/completions",
-  model = "your-model-name-here"
-)
-```
-
-```{r send-prompt}
-# Send a clinical prompt
-response <- llm$complete(
-  messages = list(
-    list(role = "user", content = "Summarize these lab results: Hb 10.5, MCV 70, RDW high.")
+  
+  # Send POST request
+  response <- httr::POST(
+    url = api_url,
+    body = jsonlite::toJSON(body, auto_unbox = TRUE),
+    httr::add_headers("Content-Type" = "application/json"),
+    encode = "json"
   )
-)
-
-# Print response
-cat(response$content)
+  
+  # Parse response
+  parsed <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
+  
+  # Extract and return the content
+  if (!is.null(parsed$choices) && length(parsed$choices) > 0) {
+    return(parsed$choices[[1]]$message$content)
+  } else {
+    warning("No content returned from API")
+    return(NULL)
+  }
+}
 ```
 
----
+### Testing the API Connection
 
-### Part 4: Clinical-Laboratory Application Exercise (30 minutes)
+```{r}
+# Test API connection with a simple clinical prompt
+result <- call_lm_studio(
+  prompt = "Summarize these lab results: Hb 10.5, MCV 70, RDW high.",
+  system_prompt = "You are a helpful medical assistant."
+)
 
-**Mini-project:**
-- Form small groups.
-- Each group receives 2 symptom sets or lab reports.
-- Task: Write an optimal prompt and retrieve LLM suggestions.
+# Print result
+cat(result)
+```
 
-**Discussion Points:**
-- Identify hallucinations or unsafe recommendations.
-- Discuss how to validate outputs against trusted clinical resources.
+### Making Complex Medical Queries
 
-**Extended Clinical Data Extraction Task: Preparing a Meta-analysis**
+```{r}
+# Example of a more complex query
+clinical_query <- "
+A 67-year-old female presents with the following lab values:
+- Hemoglobin: 9.8 g/dL (ref: 12.0-15.5)
+- MCV: 76 fL (ref: 80-100)
+- Ferritin: 15 ng/mL (ref: 30-400)
+- TIBC: 450 μg/dL (ref: 250-370)
 
+Provide an interpretation of these results and suggest possible diagnoses.
+"
+
+interpretation <- call_lm_studio(
+  prompt = clinical_query,
+  system_prompt = "You are a hematology specialist. Provide concise and evidence-based interpretations."
+)
+
+cat(interpretation)
+```
+
+## 📊 Part 4: Clinical-Laboratory Application Exercise (30 minutes)
+
+### Mini-project: Clinical Data Extraction
+
+In this exercise, we'll extract structured information from unstructured clinical trial descriptions.
 
 ```{r}
 library(tibble)
-library(ellmer)
 library(dplyr)
 library(stringr)
 
-# Create a dataframe of studies
+# Create a dataframe of clinical trial descriptions
 trials_df <- tibble::tibble(
   trial_id = c("Trial 1", "Trial 2", "Trial 3"),
   text = c(
     "In a recent clinical trial, 200 patients were randomized to receive Drug A or placebo. The Drug A group had a 35% reduction in risk of hospitalization, whereas the placebo group showed no significant change. Adverse events occurred in 10% of the Drug A group and 5% of the placebo group.",
+    
     "A double-blind study involving 150 patients compared Drug B against placebo. Patients on Drug B showed a 25% decrease in hospital admissions, while adverse events were reported in 12% of patients treated with Drug B versus 7% in the placebo group.",
+    
     "Another randomized trial evaluated Drug C in 180 patients. Drug C recipients experienced a 40% lower hospitalization rate compared to placebo. However, adverse effects were slightly higher at 15% versus 8% in the placebo cohort."
   )
 )
 
-# Connect to local LLM
-llm <- ChatLLM(
-  url = "http://localhost:1234/v1/chat/completions",
-  model = "your-model-name-here"
-)
-
 # Function to extract table from a single trial text
 extract_table_from_trial <- function(trial_text) {
+  # Create a prompt that specifies exactly what to extract
   prompt <- paste0(
     "Extract the information from the following study and format it into a markdown table.\n\n",
     trial_text,
     "\n\n",
-    "Create columns: Treatment, Effect on Hospitalization, Adverse Events (%)."
+    "Create columns: Treatment, Sample Size, Effect on Hospitalization (%), Adverse Events (%). Output only the markdown table without any additional text."
   )
   
-  response <- llm$complete(
-    messages = list(
-      list(role = "user", content = prompt)
-    )
+  # Call the LLM
+  result <- call_lm_studio(
+    prompt = prompt,
+    system_prompt = "You are a research assistant. Extract data precisely from clinical trials and format it as requested."
   )
   
-  return(response$content)
+  return(result)
 }
 
 # Initialize list to collect parsed tables
@@ -167,22 +267,31 @@ all_rows <- list()
 for (i in seq_len(nrow(trials_df))) {
   cat(paste0("\nProcessing ", trials_df$trial_id[i], "...\n"))
   
+  # Get the markdown table
   markdown_table <- extract_table_from_trial(trials_df$text[i])
+  cat(markdown_table, "\n")
   
-  # Parse markdown into a dataframe
-  rows <- str_match_all(markdown_table, "\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|")[[1]]
+  # Parse markdown table into a dataframe
+  # Match each row of the table
+  rows <- str_match_all(markdown_table, "\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|")[[1]]
   
   if (nrow(rows) > 0) {
-    # Remove header line
-    rows <- rows[-1, , drop = FALSE]
+    # Skip header and separator rows (first two rows)
+    data_rows <- rows[-(1:2), , drop = FALSE]
     
-    df_temp <- tibble::tibble(
-      Treatment = rows[, 2],
-      Effect_on_Hospitalization = rows[, 3],
-      Adverse_Events = rows[, 4]
-    )
-    
-    all_rows[[trials_df$trial_id[i]]] <- df_temp
+    if (nrow(data_rows) > 0) {
+      # Create a temporary dataframe
+      df_temp <- tibble::tibble(
+        Trial = trials_df$trial_id[i],
+        Treatment = data_rows[, 2],
+        Sample_Size = data_rows[, 3],
+        Effect_on_Hospitalization = data_rows[, 4],
+        Adverse_Events = data_rows[, 5]
+      )
+      
+      # Add to list
+      all_rows[[length(all_rows) + 1]] <- df_temp
+    }
   }
 }
 
@@ -190,6 +299,45 @@ for (i in seq_len(nrow(trials_df))) {
 final_table <- bind_rows(all_rows)
 
 # View combined final table
-final_table
-
+print(final_table)
 ```
+
+### Additional Ideas for Clinical Applications
+
+1. **Label Lab Results**
+   - Extract abnormal results and tag them accordingly
+
+2. **Summarize Patient History**
+   - Create concise summaries from longer patient notes
+
+3. **Generate Differential Diagnoses**
+   - Based on symptoms, vital signs, and lab values
+
+4. **Extract Medical Entities**
+   - Identify diagnoses, treatments, medications from text
+
+## 🔍 Discussion Points
+
+1. **Model Limitations**
+   - Identify when the model makes errors or hallucinates information
+   - Determine what types of queries produce the most accurate responses
+
+2. **Clinical Safety**
+   - How would you validate the model's outputs?
+   - What safeguards would you implement in a clinical setting?
+
+3. **Comparison with Commercial Models**
+   - How do these local models compare to commercial ones like GPT-4?
+   - In what scenarios might a local model be preferable?
+
+4. **Potential Applications**
+   - Brainstorm useful applications in your specific clinical setting
+   - What workflows could benefit most from LLM assistance?
+
+## 📚 Resources
+
+- [LM Studio Documentation](https://lmstudio.ai/docs)
+- [Mistral AI Documentation](https://docs.mistral.ai)
+- [OpenAI API Reference](https://platform.openai.com/docs/api-reference) (for API format compatibility)
+- [httr Package Documentation](https://httr.r-lib.org)
+- [jsonlite Package Documentation](https://cran.r-project.org/web/packages/jsonlite/index.html)
