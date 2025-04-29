@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 ## 📋 Workshop Overview
 
-This hands-on session will guide you through:
+This hands-on session will guide you through exploring Large Language Models (LLMs) in clinical contexts. We'll walk through the entire process: from installing a local model to implementing real clinical applications.
 
 1. Setting up a local Large Language Model (LLM)
 2. Testing clinical prompts with the model
@@ -27,30 +27,42 @@ This hands-on session will guide you through:
 
 ## 📥 Part 1: Setting up Local LLM (30 minutes)
 
+> **Why use local models?** Local models offer greater privacy for sensitive patient data, work offline, and have no recurring costs. They're ideal for clinical applications where confidentiality is critical.
+
 ### Setting up LM Studio
 
 1. **Download and Install LM Studio**
    - Visit [https://lmstudio.ai/](https://lmstudio.ai/) and download the appropriate version
    - Follow installation instructions for your operating system
    
+   > LM Studio is a desktop application that simplifies running language models locally. It works on Windows, macOS, and Linux, and provides an intuitive graphical interface for interacting with models.
+
 2. **Launch LM Studio and Download a Model**
    - Recommended models:
      - Mistral 7B Instruct v0.2
      - Llama 3 8B Instruct
      - Gemma 7B Instruct
    - These models balance capability and reasonable hardware requirements
+   
+   > The model size (7B, 8B) refers to the number of parameters in billions. Larger models are generally more capable but require more hardware resources. For medical contexts, models from the Mistral and Llama families tend to perform well even in more compact versions.
 
 3. **Start the Local Server**
    - In LM Studio, select your downloaded model
    - Click "Local Server" in the sidebar
    - Click "Start Server"
    - Note the URL (typically http://localhost:1234)
+   
+   > The local server exposes an OpenAI-compatible API, allowing us to interact with the model programmatically. This is a key feature we'll leverage in the R portion of the workshop.
 
 4. **Test the model**
    - In the Chat interface, ask: `"What is hepatitis?"`
    - Verify you get a reasonable medical response
+   
+   > This step verifies that the model is functioning correctly and has basic medical knowledge. Recent models should provide accurate information about types of hepatitis, modes of transmission, and clinical manifestations.
 
 ## 🗣️ Part 2: Testing Chat Mode (40 minutes)
+
+> **Goal of this section:** This part of the workshop is dedicated to understanding the different ways of interacting with an LLM through clinical prompts. We'll explore how prompt formulation affects the quality and usefulness of responses.
 
 ### Basic Clinical Prompts (5 minutes)
 
@@ -59,6 +71,11 @@ Use the LM Studio chat interface to test this prompt:
 ```
 A patient presents with elevated AST and ALT. List possible causes.
 ```
+
+> This is an example of a basic clinical prompt that asks the model to list possible causes of a common laboratory finding. Evaluate the response based on:
+> - Completeness of the list (does it include common causes like viral hepatitis, steatosis, medications?)
+> - Logical organization (are causes grouped by categories?)
+> - Clinical accuracy (are the listed causes actually associated with the presentation?)
 
 ### Multi-turn Clinical Conversation (10 minutes)
 
@@ -74,6 +91,12 @@ A 45-year-old man presents with chest pain. What initial questions would you ask
 The pain worsens with exertion, improves at rest.
 ```
 
+> This is a simulation of a clinical conversation that tests the model's ability to:
+> 1. Generate clinically relevant questions for a common symptom
+> 2. Use additional information to refine diagnostic reasoning
+> 
+> In clinical practice, LLMs could assist in structured history taking or suggest relevant questions based on initial symptoms.
+
 ### Chain-of-Thought Reasoning (10 minutes)
 
 Test this prompt:
@@ -82,11 +105,29 @@ Test this prompt:
 A patient has jaundice, right upper quadrant pain, and fever. Think step-by-step: what is the most likely diagnosis?
 ```
 
+> The "Think step-by-step" prompt triggers chain-of-thought reasoning, a technique that encourages the model to show its reasoning process. It's particularly useful in medicine because:
+> - It allows you to see how the model arrives at the diagnosis
+> - It highlights potential logical errors or gaps
+> - It simulates human clinical reasoning
+> 
+> Observe how the model:
+> 1. Analyzes individual symptoms
+> 2. Identifies syndromic patterns
+> 3. Considers differential diagnoses
+> 4. Reaches a conclusion based on highest probability
+
 ### Role Play Specialist Mode (10 minutes)
 
 ```
 You are an infectious disease specialist. A 35-year-old man has persistent fever despite antibiotic therapy. Provide differential diagnoses considering his travel history to Africa.
 ```
+
+> Assigning a specialist role to the model ("You are an infectious disease specialist") is an advanced prompting technique that:
+> - Focuses the response on a specific domain
+> - Activates specialist knowledge
+> - Improves the quality and depth of responses
+> 
+> In this example, the infectious disease specialist role should lead to consideration of tropical infections (malaria, typhoid fever, dengue, etc.) and conditions related to travel in Africa.
 
 ### Critique Mode (5 minutes)
 
@@ -100,6 +141,12 @@ Summarize the key findings of this lab report: WBC 12,000/μL with left shift, h
 Now review your own summary. Identify possible mistakes or missing information.
 ```
 
+> This critique mode leverages the self-evaluation capability of recent LLMs. The two-phase process allows for:
+> 1. Getting an initial interpretation of laboratory data
+> 2. Prompting the model to critically reexamine its own analysis
+> 
+> It's a particularly useful technique in clinical contexts where the initial interpretation might overlook important correlations or clinical significance of values.
+
 ### Ready-to-use Clinical Prompts Set
 
 1. "Patient with fever, cough, and dyspnea: suggest differential diagnoses."
@@ -108,13 +155,27 @@ Now review your own summary. Identify possible mistakes or missing information.
 4. "List common causes of microcytic anemia."
 5. "Summarize the main treatments for community-acquired pneumonia."
 
+> These additional prompts can be used to further explore the model's capabilities in various clinical contexts. They are examples of typical queries that might be useful in daily practice.
+
 ### Discussion Points
+
 - Note the model's reasoning capabilities
 - Identify any hallucinations or inconsistencies
 - Observe how specifying roles affects responses
 - Evaluate the model's ability to self-critique
 
+> **Key Concept: "Hallucinations"**
+> 
+> Hallucinations are information generated by the model that seems plausible but is false or made up. It's crucial to identify them, especially in clinical contexts. Common examples include:
+> - Citation of non-existent clinical studies
+> - Reference to inaccurate guidelines
+> - Creation of false clinical correlations
+> 
+> Hallucinations represent one of the main obstacles to the safe implementation of LLMs in medicine.
+
 ## 🧪 Part 3: Using the Local API in R (30 minutes)
+
+> **The importance of programmatic integration:** While the chat interface is useful for one-off interactions, the API allows integration of LLMs into existing workflows and clinical applications. In this section, we'll learn how to connect R to our local model.
 
 ### Setup: Connecting to LM Studio API
 
@@ -122,9 +183,11 @@ Now review your own summary. Identify possible mistakes or missing information.
 # Install required packages
 install.packages(c("httr", "jsonlite", "tibble", "dplyr", "stringr"))
 
-library(httr)
-library(jsonlite)
+library(httr)      # For HTTP requests
+library(jsonlite)  # For JSON handling
 ```
+
+> The `httr` and `jsonlite` packages are essential for communicating with the API. `httr` handles HTTP POST requests, while `jsonlite` converts R data structures to JSON and vice versa.
 
 ### Creating a Helper Function to Call the LM Studio API
 
@@ -170,18 +233,60 @@ call_lm_studio <- function(prompt,
     encode = "json"
   )
   
-  # Parse response
-  parsed <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"))
-  
-  # Extract and return the content
-  if (!is.null(parsed$choices) && length(parsed$choices) > 0) {
-    return(parsed$choices[[1]]$message$content)
-  } else {
-    warning("No content returned from API")
-    return(NULL)
+  # Check if the request was successful
+  if (httr::status_code(response) != 200) {
+    warning("API request failed with status code: ", httr::status_code(response))
+    return(paste("Error:", httr::content(response, "text", encoding = "UTF-8")))
   }
+  
+  # Safely parse response
+  tryCatch({
+    # Get the response text
+    response_text <- httr::content(response, "text", encoding = "UTF-8")
+    
+    # Parse JSON
+    parsed <- jsonlite::fromJSON(response_text)
+    
+    # Check different response formats
+    if (!is.null(parsed$choices) && length(parsed$choices) > 0) {
+      # Standard OpenAI format
+      if (is.list(parsed$choices[[1]]) && !is.null(parsed$choices[[1]]$message$content)) {
+        return(parsed$choices[[1]]$message$content)
+      } else if (is.list(parsed$choices[[1]]) && !is.null(parsed$choices[[1]]$text)) {
+        # Some APIs return text instead of message.content
+        return(parsed$choices[[1]]$text)
+      }
+    } else if (!is.null(parsed$response)) {
+      # Alternate format some local servers use
+      return(parsed$response)
+    } else if (!is.null(parsed$content)) {
+      # Yet another possible format
+      return(parsed$content)
+    }
+    
+    # If we can't find the content in expected places, return raw response for debugging
+    warning("Unexpected API response format")
+    return(paste("Raw response:", response_text))
+    
+  }, error = function(e) {
+    warning("Error parsing API response: ", e$message)
+    return(paste("Error parsing response:", e$message))
+  })
 }
 ```
+
+> **Function Explanation:**
+> 
+> This wrapper function sends a request to the local model's API and retrieves the response. The key components are:
+> 
+> 1. **Message Management:** Structuring the user prompt and system prompt (baseline instructions for the model)
+> 2. **Generation Parameters:** 
+>    - `temperature`: Controls randomness of responses (0.7 is a good balance)
+>    - `max_tokens`: Limits response length
+> 3. **HTTP Request:** Sends data to the local server using POST
+> 4. **Response Processing:** Extracts the generated text from the JSON response
+> 
+> The `system_prompt` parameter is particularly useful for defining the model's general behavior, such as "Act as a medical assistant" or "Provide only evidence-based information."
 
 ### Testing the API Connection
 
@@ -195,6 +300,13 @@ result <- call_lm_studio(
 # Print result
 cat(result)
 ```
+
+> This simple test verifies that:
+> 1. Our local server is active and responding
+> 2. The `call_lm_studio` function works correctly
+> 3. The model can interpret basic laboratory data
+> 
+> The prompt requests interpretation of values consistent with microcytic anemia (low Hb, low MCV, high RDW), typically associated with iron deficiency.
 
 ### Making Complex Medical Queries
 
@@ -218,7 +330,17 @@ interpretation <- call_lm_studio(
 cat(interpretation)
 ```
 
+> This more complex example shows how to structure a detailed clinical query and use a specialist system prompt. Important elements:
+> 
+> 1. **Structured Format:** Laboratory data is presented clearly with reference values
+> 2. **Specific Request:** Both interpretation and possible diagnoses are requested
+> 3. **Specialist System Prompt:** Tells the model to respond as a hematology specialist
+> 
+> The case presented is consistent with iron deficiency anemia (low hemoglobin, low MCV, low ferritin, elevated TIBC), which in an elderly woman might warrant investigation for occult bleeding.
+
 ## 📊 Part 4: Clinical-Laboratory Application Exercise (30 minutes)
+
+> **From Theory to Practice:** In this final section, we'll put together what we've learned to create a practical application. We'll automatically extract structured data from clinical study descriptions, simulating a meta-analysis activity.
 
 ### Mini-project: Clinical Data Extraction
 
@@ -240,7 +362,17 @@ trials_df <- tibble::tibble(
     "Another randomized trial evaluated Drug C in 180 patients. Drug C recipients experienced a 40% lower hospitalization rate compared to placebo. However, adverse effects were slightly higher at 15% versus 8% in the placebo cohort."
   )
 )
+```
 
+> **Project Context:** We've created a dataframe containing textual descriptions of three fictional clinical trials. Each study reports:
+> - Number of participants
+> - Intervention (drug vs placebo)
+> - Effect on reducing hospitalizations
+> - Adverse event rate
+> 
+> Our goal is to use the LLM to automatically extract this data in a structured format, simulating one of the most time-consuming activities in preparing meta-analyses.
+
+```{r}
 # Function to extract table from a single trial text
 extract_table_from_trial <- function(trial_text) {
   # Create a prompt that specifies exactly what to extract
@@ -259,7 +391,17 @@ extract_table_from_trial <- function(trial_text) {
   
   return(result)
 }
+```
 
+> This function transforms the unstructured text of a study into a markdown table. Key elements:
+> 
+> 1. **Specific Prompt:** Indicates exactly what information to extract and the desired format
+> 2. **Targeted System Prompt:** Defines the model's role as a research assistant
+> 3. **Clear Structure:** Specifically requests a markdown table with predefined columns
+> 
+> The ability of LLMs to understand context and structure output makes them particularly suited for this type of data extraction task.
+
+```{r}
 # Initialize list to collect parsed tables
 all_rows <- list()
 
@@ -302,37 +444,76 @@ final_table <- bind_rows(all_rows)
 print(final_table)
 ```
 
+> **Processing and Analyzing Results:**
+> 
+> The code above:
+> 1. Iterates through each study description
+> 2. Extracts a markdown table using the LLM
+> 3. Converts the markdown table to an R dataframe using regular expressions
+> 4. Combines all results into a final table
+> 
+> This process demonstrates how the LLM can serve as an "intelligent bridge" between unstructured and structured data, an application with enormous potential in clinical and research settings. The regex `\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|` captures the content of each cell in the markdown table.
+
 ### Additional Ideas for Clinical Applications
 
 1. **Label Lab Results**
    - Extract abnormal results and tag them accordingly
+   
+   > **Application:** Analyze complete laboratory reports to automatically highlight abnormal values, indicating whether they are elevated or reduced and their potential clinical significance.
 
 2. **Summarize Patient History**
    - Create concise summaries from longer patient notes
+   
+   > **Application:** Condense lengthy medical records into structured summaries highlighting active problems, current therapies, allergies, and critical information.
 
 3. **Generate Differential Diagnoses**
    - Based on symptoms, vital signs, and lab values
+   
+   > **Application:** Support clinical reasoning by suggesting differential diagnoses based on structured (symptoms, vital signs) and unstructured (history) data.
 
 4. **Extract Medical Entities**
    - Identify diagnoses, treatments, medications from text
+   
+   > **Application:** Transform clinical notes into structured databases by extracting entities such as diagnoses, medications, dosages, procedures, and results.
 
 ## 🔍 Discussion Points
 
 1. **Model Limitations**
    - Identify when the model makes errors or hallucinates information
    - Determine what types of queries produce the most accurate responses
+   
+   > **Critical Point:** LLMs are not infallible and can generate plausible but incorrect answers. Recognizing the model's limitations is essential for safe use. Basic factual queries (e.g., "What are the symptoms of pneumonia?") tend to be more reliable than complex or rare scenarios.
 
 2. **Clinical Safety**
    - How would you validate the model's outputs?
    - What safeguards would you implement in a clinical setting?
+   
+   > **Safety Strategies:**
+   > - Implement a "human-in-the-loop" system with human review
+   > - Limit the scope of application to specific, well-defined tasks
+   > - Provide references and justifications for recommendations
+   > - Integrate automatic verification systems against codified guidelines
 
 3. **Comparison with Commercial Models**
    - How do these local models compare to commercial ones like GPT-4?
    - In what scenarios might a local model be preferable?
+   
+   > **Trade-offs:** Commercial models (like GPT-4, Claude) are generally more capable, but have disadvantages in terms of costs, internet dependency, and privacy. Local models are preferable when:
+   > - Patient data should not leave the local system
+   > - An offline solution is needed
+   > - Solutions without variable query costs are required
+   > - Greater control over configuration and operation is desired
 
 4. **Potential Applications**
    - Brainstorm useful applications in your specific clinical setting
    - What workflows could benefit most from LLM assistance?
+   
+   > **Promising Applications:**
+   > - Support for ICD coding for billing
+   > - Automatic generation of structured clinical notes
+   > - Assistance in searching for relevant literature
+   > - Pre-screening of imaging reports for prioritization
+   > - Support for interpretation of genetic results
 
 ## 📚 Resources
 
@@ -341,3 +522,8 @@ print(final_table)
 - [OpenAI API Reference](https://platform.openai.com/docs/api-reference) (for API format compatibility)
 - [httr Package Documentation](https://httr.r-lib.org)
 - [jsonlite Package Documentation](https://cran.r-project.org/web/packages/jsonlite/index.html)
+
+> **Additional Resources:**
+> - [NeurIPS Clinical LLM Challenge](https://sites.google.com/view/clinical-llm-challenge-neurips/) - Contains datasets and examples of clinical prompts
+> - [MedPaLM 2](https://blog.google/technology/health/medpalm-2-research-large-language-models-medical-knowledge/) - Research on medicine-specific LLMs
+> - [Chatbots for Clinical Informatics](https://www.nature.com/articles/s41746-023-00873-0) - Paper on clinical use of LLMs
