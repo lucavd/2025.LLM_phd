@@ -183,152 +183,129 @@ library(jsonlite)  # For JSON handling
 
 ```{r}
 # Create a function to communicate with the LM Studio API
-call_lm_studio <- function(prompt, 
+call_lm_studio <- function(prompt,
                            system_prompt = NULL,
                            api_url = "http://localhost:1234/v1/chat/completions",
                            model = "local-model",
                            temperature = 0.7,
                            max_tokens = 1000,
-                           raw_response = FALSE) {
+                           raw_response = FALSE,
+                           remove_thinking = TRUE) {
   
-  # Create messages array
   messages <- list()
+  if (!is.null(system_prompt))
+    messages <- list(list(role = "system", content = system_prompt))
+  messages <- append(messages, list(list(role = "user", content = prompt)))
   
-  # Add system message if provided
-  if (!is.null(system_prompt)) {
-    messages <- append(messages, list(list(
-      role = "system",
-      content = system_prompt
-    )))
-  }
-  
-  # Add user message
-  messages <- append(messages, list(list(
-    role = "user",
-    content = prompt
-  )))
-  
-  # Prepare request body
-  body <- list(
-    model = model,
-    messages = messages,
-    temperature = temperature,
-    max_tokens = max_tokens
-  )
-  
-  # Send POST request
-  response <- httr::POST(
-    url = api_url,
-    body = jsonlite::toJSON(body, auto_unbox = TRUE),
+  res <- httr::POST(
+    api_url,
+    body = jsonlite::toJSON(
+      list(model = model, messages = messages,
+           temperature = temperature, max_tokens = max_tokens),
+      auto_unbox = TRUE
+    ),
     httr::add_headers("Content-Type" = "application/json"),
     encode = "json"
   )
+  if (httr::status_code(res) != 200)
+    return(paste0("Error: ", httr::status_code(res)))
   
-  # Check if the request was successful
-  if (httr::status_code(response) != 200) {
-    warning("API request failed with status code: ", httr::status_code(response))
-    return(paste("Error:", httr::status_code(response)))
-  }
+  txt <- httr::content(res, "text", encoding = "UTF-8")
+  if (raw_response) return(txt)
   
-  # Safely parse response
-  tryCatch({
-    # Get the response text
-    response_text <- httr::content(response, "text", encoding = "UTF-8")
-    
-    # If raw_response is TRUE, return the complete response for debugging
-    if (raw_response) {
-      return(response_text)
-    }
-    
-    # Parse JSON
-    parsed <- jsonlite::fromJSON(response_text)
-    
-    # Extract only the content from different possible response formats
-    if (!is.null(parsed$choices) && length(parsed$choices) > 0) {
-      # Standard OpenAI format
-      if (is.list(parsed$choices[[1]]) && !is.null(parsed$choices[[1]]$message$content)) {
-        return(parsed$choices[[1]]$message$content)
-      } else if (is.list(parsed$choices[[1]]) && !is.null(parsed$choices[[1]]$text)) {
-        # Some APIs return text instead of message.content
-        return(parsed$choices[[1]]$text)
-      }
-    } else if (!is.null(parsed$response)) {
-      # Alternate format some local servers use
-      return(parsed$response)
-    } else if (!is.null(parsed$content)) {
-      # Yet another possible format
-      return(parsed$content)
-    }
-    
-    # Try other possible response formats
-    if (!is.null(parsed$output)) {
-      return(parsed$output)
-    } else if (!is.null(parsed$result)) {
-      return(parsed$result)
-    } else if (!is.null(parsed$generated_text)) {
-      return(parsed$generated_text)
-    }
-    
-    # Return a simplified error message
-    warning("Could not extract content from API response")
-    return("Error: Unable to extract content from response")
-    
-  }, error = function(e) {
-    warning("Error parsing API response: ", e$message)
-    return("Error: Failed to parse response")
-  })
+  # evita semplificazioni: mantiene struttura annidata
+  parsed <- jsonlite::fromJSON(txt, simplifyVector = FALSE)
+  
+  # estrai contenuto
+  first <- parsed$choices[[1]]
+  content <- first$message$content %||% first$text
+  if (is.null(content))
+    return("Error: Unable to extract content")
+  
+  if (remove_thinking)
+    content <- trimws(gsub("(?s)<think>.*?</think>", "", content, perl = TRUE))
+  
+  content
 }
+
 ```
 
 > **Function Explanation:**
 >
-> This wrapper function sends a request to the local model's API and retrieves the response. The key components are:
+> This concise wrapper function communicates with the local model's API and processes its response. Key components:
 >
-> 1.  **Message Management:** Structuring the user prompt and system prompt (baseline instructions for the model)
-> 2.  **Generation Parameters:**
->     -   `temperature`: Controls randomness of responses (0.7 is a good balance)
->     -   `max_tokens`: Limits response length
-> 3.  **HTTP Request:** Sends data to the local server using POST
-> 4.  **Response Processing:** Extracts the generated text from the JSON response
-> 5.  **Debugging Option:** The new `raw_response` parameter allows viewing the complete API response for troubleshooting
+> 1.  **Message Structure:** Formats the system prompt (optional) and user prompt in the OpenAI API format
+> 2.  **API Parameters:**
+>     -   `temperature`: Controls response randomness (higher values increase creativity)
+>     -   `max_tokens`: Sets the maximum response length
+> 3.  **Response Handling:**
+>     -   Maintains nested JSON structure with `simplifyVector = FALSE`
+>     -   Uses the null coalescing operator `%||%` to handle different response formats
+> 4.  **Post-Processing:**
+>     -   Removes chain-of-thought sections (text between `<think>...</think>` tags)
+>     -   Regex with `perl = TRUE` ensures multi-line matching works correctly
+> 5.  **Debug Options:**
+>     -   `raw_response = TRUE`: Returns the raw JSON for API debugging
+>     -   `remove_thinking = FALSE`: Preserves reasoning process in the output
 >
-> The `system_prompt` parameter is particularly useful for defining the model's general behavior, such as "Act as a medical assistant" or "Provide only evidence-based information."
+> The system prompt can define the model's behavior (e.g., "You are a medical assistant") to guide responses in specific domains.
 
 ### Testing the API Connection
 
 ```{r}
 # Test API connection with a simple clinical prompt
-# First, let's check the raw response format
+# Example 1: Show the raw response for debugging purposes
 raw_result <- call_lm_studio(
   prompt = "What is anemia?",
   system_prompt = "You are a helpful medical assistant.",
   raw_response = TRUE
 )
 
-# Print raw response to see the format
-cat("Raw API response:\n")
+# Print raw response
+cat("1. Raw API response (for debugging):\n")
 cat(raw_result)
 cat("\n\n---\n\n")
 
-# Now get just the content
-result <- call_lm_studio(
+# Example 2: Show response with chain-of-thought thinking visible
+thinking_result <- call_lm_studio(
+  prompt = "What is anemia?",
+  system_prompt = "You are a helpful medical assistant.",
+  remove_thinking = FALSE
+)
+
+# Print content with thinking visible
+cat("2. Response with chain-of-thought thinking visible:\n")
+cat(thinking_result)
+cat("\n\n---\n\n")
+
+# Example 3: Show only the clean content (default behavior)
+clean_result <- call_lm_studio(
   prompt = "Summarize these lab results: Hb 10.5, MCV 70, RDW high.",
   system_prompt = "You are a helpful medical assistant."
 )
 
-# Print formatted content
-cat("Extracted content only:\n")
-cat(result)
+# Print only the clean content
+cat("3. Clean content only (default):\n")
+cat(clean_result)
 ```
 
-> This two-part test serves multiple purposes:
+> This multi-part test demonstrates three different ways to interact with the LLM API:
 >
-> 1. **API Verification:** Confirms our local server is active and responding
-> 2. **Response Format Inspection:** Shows the raw API response structure (helpful for debugging)
-> 3. **Content Extraction:** Demonstrates how the function extracts just the content
-> 4. **Medical Knowledge Testing:** Verifies the model can interpret basic laboratory data
+> 1. **Raw Response Mode:** Returns the complete JSON structure from the API
+>    - Useful for debugging API integration issues
+>    - Shows exactly what the server returns, including metadata
 >
-> The second prompt requests interpretation of values consistent with microcytic anemia (low Hb, low MCV, high RDW), typically associated with iron deficiency. The `raw_response = TRUE` parameter is particularly useful when troubleshooting API integration issues.
+> 2. **Chain-of-Thought Mode:** Shows the model's internal reasoning process
+>    - Reveals how the model approaches the problem
+>    - Maintains the `<think>...</think>` sections that show reasoning steps
+>    - Helpful for evaluating clinical reasoning quality
+>
+> 3. **Clean Content Mode (Default):** Returns only the final, polished answer
+>    - Removes all reasoning artifacts
+>    - Ideal for production applications
+>    - Professional presentation for end users
+>
+> The lab results example demonstrates how the model interprets values consistent with microcytic anemia (low Hb, low MCV, high RDW) - a practical application in clinical laboratory interpretation.
 
 ### Making Complex Medical Queries
 
