@@ -1,0 +1,302 @@
+---
+title: "R and RStudio Installation Guide"
+author: "LV"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    highlight: tango
+    latex_engine: xelatex
+    extra_dependencies: ["float"]
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+linkcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      fig.pos = "H", 
+                      out.width = "70%",
+                      fig.align = "center")
+```
+
+# Introduction
+
+This guide will walk you through the process of installing R and RStudio, the integrated development environment (IDE) that makes working with R easier and more productive. By following the steps outlined here, you'll have a complete working environment for data analysis and R programming.
+
+## What are R and RStudio?
+
+**R** is an open-source programming language specifically designed for statistical analysis and data visualization. It is widely used in scientific, academic, and business contexts.
+
+**RStudio** is an IDE (Integrated Development Environment) that makes it easier to write R code, visualize plots, manage datasets, and organize projects. It's not required to use R, but it's highly recommended to improve productivity and user experience.
+
+\newpage
+
+# Installing R
+
+Installing R is the first necessary step before installing RStudio.
+
+## Windows
+
+1.  Visit the official R website: <https://cran.r-project.org/>
+
+2.  Click on "Download R for Windows"
+
+3.  Select "base"
+
+4.  Click on "Download R x.x.x for Windows" (where x.x.x is the latest version)
+
+5.  Once the installation file is downloaded, double-click on it and follow the installation wizard instructions:
+
+    -   Accept the license agreement
+    -   Select the destination folder (recommended to keep the default)
+    -   Select components to install (recommended to keep the default options)
+    -   Select startup options (recommended to keep the default options)
+    -   Select start menu folder (recommended to keep the default)
+    -   Confirm additional tasks (recommended to keep the default options)
+    -   Click on "Install"
+
+## macOS
+
+1.  Visit the official R website: <https://cran.r-project.org/>
+
+2.  Click on "Download R for macOS"
+
+3.  For macOS 10.13 and higher, download "R-x.x.x.pkg" (where x.x.x is the latest version)
+
+4.  Once the installation file is downloaded, double-click on it and follow the installation wizard instructions:
+
+    -   Click "Continue"
+    -   Read the important information and click "Continue"
+    -   Accept the license agreement
+    -   Select the installation destination (recommended to keep the default)
+    -   Click "Install"
+    -   Enter your administrator password when prompted
+    -   Once installation is complete, click "Close"
+
+## Linux (Ubuntu/Debian)
+
+1.  Open a terminal (Ctrl+Alt+T)
+
+2.  Add the CRAN repository:
+
+    ``` bash
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+    sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+    ```
+
+3.  Update the package list and install R:
+
+    ``` bash
+    sudo apt update
+    sudo apt install r-base r-base-dev
+    ```
+
+4.  Verify the installation by opening R in the terminal:
+
+    ``` bash
+    R --version
+    ```
+
+\newpage
+
+# Installing RStudio
+
+After installing R, you can proceed with installing RStudio Desktop.
+
+## Windows
+
+1.  Visit the official RStudio website: <https://www.rstudio.com/products/rstudio/download/#download>
+
+2.  Scroll down to the "Installers for Supported Platforms" section
+
+3.  Select and download the Windows version
+
+4.  Once the installation file is downloaded, double-click on it and follow the installation wizard instructions:
+
+    -   Click "Next"
+    -   Select the destination folder (recommended to keep the default)
+    -   Click "Next"
+    -   Select the start menu folder (recommended to keep the default)
+    -   Click "Install"
+    -   Once installation is complete, click "Finish"
+
+## macOS
+
+1.  Visit the official RStudio website: <https://www.rstudio.com/products/rstudio/download/#download>
+
+2.  Scroll down to the "Installers for Supported Platforms" section
+
+3.  Select and download the macOS version
+
+4.  Once the installation file (.dmg) is downloaded, double-click on it
+
+5.  Drag the RStudio icon to the Applications folder
+
+6.  When first launching, you may need to right-click on the icon and select "Open" to bypass macOS security checks
+
+## Linux (Ubuntu/Debian)
+
+1.  Visit the official RStudio website: <https://www.rstudio.com/products/rstudio/download/#download>
+
+2.  Scroll down to the "Installers for Supported Platforms" section
+
+3.  Select and download the Ubuntu/Debian version (.deb)
+
+4.  Open a terminal and navigate to your downloads folder:
+
+    ``` bash
+    cd ~/Downloads
+    ```
+
+5.  Install the .deb package:
+
+    ``` bash
+    sudo dpkg -i rstudio-x.x.x-xxx-amd64.deb
+    ```
+
+    (Replace rstudio-x.x.x-xxx-amd64.deb with the exact name of the downloaded file)
+
+6.  If there are dependency errors, run:
+
+    ``` bash
+    sudo apt-get install -f
+    ```
+
+\newpage
+
+# Verifying Installation
+
+## Starting RStudio
+
+1.  Look for RStudio in the start menu (Windows), Applications folder (macOS), or application launcher (Linux)
+
+2.  Click on the RStudio icon to launch the application
+
+3.  When starting, RStudio should automatically detect your R installation and configure itself to use it
+
+## RStudio Interface
+
+The RStudio interface is divided into four main areas:
+
+1.  **Script Editor** (top-left): where you write and edit R code
+
+2.  **R Console** (bottom-left): where you run R code interactively and see the results of execution
+
+3.  **Environment/History** (top-right): where you can see objects created during your R session and command history
+
+4.  **Files/Plots/Packages/Help** (bottom-right): where you can explore files, view plots, manage packages, and browse documentation
+
+## Testing the Installation
+
+To verify that everything is working correctly, try running some simple R code. In the R console (bottom-left panel), type:
+
+``` r
+version  # Displays the installed R version
+```
+
+Then, try creating a simple plot:
+
+``` r
+plot(cars)  # Creates a plot of the built-in cars dataset
+```
+
+If a scatter plot appears in the Plots panel, it means R and RStudio are working correctly.
+
+\newpage
+
+# Installing R Packages
+
+One of R's strengths is the wide availability of packages that extend its basic functionality. Here's how to install and load packages in R.
+
+## Installing a Package
+
+To install a package, use the `install.packages()` function:
+
+``` r
+install.packages("ggplot2")  # Installs the ggplot2 package for advanced plotting
+```
+
+You can install multiple packages at once:
+
+``` r
+install.packages(c("dplyr", "tidyr", "readr"))  # Installs multiple packages
+```
+
+## Loading a Package
+
+After installation, you need to load the package into memory using the `library()` function:
+
+``` r
+library(ggplot2)  # Loads the ggplot2 package
+```
+
+## Recommended Packages for Beginners
+
+-   **tidyverse**: a collection of packages for data analysis (includes ggplot2, dplyr, tidyr, readr, and others)
+-   **rmarkdown**: for creating reports and documents
+-   **shiny**: for creating interactive web applications
+-   **knitr**: for dynamic report generation
+
+``` r
+install.packages("tidyverse")
+```
+
+\newpage
+
+# Troubleshooting Common Issues
+
+## Installation Issues on Windows
+
+-   **"Unable to find R" error**: Make sure R was installed before RStudio
+-   **Administrator rights**: In some cases, you might need to install with administrator rights
+-   **Path with spaces**: Avoid installing R in paths that contain spaces or special characters
+
+## Installation Issues on macOS
+
+-   **Gatekeeper**: If macOS prevents RStudio from opening, right-click on the icon and select "Open"
+-   **macOS version**: Make sure to download the R version compatible with your macOS version
+
+## Installation Issues on Linux
+
+-   **Missing dependencies**: Use `sudo apt-get install -f` to resolve dependency issues
+-   **Outdated repositories**: Make sure your repositories are updated with `sudo apt update`
+
+## Updating R and RStudio
+
+-   **Updating R**: Download and install the new version from the official website
+-   **Updating RStudio**: RStudio notifies you when a new version is available, or download the new version from the official website
+
+\newpage
+
+# Additional Resources
+
+## Official Documentation
+
+-   [Official R Documentation](https://cran.r-project.org/manuals.html)
+-   [Official RStudio Documentation](https://docs.rstudio.com/)
+
+## Online Tutorials and Guides
+
+-   [R for Data Science](https://r4ds.had.co.nz/) - A free online book by Hadley Wickham and Garrett Grolemund
+-   [RStudio Education](https://education.rstudio.com/) - Educational resources from RStudio
+-   [R-bloggers](https://www.r-bloggers.com/) - Blog with tutorials and articles about R
+
+## Community and Support
+
+-   [Stack Overflow - R Tag](https://stackoverflow.com/questions/tagged/r) - Questions and answers about R programming
+-   [RStudio Community](https://community.rstudio.com/) - RStudio community discussion forum
+
+## Online Courses
+
+-   [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) - Free introductory course on R
+-   [Coursera - R Programming](https://www.coursera.org/learn/r-programming) - R programming course from Johns Hopkins University
+
+------------------------------------------------------------------------
+
+*This guide was created to facilitate the installation of R and RStudio. For questions or issues, please contact the course technical support.*
