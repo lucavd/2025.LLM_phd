@@ -1,0 +1,195 @@
+---
+title: "LLM_practical_session"
+author: "LV"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Practical Kit for "Generative AI and LLMs in Clinical-Laboratory Applications"
+
+## 📅 2-hour Practice Session Content (English)
+
+### Part 1: Setting up a Local LLM (30 minutes)
+- **Tool**: LM Studio
+- **Steps**:
+  1. Install LM Studio.
+  2. Download and launch a small open LLM model (e.g., *Mistral 7B*, *Llama 3 8B*).
+  3. Confirm it is operational by asking: `"What is hepatitis?"`
+
+---
+
+### Part 2: Testing Chat Mode (40 minutes)
+
+**Interact with the model via GUI.**
+
+#### Basic Clinical Prompt (5 minutes)
+- Prompt: "A patient presents with elevated AST and ALT. List possible causes."
+
+#### Multi-turn Clinical Conversation (10 minutes)
+- Prompt: "A 45-year-old man presents with chest pain. What initial questions would you ask?"
+- Student inputs: "The pain worsens with exertion, improves at rest."
+- Expected: Differential diagnosis suggestions.
+
+#### Chain-of-Thought Reasoning (10 minutes)
+- Prompt: "A patient has jaundice, right upper quadrant pain, and fever. Think step-by-step: what is the most likely diagnosis?"
+
+#### Role Play Specialist Mode (10 minutes)
+- Prompt: "You are an infectious disease specialist. A 35-year-old man has persistent fever despite antibiotic therapy. Provide differential diagnoses considering his travel history to Africa."
+
+#### Critique Mode (5 minutes)
+- Initial Prompt: "Summarize the key findings of this lab report."
+- Follow-up Prompt: "Now review your own summary. Identify possible mistakes or missing information."
+
+**Discussion Points:**
+- Ability of the LLM to reason over time.
+- Identification of hallucinations or inconsistencies.
+- Importance of specifying roles and contexts.
+- Observing LLMs' ability to self-critique.
+
+**Ready-to-use Clinical Prompts Set:**
+1. "Patient with fever, cough, and dyspnea: suggest differential diagnoses."
+2. "Elevated D-dimer and chest pain: what would you recommend?"
+3. "Interpret these liver function test results: AST 80, ALT 90, GGT 200."
+4. "List common causes of microcytic anemia."
+5. "Summarize the main treatments for community-acquired pneumonia."
+
+---
+
+### Part 3: Using the Local API with `ellmer` in R (30 minutes)
+
+**Example R script to query the local LM Studio API:**
+
+**First, install `ellmer` package:**
+
+```{r}
+install.packages("ellmer")
+
+library(ellmer)
+
+# Setup your local server URL (adjust port if needed)
+llm <- ChatLLM(
+  url = "http://localhost:1234/v1/chat/completions", # LM Studio default API endpoint
+  model = "your-model-name-here" # e.g., "mistral-7b-instruct-v0.1"
+)
+
+# Create a prompt
+response <- llm$complete(
+  messages = list(
+    list(role = "user", content = "Summarize these lab results: Hb 10.5, MCV 70, RDW high.")
+  )
+)
+
+# View response
+cat(response$content)
+```
+
+
+```{r connect-to-llm}
+# Connect to the local LLM
+llm <- ChatLLM(
+  url = "http://localhost:1234/v1/chat/completions",
+  model = "your-model-name-here"
+)
+```
+
+```{r send-prompt}
+# Send a clinical prompt
+response <- llm$complete(
+  messages = list(
+    list(role = "user", content = "Summarize these lab results: Hb 10.5, MCV 70, RDW high.")
+  )
+)
+
+# Print response
+cat(response$content)
+```
+
+---
+
+### Part 4: Clinical-Laboratory Application Exercise (30 minutes)
+
+**Mini-project:**
+- Form small groups.
+- Each group receives 2 symptom sets or lab reports.
+- Task: Write an optimal prompt and retrieve LLM suggestions.
+
+**Discussion Points:**
+- Identify hallucinations or unsafe recommendations.
+- Discuss how to validate outputs against trusted clinical resources.
+
+**Extended Clinical Data Extraction Task: Preparing a Meta-analysis**
+
+
+```{r}
+library(tibble)
+library(ellmer)
+library(dplyr)
+library(stringr)
+
+# Create a dataframe of studies
+trials_df <- tibble::tibble(
+  trial_id = c("Trial 1", "Trial 2", "Trial 3"),
+  text = c(
+    "In a recent clinical trial, 200 patients were randomized to receive Drug A or placebo. The Drug A group had a 35% reduction in risk of hospitalization, whereas the placebo group showed no significant change. Adverse events occurred in 10% of the Drug A group and 5% of the placebo group.",
+    "A double-blind study involving 150 patients compared Drug B against placebo. Patients on Drug B showed a 25% decrease in hospital admissions, while adverse events were reported in 12% of patients treated with Drug B versus 7% in the placebo group.",
+    "Another randomized trial evaluated Drug C in 180 patients. Drug C recipients experienced a 40% lower hospitalization rate compared to placebo. However, adverse effects were slightly higher at 15% versus 8% in the placebo cohort."
+  )
+)
+
+# Connect to local LLM
+llm <- ChatLLM(
+  url = "http://localhost:1234/v1/chat/completions",
+  model = "your-model-name-here"
+)
+
+# Function to extract table from a single trial text
+extract_table_from_trial <- function(trial_text) {
+  prompt <- paste0(
+    "Extract the information from the following study and format it into a markdown table.\n\n",
+    trial_text,
+    "\n\n",
+    "Create columns: Treatment, Effect on Hospitalization, Adverse Events (%)."
+  )
+  
+  response <- llm$complete(
+    messages = list(
+      list(role = "user", content = prompt)
+    )
+  )
+  
+  return(response$content)
+}
+
+# Initialize list to collect parsed tables
+all_rows <- list()
+
+# Iterate over each trial
+for (i in seq_len(nrow(trials_df))) {
+  cat(paste0("\nProcessing ", trials_df$trial_id[i], "...\n"))
+  
+  markdown_table <- extract_table_from_trial(trials_df$text[i])
+  
+  # Parse markdown into a dataframe
+  rows <- str_match_all(markdown_table, "\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|\\s*(.*?)\\s*\\|")[[1]]
+  
+  if (nrow(rows) > 0) {
+    # Remove header line
+    rows <- rows[-1, , drop = FALSE]
+    
+    df_temp <- tibble::tibble(
+      Treatment = rows[, 2],
+      Effect_on_Hospitalization = rows[, 3],
+      Adverse_Events = rows[, 4]
+    )
+    
+    all_rows[[trials_df$trial_id[i]]] <- df_temp
+  }
+}
+
+# Combine all tables
+final_table <- bind_rows(all_rows)
+
+# View combined final table
+final_table
+
+```

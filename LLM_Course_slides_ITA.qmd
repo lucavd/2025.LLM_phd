@@ -5,7 +5,7 @@ format:
     theme: default
     slide-number: true
     transition: fade
-    incremental: true
+    incremental: false
     chalkboard: true
     logo: images/logo.png
     toc: false
@@ -307,9 +307,9 @@ Ora approfondiamo un po' come viene effettivamente calcolata l'auto-attenzione. 
 
 ------------------------------------------------------------------------
 
-## [Esempi Medici di Auto-Attenzione]{style="color:#2E86C1;"}
+### [Esempi Medici di Auto-Attenzione]{style="color:#2E86C1;"}
 
-### [Come gli LLM risolvono l'ambiguità nel testo clinico]{style="color:#117A65;"}
+#### [Come gli LLM risolvono l'ambiguità nel testo clinico]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
 -   📋 **Esempio di Nota Clinica**: \> "Paziente presentato con dolore in QSD. Ecografia ha mostrato una lesione ipoecogena. \> La TC ha confermato che si trattava di un emangioma. Misurava 2.3 cm."

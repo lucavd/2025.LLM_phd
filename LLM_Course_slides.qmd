@@ -5,7 +5,7 @@ format:
     theme: default
     slide-number: true
     transition: fade
-    incremental: true
+    incremental: false
     chalkboard: true
     logo: images/logo.png
     toc: false
@@ -275,7 +275,7 @@ But these models still struggle when context is long — say, in medical reports
 This limitation is what led to the next big leap: the Transformer.
 :::
 
----
+------------------------------------------------------------------------
 
 ### [From Deep Learning to LLMs]{style="color:#6C3483;"}
 
@@ -348,7 +348,7 @@ These two ideas — **self-attention** and **positional encoding** — are what 
 Everything that came after — BERT, GPT, ChatGPT, Claude — is built on this.
 :::
 
----
+------------------------------------------------------------------------
 
 ### [What is Self-Attention?]{style="color:#884EA0;"}
 
@@ -411,7 +411,7 @@ The result is a **new vector** for each word, but now **enriched with informatio
 That’s how the model captures complex relationships — efficiently and in parallel.
 :::
 
----
+------------------------------------------------------------------------
 
 ## [Medical Examples of Self-Attention]{style="color:#2E86C1;"}
 
@@ -436,8 +436,7 @@ In traditional NLP, this would be extremely difficult, but attention mechanisms 
 This is particularly important in clinical documentation, where referential ambiguity is common and resolution errors could lead to serious misunderstandings.
 :::
 
-
----
+------------------------------------------------------------------------
 
 ### [What is Positional Encoding?]{style="color:#884EA0;"}
 
@@ -828,7 +827,6 @@ Look at the examples on the right: at temperature 0.1, the model provides a conc
 Remember: in medicine, there is no "right" temperature - it depends on your specific goal and acceptable level of risk.
 :::
 
-
 ------------------------------------------------------------------------
 
 ### [What Are Tokens?]{style="color:#884EA0;"}
@@ -916,35 +914,27 @@ This is why, when working with long clinical texts like discharge letters or rad
 #### [Turning pictures into language]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
-- 📸 **Images are converted into numerical features** (arrays of numbers)
-- 🔎 **Vision encoder** extracts key elements: shapes, colors, objects, text
-- 🧠 Features are **interpreted by the language model**
-- 🖋️ Model generates descriptions, answers, or captions based on visual inputs
-- ⚡ Clinical use: analyzing X-rays, MRIs, pathology slides, diagrams
+-   📸 **Images are converted into numerical features** (arrays of numbers)
+-   🔎 **Vision encoder** extracts key elements: shapes, colors, objects, text
+-   🧠 Features are **interpreted by the language model**
+-   🖋️ Model generates descriptions, answers, or captions based on visual inputs
+-   ⚡ Clinical use: analyzing X-rays, MRIs, pathology slides, diagrams
 :::
 
 ::: notes
 Let's quickly see how modern multimodal LLMs can process images and similarities to words processing.
 
-First, when you send an image to the model, it **doesn’t see a picture** like we do.  
+First, when you send an image to the model, it **doesn’t see a picture** like we do.\
 Instead, the image is **converted into a numerical array** — a long list of numbers representing colors, shapes, and pixels.
 
-A special component called a **vision encoder** analyzes the image.  
-It extracts key visual features:
-- Objects
-- Text
-- Positions
-- General patterns
+A special component called a **vision encoder** analyzes the image.\
+It extracts key visual features: - Objects - Text - Positions - General patterns
 
 These extracted features are then **fed into the language model**, which interprets them just like a prompt in text form.
 
 Finally, the model can **describe the image**, **answer questions about it**, or **reason based on what it "saw"**.
 
-In clinical practice, this approach opens possibilities like:
-- Automatically describing X-rays
-- Summarizing findings from MRIs
-- Interpreting pathology slides
-- Reading hand-written notes in scanned PDFs
+In clinical practice, this approach opens possibilities like: - Automatically describing X-rays - Summarizing findings from MRIs - Interpreting pathology slides - Reading hand-written notes in scanned PDFs
 
 The bridge between vision and language is what makes multimodal models so powerful.
 :::
@@ -995,7 +985,6 @@ But the potential is undeniable. We're seeing radiologists use these tools to ge
 The key is to use them as intelligent assistants, not as substitutes for expert judgment.
 :::
 
-
 ------------------------------------------------------------------------
 
 ### [General vs Medical-Specific Language Models]{style="color:#154360;"}
@@ -1022,7 +1011,7 @@ Broad skills (**general models**) vs Deep expertise (**medical models**)
 ::::
 
 ::: notes
-Now let's explore a crucial distinction if you want to use AI properly in clinical or laboratory work.
+Now let's explore a fundamental distinction if you want to use AI properly in clinical or laboratory work.
 
 We have two major categories of language models:
 
@@ -1082,7 +1071,6 @@ In laboratory medicine, LLMs are revolutionizing the creation of interpretive gu
 These applications are just the tip of the iceberg. The key idea is that LLMs are not generic tools - they can be adapted to the specific needs of your discipline. I invite you to think about documentary or decision-making processes in your daily practice that might benefit from intelligent assistance.
 :::
 
-
 ------------------------------------------------------------------------
 
 ### [Chat Mode vs API Mode]{style="color:#154360;"}
@@ -1102,8 +1090,6 @@ These applications are just the tip of the iceberg. The key idea is that LLMs ar
     ➔ Best for automation, scalability.\
     ➔ ✅ Full control over outputs.
 :::
-
-------------------------------------------------------------------------
 
 ::: callout-note
 ⚡ **Key Tip**:\
@@ -1139,6 +1125,44 @@ Both are powerful, but they serve very different needs.
 
 ------------------------------------------------------------------------
 
+## [How Chat Mode Actually Works]{style="color:#884EA0;"}
+
+### [The model re-reads everything every time]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+- 📚 Every new message = model re-reads **all previous conversation**
+- 🔄 Chat history + new user message are **sent again at every turn**
+- 📈 Cost and response time grow with chat length
+- 🧠 Model does not have memory between sessions: only current context
+:::
+
+::: notes
+Now let's clarify how chat mode actually works inside an LLM.
+
+Every time you send a new message, the model doesn’t just "continue" from where it left off.  
+Instead, it **re-reads the entire conversation history**, plus your new message.
+
+At every turn, the model receives:
+- All previous messages
+- Plus the new user input
+
+It processes the entire combined text from scratch — as if it were seeing it for the first time.
+
+This means:
+- **Cost** increases because more tokens are processed.
+- **Response time** increases because more text has to be analyzed.
+- **Risk of exceeding the context window** increases.
+
+And very importantly:  
+**The model does not have persistent memory** between chats or sessions.  
+Everything it knows is only what you send **right now** in the current context.
+:::
+
+
+------------------------------------------------------------------------
+
+
+
 ### [Context Window: How Much an LLM Can Remember]{style="color:#884EA0;"}
 
 #### [Why token limits matter for conversations]{style="color:#117A65;"}
@@ -1167,10 +1191,6 @@ Older tokens are dropped automatically.\
 That means: if your chat is too long, the model might forget important details from the beginning.
 
 This is especially risky in clinical or scientific applications where every detail matters.
-
-**Practical tip**: - Keep your prompts and conversations **concise**. - Use **intermediate summaries** if needed. - When chats get very long, **restate the key information** to keep it active in the model’s memory.
-
-Managing the context window is fundamental if you want safe and effective use of LLMs.
 :::
 
 ------------------------------------------------------------------------
@@ -1240,9 +1260,11 @@ This means the model starts to **"forget"** the beginning of your conversation:\
 
 Practically, this can **severely affect** performance — especially in clinical, legal, or technical discussions where early context matters.
 
-To manage this, the best strategy is to: - **Summarize regularly**. - **Restate critical information** if the conversation gets long.
+Given how chat mode works — re-sending the entire history every time — there are some very practical consequences you need to manage carefully.
 
-This way, even if older parts get forgotten, the model always "sees" the essential points it needs to reason correctly.
+By managing the context well, you maintain accuracy, control cost, and avoid errors caused by missing or forgotten information.
+
+
 :::
 
 ------------------------------------------------------------------------
@@ -1658,7 +1680,7 @@ The model will then **process the text locally** and generate a private summary 
 Always remember to review and validate the output before clinical use!
 :::
 
----
+------------------------------------------------------------------------
 
 ### [Prompt Engineering for Clinical Applications]{style="color:#2E86C1;"}
 
@@ -1821,4 +1843,3 @@ In most cases, return on investment (ROI) is achieved within 3-6 months, especia
 
 But remember: the value goes beyond simple time savings. There's also a qualitative improvement in documentation that can positively influence patient care.
 :::
-
