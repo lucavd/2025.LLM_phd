@@ -171,27 +171,25 @@ Now review your own summary. Identify possible mistakes or missing information.
 
 ```{bash}
 # 1. Install dependencies
-# macOS (Homebrew): installs curl for HTTP requests and jq for JSON parsing
-brew install curl jq
+# macOS (Homebrew): installs curl for HTTP requests
+brew install curl
 
 # Ubuntu/Debian: same installation via apt
-sudo apt-get update && sudo apt-get install -y curl jq
+sudo apt-get update && sudo apt-get install -y curl
 
-# Windows (Chocolatey): install curl and jq on Windows
-choco install curl jq
+# Windows: install git bash and open it
+
+https://git-scm.com/downloads/win
+
+## from terminal or PowerShell
+winget install --id Git.Git -e --source winget
+winget install --id=cURL.cURL  -e #(if necessary)
 
 # 2. Send request to local model
-curl -s -X POST http://localhost:1234/v1/chat/completions \
+curl -X POST "http://localhost:1234/v1/chat/completions" \
   -H "Content-Type: application/json" \
-  -d '{
-      "model": "local-model",                         # local model identifier
-      "messages": [
-        {"role": "user", "content": "What is anemia?"}  # user prompt
-      ],
-      "temperature": 0.7,                             # randomness control
-      "max_tokens": 1500                              # maximum response length
-  }' \
-| jq -r '.choices[0].message.content'                # extract and print only the text response
+  -d "{\"model\":\"local-model\",\"messages\":[{\"role\":\"user\",\"content\":\"What is anemia?\"}],\"tools\":[{\"type\":\"function\",\"function\":{\"name\":\"get_definition\",\"description\":\"Retrieve the definition of a term from a medical dictionary\",\"parameters\":{\"type\":\"object\",\"properties\":{\"term\":{\"type\":\"string\",\"description\":\"Medical term to define\"}},\"required\":[\"term\"],\"additionalProperties\":false}}}]}"
+
 
 ```
 
