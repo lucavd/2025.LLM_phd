@@ -167,7 +167,74 @@ Now review your own summary. Identify possible mistakes or missing information.
 
 > **The importance of programmatic integration:** While the chat interface is useful for one-off interactions, the API allows integration of LLMs into existing workflows and clinical applications. In this section, we'll learn how to connect R to our local model.
 
-### Setup: Connecting to LM Studio API
+### 🖥️ Terminal‐Based LLM API Call
+
+```{bash}
+# 1. Install dependencies
+# macOS (Homebrew): installs curl for HTTP requests and jq for JSON parsing
+brew install curl jq
+
+# Ubuntu/Debian: same installation via apt
+sudo apt-get update && sudo apt-get install -y curl jq
+
+# Windows (Chocolatey): install curl and jq on Windows
+choco install curl jq
+
+# 2. Send request to local model
+curl -s -X POST http://localhost:1234/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+      "model": "local-model",                         # local model identifier
+      "messages": [
+        {"role": "user", "content": "What is anemia?"}  # user prompt
+      ],
+      "temperature": 0.7,                             # randomness control
+      "max_tokens": 1500                              # maximum response length
+  }' \
+| jq -r '.choices[0].message.content'                # extract and print only the text response
+
+```
+
+### 🐍 Python-Based LLM API Call
+
+```{bash}
+# 1. Install dependencies
+# macOS / Linux:
+pip3 install requests
+
+# Windows:
+python -m pip install requests
+
+```
+
+```{python, python.reticulate = FALSE}
+#!/usr/bin/env python3
+import requests  # HTTP client
+
+# Define API endpoint and request payload
+url = "http://localhost:1234/v1/chat/completions"     # local model endpoint
+payload = {
+    "model": "local-model",                           # identifier of the local model
+    "messages": [
+        {"role": "user", "content": "What is anemia?"}  # user’s query
+    ],
+    "temperature": 0.7,                               # controls randomness
+    "max_tokens": 1500                                # caps response length
+}
+
+# Send POST request and ensure success
+resp = requests.post(url, json=payload)               # send JSON body
+resp.raise_for_status()                               # error if non-200 status
+
+# Parse JSON and print only the model’s reply
+data = resp.json()                                    # parse response
+print(data["choices"][0]["message"]["content"])       # extract and display content
+
+```
+
+### 📊 RStudio-Based LLM API Call
+
+> The `httr` and `jsonlite` packages are essential for communicating with the API. `httr` handles HTTP POST requests, while `jsonlite` converts R data structures to JSON and vice versa.
 
 ```{r}
 # Install required packages
@@ -176,8 +243,6 @@ install.packages(c("httr", "jsonlite", "tibble", "dplyr", "stringr"))
 library(httr)      # For HTTP requests
 library(jsonlite)  # For JSON handling
 ```
-
-> The `httr` and `jsonlite` packages are essential for communicating with the API. `httr` handles HTTP POST requests, while `jsonlite` converts R data structures to JSON and vice versa.
 
 ### Creating a Helper Function to Call the LM Studio API
 
