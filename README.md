@@ -16,9 +16,9 @@ This course introduces PhD students to the rapidly evolving field of Large Langu
 ## 🌐 Course Materials Online
 
 Access the course materials online:
-- Course Slides: [English](LLM_Course_slides.html) | [Italian](LLM_Course_slides_ITA.html)
-- [Practical Session](LLM_practical_session.html)
-- [Course Homepage](index.html)
+- Course Slides: [English](https://lucavd.github.io/2025.LLM_phd/LLM_Course_slides.html) | [Italian](https://lucavd.github.io/2025.LLM_phd/LLM_Course_slides_ITA.html)
+- [Practical Session](https://lucavd.github.io/2025.LLM_phd/LLM_practical_session.html)
+- [Course Homepage](https://lucavd.github.io/2025.LLM_phd/index.html)
 
 ## 🔍 Technical Requirements
 
