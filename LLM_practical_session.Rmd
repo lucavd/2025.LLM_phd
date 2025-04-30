@@ -411,7 +411,9 @@ In this exercise, we'll work with a detailed discharge summary containing multip
 
 ```{r}
 # Load the complex discharge summary
-discharge_summary <- readLines("/home/user/2025.LLM_phd/data/complex_clinical_discharge.md", warn = FALSE)
+discharge_summary <- readLines("/home/user/2025.LLM_phd/data/complex_clinical_discharge.Rmd", warn = FALSE)
+# Skip YAML header (first 14 lines)
+discharge_summary <- discharge_summary[15:length(discharge_summary)]
 discharge_summary <- paste(discharge_summary, collapse = "\n")
 
 # Display first few lines
