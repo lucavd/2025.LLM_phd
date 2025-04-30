@@ -13,6 +13,13 @@ This course introduces PhD students to the rapidly evolving field of Large Langu
 - 🔧 **Installation guides**: Step-by-step instructions for setting up necessary software and environments
 - 📝 **Code examples**: Sample implementations for clinical text processing, data extraction, and analysis
 
+## 🌐 Course Materials Online
+
+Access the course materials online:
+- [Course Slides](https://lucavd.github.io/2025.LLM_phd/LLM_Course_slides.html)
+- [Practical Session](https://lucavd.github.io/2025.LLM_phd/LLM_practical_session.html)
+- [Course Homepage](https://lucavd.github.io/2025.LLM_phd/)
+
 ## 🔍 Technical Requirements
 
 - 📊 Basic familiarity with R programming
