@@ -24,7 +24,7 @@ Access the course materials online:
 
 - 📊 Basic familiarity with R programming
 - 💻 An installation of R and RStudio (see the [installation guide](R_RStudio_Installation_Guide.pdf))
-- 🤖 LM Studio for local LLM deployment (see the installation guide in [LM_Studio_Installation_Guide.docx](LM_Studio_Installation_Guide.docx))
+- 🤖 LM Studio for local LLM deployment (see the installation guide in [LM_Studio_Installation_Guide.pdf](LM_Studio_Installation_Guide.pdf))
 - 📈 Basic understanding of statistics and clinical research
 
 ## 👨‍🏫 Instructor

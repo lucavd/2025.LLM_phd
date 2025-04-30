@@ -401,13 +401,77 @@ cat(interpretation)
 >
 > The case presented is consistent with iron deficiency anemia (low hemoglobin, low MCV, low ferritin, elevated TIBC), which in an elderly woman might warrant investigation for occult bleeding.
 
-## 📊 Part 4: Clinical-Laboratory Application Exercise (30 minutes)
+## 📊 Part 4: Analyzing Complex Clinical Documents (30 minutes)
 
-> **From Theory to Practice:** In this final section, we'll put together what we've learned to create a practical application. We'll automatically extract structured data from clinical study descriptions, simulating a meta-analysis activity.
+> **From Theory to Practice:** In this final section, we'll put together what we've learned to create practical applications. First, we'll analyze a complex discharge summary, and then extract structured data from clinical trial descriptions.
 
-### Mini-project: Clinical Data Extraction
+### Complex Clinical Document Analysis
 
-In this exercise, we'll extract structured information from unstructured clinical trial descriptions.
+In this exercise, we'll work with a detailed discharge summary containing multiple diagnoses, medications, and instructions - similar to what you might encounter in clinical practice.
+
+```{r}
+# Load the complex discharge summary
+discharge_summary <- readLines("/home/user/2025.LLM_phd/data/complex_clinical_discharge.md", warn = FALSE)
+discharge_summary <- paste(discharge_summary, collapse = "\n")
+
+# Display first few lines
+cat(substr(discharge_summary, 1, 500), "...\n")
+```
+
+Let's use the LLM to analyze this document in various ways:
+
+```{r}
+# 1. Extract key diagnoses and create a problem list
+diagnoses_prompt <- "Extract the main discharge diagnoses from this clinical document and create a prioritized problem list. For each diagnosis, include its current status (improved, stable, worsened, etc.)."
+
+diagnoses_result <- call_lm_studio(
+  prompt = paste0(diagnoses_prompt, "\n\n", discharge_summary),
+  system_prompt = "You are a clinical documentation specialist. Extract relevant clinical information accurately and concisely."
+)
+
+cat("EXTRACTED PROBLEM LIST:\n\n")
+cat(diagnoses_result)
+```
+
+```{r}
+# 2. Create a medication reconciliation with dosages and purpose
+medications_prompt <- "Create a complete medication reconciliation list from this document. Format as a table with columns for: Medication Name, Dosage, Frequency, and Purpose/Indication."
+
+medications_result <- call_lm_studio(
+  prompt = paste0(medications_prompt, "\n\n", discharge_summary),
+  system_prompt = "You are a clinical pharmacist. Extract medication information with precision."
+)
+
+cat("\n\nMEDICATION RECONCILIATION:\n\n")
+cat(medications_result)
+```
+
+```{r}
+# 3. Generate a concise clinical summary for referring physician
+summary_prompt <- "Create a concise summary (maximum 250 words) of this patient case for a referring physician. Include only the most clinically relevant information about presentation, hospital course, interventions, and follow-up plan."
+
+summary_result <- call_lm_studio(
+  prompt = paste0(summary_prompt, "\n\n", discharge_summary),
+  system_prompt = "You are an attending physician communicating with colleagues. Be precise, professional, and focus on clinically relevant details."
+)
+
+cat("\n\nCLINICAL SUMMARY FOR REFERRAL:\n\n")
+cat(summary_result)
+```
+
+> **Clinical Document Analysis Relevance:**
+>
+> This exercise demonstrates how LLMs can help with several time-consuming clinical documentation tasks:
+>
+> 1. **Problem List Generation:** Extracting and organizing medical problems from lengthy documents
+> 2. **Medication Reconciliation:** Creating structured medication lists with relevant details
+> 3. **Clinical Summarization:** Condensing detailed information for efficient communication
+>
+> These capabilities directly address documentation burden in healthcare, potentially saving clinicians significant time while improving information organization.
+
+### Mini-project: Clinical Trial Data Extraction
+
+Next, we'll extract structured information from unstructured clinical trial descriptions.
 
 ```{r}
 library(tibble)
