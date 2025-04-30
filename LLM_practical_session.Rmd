@@ -140,6 +140,35 @@ Now review your own summary. Identify possible mistakes or missing information.
 >
 > It's a particularly useful technique in clinical contexts where the initial interpretation might overlook important correlations or clinical significance of values.
 
+### Using Complex Clinical Documents in Chat Mode
+
+For this exercise, try using the clinical discharge summary PDF in LM Studio's chat interface:
+
+1. Open LM Studio and select the Chat tab with your model
+2. Click on the document upload feature (📎 icon or similar)
+3. Navigate to and select the `data/complex_clinical_discharge.pdf` file
+4. Wait for the document to be processed by the model
+
+Try the following prompts with the uploaded document:
+
+```
+Create a concise one-paragraph summary of this patient's hospital course.
+```
+
+```
+What medications should be monitored most carefully given this patient's conditions?
+```
+
+```
+Identify three potential medication interactions in the discharge medication list.
+```
+
+```
+Create a follow-up checklist for the primary care physician.
+```
+
+> This exercise demonstrates how LLMs can analyze complex clinical documents and extract relevant information through an intuitive chat interface. The PDF upload feature available in most modern LLM interfaces makes it easy to work with clinical documents in their native format. Note how different the experience is compared to programmatic extraction - each approach has different advantages.
+
 ### Ready-to-use Clinical Prompts Set
 
 1.  "Patient with fever, cough, and dyspnea: suggest differential diagnoses."
@@ -410,8 +439,12 @@ cat(interpretation)
 In this exercise, we'll work with a detailed discharge summary containing multiple diagnoses, medications, and instructions - similar to what you might encounter in clinical practice.
 
 ```{r}
-# Load the complex discharge summary
-discharge_summary <- readLines("/home/user/2025.LLM_phd/data/complex_clinical_discharge.Rmd", warn = FALSE)
+# Load the complex discharge summary with relative path using here package
+# Install if needed: install.packages("here")
+library(here)
+
+# Use relative path
+discharge_summary <- readLines(here("data", "complex_clinical_discharge.Rmd"), warn = FALSE)
 # Skip YAML header (first 14 lines)
 discharge_summary <- discharge_summary[15:length(discharge_summary)]
 discharge_summary <- paste(discharge_summary, collapse = "\n")
