@@ -1,0 +1,730 @@
+---
+title: "LLM in Medicine"
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    transition: fade
+    incremental: false
+    chalkboard: true
+    logo: images/logo.png
+    toc: false
+    css: styles.css
+    width: 1280
+    height: 720
+    center: true
+    margin: 0.1
+    scrollable: true
+editor: visual
+---
+
+## [Large Language Models in Medicine]{style="color:#2E86C1;"}
+
+### [A 20-minute introduction]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 What are LLMs and how do they work?
+-   🏥 Applications in clinical practice and drug development
+-   🔬 From general models to specialized AI (pathology, oncology)
+-   ⚠️ Risks, limitations, and best practices
+:::
+
+::: notes
+Welcome to this seminar on Large Language Models in medicine.
+
+In 20 minutes we'll explore what LLMs are, how they work, and their growing applications across clinical practice, pathology, and drug development.
+
+We'll also look at specialized AI systems that go beyond general chatbots — including tools designed specifically for biomedical research and diagnostics.
+
+The goal is to give you a framework to understand when and how these tools can help — and when to be cautious.
+:::
+
+------------------------------------------------------------------------
+
+## [What is a Large Language Model?]{style="color:#884EA0;"}
+
+### [From text prediction to clinical reasoning]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🤖 **LLM** = neural network trained to predict the next word
+-   📚 Trained on **billions of texts**: books, papers, websites, clinical records
+-   🧠 Emergent abilities: reasoning, summarization, translation, coding
+-   💬 **General models**: ChatGPT, Claude, Gemini, Mistral, LLaMA
+-   🏥 **Medical models**: Med-PaLM, BioMistral, Owkin Zero
+:::
+
+::: notes
+A Large Language Model is a neural network trained on massive amounts of text.
+
+The basic task is simple: predict the next word. But when this is done on billions of documents, surprising capabilities emerge: reasoning, summarization, translation, and even coding.
+
+General models like ChatGPT and Claude are trained on broad internet data. They're versatile but shallow in specialized domains.
+
+Medical-specific models like Med-PaLM or Owkin Zero are fine-tuned on clinical literature, achieving better performance on biomedical reasoning tasks.
+:::
+
+------------------------------------------------------------------------
+
+## [How Do LLMs Work? — Overview]{style="color:#884EA0;"}
+
+### [The journey from text to response]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+```         
+"The patient has elevated liver enzymes"
+          ↓
+   1. TOKENIZATION — break into pieces
+          ↓
+   2. EMBEDDINGS — convert to numbers
+          ↓
+   3. SELF-ATTENTION — understand context
+          ↓
+   4. GENERATION — predict next word
+          ↓
+"suggesting possible hepatocellular injury..."
+```
+:::
+
+::: notes
+Let's walk through how LLMs actually process text. This is the pipeline that happens every time you send a prompt to ChatGPT or Claude.
+
+The input text goes through four main stages: 1. Tokenization: breaking text into small pieces 2. Embeddings: converting those pieces into numbers 3. Self-attention: understanding how words relate to each other 4. Generation: predicting the next word, one at a time
+
+Each step is essential, and understanding them helps you use these tools more effectively. Let's explore each one.
+:::
+
+------------------------------------------------------------------------
+
+## [Step 1: Tokenization]{style="color:#884EA0;"}
+
+### [Breaking text into digestible pieces]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧩 **Tokens** = small chunks of text (words, parts of words, punctuation)
+-   📏 Computers can't read words directly — they need standardized units
+-   🔤 Common words → single token; rare words → multiple tokens
+
+**Example**:
+
+| Text             | Tokens                              |
+|:-----------------|:------------------------------------|
+| "heart"          | `[heart]` (1 token)                 |
+| "cardiomyopathy" | `[card, io, my, opathy]` (4 tokens) |
+| "Patient stable" | `[Patient, stable]` (2 tokens)      |
+| "ALT: 85 U/L"    | `[ALT, :, 85, U, /, L]` (6 tokens)  |
+:::
+
+::: notes
+Tokenization is the first step. The model can't read text like we do — it needs to break it into standardized pieces called tokens.
+
+Common words like "heart" or "patient" are usually single tokens.
+
+But specialized medical terms like "cardiomyopathy" get split into multiple pieces. This is because the tokenizer was trained on general text where such terms are rare.
+
+This has practical implications: medical text often uses MORE tokens than general text, which affects costs and context limits when using APIs.
+
+A typical rule of thumb: 1 English word ≈ 1.3 tokens, but medical text can be 1.5-2 tokens per word.
+:::
+
+------------------------------------------------------------------------
+
+## [Step 2: Embeddings]{style="color:#884EA0;"}
+
+### [Turning words into numbers with meaning]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔢 Computers only understand numbers — not words
+-   🧮 **Embedding** = a list of numbers (vector) representing a word's meaning
+-   📐 Similar words → similar vectors → close in "meaning space"
+
+**Intuition**:
+
+```         
+"liver"  → [0.2, -0.5, 0.8, 0.1, ...]  ←─┐
+"hepatic"→ [0.3, -0.4, 0.7, 0.2, ...]  ←─┤ Similar!
+"kidney" → [0.1, -0.3, 0.6, 0.0, ...]  ←─┘ Related organ
+"car"    → [-0.8, 0.9, -0.2, 0.5, ...] ← Very different!
+```
+:::
+
+::: notes
+Once we have tokens, we need to convert them to numbers. This is what embeddings do.
+
+An embedding is a list of numbers — typically hundreds or thousands of values — that captures the "meaning" of a word.
+
+The key insight: words with similar meanings get similar number patterns. "Liver" and "hepatic" end up close together in this numerical space. "Kidney" is nearby because it's also an organ. But "car" is far away — it has nothing to do with anatomy.
+
+This is learned automatically during training. The model discovers that "liver" and "hepatic" appear in similar contexts, so they get similar embeddings.
+
+This is why LLMs can understand synonyms, analogies, and relationships — it's all encoded in these numerical representations.
+:::
+
+------------------------------------------------------------------------
+
+## [Step 3: Self-Attention]{style="color:#884EA0;"}
+
+### [How each word "looks at" every other word]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   👁️ **Self-attention** = the mechanism that captures context
+-   🔗 Each word can "attend to" (focus on) other words in the sentence
+-   🎯 This resolves ambiguities and builds understanding
+
+**Medical example**:
+
+> "The **liver** is enlarged and shows steatosis. **It** may indicate NAFLD."
+
+What does "**it**" refer to?
+
+-   A human knows: "it" = the enlarged, steatotic liver (the finding)
+-   Self-attention learns: when processing "it", focus strongly on "liver"
+:::
+
+::: notes
+Self-attention is the heart of modern LLMs — and what makes them so powerful for language.
+
+The idea is simple: when processing each word, the model looks at ALL other words and decides which ones are most relevant.
+
+In this medical example, when the model reaches "it", it needs to know what "it" refers to. Self-attention allows the model to "look back" and connect "it" to "liver" — not to "steatosis" or "NAFLD".
+
+This is crucial for clinical text, where pronouns, abbreviations, and implicit references are everywhere. Traditional rule-based systems struggled with this. LLMs handle it naturally through attention.
+
+The Transformer architecture — which powers ChatGPT, Claude, and all modern LLMs — is built entirely on this self-attention mechanism.
+:::
+
+------------------------------------------------------------------------
+
+## [Self-Attention: A Closer Look]{style="color:#884EA0;"}
+
+### [How the model decides what's important]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+**Sentence**: "The patient with **chest pain** was diagnosed with **MI** and treated with **aspirin**"
+
+When processing "**MI**", the model attends to:
+
+| Word    | Attention Weight | Why?                      |
+|:--------|:-----------------|:--------------------------|
+| chest   | **High**         | Anatomical location of MI |
+| pain    | **High**         | Key symptom               |
+| patient | Medium           | Subject of sentence       |
+| aspirin | **High**         | Standard treatment        |
+| with    | Low              | Function word             |
+| the     | Low              | Function word             |
+
+The model learns these patterns from billions of examples.
+:::
+
+::: notes
+Let's look deeper at how attention actually works.
+
+When processing the word "MI" (myocardial infarction), the model assigns "attention weights" to every other word. Higher weights mean "pay more attention to this word when understanding MI".
+
+In this example, "chest" and "pain" get high attention — they're directly related to MI. "Aspirin" also gets high attention because the model has learned that aspirin is a standard MI treatment.
+
+Function words like "the" and "with" get low attention — they don't carry much meaning for understanding what MI means in this context.
+
+The remarkable thing: nobody programmed these relationships. The model learned them automatically from reading billions of sentences. It discovered medical knowledge just from patterns in text.
+
+This is why LLMs can be useful in medicine — they've absorbed vast amounts of medical language and relationships.
+:::
+
+------------------------------------------------------------------------
+
+## [Step 4: Generation]{style="color:#884EA0;"}
+
+### [Predicting one word at a time]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔁 LLMs generate text **one token at a time**
+-   🎲 At each step: "Given everything so far, what's the most likely next word?"
+-   📊 The model outputs **probabilities** for every possible next token
+
+**Example generation**:
+
+```         
+Input:  "The ECG shows ST"
+         ↓
+Model:  elevation (85%), depression (10%), segment (3%), ...
+         ↓
+Output: "The ECG shows ST elevation"
+         ↓
+Model:  in (70%), suggesting (15%), consistent (10%), ...
+         ↓
+Output: "The ECG shows ST elevation in leads..."
+```
+:::
+
+::: notes
+Generation is where the magic happens — and also where hallucinations come from.
+
+The model generates text one token at a time. At each step, it calculates probabilities for every possible next word.
+
+In this example, given "The ECG shows ST", the model predicts "elevation" with 85% probability. It picks that word, adds it to the output, then predicts the next word.
+
+This continues until the model produces a complete response.
+
+The key insight: the model is ALWAYS making a prediction, even when uncertain. If it's 40% confident in one word and 35% in another, it still picks one. This is why hallucinations occur — the model generates plausible-sounding text even when it doesn't "know" the answer.
+:::
+
+------------------------------------------------------------------------
+
+## [Pretraining and Fine-tuning]{style="color:#884EA0;"}
+
+### [How models learn general and specialized knowledge]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📚 **Pretraining**: learn from billions of texts (books, web, papers)
+    -   Goal: understand language, grammar, facts, reasoning patterns
+    -   Result: a "generalist" model (GPT-4, Claude, LLaMA)
+-   🎯 **Fine-tuning**: additional training on specialized data
+    -   Goal: adapt to specific domain or task
+    -   Result: a "specialist" model (Med-PaLM, BioMistral, Owkin Zero)
+-   💬 **RLHF** (Reinforcement Learning from Human Feedback):
+    -   Humans rate responses → model learns preferences
+    -   Makes models more helpful, harmless, and honest
+:::
+
+::: notes
+How does a model actually learn all this? Two main phases.
+
+Pretraining is like a general education. The model reads billions of documents — books, websites, Wikipedia, scientific papers — and learns to predict the next word. Through this, it absorbs language patterns, facts, and reasoning abilities.
+
+But a pretrained model is a generalist. It knows a little about everything, but isn't optimized for any specific task.
+
+Fine-tuning is like medical school. You take the pretrained model and train it further on specialized data — clinical notes, medical textbooks, PubMed articles. This creates a model that's much better at medical reasoning.
+
+RLHF is the final polish — human feedback teaches the model to be helpful and avoid harmful outputs. This is why ChatGPT feels conversational and tries to be useful.
+
+Medical models like Owkin Zero go through all these stages with biological and clinical data, achieving better performance on medical tasks than general models.
+:::
+
+------------------------------------------------------------------------
+
+## [Why This Matters for Medicine]{style="color:#884EA0;"}
+
+### [Technical understanding enables better use]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+| Concept | Clinical Implication |
+|:-----------------------------------|:-----------------------------------|
+| **Tokenization** | Medical text uses more tokens → higher API costs, shorter context |
+| **Embeddings** | Model "knows" liver ≈ hepatic, but may miss rare syndromes |
+| **Self-attention** | Good at resolving pronouns in notes, but can still miss context |
+| **Generation** | Always produces output — even when uncertain (hallucinations) |
+| **Fine-tuning** | Medical models \> general models for clinical tasks |
+:::
+
+::: notes
+Understanding these technical concepts has practical implications for clinical use.
+
+Tokenization: medical text is expensive in token terms. A discharge summary might use 2x the tokens of general text, affecting costs and context limits.
+
+Embeddings: the model understands synonyms and relationships, but rare conditions or new drugs might not be well-represented.
+
+Self-attention: great for understanding complex clinical narratives, but context windows are limited. Very long patient histories might exceed the model's capacity.
+
+Generation: the model always generates something. It doesn't say "I don't know" naturally — this is where hallucinations come from.
+
+Fine-tuning: for clinical applications, always prefer models fine-tuned on medical data when available.
+
+This technical foundation helps you use LLMs more effectively and understand their limitations.
+:::
+
+------------------------------------------------------------------------
+
+## [Clinical Applications: Overview]{style="color:#2E86C1;"}
+
+### [Where LLMs can help clinicians]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📝 **Documentation**: draft reports, discharge summaries, referral letters
+-   🔍 **Literature search**: summarize papers, synthesize evidence
+-   🩺 **Clinical support**: differential diagnosis, drug interactions
+-   📊 **Data extraction**: structure info from free-text notes (ICD coding)
+-   🎓 **Education**: explain concepts to patients in plain language
+:::
+
+::: notes
+LLM applications in clinical practice are already concrete and growing:
+
+Documentation is the most immediate use case — drafting reports and summaries to reduce administrative burden.
+
+Literature synthesis is another powerful application — quickly reviewing relevant papers for clinical questions.
+
+Data extraction can help convert unstructured notes into structured data for analytics.
+
+These don't replace the physician, but can significantly reduce administrative workload — studies estimate clinicians spend 50% of their time on documentation.
+:::
+
+------------------------------------------------------------------------
+
+## [Example 1: Discharge Summary]{style="color:#2E86C1;"}
+
+### [From structured data to readable text]{style="color:#117A65;"}
+
+::: {style="font-size: 0.8em;"}
+**Input prompt**:
+
+> "Write a discharge summary for: 72-year-old male, admitted for chest pain. Troponin elevated. Coronary angiography showed 90% LAD stenosis. PCI with DES performed. Discharged on aspirin, clopidogrel, atorvastatin, metoprolol."
+
+**LLM output**:
+
+> "A 72-year-old male was admitted with acute chest pain and elevated troponin levels consistent with NSTEMI. Coronary angiography revealed 90% stenosis of the left anterior descending artery. Successful percutaneous coronary intervention was performed with drug-eluting stent placement. The patient was discharged in stable condition on dual antiplatelet therapy (aspirin 100mg, clopidogrel 75mg), atorvastatin 80mg, and metoprolol 50mg. Follow-up in cardiology clinic in 4 weeks recommended."
+:::
+
+::: notes
+Here's a practical example: from structured clinical data, the model generates a complete discharge summary.
+
+Notice how the model: - Uses appropriate medical terminology (NSTEMI, LAD, PCI, DES) - Structures the information logically - Adds standard follow-up recommendations
+
+This is a draft — the physician reviews and edits before signing. The time savings can be substantial for high-volume departments.
+:::
+
+------------------------------------------------------------------------
+
+## [Example 2: Laboratory Interpretation]{style="color:#2E86C1;"}
+
+### [Pattern recognition in lab panels]{style="color:#117A65;"}
+
+::: {style="font-size: 0.8em;"}
+**Input prompt**:
+
+> "Interpret: ALT 85 U/L (ref 7-56), AST 72 U/L (ref 8-48), GGT 120 U/L (ref 9-48), ALP normal, Bilirubin normal, Albumin normal."
+
+**LLM output**:
+
+> "The liver panel shows elevated transaminases (ALT 85, AST 72) with ALT \> AST, and elevated GGT (120), with preserved synthetic function (normal albumin) and no cholestasis (normal ALP, bilirubin). This pattern suggests hepatocellular injury with possible etiologies including: NAFLD/NASH (given ALT \> AST ratio), medication-induced hepatotoxicity, viral hepatitis, or early alcoholic liver disease. Recommend: hepatitis B/C serology, metabolic panel, medication review, and liver ultrasound."
+:::
+
+::: notes
+This example shows LLMs assisting in lab interpretation — a common task in clinical chemistry.
+
+The model: - Correctly identifies the hepatocellular pattern - Notes the ALT \> AST ratio and its significance - Suggests appropriate follow-up investigations
+
+Again, this is decision support — the final interpretation requires clinical correlation with patient history and physical findings.
+:::
+
+------------------------------------------------------------------------
+
+## [Example 3: Differential Diagnosis]{style="color:#2E86C1;"}
+
+### [Clinical reasoning support]{style="color:#117A65;"}
+
+::: {style="font-size: 0.8em;"}
+**Input prompt**:
+
+> "55-year-old female with progressive fatigue, weight loss, and hyperpigmentation. Labs show hyponatremia (128 mEq/L), hyperkalemia (5.8 mEq/L), low morning cortisol. Generate differential diagnosis."
+
+**LLM output**:
+
+> "The clinical picture strongly suggests **primary adrenal insufficiency (Addison's disease)**:
+>
+> -   Fatigue, weight loss = non-specific but common
+> -   Hyperpigmentation = ACTH-driven melanin (pathognomonic)
+> -   Hyponatremia + hyperkalemia = mineralocorticoid deficiency
+> -   Low cortisol = confirms axis dysfunction
+>
+> Differential includes: autoimmune adrenalitis (most common), adrenal metastases, infections (TB, fungal), adrenal hemorrhage. Recommend ACTH stimulation test and adrenal CT."
+:::
+
+::: notes
+This is a more complex example — differential diagnosis from a clinical vignette.
+
+The model correctly identifies Addison's disease as the leading diagnosis, explains the pathophysiology behind each finding, and suggests appropriate next steps.
+
+This mirrors how LLMs might support clinical reasoning in complex cases — as a "thinking partner" rather than a replacement for clinical judgment.
+:::
+
+------------------------------------------------------------------------
+
+## [Beyond General LLMs: Specialized AI]{style="color:#884EA0;"}
+
+### [Domain-specific models for medicine]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🌍 **General LLMs** (ChatGPT, Claude): versatile but shallow in medicine
+-   🏥 **Medical LLMs** (Med-PaLM, BioMistral): fine-tuned on clinical literature
+-   🔬 **Specialized AI systems**: trained for specific tasks
+    -   Pathology: analyze H&E slides, detect biomarkers
+    -   Radiology: interpret X-rays, CT, MRI
+    -   Oncology: predict treatment response, identify targets
+:::
+
+::: callout-note
+The most impactful medical AI combines **domain expertise** with **multimodal data** (images + genomics + clinical records).
+:::
+
+::: notes
+It's important to distinguish between general chatbots and specialized medical AI.
+
+General LLMs are good for text tasks but lack deep medical reasoning.
+
+Medical LLMs are fine-tuned on PubMed, clinical guidelines, and textbooks — better for medical questions but still text-only.
+
+The most powerful systems combine AI with multimodal data: histopathology images, genomic profiles, and clinical records. These can predict outcomes and identify biomarkers in ways that text-only models cannot.
+
+This is where companies like Owkin are working — at the intersection of AI and biological data.
+:::
+
+------------------------------------------------------------------------
+
+## [AI in Digital Pathology]{style="color:#2E86C1;"}
+
+### [From slides to molecular insights]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🔬 **Digital pathology**: whole-slide imaging (WSI) enables AI analysis
+-   🧠 **Deep learning** can identify patterns invisible to human eye
+-   🎯 **Key applications**:
+    -   Cancer detection and grading
+    -   Biomarker prediction from H&E slides
+    -   Tumor microenvironment analysis
+    -   Prognosis prediction
+-   ✅ **Advantage**: faster, more consistent, preserves tissue for other tests
+:::
+
+::: notes
+Digital pathology is one of the most exciting frontiers for medical AI.
+
+When pathology slides are digitized at high resolution, deep learning models can analyze them at scale — identifying patterns that correlate with molecular features, treatment response, and outcomes.
+
+A major advantage: predicting biomarkers directly from standard H&E staining can reduce the need for expensive molecular tests and preserve precious tissue samples.
+
+This is particularly valuable in oncology, where biomarker status determines eligibility for targeted therapies.
+:::
+
+------------------------------------------------------------------------
+
+## [Agentic AI in Drug Development]{style="color:#2E86C1;"}
+
+### [From chatbots to autonomous research agents]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🤖 **Agentic AI** = AI systems that can plan, reason, and execute tasks autonomously
+-   🧬 **Applications in pharma**:
+    -   Target identification and validation
+    -   Biomarker discovery for patient stratification
+    -   Clinical trial design and optimization
+    -   Competitive landscape analysis
+-   🔬 **Example: Owkin K Pro** — agentic AI co-pilot for biopharma
+    -   Natural language queries on multimodal patient data
+    -   Access to curated oncology datasets (2,200+ patients, 6 modalities)
+    -   Results: 70% faster target identification, trial duration reduced by 35%
+:::
+
+::: notes
+Beyond clinical chatbots, a new paradigm is emerging: agentic AI.
+
+These are AI systems that don't just answer questions — they autonomously plan and execute complex research tasks.
+
+Owkin's K Pro is an example: it combines biological LLMs with multimodal patient data to help pharma companies make pipeline decisions.
+
+Users can query in natural language — "Which biomarkers predict response to this drug?" — and the AI agent explores datasets, runs analyses, and synthesizes findings.
+
+Early results show significant acceleration: 70% faster target identification, and trial optimization that reduced duration by 35% in some cases.
+
+This represents a shift from AI as tool to AI as research partner.
+:::
+
+------------------------------------------------------------------------
+
+## [⚠️ The Hallucination Problem]{style="color:#C0392B;"}
+
+### [When AI confidently makes things up]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🎭 **Hallucination** = plausible but **false** information
+-   🤝 LLMs are trained to sound **helpful**, not to be **truthful**
+-   🩺 **Clinical examples**:
+    -   Invented drug dosages or interactions
+    -   Fake citations (non-existent papers, wrong authors)
+    -   Incorrect reference ranges or guidelines
+-   ✅ **Rule**: always verify — especially dosages, references, and protocols
+:::
+
+::: callout-warning
+**Plausible ≠ Correct**. A fluent, confident answer can still be completely wrong.
+:::
+
+::: notes
+The most critical limitation: hallucinations.
+
+LLMs are optimized to sound helpful and fluent, not to tell the truth. When uncertain, they don't say "I don't know" — they generate plausible-sounding content.
+
+In medicine this is dangerous. I've seen models invent drug dosages, cite papers that don't exist, and confidently state incorrect guidelines.
+
+The fundamental rule: always verify. Especially for anything that directly affects patient care — dosages, protocols, diagnostic criteria.
+
+Specialized AI systems address this differently — they're trained on specific tasks with validated performance metrics, not open-ended generation.
+:::
+
+------------------------------------------------------------------------
+
+## [Other Limitations]{style="color:#884EA0;"}
+
+### [What AI cannot do (yet)]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   ⚖️ **Bias**: reproduces biases in training data (demographic, geographic)
+-   📅 **Knowledge cutoff**: doesn't know recent publications or guidelines
+-   🔒 **Privacy**: commercial APIs may retain prompts — never input PHI
+-   🧮 **Reasoning limits**: still unreliable for complex multi-step calculations
+-   📋 **Accountability**: who is responsible for an AI-assisted error?
+-   🏥 **Regulatory status**: most tools are not FDA/CE approved for diagnosis
+:::
+
+::: notes
+Beyond hallucinations, other important limitations:
+
+Bias: models can perpetuate disparities if trained on unrepresentative data.
+
+Knowledge cutoff: ChatGPT doesn't know about papers published last month.
+
+Privacy: never input real patient data on commercial APIs unless you have a BAA in place.
+
+Accountability: the medico-legal framework for AI-assisted errors is still evolving.
+
+Regulatory status: most general LLMs are explicitly NOT medical devices. Specialized tools go through proper regulatory pathways (CE marking, FDA clearance).
+:::
+
+------------------------------------------------------------------------
+
+## [Best Practices for Clinical Use]{style="color:#2E86C1;"}
+
+### [How to use AI responsibly]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+| ✅ Do | ❌ Don't |
+|:-----------------------------------|:-----------------------------------|
+| Use as **draft generator** | Trust blindly without review |
+| **Verify** all factual claims | Input PHI on public APIs |
+| Use **validated tools** for clinical decisions | Use ChatGPT for diagnosis |
+| Keep **human in the loop** | Assume AI "knows" medicine |
+| Document AI-assisted decisions | Cite LLM outputs as sources |
+:::
+
+::: notes
+Practical rules for responsible use:
+
+Use LLMs as draft generators — for documentation, literature review, education. Always verify the output.
+
+For clinical decisions, use validated, regulated tools — not general chatbots.
+
+Never input protected health information on public APIs.
+
+Always maintain human oversight. AI assists, doesn't replace.
+
+Document when you use AI assistance — this is increasingly important for liability and transparency.
+:::
+
+------------------------------------------------------------------------
+
+## [Key Parameters to Know]{style="color:#884EA0;"}
+
+### [Controlling LLM behavior]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🌡️ **Temperature**: creativity level
+    -   Low (0.1-0.3): consistent, deterministic — best for clinical use
+    -   High (0.7-1.0): creative, varied — for brainstorming
+-   ✂️ **Max tokens**: limit output length
+-   🎯 **System prompt**: define role and constraints
+-   📋 **Context window**: how much text the model can "see" (4K-128K tokens)
+:::
+
+::: {style="font-size: 0.8em;"}
+**Example**: "Interpret this ECG" at temperature 0.1 gives consistent output. At 0.8, you get creative but potentially unreliable variations.
+:::
+
+::: notes
+If you're using LLMs directly, these parameters matter:
+
+Temperature controls randomness. For clinical tasks, keep it low (0.1-0.3) for consistent, reproducible outputs.
+
+System prompt lets you define the AI's role and constraints — "You are a clinical assistant. Always cite sources. Never provide specific drug doses."
+
+Context window determines how much text the model can process at once — important for long documents like clinical trials or patient histories.
+:::
+
+------------------------------------------------------------------------
+
+## [The Future: Multimodal + Agentic]{style="color:#884EA0;"}
+
+### [Where medical AI is heading]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🖼️ **Multimodal integration**: text + images + genomics + EMR
+-   🤖 **Agentic systems**: autonomous research and analysis
+-   🔗 **Foundation models for biology**: pretrained on molecular data
+-   🏥 **Clinical integration**: embedded in workflows (not separate tools)
+-   ⚖️ **Regulation evolving**: EU AI Act, FDA guidance on AI/ML devices
+:::
+
+::: notes
+The future of medical AI is multimodal and agentic.
+
+Instead of separate tools for text, images, and genomics, we're moving toward unified systems that integrate all data modalities.
+
+Agentic AI will autonomously execute research tasks — not just answer questions, but design analyses, run experiments, and synthesize findings.
+
+Foundation models trained specifically on biological data (proteins, pathways, cellular interactions) will enable deeper scientific reasoning.
+
+And crucially, AI will be embedded directly into clinical workflows — not as separate apps, but as intelligent assistants within existing systems.
+
+Regulation is catching up: the EU AI Act and FDA guidance on AI/ML medical devices are shaping how these tools will be deployed.
+:::
+
+------------------------------------------------------------------------
+
+## [Take-Home Messages]{style="color:#2E86C1;"}
+
+### [What to remember from this seminar]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+1.  🧠 LLMs are **powerful** for documentation, literature synthesis, and education
+2.  ⚠️ They **hallucinate** — always verify clinical information
+3.  🔬 **Specialized AI** (pathology, oncology) outperforms general chatbots
+4.  🤖 **Agentic AI** (like K Pro) is transforming drug development
+5.  👨‍⚕️ Keep **human oversight** — AI assists, doesn't replace expertise
+:::
+
+::: notes
+Key messages to take home:
+
+General LLMs are useful for text tasks but require verification.
+
+For clinical decisions, specialized and validated AI tools are more reliable.
+
+The most impactful systems combine AI with multimodal biological data.
+
+The field is rapidly evolving — from chatbots to agentic research partners.
+
+And always: human oversight remains essential. AI augments expertise, it doesn't replace it.
+
+Thank you for your attention. Questions?
+:::
+
+------------------------------------------------------------------------
+
+## [Questions?]{style="color:#2E86C1;"}
+
+### [Thank you for your attention]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em; text-align: center;"}
+📧 Contact: luca.vedovelli\@ubep.unipd.it
+
+🔗 Resources:
+
+-   Owkin: [owkin.com](https://www.owkin.com)
+-   OpenAI: [platform.openai.com](https://platform.openai.com)
+-   Claude: [claude.ai](https://claude.ai)
+:::
+
+::: notes
+Thank you for your attention.
+
+I'm available for questions now or via email.
+
+The links in the slides point to resources for exploring these tools further — including Owkin's K Pro platform.
+:::

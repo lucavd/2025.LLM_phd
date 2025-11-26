@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="LLM_Medicine_seminar_v2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="LLM_Medicine_seminar_v2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="LLM_Medicine_seminar_v2_files/libs/quarto-html/popper.min.js"></script>
+<script src="LLM_Medicine_seminar_v2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="LLM_Medicine_seminar_v2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="LLM_Medicine_seminar_v2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="LLM_Medicine_seminar_v2_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
+
+  <title>LLM in Medicine</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="LLM_Medicine_seminar_v2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="LLM_Medicine_seminar_v2_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="LLM_Medicine_seminar_v2_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">LLM in Medicine</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="large-language-models-in-medicine" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Large Language Models in Medicine</span></h2>
+<h3 id="a-20-minute-introduction"><span style="color:#117A65;">A 20-minute introduction</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🧠 What are LLMs and how do they work?</li>
+<li>🏥 Applications in clinical practice and drug development</li>
+<li>🔬 From general models to specialized AI (pathology, oncology)</li>
+<li>⚠️ Risks, limitations, and best practices</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Welcome to this seminar on Large Language Models in medicine.</p>
+<p>In 20 minutes we’ll explore what LLMs are, how they work, and their growing applications across clinical practice, pathology, and drug development.</p>
+<p>We’ll also look at specialized AI systems that go beyond general chatbots — including tools designed specifically for biomedical research and diagnostics.</p>
+<p>The goal is to give you a framework to understand when and how these tools can help — and when to be cautious.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-is-a-large-language-model" class="slide level2 center">
+<h2><span style="color:#884EA0;">What is a Large Language Model?</span></h2>
+<h3 id="from-text-prediction-to-clinical-reasoning"><span style="color:#117A65;">From text prediction to clinical reasoning</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🤖 <strong>LLM</strong> = neural network trained to predict the next word</li>
+<li>📚 Trained on <strong>billions of texts</strong>: books, papers, websites, clinical records</li>
+<li>🧠 Emergent abilities: reasoning, summarization, translation, coding</li>
+<li>💬 <strong>General models</strong>: ChatGPT, Claude, Gemini, Mistral, LLaMA</li>
+<li>🏥 <strong>Medical models</strong>: Med-PaLM, BioMistral, Owkin Zero</li>
+</ul>
+</div>
+<aside class="notes">
+<p>A Large Language Model is a neural network trained on massive amounts of text.</p>
+<p>The basic task is simple: predict the next word. But when this is done on billions of documents, surprising capabilities emerge: reasoning, summarization, translation, and even coding.</p>
+<p>General models like ChatGPT and Claude are trained on broad internet data. They’re versatile but shallow in specialized domains.</p>
+<p>Medical-specific models like Med-PaLM or Owkin Zero are fine-tuned on clinical literature, achieving better performance on biomedical reasoning tasks.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="how-do-llms-work-overview" class="slide level2 center">
+<h2><span style="color:#884EA0;">How Do LLMs Work? — Overview</span></h2>
+<h3 id="the-journey-from-text-to-response"><span style="color:#117A65;">The journey from text to response</span></h3>
+<div style="font-size: 0.85em;">
+<pre><code>"The patient has elevated liver enzymes"
+          ↓
+   1. TOKENIZATION — break into pieces
+          ↓
+   2. EMBEDDINGS — convert to numbers
+          ↓
+   3. SELF-ATTENTION — understand context
+          ↓
+   4. GENERATION — predict next word
+          ↓
+"suggesting possible hepatocellular injury..."</code></pre>
+</div>
+<aside class="notes">
+<p>Let’s walk through how LLMs actually process text. This is the pipeline that happens every time you send a prompt to ChatGPT or Claude.</p>
+<p>The input text goes through four main stages: 1. Tokenization: breaking text into small pieces 2. Embeddings: converting those pieces into numbers 3. Self-attention: understanding how words relate to each other 4. Generation: predicting the next word, one at a time</p>
+<p>Each step is essential, and understanding them helps you use these tools more effectively. Let’s explore each one.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="step-1-tokenization" class="slide level2 center">
+<h2><span style="color:#884EA0;">Step 1: Tokenization</span></h2>
+<h3 id="breaking-text-into-digestible-pieces"><span style="color:#117A65;">Breaking text into digestible pieces</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🧩 <strong>Tokens</strong> = small chunks of text (words, parts of words, punctuation)</li>
+<li>📏 Computers can’t read words directly — they need standardized units</li>
+<li>🔤 Common words → single token; rare words → multiple tokens</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Text</th>
+<th style="text-align: left;">Tokens</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">“heart”</td>
+<td style="text-align: left;"><code>[heart]</code> (1 token)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“cardiomyopathy”</td>
+<td style="text-align: left;"><code>[card, io, my, opathy]</code> (4 tokens)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">“Patient stable”</td>
+<td style="text-align: left;"><code>[Patient, stable]</code> (2 tokens)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">“ALT: 85 U/L”</td>
+<td style="text-align: left;"><code>[ALT, :, 85, U, /, L]</code> (6 tokens)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>Tokenization is the first step. The model can’t read text like we do — it needs to break it into standardized pieces called tokens.</p>
+<p>Common words like “heart” or “patient” are usually single tokens.</p>
+<p>But specialized medical terms like “cardiomyopathy” get split into multiple pieces. This is because the tokenizer was trained on general text where such terms are rare.</p>
+<p>This has practical implications: medical text often uses MORE tokens than general text, which affects costs and context limits when using APIs.</p>
+<p>A typical rule of thumb: 1 English word ≈ 1.3 tokens, but medical text can be 1.5-2 tokens per word.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="step-2-embeddings" class="slide level2 center">
+<h2><span style="color:#884EA0;">Step 2: Embeddings</span></h2>
+<h3 id="turning-words-into-numbers-with-meaning"><span style="color:#117A65;">Turning words into numbers with meaning</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🔢 Computers only understand numbers — not words</li>
+<li>🧮 <strong>Embedding</strong> = a list of numbers (vector) representing a word’s meaning</li>
+<li>📐 Similar words → similar vectors → close in “meaning space”</li>
+</ul>
+<p><strong>Intuition</strong>:</p>
+<pre><code>"liver"  → [0.2, -0.5, 0.8, 0.1, ...]  ←─┐
+"hepatic"→ [0.3, -0.4, 0.7, 0.2, ...]  ←─┤ Similar!
+"kidney" → [0.1, -0.3, 0.6, 0.0, ...]  ←─┘ Related organ
+"car"    → [-0.8, 0.9, -0.2, 0.5, ...] ← Very different!</code></pre>
+</div>
+<aside class="notes">
+<p>Once we have tokens, we need to convert them to numbers. This is what embeddings do.</p>
+<p>An embedding is a list of numbers — typically hundreds or thousands of values — that captures the “meaning” of a word.</p>
+<p>The key insight: words with similar meanings get similar number patterns. “Liver” and “hepatic” end up close together in this numerical space. “Kidney” is nearby because it’s also an organ. But “car” is far away — it has nothing to do with anatomy.</p>
+<p>This is learned automatically during training. The model discovers that “liver” and “hepatic” appear in similar contexts, so they get similar embeddings.</p>
+<p>This is why LLMs can understand synonyms, analogies, and relationships — it’s all encoded in these numerical representations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="step-3-self-attention" class="slide level2 center">
+<h2><span style="color:#884EA0;">Step 3: Self-Attention</span></h2>
+<h3 id="how-each-word-looks-at-every-other-word"><span style="color:#117A65;">How each word “looks at” every other word</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>👁️ <strong>Self-attention</strong> = the mechanism that captures context</li>
+<li>🔗 Each word can “attend to” (focus on) other words in the sentence</li>
+<li>🎯 This resolves ambiguities and builds understanding</li>
+</ul>
+<p><strong>Medical example</strong>:</p>
+<blockquote>
+<p>“The <strong>liver</strong> is enlarged and shows steatosis. <strong>It</strong> may indicate NAFLD.”</p>
+</blockquote>
+<p>What does “<strong>it</strong>” refer to?</p>
+<ul>
+<li>A human knows: “it” = the enlarged, steatotic liver (the finding)</li>
+<li>Self-attention learns: when processing “it”, focus strongly on “liver”</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Self-attention is the heart of modern LLMs — and what makes them so powerful for language.</p>
+<p>The idea is simple: when processing each word, the model looks at ALL other words and decides which ones are most relevant.</p>
+<p>In this medical example, when the model reaches “it”, it needs to know what “it” refers to. Self-attention allows the model to “look back” and connect “it” to “liver” — not to “steatosis” or “NAFLD”.</p>
+<p>This is crucial for clinical text, where pronouns, abbreviations, and implicit references are everywhere. Traditional rule-based systems struggled with this. LLMs handle it naturally through attention.</p>
+<p>The Transformer architecture — which powers ChatGPT, Claude, and all modern LLMs — is built entirely on this self-attention mechanism.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="self-attention-a-closer-look" class="slide level2 center">
+<h2><span style="color:#884EA0;">Self-Attention: A Closer Look</span></h2>
+<h3 id="how-the-model-decides-whats-important"><span style="color:#117A65;">How the model decides what’s important</span></h3>
+<div style="font-size: 0.85em;">
+<p><strong>Sentence</strong>: “The patient with <strong>chest pain</strong> was diagnosed with <strong>MI</strong> and treated with <strong>aspirin</strong>”</p>
+<p>When processing “<strong>MI</strong>”, the model attends to:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Word</th>
+<th style="text-align: left;">Attention Weight</th>
+<th style="text-align: left;">Why?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">chest</td>
+<td style="text-align: left;"><strong>High</strong></td>
+<td style="text-align: left;">Anatomical location of MI</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pain</td>
+<td style="text-align: left;"><strong>High</strong></td>
+<td style="text-align: left;">Key symptom</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">patient</td>
+<td style="text-align: left;">Medium</td>
+<td style="text-align: left;">Subject of sentence</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">aspirin</td>
+<td style="text-align: left;"><strong>High</strong></td>
+<td style="text-align: left;">Standard treatment</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">with</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Function word</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">the</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Function word</td>
+</tr>
+</tbody>
+</table>
+<p>The model learns these patterns from billions of examples.</p>
+</div>
+<aside class="notes">
+<p>Let’s look deeper at how attention actually works.</p>
+<p>When processing the word “MI” (myocardial infarction), the model assigns “attention weights” to every other word. Higher weights mean “pay more attention to this word when understanding MI”.</p>
+<p>In this example, “chest” and “pain” get high attention — they’re directly related to MI. “Aspirin” also gets high attention because the model has learned that aspirin is a standard MI treatment.</p>
+<p>Function words like “the” and “with” get low attention — they don’t carry much meaning for understanding what MI means in this context.</p>
+<p>The remarkable thing: nobody programmed these relationships. The model learned them automatically from reading billions of sentences. It discovered medical knowledge just from patterns in text.</p>
+<p>This is why LLMs can be useful in medicine — they’ve absorbed vast amounts of medical language and relationships.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="step-4-generation" class="slide level2 center">
+<h2><span style="color:#884EA0;">Step 4: Generation</span></h2>
+<h3 id="predicting-one-word-at-a-time"><span style="color:#117A65;">Predicting one word at a time</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🔁 LLMs generate text <strong>one token at a time</strong></li>
+<li>🎲 At each step: “Given everything so far, what’s the most likely next word?”</li>
+<li>📊 The model outputs <strong>probabilities</strong> for every possible next token</li>
+</ul>
+<p><strong>Example generation</strong>:</p>
+<pre><code>Input:  "The ECG shows ST"
+         ↓
+Model:  elevation (85%), depression (10%), segment (3%), ...
+         ↓
+Output: "The ECG shows ST elevation"
+         ↓
+Model:  in (70%), suggesting (15%), consistent (10%), ...
+         ↓
+Output: "The ECG shows ST elevation in leads..."</code></pre>
+</div>
+<aside class="notes">
+<p>Generation is where the magic happens — and also where hallucinations come from.</p>
+<p>The model generates text one token at a time. At each step, it calculates probabilities for every possible next word.</p>
+<p>In this example, given “The ECG shows ST”, the model predicts “elevation” with 85% probability. It picks that word, adds it to the output, then predicts the next word.</p>
+<p>This continues until the model produces a complete response.</p>
+<p>The key insight: the model is ALWAYS making a prediction, even when uncertain. If it’s 40% confident in one word and 35% in another, it still picks one. This is why hallucinations occur — the model generates plausible-sounding text even when it doesn’t “know” the answer.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="pretraining-and-fine-tuning" class="slide level2 center">
+<h2><span style="color:#884EA0;">Pretraining and Fine-tuning</span></h2>
+<h3 id="how-models-learn-general-and-specialized-knowledge"><span style="color:#117A65;">How models learn general and specialized knowledge</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>📚 <strong>Pretraining</strong>: learn from billions of texts (books, web, papers)
+<ul>
+<li>Goal: understand language, grammar, facts, reasoning patterns</li>
+<li>Result: a “generalist” model (GPT-4, Claude, LLaMA)</li>
+</ul></li>
+<li>🎯 <strong>Fine-tuning</strong>: additional training on specialized data
+<ul>
+<li>Goal: adapt to specific domain or task</li>
+<li>Result: a “specialist” model (Med-PaLM, BioMistral, Owkin Zero)</li>
+</ul></li>
+<li>💬 <strong>RLHF</strong> (Reinforcement Learning from Human Feedback):
+<ul>
+<li>Humans rate responses → model learns preferences</li>
+<li>Makes models more helpful, harmless, and honest</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>How does a model actually learn all this? Two main phases.</p>
+<p>Pretraining is like a general education. The model reads billions of documents — books, websites, Wikipedia, scientific papers — and learns to predict the next word. Through this, it absorbs language patterns, facts, and reasoning abilities.</p>
+<p>But a pretrained model is a generalist. It knows a little about everything, but isn’t optimized for any specific task.</p>
+<p>Fine-tuning is like medical school. You take the pretrained model and train it further on specialized data — clinical notes, medical textbooks, PubMed articles. This creates a model that’s much better at medical reasoning.</p>
+<p>RLHF is the final polish — human feedback teaches the model to be helpful and avoid harmful outputs. This is why ChatGPT feels conversational and tries to be useful.</p>
+<p>Medical models like Owkin Zero go through all these stages with biological and clinical data, achieving better performance on medical tasks than general models.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="why-this-matters-for-medicine" class="slide level2 center">
+<h2><span style="color:#884EA0;">Why This Matters for Medicine</span></h2>
+<h3 id="technical-understanding-enables-better-use"><span style="color:#117A65;">Technical understanding enables better use</span></h3>
+<div style="font-size: 0.85em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Concept</th>
+<th style="text-align: left;">Clinical Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Tokenization</strong></td>
+<td style="text-align: left;">Medical text uses more tokens → higher API costs, shorter context</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Embeddings</strong></td>
+<td style="text-align: left;">Model “knows” liver ≈ hepatic, but may miss rare syndromes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Self-attention</strong></td>
+<td style="text-align: left;">Good at resolving pronouns in notes, but can still miss context</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Generation</strong></td>
+<td style="text-align: left;">Always produces output — even when uncertain (hallucinations)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Fine-tuning</strong></td>
+<td style="text-align: left;">Medical models &gt; general models for clinical tasks</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>Understanding these technical concepts has practical implications for clinical use.</p>
+<p>Tokenization: medical text is expensive in token terms. A discharge summary might use 2x the tokens of general text, affecting costs and context limits.</p>
+<p>Embeddings: the model understands synonyms and relationships, but rare conditions or new drugs might not be well-represented.</p>
+<p>Self-attention: great for understanding complex clinical narratives, but context windows are limited. Very long patient histories might exceed the model’s capacity.</p>
+<p>Generation: the model always generates something. It doesn’t say “I don’t know” naturally — this is where hallucinations come from.</p>
+<p>Fine-tuning: for clinical applications, always prefer models fine-tuned on medical data when available.</p>
+<p>This technical foundation helps you use LLMs more effectively and understand their limitations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="clinical-applications-overview" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Clinical Applications: Overview</span></h2>
+<h3 id="where-llms-can-help-clinicians"><span style="color:#117A65;">Where LLMs can help clinicians</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>📝 <strong>Documentation</strong>: draft reports, discharge summaries, referral letters</li>
+<li>🔍 <strong>Literature search</strong>: summarize papers, synthesize evidence</li>
+<li>🩺 <strong>Clinical support</strong>: differential diagnosis, drug interactions</li>
+<li>📊 <strong>Data extraction</strong>: structure info from free-text notes (ICD coding)</li>
+<li>🎓 <strong>Education</strong>: explain concepts to patients in plain language</li>
+</ul>
+</div>
+<aside class="notes">
+<p>LLM applications in clinical practice are already concrete and growing:</p>
+<p>Documentation is the most immediate use case — drafting reports and summaries to reduce administrative burden.</p>
+<p>Literature synthesis is another powerful application — quickly reviewing relevant papers for clinical questions.</p>
+<p>Data extraction can help convert unstructured notes into structured data for analytics.</p>
+<p>These don’t replace the physician, but can significantly reduce administrative workload — studies estimate clinicians spend 50% of their time on documentation.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="example-1-discharge-summary" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Example 1: Discharge Summary</span></h2>
+<h3 id="from-structured-data-to-readable-text"><span style="color:#117A65;">From structured data to readable text</span></h3>
+<div style="font-size: 0.8em;">
+<p><strong>Input prompt</strong>:</p>
+<blockquote>
+<p>“Write a discharge summary for: 72-year-old male, admitted for chest pain. Troponin elevated. Coronary angiography showed 90% LAD stenosis. PCI with DES performed. Discharged on aspirin, clopidogrel, atorvastatin, metoprolol.”</p>
+</blockquote>
+<p><strong>LLM output</strong>:</p>
+<blockquote>
+<p>“A 72-year-old male was admitted with acute chest pain and elevated troponin levels consistent with NSTEMI. Coronary angiography revealed 90% stenosis of the left anterior descending artery. Successful percutaneous coronary intervention was performed with drug-eluting stent placement. The patient was discharged in stable condition on dual antiplatelet therapy (aspirin 100mg, clopidogrel 75mg), atorvastatin 80mg, and metoprolol 50mg. Follow-up in cardiology clinic in 4 weeks recommended.”</p>
+</blockquote>
+</div>
+<aside class="notes">
+<p>Here’s a practical example: from structured clinical data, the model generates a complete discharge summary.</p>
+<p>Notice how the model: - Uses appropriate medical terminology (NSTEMI, LAD, PCI, DES) - Structures the information logically - Adds standard follow-up recommendations</p>
+<p>This is a draft — the physician reviews and edits before signing. The time savings can be substantial for high-volume departments.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="example-2-laboratory-interpretation" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Example 2: Laboratory Interpretation</span></h2>
+<h3 id="pattern-recognition-in-lab-panels"><span style="color:#117A65;">Pattern recognition in lab panels</span></h3>
+<div style="font-size: 0.8em;">
+<p><strong>Input prompt</strong>:</p>
+<blockquote>
+<p>“Interpret: ALT 85 U/L (ref 7-56), AST 72 U/L (ref 8-48), GGT 120 U/L (ref 9-48), ALP normal, Bilirubin normal, Albumin normal.”</p>
+</blockquote>
+<p><strong>LLM output</strong>:</p>
+<blockquote>
+<p>“The liver panel shows elevated transaminases (ALT 85, AST 72) with ALT &gt; AST, and elevated GGT (120), with preserved synthetic function (normal albumin) and no cholestasis (normal ALP, bilirubin). This pattern suggests hepatocellular injury with possible etiologies including: NAFLD/NASH (given ALT &gt; AST ratio), medication-induced hepatotoxicity, viral hepatitis, or early alcoholic liver disease. Recommend: hepatitis B/C serology, metabolic panel, medication review, and liver ultrasound.”</p>
+</blockquote>
+</div>
+<aside class="notes">
+<p>This example shows LLMs assisting in lab interpretation — a common task in clinical chemistry.</p>
+<p>The model: - Correctly identifies the hepatocellular pattern - Notes the ALT &gt; AST ratio and its significance - Suggests appropriate follow-up investigations</p>
+<p>Again, this is decision support — the final interpretation requires clinical correlation with patient history and physical findings.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="example-3-differential-diagnosis" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Example 3: Differential Diagnosis</span></h2>
+<h3 id="clinical-reasoning-support"><span style="color:#117A65;">Clinical reasoning support</span></h3>
+<div style="font-size: 0.8em;">
+<p><strong>Input prompt</strong>:</p>
+<blockquote>
+<p>“55-year-old female with progressive fatigue, weight loss, and hyperpigmentation. Labs show hyponatremia (128 mEq/L), hyperkalemia (5.8 mEq/L), low morning cortisol. Generate differential diagnosis.”</p>
+</blockquote>
+<p><strong>LLM output</strong>:</p>
+<blockquote>
+<p>“The clinical picture strongly suggests <strong>primary adrenal insufficiency (Addison’s disease)</strong>:</p>
+<ul>
+<li>Fatigue, weight loss = non-specific but common</li>
+<li>Hyperpigmentation = ACTH-driven melanin (pathognomonic)</li>
+<li>Hyponatremia + hyperkalemia = mineralocorticoid deficiency</li>
+<li>Low cortisol = confirms axis dysfunction</li>
+</ul>
+<p>Differential includes: autoimmune adrenalitis (most common), adrenal metastases, infections (TB, fungal), adrenal hemorrhage. Recommend ACTH stimulation test and adrenal CT.”</p>
+</blockquote>
+</div>
+<aside class="notes">
+<p>This is a more complex example — differential diagnosis from a clinical vignette.</p>
+<p>The model correctly identifies Addison’s disease as the leading diagnosis, explains the pathophysiology behind each finding, and suggests appropriate next steps.</p>
+<p>This mirrors how LLMs might support clinical reasoning in complex cases — as a “thinking partner” rather than a replacement for clinical judgment.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="beyond-general-llms-specialized-ai" class="slide level2 center">
+<h2><span style="color:#884EA0;">Beyond General LLMs: Specialized AI</span></h2>
+<h3 id="domain-specific-models-for-medicine"><span style="color:#117A65;">Domain-specific models for medicine</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🌍 <strong>General LLMs</strong> (ChatGPT, Claude): versatile but shallow in medicine</li>
+<li>🏥 <strong>Medical LLMs</strong> (Med-PaLM, BioMistral): fine-tuned on clinical literature</li>
+<li>🔬 <strong>Specialized AI systems</strong>: trained for specific tasks
+<ul>
+<li>Pathology: analyze H&amp;E slides, detect biomarkers</li>
+<li>Radiology: interpret X-rays, CT, MRI</li>
+<li>Oncology: predict treatment response, identify targets</li>
+</ul></li>
+</ul>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The most impactful medical AI combines <strong>domain expertise</strong> with <strong>multimodal data</strong> (images + genomics + clinical records).</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>It’s important to distinguish between general chatbots and specialized medical AI.</p>
+<p>General LLMs are good for text tasks but lack deep medical reasoning.</p>
+<p>Medical LLMs are fine-tuned on PubMed, clinical guidelines, and textbooks — better for medical questions but still text-only.</p>
+<p>The most powerful systems combine AI with multimodal data: histopathology images, genomic profiles, and clinical records. These can predict outcomes and identify biomarkers in ways that text-only models cannot.</p>
+<p>This is where companies like Owkin are working — at the intersection of AI and biological data.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ai-in-digital-pathology" class="slide level2 center">
+<h2><span style="color:#2E86C1;">AI in Digital Pathology</span></h2>
+<h3 id="from-slides-to-molecular-insights"><span style="color:#117A65;">From slides to molecular insights</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🔬 <strong>Digital pathology</strong>: whole-slide imaging (WSI) enables AI analysis</li>
+<li>🧠 <strong>Deep learning</strong> can identify patterns invisible to human eye</li>
+<li>🎯 <strong>Key applications</strong>:
+<ul>
+<li>Cancer detection and grading</li>
+<li>Biomarker prediction from H&amp;E slides</li>
+<li>Tumor microenvironment analysis</li>
+<li>Prognosis prediction</li>
+</ul></li>
+<li>✅ <strong>Advantage</strong>: faster, more consistent, preserves tissue for other tests</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Digital pathology is one of the most exciting frontiers for medical AI.</p>
+<p>When pathology slides are digitized at high resolution, deep learning models can analyze them at scale — identifying patterns that correlate with molecular features, treatment response, and outcomes.</p>
+<p>A major advantage: predicting biomarkers directly from standard H&amp;E staining can reduce the need for expensive molecular tests and preserve precious tissue samples.</p>
+<p>This is particularly valuable in oncology, where biomarker status determines eligibility for targeted therapies.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="agentic-ai-in-drug-development" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Agentic AI in Drug Development</span></h2>
+<h3 id="from-chatbots-to-autonomous-research-agents"><span style="color:#117A65;">From chatbots to autonomous research agents</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🤖 <strong>Agentic AI</strong> = AI systems that can plan, reason, and execute tasks autonomously</li>
+<li>🧬 <strong>Applications in pharma</strong>:
+<ul>
+<li>Target identification and validation</li>
+<li>Biomarker discovery for patient stratification</li>
+<li>Clinical trial design and optimization</li>
+<li>Competitive landscape analysis</li>
+</ul></li>
+<li>🔬 <strong>Example: Owkin K Pro</strong> — agentic AI co-pilot for biopharma
+<ul>
+<li>Natural language queries on multimodal patient data</li>
+<li>Access to curated oncology datasets (2,200+ patients, 6 modalities)</li>
+<li>Results: 70% faster target identification, trial duration reduced by 35%</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Beyond clinical chatbots, a new paradigm is emerging: agentic AI.</p>
+<p>These are AI systems that don’t just answer questions — they autonomously plan and execute complex research tasks.</p>
+<p>Owkin’s K Pro is an example: it combines biological LLMs with multimodal patient data to help pharma companies make pipeline decisions.</p>
+<p>Users can query in natural language — “Which biomarkers predict response to this drug?” — and the AI agent explores datasets, runs analyses, and synthesizes findings.</p>
+<p>Early results show significant acceleration: 70% faster target identification, and trial optimization that reduced duration by 35% in some cases.</p>
+<p>This represents a shift from AI as tool to AI as research partner.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-hallucination-problem" class="slide level2 center">
+<h2><span style="color:#C0392B;">⚠️ The Hallucination Problem</span></h2>
+<h3 id="when-ai-confidently-makes-things-up"><span style="color:#117A65;">When AI confidently makes things up</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🎭 <strong>Hallucination</strong> = plausible but <strong>false</strong> information</li>
+<li>🤝 LLMs are trained to sound <strong>helpful</strong>, not to be <strong>truthful</strong></li>
+<li>🩺 <strong>Clinical examples</strong>:
+<ul>
+<li>Invented drug dosages or interactions</li>
+<li>Fake citations (non-existent papers, wrong authors)</li>
+<li>Incorrect reference ranges or guidelines</li>
+</ul></li>
+<li>✅ <strong>Rule</strong>: always verify — especially dosages, references, and protocols</li>
+</ul>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Plausible ≠ Correct</strong>. A fluent, confident answer can still be completely wrong.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>The most critical limitation: hallucinations.</p>
+<p>LLMs are optimized to sound helpful and fluent, not to tell the truth. When uncertain, they don’t say “I don’t know” — they generate plausible-sounding content.</p>
+<p>In medicine this is dangerous. I’ve seen models invent drug dosages, cite papers that don’t exist, and confidently state incorrect guidelines.</p>
+<p>The fundamental rule: always verify. Especially for anything that directly affects patient care — dosages, protocols, diagnostic criteria.</p>
+<p>Specialized AI systems address this differently — they’re trained on specific tasks with validated performance metrics, not open-ended generation.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="other-limitations" class="slide level2 center">
+<h2><span style="color:#884EA0;">Other Limitations</span></h2>
+<h3 id="what-ai-cannot-do-yet"><span style="color:#117A65;">What AI cannot do (yet)</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>⚖️ <strong>Bias</strong>: reproduces biases in training data (demographic, geographic)</li>
+<li>📅 <strong>Knowledge cutoff</strong>: doesn’t know recent publications or guidelines</li>
+<li>🔒 <strong>Privacy</strong>: commercial APIs may retain prompts — never input PHI</li>
+<li>🧮 <strong>Reasoning limits</strong>: still unreliable for complex multi-step calculations</li>
+<li>📋 <strong>Accountability</strong>: who is responsible for an AI-assisted error?</li>
+<li>🏥 <strong>Regulatory status</strong>: most tools are not FDA/CE approved for diagnosis</li>
+</ul>
+</div>
+<aside class="notes">
+<p>Beyond hallucinations, other important limitations:</p>
+<p>Bias: models can perpetuate disparities if trained on unrepresentative data.</p>
+<p>Knowledge cutoff: ChatGPT doesn’t know about papers published last month.</p>
+<p>Privacy: never input real patient data on commercial APIs unless you have a BAA in place.</p>
+<p>Accountability: the medico-legal framework for AI-assisted errors is still evolving.</p>
+<p>Regulatory status: most general LLMs are explicitly NOT medical devices. Specialized tools go through proper regulatory pathways (CE marking, FDA clearance).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="best-practices-for-clinical-use" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Best Practices for Clinical Use</span></h2>
+<h3 id="how-to-use-ai-responsibly"><span style="color:#117A65;">How to use AI responsibly</span></h3>
+<div style="font-size: 0.85em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">✅ Do</th>
+<th style="text-align: left;">❌ Don’t</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Use as <strong>draft generator</strong></td>
+<td style="text-align: left;">Trust blindly without review</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Verify</strong> all factual claims</td>
+<td style="text-align: left;">Input PHI on public APIs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Use <strong>validated tools</strong> for clinical decisions</td>
+<td style="text-align: left;">Use ChatGPT for diagnosis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Keep <strong>human in the loop</strong></td>
+<td style="text-align: left;">Assume AI “knows” medicine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Document AI-assisted decisions</td>
+<td style="text-align: left;">Cite LLM outputs as sources</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<p>Practical rules for responsible use:</p>
+<p>Use LLMs as draft generators — for documentation, literature review, education. Always verify the output.</p>
+<p>For clinical decisions, use validated, regulated tools — not general chatbots.</p>
+<p>Never input protected health information on public APIs.</p>
+<p>Always maintain human oversight. AI assists, doesn’t replace.</p>
+<p>Document when you use AI assistance — this is increasingly important for liability and transparency.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="key-parameters-to-know" class="slide level2 center">
+<h2><span style="color:#884EA0;">Key Parameters to Know</span></h2>
+<h3 id="controlling-llm-behavior"><span style="color:#117A65;">Controlling LLM behavior</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🌡️ <strong>Temperature</strong>: creativity level
+<ul>
+<li>Low (0.1-0.3): consistent, deterministic — best for clinical use</li>
+<li>High (0.7-1.0): creative, varied — for brainstorming</li>
+</ul></li>
+<li>✂️ <strong>Max tokens</strong>: limit output length</li>
+<li>🎯 <strong>System prompt</strong>: define role and constraints</li>
+<li>📋 <strong>Context window</strong>: how much text the model can “see” (4K-128K tokens)</li>
+</ul>
+</div>
+<div style="font-size: 0.8em;">
+<p><strong>Example</strong>: “Interpret this ECG” at temperature 0.1 gives consistent output. At 0.8, you get creative but potentially unreliable variations.</p>
+</div>
+<aside class="notes">
+<p>If you’re using LLMs directly, these parameters matter:</p>
+<p>Temperature controls randomness. For clinical tasks, keep it low (0.1-0.3) for consistent, reproducible outputs.</p>
+<p>System prompt lets you define the AI’s role and constraints — “You are a clinical assistant. Always cite sources. Never provide specific drug doses.”</p>
+<p>Context window determines how much text the model can process at once — important for long documents like clinical trials or patient histories.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-future-multimodal-agentic" class="slide level2 center">
+<h2><span style="color:#884EA0;">The Future: Multimodal + Agentic</span></h2>
+<h3 id="where-medical-ai-is-heading"><span style="color:#117A65;">Where medical AI is heading</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🖼️ <strong>Multimodal integration</strong>: text + images + genomics + EMR</li>
+<li>🤖 <strong>Agentic systems</strong>: autonomous research and analysis</li>
+<li>🔗 <strong>Foundation models for biology</strong>: pretrained on molecular data</li>
+<li>🏥 <strong>Clinical integration</strong>: embedded in workflows (not separate tools)</li>
+<li>⚖️ <strong>Regulation evolving</strong>: EU AI Act, FDA guidance on AI/ML devices</li>
+</ul>
+</div>
+<aside class="notes">
+<p>The future of medical AI is multimodal and agentic.</p>
+<p>Instead of separate tools for text, images, and genomics, we’re moving toward unified systems that integrate all data modalities.</p>
+<p>Agentic AI will autonomously execute research tasks — not just answer questions, but design analyses, run experiments, and synthesize findings.</p>
+<p>Foundation models trained specifically on biological data (proteins, pathways, cellular interactions) will enable deeper scientific reasoning.</p>
+<p>And crucially, AI will be embedded directly into clinical workflows — not as separate apps, but as intelligent assistants within existing systems.</p>
+<p>Regulation is catching up: the EU AI Act and FDA guidance on AI/ML medical devices are shaping how these tools will be deployed.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="take-home-messages" class="slide level2 center scrollable">
+<h2><span style="color:#2E86C1;">Take-Home Messages</span></h2>
+<h3 id="what-to-remember-from-this-seminar"><span style="color:#117A65;">What to remember from this seminar</span></h3>
+<div style="font-size: 0.85em;">
+<ol type="1">
+<li>🧠 LLMs are <strong>powerful</strong> for documentation, literature synthesis, and education</li>
+<li>⚠️ They <strong>hallucinate</strong> — always verify clinical information</li>
+<li>🔬 <strong>Specialized AI</strong> (pathology, oncology) outperforms general chatbots</li>
+<li>🤖 <strong>Agentic AI</strong> (like K Pro) is transforming drug development</li>
+<li>👨‍⚕️ Keep <strong>human oversight</strong> — AI assists, doesn’t replace expertise</li>
+</ol>
+</div>
+<aside class="notes">
+<p>Key messages to take home:</p>
+<p>General LLMs are useful for text tasks but require verification.</p>
+<p>For clinical decisions, specialized and validated AI tools are more reliable.</p>
+<p>The most impactful systems combine AI with multimodal biological data.</p>
+<p>The field is rapidly evolving — from chatbots to agentic research partners.</p>
+<p>And always: human oversight remains essential. AI augments expertise, it doesn’t replace it.</p>
+<p>Thank you for your attention. Questions?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="questions" class="slide level2 center">
+<h2><span style="color:#2E86C1;">Questions?</span></h2>
+<h3 id="thank-you-for-your-attention"><span style="color:#117A65;">Thank you for your attention</span></h3>
+<div style="font-size: 0.85em; text-align: center;">
+<p>📧 Contact: luca.vedovelli@ubep.unipd.it</p>
+<p>🔗 Resources:</p>
+<ul>
+<li>Owkin: <a href="https://www.owkin.com">owkin.com</a></li>
+<li>K Pro: <a href="https://www.owkin.com/k-os/k-pro">owkin.com/k-os/k-pro</a></li>
+<li>OpenAI: <a href="https://platform.openai.com">platform.openai.com</a></li>
+<li>Claude: <a href="https://claude.ai">claude.ai</a></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Thank you for your attention.</p>
+<p>I’m available for questions now or via email.</p>
+<p>The links in the slides point to resources for exploring these tools further — including Owkin’s K Pro platform.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="images/logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="LLM_Medicine_seminar_v2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
