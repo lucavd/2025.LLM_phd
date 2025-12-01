@@ -170,17 +170,17 @@
 <div style="font-size: 0.85em;">
 <ul>
 <li>🤖 <strong>LLM</strong> = neural network trained to predict the next word</li>
-<li>📚 Trained on <strong>billions of texts</strong>: books, papers, websites, clinical records</li>
+<li>📚 Trained on <strong>billions of texts</strong>: books, papers, websites, code</li>
 <li>🧠 Emergent abilities: reasoning, summarization, translation, coding</li>
-<li>💬 <strong>General models</strong>: ChatGPT, Claude, Gemini, Mistral, LLaMA</li>
-<li>🏥 <strong>Medical models</strong>: Med-PaLM, BioMistral, Owkin Zero</li>
+<li>💬 <strong>Examples</strong>: ChatGPT (OpenAI), Claude (Anthropic), Gemini (Google), LLaMA (Meta)</li>
+<li>📈 Rapid evolution: GPT-3 (2020) → GPT-4 (2023) → new models every few months</li>
 </ul>
 </div>
 <aside class="notes">
 <p>A Large Language Model is a neural network trained on massive amounts of text.</p>
-<p>The basic task is simple: predict the next word. But when this is done on billions of documents, surprising capabilities emerge: reasoning, summarization, translation, and even coding.</p>
-<p>General models like ChatGPT and Claude are trained on broad internet data. They’re versatile but shallow in specialized domains.</p>
-<p>Medical-specific models like Med-PaLM or Owkin Zero are fine-tuned on clinical literature, achieving better performance on biomedical reasoning tasks.</p>
+<p>The basic task is deceptively simple: predict the next word. But when this is done on billions of documents, surprising capabilities emerge: reasoning, summarization, translation, and even coding.</p>
+<p>The field is evolving incredibly fast. GPT-3 in 2020 amazed researchers. GPT-4 in 2023 passed medical licensing exams. New models appear every few months with improved capabilities.</p>
+<p>We’ll see later how these general models can be specialized for medical applications through fine-tuning.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -497,53 +497,96 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
           display:block!important;
       }</style></aside>
 </section>
-<section id="why-this-matters-for-medicine" class="slide level2 center">
-<h2><span style="color:#884EA0;">Why This Matters for Medicine</span></h2>
-<h3 id="technical-understanding-enables-better-use"><span style="color:#117A65;">Technical understanding enables better use</span></h3>
+<section id="the-context-window" class="slide level2 center">
+<h2><span style="color:#884EA0;">The Context Window</span></h2>
+<h3 id="how-much-can-the-model-see-at-once"><span style="color:#117A65;">How much can the model “see” at once?</span></h3>
 <div style="font-size: 0.85em;">
+<ul>
+<li>📋 <strong>Context window</strong> = maximum tokens the model can process at once</li>
+<li>� <strong>How chatbots work</strong>: they re-read the <strong>entire conversation</strong> every time you send a message</li>
+<li>⚠️ When the window fills up → older messages are <strong>forgotten</strong></li>
+</ul>
 <table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Concept</th>
-<th style="text-align: left;">Clinical Implication</th>
+<th style="text-align: left;">Model (2025)</th>
+<th style="text-align: left;">Context Window</th>
+<th style="text-align: left;">~Pages</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Tokenization</strong></td>
-<td style="text-align: left;">Medical text uses more tokens → higher API costs, shorter context</td>
+<td style="text-align: left;">GPT-5.1</td>
+<td style="text-align: left;">256K tokens</td>
+<td style="text-align: left;">~200</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Embeddings</strong></td>
-<td style="text-align: left;">Model “knows” liver ≈ hepatic, but may miss rare syndromes</td>
+<td style="text-align: left;">Claude Sonnet 4.5</td>
+<td style="text-align: left;">200K tokens</td>
+<td style="text-align: left;">~150</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Self-attention</strong></td>
-<td style="text-align: left;">Good at resolving pronouns in notes, but can still miss context</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Generation</strong></td>
-<td style="text-align: left;">Always produces output — even when uncertain (hallucinations)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Fine-tuning</strong></td>
-<td style="text-align: left;">Medical models &gt; general models for clinical tasks</td>
+<td style="text-align: left;">Gemini 3</td>
+<td style="text-align: left;">2M tokens</td>
+<td style="text-align: left;">~1500</td>
 </tr>
 </tbody>
 </table>
 </div>
 <aside class="notes">
-<p>Understanding these technical concepts has practical implications for clinical use.</p>
-<p>Tokenization: medical text is expensive in token terms. A discharge summary might use 2x the tokens of general text, affecting costs and context limits.</p>
-<p>Embeddings: the model understands synonyms and relationships, but rare conditions or new drugs might not be well-represented.</p>
-<p>Self-attention: great for understanding complex clinical narratives, but context windows are limited. Very long patient histories might exceed the model’s capacity.</p>
-<p>Generation: the model always generates something. It doesn’t say “I don’t know” naturally — this is where hallucinations come from.</p>
-<p>Fine-tuning: for clinical applications, always prefer models fine-tuned on medical data when available.</p>
-<p>This technical foundation helps you use LLMs more effectively and understand their limitations.</p>
+<p>The context window defines how much text the model can “see” at once.</p>
+<p>Here’s the key insight: chatbots don’t have memory like humans. Every time you send a message, the model re-reads the ENTIRE conversation from the beginning. Your new message gets appended, and the whole thing is processed again.</p>
+<p>When the conversation exceeds the context window, older messages get dropped. The model literally forgets the beginning of your conversation. This is why long clinical discussions can lose coherence — early patient details may be forgotten.</p>
+<p>Current models (2025): GPT-5.1 has 256K tokens, Claude Sonnet 4.5 has 200K, and Gemini 3 offers up to 2 million tokens — enough for over a thousand pages.</p>
+<p>For medical use: larger windows let you analyze entire patient histories or research papers in one go.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="dataset-shift-ai-models-are-not-eternal" class="slide level2 center">
+<h2><span style="color:#884EA0;">Dataset Shift: AI Models Are Not Eternal</span></h2>
+<h3 id="why-todays-model-may-fail-tomorrow"><span style="color:#117A65;">Why today’s model may fail tomorrow</span></h3>
+<div style="font-size: 0.85em;">
+<ul>
+<li>📅 <strong>Knowledge cutoff</strong>: model only knows what existed during training
+<ul>
+<li>Each model has a training date (check documentation)</li>
+<li>Won’t know new drugs, updated guidelines, recent outbreaks</li>
+</ul></li>
+<li>📊 <strong>Dataset shift</strong>: the world changes, but the model doesn’t
+<ul>
+<li>New diseases, evolving treatment protocols, changing resistance patterns</li>
+</ul></li>
+<li>🔄 <strong>Model drift</strong>: performance degrades over time without updates</li>
+</ul>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>An AI model is a <strong>snapshot</strong> of knowledge at training time. Always verify against current guidelines.</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>This is a critical concept: AI models are not eternal.</p>
+<p>Knowledge cutoff: every model has a training date, and it knows nothing after that. If you ask about a drug approved after the cutoff, it won’t know — or worse, it might hallucinate an answer. Always check the model’s documentation for its training date.</p>
+<p>Dataset shift: the real world changes constantly. A model trained on 2020 data may make incorrect predictions on 2025 patients because disease patterns, treatment protocols, and drug resistance have shifted.</p>
+<p>Model drift: even if the world stayed the same, models can degrade over time as they’re used in ways that differ from their training conditions.</p>
+<p>This is why responsible AI deployment requires continuous monitoring and retraining. Always check when a model was last updated.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -647,7 +690,7 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
 <section id="example-3-differential-diagnosis" class="slide level2 center">
 <h2><span style="color:#2E86C1;">Example 3: Differential Diagnosis</span></h2>
 <h3 id="clinical-reasoning-support"><span style="color:#117A65;">Clinical reasoning support</span></h3>
-<div style="font-size: 0.8em;">
+<div style="font-size: 0.6em;">
 <p><strong>Input prompt</strong>:</p>
 <blockquote>
 <p>“55-year-old female with progressive fatigue, weight loss, and hyperpigmentation. Labs show hyponatremia (128 mEq/L), hyperkalemia (5.8 mEq/L), low morning cortisol. Generate differential diagnosis.”</p>
@@ -680,18 +723,16 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
           display:block!important;
       }</style></aside>
 </section>
-<section id="beyond-general-llms-specialized-ai" class="slide level2 center">
-<h2><span style="color:#884EA0;">Beyond General LLMs: Specialized AI</span></h2>
-<h3 id="domain-specific-models-for-medicine"><span style="color:#117A65;">Domain-specific models for medicine</span></h3>
-<div style="font-size: 0.85em;">
+<section id="from-text-to-multimodal-ai" class="slide level2 center">
+<h2><span style="color:#884EA0;">From Text to Multimodal AI</span></h2>
+<h3 id="beyond-chatbots-specialized-medical-ai"><span style="color:#117A65;">Beyond chatbots: specialized medical AI</span></h3>
+<div style="font-size: 0.9em;">
 <ul>
-<li>🌍 <strong>General LLMs</strong> (ChatGPT, Claude): versatile but shallow in medicine</li>
-<li>🏥 <strong>Medical LLMs</strong> (Med-PaLM, BioMistral): fine-tuned on clinical literature</li>
-<li>🔬 <strong>Specialized AI systems</strong>: trained for specific tasks
+<li>💬 <strong>Text-only LLMs</strong>: documentation, literature — limited for diagnosis</li>
+<li>🔬 <strong>Specialized AI</strong>: pathology slides, radiology, oncology predictions</li>
+<li>🧬 <strong>Multimodal AI</strong>: images + genomics + clinical records + labs
 <ul>
-<li>Pathology: analyze H&amp;E slides, detect biomarkers</li>
-<li>Radiology: interpret X-rays, CT, MRI</li>
-<li>Oncology: predict treatment response, identify targets</li>
+<li>Discovers patterns invisible to single-modality analysis</li>
 </ul></li>
 </ul>
 </div>
@@ -704,16 +745,15 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>The most impactful medical AI combines <strong>domain expertise</strong> with <strong>multimodal data</strong> (images + genomics + clinical records).</p>
+<p>The most impactful medical AI combines <strong>domain expertise</strong> with <strong>multimodal data</strong>.</p>
 </div>
 </div>
 </div>
 <aside class="notes">
-<p>It’s important to distinguish between general chatbots and specialized medical AI.</p>
-<p>General LLMs are good for text tasks but lack deep medical reasoning.</p>
-<p>Medical LLMs are fine-tuned on PubMed, clinical guidelines, and textbooks — better for medical questions but still text-only.</p>
-<p>The most powerful systems combine AI with multimodal data: histopathology images, genomic profiles, and clinical records. These can predict outcomes and identify biomarkers in ways that text-only models cannot.</p>
-<p>This is where companies like Owkin are working — at the intersection of AI and biological data.</p>
+<p>So far we’ve discussed text-based LLMs. But the most powerful medical AI goes beyond text.</p>
+<p>Specialized AI systems are trained for specific clinical tasks — analyzing pathology slides, reading radiology images, predicting treatment response. These aren’t chatbots; they’re diagnostic tools with validated performance.</p>
+<p>Multimodal AI takes this further by integrating multiple data types: histopathology images, genomic profiles, clinical records, and lab values. This enables discoveries that would be impossible from any single data source.</p>
+<p>This is where companies like Owkin are working — combining AI with rich biological data to accelerate drug development and improve patient outcomes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -853,7 +893,6 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
 <div style="font-size: 0.85em;">
 <ul>
 <li>⚖️ <strong>Bias</strong>: reproduces biases in training data (demographic, geographic)</li>
-<li>📅 <strong>Knowledge cutoff</strong>: doesn’t know recent publications or guidelines</li>
 <li>🔒 <strong>Privacy</strong>: commercial APIs may retain prompts — never input PHI</li>
 <li>🧮 <strong>Reasoning limits</strong>: still unreliable for complex multi-step calculations</li>
 <li>📋 <strong>Accountability</strong>: who is responsible for an AI-assisted error?</li>
@@ -861,12 +900,11 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
 </ul>
 </div>
 <aside class="notes">
-<p>Beyond hallucinations, other important limitations:</p>
-<p>Bias: models can perpetuate disparities if trained on unrepresentative data.</p>
-<p>Knowledge cutoff: ChatGPT doesn’t know about papers published last month.</p>
-<p>Privacy: never input real patient data on commercial APIs unless you have a BAA in place.</p>
-<p>Accountability: the medico-legal framework for AI-assisted errors is still evolving.</p>
-<p>Regulatory status: most general LLMs are explicitly NOT medical devices. Specialized tools go through proper regulatory pathways (CE marking, FDA clearance).</p>
+<p>Beyond hallucinations and dataset shift, other important limitations:</p>
+<p>Bias: models can perpetuate disparities if trained on unrepresentative data. A model trained mostly on data from one demographic may perform poorly on others.</p>
+<p>Privacy: never input real patient data on commercial APIs unless you have a Business Associate Agreement in place.</p>
+<p>Accountability: the medico-legal framework for AI-assisted errors is still evolving. Who is responsible if an AI-assisted decision harms a patient?</p>
+<p>Regulatory status: most general LLMs are explicitly NOT medical devices. Specialized diagnostic tools go through proper regulatory pathways (CE marking, FDA clearance).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -942,24 +980,27 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
 <h3 id="controlling-llm-behavior"><span style="color:#117A65;">Controlling LLM behavior</span></h3>
 <div style="font-size: 0.85em;">
 <ul>
-<li>🌡️ <strong>Temperature</strong>: creativity level
+<li>🌡️ <strong>Temperature</strong>: controls randomness/creativity
 <ul>
-<li>Low (0.1-0.3): consistent, deterministic — best for clinical use</li>
-<li>High (0.7-1.0): creative, varied — for brainstorming</li>
+<li>Low (0.0-0.3): consistent, deterministic — <strong>best for clinical use</strong></li>
+<li>High (0.7-1.0): creative, varied — for brainstorming only</li>
 </ul></li>
-<li>✂️ <strong>Max tokens</strong>: limit output length</li>
-<li>🎯 <strong>System prompt</strong>: define role and constraints</li>
-<li>📋 <strong>Context window</strong>: how much text the model can “see” (4K-128K tokens)</li>
+<li>✂️ <strong>Max tokens</strong>: limit output length (controls cost and verbosity)</li>
+<li>🎯 <strong>System prompt</strong>: define role, constraints, and behavior
+<ul>
+<li>Example: “You are a clinical assistant. Always cite sources. Never provide specific drug doses without verification.”</li>
+</ul></li>
 </ul>
 </div>
 <div style="font-size: 0.8em;">
-<p><strong>Example</strong>: “Interpret this ECG” at temperature 0.1 gives consistent output. At 0.8, you get creative but potentially unreliable variations.</p>
+<p><strong>Clinical tip</strong>: For medical tasks, always use low temperature. “Interpret this ECG” at temperature 0.1 gives consistent, reproducible output. At 0.8, you get creative but potentially dangerous variations.</p>
 </div>
 <aside class="notes">
-<p>If you’re using LLMs directly, these parameters matter:</p>
-<p>Temperature controls randomness. For clinical tasks, keep it low (0.1-0.3) for consistent, reproducible outputs.</p>
-<p>System prompt lets you define the AI’s role and constraints — “You are a clinical assistant. Always cite sources. Never provide specific drug doses.”</p>
-<p>Context window determines how much text the model can process at once — important for long documents like clinical trials or patient histories.</p>
+<p>If you’re using LLMs directly through APIs or platforms that expose these settings, a few parameters are important to understand:</p>
+<p>Temperature is the most important. It controls how “creative” or random the model’s outputs are. For clinical tasks, always keep it low — you want consistent, reproducible results, not creative variations.</p>
+<p>Max tokens limits how long the response can be. This is useful for controlling costs and preventing overly verbose outputs.</p>
+<p>System prompt is powerful — it lets you define the AI’s role and set constraints upfront. You can instruct it to always cite sources, never provide specific drug doses, or flag uncertainty explicitly.</p>
+<p>We already discussed context window in the technical section — remember it determines how much the model can “see” at once.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1043,7 +1084,6 @@ Output: "The ECG shows ST elevation in leads..."</code></pre>
 <p>🔗 Resources:</p>
 <ul>
 <li>Owkin: <a href="https://www.owkin.com">owkin.com</a></li>
-<li>K Pro: <a href="https://www.owkin.com/k-os/k-pro">owkin.com/k-os/k-pro</a></li>
 <li>OpenAI: <a href="https://platform.openai.com">platform.openai.com</a></li>
 <li>Claude: <a href="https://claude.ai">claude.ai</a></li>
 </ul>

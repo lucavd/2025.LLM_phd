@@ -47,20 +47,20 @@ The goal is to give you a framework to understand when and how these tools can h
 
 ::: {style="font-size: 0.85em;"}
 -   🤖 **LLM** = neural network trained to predict the next word
--   📚 Trained on **billions of texts**: books, papers, websites, clinical records
+-   📚 Trained on **billions of texts**: books, papers, websites, code
 -   🧠 Emergent abilities: reasoning, summarization, translation, coding
--   💬 **General models**: ChatGPT, Claude, Gemini, Mistral, LLaMA
--   🏥 **Medical models**: Med-PaLM, BioMistral, Owkin Zero
+-   💬 **Examples**: ChatGPT (OpenAI), Claude (Anthropic), Gemini (Google), LLaMA (Meta)
+-   📈 Rapid evolution: GPT-3 (2020) → GPT-4 (2023) → new models every few months
 :::
 
 ::: notes
 A Large Language Model is a neural network trained on massive amounts of text.
 
-The basic task is simple: predict the next word. But when this is done on billions of documents, surprising capabilities emerge: reasoning, summarization, translation, and even coding.
+The basic task is deceptively simple: predict the next word. But when this is done on billions of documents, surprising capabilities emerge: reasoning, summarization, translation, and even coding.
 
-General models like ChatGPT and Claude are trained on broad internet data. They're versatile but shallow in specialized domains.
+The field is evolving incredibly fast. GPT-3 in 2020 amazed researchers. GPT-4 in 2023 passed medical licensing exams. New models appear every few months with improved capabilities.
 
-Medical-specific models like Med-PaLM or Owkin Zero are fine-tuned on clinical literature, achieving better performance on biomedical reasoning tasks.
+We'll see later how these general models can be specialized for medical applications through fine-tuning.
 :::
 
 ------------------------------------------------------------------------
@@ -301,34 +301,63 @@ Medical models like Owkin Zero go through all these stages with biological and c
 
 ------------------------------------------------------------------------
 
-## [Why This Matters for Medicine]{style="color:#884EA0;"}
+## [The Context Window]{style="color:#884EA0;"}
 
-### [Technical understanding enables better use]{style="color:#117A65;"}
+### [How much can the model "see" at once?]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
-| Concept | Clinical Implication |
-|:-----------------------------------|:-----------------------------------|
-| **Tokenization** | Medical text uses more tokens → higher API costs, shorter context |
-| **Embeddings** | Model "knows" liver ≈ hepatic, but may miss rare syndromes |
-| **Self-attention** | Good at resolving pronouns in notes, but can still miss context |
-| **Generation** | Always produces output — even when uncertain (hallucinations) |
-| **Fine-tuning** | Medical models \> general models for clinical tasks |
+-   📋 **Context window** = maximum tokens the model can process at once
+-   � **How chatbots work**: they re-read the **entire conversation** every time you send a message
+-   ⚠️ When the window fills up → older messages are **forgotten**
+
+| Model (2025)      | Context Window | \~Pages |
+|:------------------|:---------------|:--------|
+| GPT-5.1           | 256K tokens    | \~200   |
+| Claude Sonnet 4.5 | 200K tokens    | \~150   |
+| Gemini 3          | 2M tokens      | \~1500  |
 :::
 
 ::: notes
-Understanding these technical concepts has practical implications for clinical use.
+The context window defines how much text the model can "see" at once.
 
-Tokenization: medical text is expensive in token terms. A discharge summary might use 2x the tokens of general text, affecting costs and context limits.
+Here's the key insight: chatbots don't have memory like humans. Every time you send a message, the model re-reads the ENTIRE conversation from the beginning. Your new message gets appended, and the whole thing is processed again.
 
-Embeddings: the model understands synonyms and relationships, but rare conditions or new drugs might not be well-represented.
+When the conversation exceeds the context window, older messages get dropped. The model literally forgets the beginning of your conversation. This is why long clinical discussions can lose coherence — early patient details may be forgotten.
 
-Self-attention: great for understanding complex clinical narratives, but context windows are limited. Very long patient histories might exceed the model's capacity.
+Current models (2025): GPT-5.1 has 256K tokens, Claude Sonnet 4.5 has 200K, and Gemini 3 offers up to 2 million tokens — enough for over a thousand pages.
 
-Generation: the model always generates something. It doesn't say "I don't know" naturally — this is where hallucinations come from.
+For medical use: larger windows let you analyze entire patient histories or research papers in one go.
+:::
 
-Fine-tuning: for clinical applications, always prefer models fine-tuned on medical data when available.
+------------------------------------------------------------------------
 
-This technical foundation helps you use LLMs more effectively and understand their limitations.
+## [Dataset Shift: AI Models Are Not Eternal]{style="color:#884EA0;"}
+
+### [Why today's model may fail tomorrow]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   📅 **Knowledge cutoff**: model only knows what existed during training
+    -   Each model has a training date (check documentation)
+    -   Won't know new drugs, updated guidelines, recent outbreaks
+-   📊 **Dataset shift**: the world changes, but the model doesn't
+    -   New diseases, evolving treatment protocols, changing resistance patterns
+-   🔄 **Model drift**: performance degrades over time without updates
+:::
+
+::: callout-important
+An AI model is a **snapshot** of knowledge at training time. Always verify against current guidelines.
+:::
+
+::: notes
+This is a critical concept: AI models are not eternal.
+
+Knowledge cutoff: every model has a training date, and it knows nothing after that. If you ask about a drug approved after the cutoff, it won't know — or worse, it might hallucinate an answer. Always check the model's documentation for its training date.
+
+Dataset shift: the real world changes constantly. A model trained on 2020 data may make incorrect predictions on 2025 patients because disease patterns, treatment protocols, and drug resistance have shifted.
+
+Model drift: even if the world stayed the same, models can degrade over time as they're used in ways that differ from their training conditions.
+
+This is why responsible AI deployment requires continuous monitoring and retraining. Always check when a model was last updated.
 :::
 
 ------------------------------------------------------------------------
@@ -411,7 +440,7 @@ Again, this is decision support — the final interpretation requires clinical c
 
 ### [Clinical reasoning support]{style="color:#117A65;"}
 
-::: {style="font-size: 0.8em;"}
+::: {style="font-size: 0.6em;"}
 **Input prompt**:
 
 > "55-year-old female with progressive fatigue, weight loss, and hyperpigmentation. Labs show hyponatremia (128 mEq/L), hyperkalemia (5.8 mEq/L), low morning cortisol. Generate differential diagnosis."
@@ -438,33 +467,29 @@ This mirrors how LLMs might support clinical reasoning in complex cases — as a
 
 ------------------------------------------------------------------------
 
-## [Beyond General LLMs: Specialized AI]{style="color:#884EA0;"}
+## [From Text to Multimodal AI]{style="color:#884EA0;"}
 
-### [Domain-specific models for medicine]{style="color:#117A65;"}
+### [Beyond chatbots: specialized medical AI]{style="color:#117A65;"}
 
-::: {style="font-size: 0.85em;"}
--   🌍 **General LLMs** (ChatGPT, Claude): versatile but shallow in medicine
--   🏥 **Medical LLMs** (Med-PaLM, BioMistral): fine-tuned on clinical literature
--   🔬 **Specialized AI systems**: trained for specific tasks
-    -   Pathology: analyze H&E slides, detect biomarkers
-    -   Radiology: interpret X-rays, CT, MRI
-    -   Oncology: predict treatment response, identify targets
+::: {style="font-size: 0.9em;"}
+-   💬 **Text-only LLMs**: documentation, literature — limited for diagnosis
+-   🔬 **Specialized AI**: pathology slides, radiology, oncology predictions
+-   🧬 **Multimodal AI**: images + genomics + clinical records + labs
+    -   Discovers patterns invisible to single-modality analysis
 :::
 
 ::: callout-note
-The most impactful medical AI combines **domain expertise** with **multimodal data** (images + genomics + clinical records).
+The most impactful medical AI combines **domain expertise** with **multimodal data**.
 :::
 
 ::: notes
-It's important to distinguish between general chatbots and specialized medical AI.
+So far we've discussed text-based LLMs. But the most powerful medical AI goes beyond text.
 
-General LLMs are good for text tasks but lack deep medical reasoning.
+Specialized AI systems are trained for specific clinical tasks — analyzing pathology slides, reading radiology images, predicting treatment response. These aren't chatbots; they're diagnostic tools with validated performance.
 
-Medical LLMs are fine-tuned on PubMed, clinical guidelines, and textbooks — better for medical questions but still text-only.
+Multimodal AI takes this further by integrating multiple data types: histopathology images, genomic profiles, clinical records, and lab values. This enables discoveries that would be impossible from any single data source.
 
-The most powerful systems combine AI with multimodal data: histopathology images, genomic profiles, and clinical records. These can predict outcomes and identify biomarkers in ways that text-only models cannot.
-
-This is where companies like Owkin are working — at the intersection of AI and biological data.
+This is where companies like Owkin are working — combining AI with rich biological data to accelerate drug development and improve patient outcomes.
 :::
 
 ------------------------------------------------------------------------
@@ -567,7 +592,6 @@ Specialized AI systems address this differently — they're trained on specific 
 
 ::: {style="font-size: 0.85em;"}
 -   ⚖️ **Bias**: reproduces biases in training data (demographic, geographic)
--   📅 **Knowledge cutoff**: doesn't know recent publications or guidelines
 -   🔒 **Privacy**: commercial APIs may retain prompts — never input PHI
 -   🧮 **Reasoning limits**: still unreliable for complex multi-step calculations
 -   📋 **Accountability**: who is responsible for an AI-assisted error?
@@ -575,17 +599,15 @@ Specialized AI systems address this differently — they're trained on specific 
 :::
 
 ::: notes
-Beyond hallucinations, other important limitations:
+Beyond hallucinations and dataset shift, other important limitations:
 
-Bias: models can perpetuate disparities if trained on unrepresentative data.
+Bias: models can perpetuate disparities if trained on unrepresentative data. A model trained mostly on data from one demographic may perform poorly on others.
 
-Knowledge cutoff: ChatGPT doesn't know about papers published last month.
+Privacy: never input real patient data on commercial APIs unless you have a Business Associate Agreement in place.
 
-Privacy: never input real patient data on commercial APIs unless you have a BAA in place.
+Accountability: the medico-legal framework for AI-assisted errors is still evolving. Who is responsible if an AI-assisted decision harms a patient?
 
-Accountability: the medico-legal framework for AI-assisted errors is still evolving.
-
-Regulatory status: most general LLMs are explicitly NOT medical devices. Specialized tools go through proper regulatory pathways (CE marking, FDA clearance).
+Regulatory status: most general LLMs are explicitly NOT medical devices. Specialized diagnostic tools go through proper regulatory pathways (CE marking, FDA clearance).
 :::
 
 ------------------------------------------------------------------------
@@ -596,7 +618,7 @@ Regulatory status: most general LLMs are explicitly NOT medical devices. Special
 
 ::: {style="font-size: 0.85em;"}
 | ✅ Do | ❌ Don't |
-|:-----------------------------------|:-----------------------------------|
+|:---|:---|
 | Use as **draft generator** | Trust blindly without review |
 | **Verify** all factual claims | Input PHI on public APIs |
 | Use **validated tools** for clinical decisions | Use ChatGPT for diagnosis |
@@ -625,26 +647,28 @@ Document when you use AI assistance — this is increasingly important for liabi
 ### [Controlling LLM behavior]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
--   🌡️ **Temperature**: creativity level
-    -   Low (0.1-0.3): consistent, deterministic — best for clinical use
-    -   High (0.7-1.0): creative, varied — for brainstorming
--   ✂️ **Max tokens**: limit output length
--   🎯 **System prompt**: define role and constraints
--   📋 **Context window**: how much text the model can "see" (4K-128K tokens)
+-   🌡️ **Temperature**: controls randomness/creativity
+    -   Low (0.0-0.3): consistent, deterministic — **best for clinical use**
+    -   High (0.7-1.0): creative, varied — for brainstorming only
+-   ✂️ **Max tokens**: limit output length (controls cost and verbosity)
+-   🎯 **System prompt**: define role, constraints, and behavior
+    -   Example: "You are a clinical assistant. Always cite sources. Never provide specific drug doses without verification."
 :::
 
 ::: {style="font-size: 0.8em;"}
-**Example**: "Interpret this ECG" at temperature 0.1 gives consistent output. At 0.8, you get creative but potentially unreliable variations.
+**Clinical tip**: For medical tasks, always use low temperature. "Interpret this ECG" at temperature 0.1 gives consistent, reproducible output. At 0.8, you get creative but potentially dangerous variations.
 :::
 
 ::: notes
-If you're using LLMs directly, these parameters matter:
+If you're using LLMs directly through APIs or platforms that expose these settings, a few parameters are important to understand:
 
-Temperature controls randomness. For clinical tasks, keep it low (0.1-0.3) for consistent, reproducible outputs.
+Temperature is the most important. It controls how "creative" or random the model's outputs are. For clinical tasks, always keep it low — you want consistent, reproducible results, not creative variations.
 
-System prompt lets you define the AI's role and constraints — "You are a clinical assistant. Always cite sources. Never provide specific drug doses."
+Max tokens limits how long the response can be. This is useful for controlling costs and preventing overly verbose outputs.
 
-Context window determines how much text the model can process at once — important for long documents like clinical trials or patient histories.
+System prompt is powerful — it lets you define the AI's role and set constraints upfront. You can instruct it to always cite sources, never provide specific drug doses, or flag uncertainty explicitly.
+
+We already discussed context window in the technical section — remember it determines how much the model can "see" at once.
 :::
 
 ------------------------------------------------------------------------
