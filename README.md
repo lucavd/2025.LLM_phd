@@ -17,6 +17,7 @@ This course introduces PhD students to the rapidly evolving field of Large Langu
 
 Access the course materials online:
 - Course Slides: [English](https://lucavd.github.io/2025.LLM_phd/LLM_Course_slides.html) | [Italian](https://lucavd.github.io/2025.LLM_phd/LLM_Course_slides_ITA.html)
+- Short Seminar (20 min): [LLM in Medicine](https://lucavd.github.io/2025.LLM_phd/LLM_Medicine_seminar_v2.html)
 - [Practical Session](https://lucavd.github.io/2025.LLM_phd/LLM_practical_session.html)
 - [Course Homepage](https://lucavd.github.io/2025.LLM_phd/index.html)
 
@@ -36,7 +37,9 @@ University of Padua, Italy
 
 ## 📄 License
 
-The materials in this repository are provided for educational purposes. Please refer to the specific license information included with individual resources.
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
+
+You are free to share and adapt this material for non-commercial purposes, as long as you give appropriate credit.
 
 ## 🙏 Acknowledgments
 
