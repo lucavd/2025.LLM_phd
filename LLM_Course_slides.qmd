@@ -691,7 +691,7 @@ In clinical settings, these subtle hallucinations can be more dangerous than obv
 #### [Pros and Cons]{style="color:#117A65;"}
 
 | ✅ Advantages | ⚠️ Limitations |
-|:----------------------------------|:------------------------------------|
+|:---|:---|
 | Fast information retrieval | Hallucinations: plausible but wrong answers |
 | Assist in decision support | Algorithmic bias from training data |
 | Summarize complex medical texts | Lack of full interpretability |
@@ -745,6 +745,70 @@ Teach users: **Plausibility is not correctness**!
 > -   In clinical and laboratory applications: **always validate** before trusting.
 :::
 ::::
+
+------------------------------------------------------------------------
+
+### [Reasoning Models: Let the Model Think]{style="color:#884EA0;"}
+
+#### [The big shift of 2024-2026]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 **Reasoning models** spend extra compute "thinking" before answering
+    -   Generate a long internal chain of thought, then a final answer
+-   ⏱️ Trade-off: **slower and more expensive**, but better on complex tasks
+-   🩺 Strong on tasks that need multi-step logic:
+    -   Differential diagnosis from a long history
+    -   Drug interaction reasoning
+    -   Interpreting non-trivial lab panels
+-   🔧 Current examples (May 2026):
+    -   OpenAI **o3 / GPT-5.5 thinking** mode
+    -   Anthropic **Claude with extended thinking**
+    -   **DeepSeek R1** (open-weight reasoning model)
+    -   **Gemini 3.x Thinking**
+:::
+
+::: notes
+For the last decade, neural networks were "feed-forward": you push input in, you get output out, and the amount of compute spent per answer is roughly fixed.
+
+The big shift of the last two years is **reasoning models**, also called **thinking models**. The idea is simple but powerful: instead of producing the answer in one shot, the model first writes a long internal "chain of thought", explores intermediate steps, sometimes backtracks, and only then produces the final answer. The user usually sees only a short summary of this reasoning, or none of it at all.
+
+The trade-off is clear: these models are **slower and more expensive per query** than the previous generation, because they spend many tokens on reasoning that you never see. In exchange, they are much better on tasks that require multi-step logic, exactly the kind of tasks medicine is full of: building a differential diagnosis from a complex history, reasoning about drug-drug interactions, interpreting a panel of labs that, taken individually, look normal but together suggest a syndrome.
+
+The big names in May 2026 are: OpenAI's **o3** and the "thinking" mode of **GPT-5.5**; Anthropic's **Claude with extended thinking**; **DeepSeek R1**, which is particularly important because it is open-weight, meaning hospitals can self-host it; and Google's **Gemini 3.x Thinking**.
+
+Practical advice. For quick summarization, use a fast non-reasoning model. For clinical reasoning, complex diagnostics, or anything where you want the model to "think twice", switch to a reasoning model. The latency is higher, but the accuracy gain is real, and the cost is still negligible compared to a clinician's time.
+:::
+
+------------------------------------------------------------------------
+
+### [Retrieval-Augmented Generation (RAG)]{style="color:#884EA0;"}
+
+#### [Anchor the model to real documents]{style="color:#117A65;"}
+
+::: {style="font-size: 0.85em;"}
+-   🧠 **Problem**: a plain LLM only knows what it saw during training
+    -   No new guidelines, no internal protocols, no patient EHR
+-   📚 **RAG**: before answering, the system **retrieves** relevant documents
+    -   Local guidelines, hospital protocols, scientific papers, patient records
+    -   These documents are added to the prompt as context
+-   🎯 **Why it matters in medicine**:
+    -   Reduces hallucinations (the model cites real text)
+    -   Keeps the model up to date without retraining
+    -   Allows answers grounded in **your** institution's data
+-   🛠️ Typical stack: vector database + embeddings + LLM (e.g., Llama 4 + pgvector)
+:::
+
+::: notes
+Even the best LLM has two big limits: it only knows what was in its training data, and it has no access to your specific documents (your hospital's protocols, your local guidelines, your patient records). For most serious clinical applications, this is a deal-breaker.
+
+The standard solution today is called **Retrieval-Augmented Generation**, RAG. The idea is simple. Before sending a question to the LLM, a separate system **retrieves the documents most relevant to the question** from a curated collection. Those documents are added to the prompt, and the LLM is instructed to answer **based on them**, and to cite them. This is what every serious medical AI product is doing under the hood, from clinical decision support tools to literature search assistants.
+
+The advantages in medicine are huge. First, you can ground the answer in **your** institution's data: local protocols, your formulary, your guidelines, even individual patient records, without retraining the model. Second, you reduce hallucinations dramatically, because the model is now answering with real text in front of it, not from memory. Third, you can update knowledge by simply updating the document collection: when a guideline changes, you do not retrain a billion-parameter model, you just re-index the new document.
+
+The typical technical stack is: a vector database to store the documents, an embedding model to encode them so you can find "semantically similar" passages, and an LLM to generate the answer. You can build this fully on-premise with open-weight models like Llama 4, which is essential for patient data.
+
+If you remember one thing from this part of the course: a plain LLM is a brilliant but amnesiac generalist. RAG is what turns it into a useful clinical assistant grounded in real evidence.
+:::
 
 ------------------------------------------------------------------------
 
@@ -970,15 +1034,15 @@ The bridge between vision and language is what makes multimodal models so powerf
 :::::
 
 ::: notes
-Let's enter the exciting territory of multimodal models - LLMs that can process both text and images. This is a true revolution for medicine, where visual information is often crucial.
+Let's enter the territory of multimodal models, LLMs that can process text, images, and increasingly audio. For medicine, where visual information is often crucial, this matters a lot.
 
-Models like GPT-4V, Claude 3, and Gemini can literally "see" medical images and discuss them in clinical context. The applications are enormous: they can describe radiological images, interpret ECG patterns, analyze microscopy slides, and even read handwritten medical notes that traditional OCR systems would struggle to decipher.
+Today's frontier models, GPT-5.5, Claude Opus 4.6 and 4.7, and Gemini 3.1 Pro, are natively multimodal: they were trained on text, images, and in some cases audio and video together. They can describe radiological images, interpret ECG patterns, analyze microscopy slides, and read handwritten notes that traditional OCR cannot decipher. GPT-5.5 in particular added native audio input, which means you can talk to it and it preserves prosody and accent without a separate transcription step.
 
 The workflow is intuitive: you upload an image, add a clinical question, and the model integrates both modalities in its response. For example, you can upload a chest X-ray and ask "What do you see in this X-ray of a 65-year-old patient with shortness of breath?" The model will describe the visible findings considering the clinical context provided.
 
 This is particularly powerful because it combines visual analysis with medical knowledge. It doesn't just describe the image, but interprets it in light of the clinical history.
 
-Of course, there are important limitations. These systems are not FDA-approved for diagnosis - they are assistance tools, not substitutes for clinical judgment. Performance varies significantly between different imaging modalities and image types. And every output requires clinical verification.
+Of course, there are important limitations. These systems are not approved as standalone diagnostic devices, neither by FDA nor under EU MDR. They are assistance tools, not substitutes for clinical judgment. Performance varies significantly across imaging modalities and image types. And every output requires clinical verification.
 
 But the potential is undeniable. We're seeing radiologists use these tools to generate preliminary report drafts, pathologists using them to compare samples with similar cases, and cardiologists accelerating routine ECG interpretation.
 
@@ -999,8 +1063,8 @@ The key is to use them as intelligent assistants, not as substitutes for expert 
 ------------------------------------------------------------------------
 
 -   🩺 **Medical-specific LLMs**\
-    Trained on clinical records, guidelines, scientific papers ➔ Accurate but less flexible.\
-    **Examples**: PathChat, BrainGPT, LiVersa.
+    Trained or fine-tuned on clinical records, guidelines, scientific papers ➔ Better in-domain, less flexible outside.\
+    **Examples**: MedGemini / MedLM (Google), OpenAI Health (GPT-5 based, 2026), PathChat (pathology), Open-Medical-LLaMA, BioMistral.
 
 ------------------------------------------------------------------------
 
@@ -1021,8 +1085,8 @@ This makes them extremely **versatile** — they can reason, summarize, improvis
 But here’s the catch: they don't really **understand medicine**.\
 They can sound **very confident** even when they use the wrong terminology or miss important clinical nuances.
 
-On the other side, we have the **medical-specific models**, such as PathChat, BrainGPT, and LiVersa.\
-These models are trained **exclusively** on clinical datasets: patient records, guidelines, and scientific papers.\
+On the other side, we have the **medical-specific models**, such as Google's MedGemini and MedLM, OpenAI Health (released in January 2026 and built on GPT-5.2), PathChat for pathology, and open alternatives like Open-Medical-LLaMA and BioMistral.\
+These models are trained or fine-tuned on clinical datasets: patient records, guidelines, and scientific papers.\
 The result?\
 - Much better **medical terminology**,\
 - Stronger **contextual accuracy**,\
@@ -1077,24 +1141,26 @@ These applications are just the tip of the iceberg. The key idea is that LLMs ar
 
 #### [Two ways to interact with LLMs]{style="color:#117A65;"}
 
-::: {style="font-size: 0.9em;"}
--   💬 **Chat Mode**:\
-    ➔ Interactive, no coding required.\
-    ➔ Best for brainstorming, exploration.\
-    ➔ ❗ Less control and reproducibility.
+::::: columns
+::: {.column width="50%" style="font-size: 0.8em;"}
+**💬 Chat Mode**
 
-------------------------------------------------------------------------
-
--   🔗 **API Mode**:\
-    ➔ Structured programmatic queries.\
-    ➔ Best for automation, scalability.\
-    ➔ ✅ Full control over outputs.
+-   Interactive, no coding required
+-   Best for brainstorming, exploration
+-   ❗ Less control and reproducibility
 :::
 
-::: callout-note
-⚡ **Key Tip**:\
-Use **Chat Mode** to explore.\
-Use **API Mode** to automate.
+::: {.column width="50%" style="font-size: 0.8em;"}
+**🔗 API Mode**
+
+-   Structured programmatic queries
+-   Best for automation, scalability
+-   ✅ Full control over outputs
+:::
+:::::
+
+::: {.callout-note style="font-size: 0.85em;"}
+⚡ Use **Chat Mode** to explore. Use **API Mode** to automate.
 :::
 
 ::: notes
@@ -1130,38 +1196,30 @@ Both are powerful, but they serve very different needs.
 ### [The model re-reads everything every time]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
-- 📚 Every new message = model re-reads **all previous conversation**
-- 🔄 Chat history + new user message are **sent again at every turn**
-- 📈 Cost and response time grow with chat length
-- 🧠 Model does not have memory between sessions: only current context
+-   📚 Every new message = model re-reads **all previous conversation**
+-   🔄 Chat history + new user message are **sent again at every turn**
+-   📈 Cost and response time grow with chat length
+-   🧠 Model does not have memory between sessions: only current context
 :::
 
 ::: notes
 Now let's clarify how chat mode actually works inside an LLM.
 
-Every time you send a new message, the model doesn’t just "continue" from where it left off.  
+Every time you send a new message, the model doesn’t just "continue" from where it left off.\
 Instead, it **re-reads the entire conversation history**, plus your new message.
 
-At every turn, the model receives:
-- All previous messages
-- Plus the new user input
+At every turn, the model receives: - All previous messages - Plus the new user input
 
 It processes the entire combined text from scratch — as if it were seeing it for the first time.
 
-This means:
-- **Cost** increases because more tokens are processed.
-- **Response time** increases because more text has to be analyzed.
-- **Risk of exceeding the context window** increases.
+This means: - **Cost** increases because more tokens are processed. - **Response time** increases because more text has to be analyzed. - **Risk of exceeding the context window** increases.
 
-And very importantly:  
-**The model does not have persistent memory** between chats or sessions.  
-Everything it knows is only what you send **right now** in the current context.
+And very importantly: **The model itself does not have persistent memory** between chats or sessions. Everything it knows is only what you send right now in the current context.
+
+A note for completeness: products like ChatGPT, Claude (via Projects), and Gemini now offer "memory" features that store notes about the user across sessions. This is implemented **on top** of the model, not inside it: the product saves snippets in a database and injects them into the context at every new conversation. From a clinical compliance point of view this is important, because that stored memory is patient data and falls under GDPR.
 :::
 
-
 ------------------------------------------------------------------------
-
-
 
 ### [Context Window: How Much an LLM Can Remember]{style="color:#884EA0;"}
 
@@ -1182,7 +1240,7 @@ the **context window** of a language model.
 The context window defines the **maximum number of tokens** the model can handle at once.\
 This includes both: - The text you write (the prompt) - And the text the model generates (the response)
 
-For example: - GPT-3.5 has a limit of about **4,096 tokens**. - GPT-4 can handle up to **8,192** or even **32,768 tokens** in some versions. - Local models like Mistral typically handle **4,000 to 8,000 tokens**.
+For example: most current frontier models (GPT-5.5, Claude Opus 4.x, Gemini 3.x) handle from **200,000 up to 2 million tokens**. Open-weight models you can run locally (Llama 4, Qwen 3, DeepSeek V4) typically handle around **128,000 tokens**.
 
 But what happens if your conversation becomes longer than this limit?
 
@@ -1200,38 +1258,28 @@ This is especially risky in clinical or scientific applications where every deta
 #### [Memory limits of major LLMs]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
-| Model               | Context Window     | Approx. Pages |
-|:--------------------|:-------------------|:--------------|
-| 🤖 GPT-3.5          | \~4,096 tokens     | \~10 pages    |
-| 🧠 GPT-4 (standard) | \~8,192 tokens     | \~20 pages    |
-| 🧠 GPT-4 (extended) | \~32,768 tokens    | \~80 pages    |
-| 🤯 Claude 3         | \~200,000 tokens   | \~500 pages   |
-| 🌟 Gemini 2.5 Pro   | \~2,000,000 tokens | \~5,000 pages |
-| 🧩 Mistral 7B       | \~8,192 tokens     | \~20 pages    |
-| 🦙 Llama 2 13B      | \~4,096 tokens     | \~10 pages    |
+| Model                  | Context Window   | Approx. Pages       |
+|:-----------------------|:-----------------|:--------------------|
+| 🤖 GPT-5.5             | \~400,000 tokens | \~1,000 pages       |
+| 🧠 Claude Opus 4.6/4.7 | \~200,000 tokens | \~500 pages         |
+| 🌟 Gemini 3.1 Pro      | \~1-2M tokens    | \~3,000-5,000 pages |
+| 🐋 DeepSeek V4         | \~128,000 tokens | \~320 pages         |
+| 🦙 Llama 4 (open)      | \~128,000 tokens | \~320 pages         |
+| 🧩 Qwen 3 (open)       | \~128,000 tokens | \~320 pages         |
 :::
 
 ::: notes
-Let's now update our view of context window sizes — and make it practical by thinking in terms of book pages.
+Let's look at the current context window sizes (May 2026), translated into book pages for practical intuition.
 
-**GPT-3.5**, the classic model behind ChatGPT, handles about **4,000 tokens** — roughly **10 pages** of text.
+**GPT-5.5** by OpenAI handles around **400,000 tokens**, roughly **1,000 pages** of text. Its smaller siblings like GPT-5-mini and GPT-5-nano keep the same window but at a fraction of the cost.
 
-**GPT-4**, in its standard form, covers about **8,000 tokens**, or about **20 pages**.\
-Its extended version, available in premium services, can process about **80 pages** — really powerful for longer reasoning tasks.
+**Claude Opus 4.6 and 4.7** by Anthropic keep the **200,000 token** window that was already standard in the Claude 3 family, around **500 pages**, but pair it with much stronger reasoning and tool use.
 
-**Claude 3**, by Anthropic, is remarkable: it can handle **around 200,000 tokens**, roughly **500 pages** — that's almost a full textbook.
+**Gemini 3.1 Pro** by Google still leads on raw size, with windows up to **1 to 2 million tokens**, which is in the order of **thousands of pages**. At that scale you can ingest entire textbooks, registries, or longitudinal patient records.
 
-**Gemini 2.5 Pro**, Google's latest model, is even more extreme:\
-It claims to process **2 million tokens** — about **5,000 pages**.\
-At that scale, you could feed entire research libraries into the model.
+**DeepSeek V4**, **Llama 4**, and **Qwen 3** are the most capable open-weight models you can self-host today. They settled around **128,000 tokens**, which is plenty for most clinical documents.
 
-**Mistral 7B**, a popular open-source model, handles around **8,000 tokens**, comparable to GPT-4 standard.
-
-**Llama 2 13B** — another open model — handles around **4,000 tokens**.
-
-The big takeaway is simple:\
-Modern models vary enormously in how much information they can "see" at once.\
-Choosing the right model and designing prompts that fit the context window are key to success, especially in clinical, legal, or academic settings.
+Two practical takeaways. First, the context window is no longer the bottleneck it was two years ago. Second, "long context does not mean perfect recall": all models still degrade in the middle of very long inputs. So even with a 1 million token window, you should organize the prompt carefully, and not assume the model has read every detail with equal attention.
 :::
 
 ------------------------------------------------------------------------
@@ -1263,8 +1311,6 @@ Practically, this can **severely affect** performance — especially in clinical
 Given how chat mode works — re-sending the entire history every time — there are some very practical consequences you need to manage carefully.
 
 By managing the context well, you maintain accuracy, control cost, and avoid errors caused by missing or forgotten information.
-
-
 :::
 
 ------------------------------------------------------------------------
@@ -1295,7 +1341,7 @@ Medical records tend to be lengthy, and important information is often distribut
 
 In the example shown, medication instructions placed at the end of a discharge summary could be lost entirely if the context window is too small, potentially leading to treatment errors.
 
-This directly impacts how we should structure prompts for clinical applications, and highlights why newer models with larger context windows (like Claude and GPT-4) represent significant improvements for healthcare applications.
+This directly impacts how we should structure prompts for clinical applications, and explains why the move from 4K-8K token windows of a few years ago to today's 200K-2M token windows in models like Claude Opus 4.x, GPT-5.5, and Gemini 3.x has been a significant practical improvement for healthcare use cases.
 :::
 
 ------------------------------------------------------------------------
@@ -1394,29 +1440,28 @@ In clinical practice, APIs are powerful because they make LLMs **truly scalable 
 :::
 
 ::: {.column width="45%" style="font-size: 0.85em;"}
--   📈 **Sample results comparison**:
-
-| Model    | Accuracy | Hallucination Rate |
-|:---------|:--------:|:------------------:|
-| GPT-4    |   89%    |        4.5%        |
-| Claude 3 |   91%    |        3.2%        |
-| Mistral  |   85%    |        6.7%        |
-| Med-PaLM |   93%    |        2.8%        |
+-   📈 **Where to look (May 2026)**:
+    -   MedQA, MedMCQA, PubMedQA
+    -   HealthBench (OpenAI, 2025)
+    -   MMLU-Pro Medicine subset
+    -   HLE (Humanity's Last Exam) medical subset
+-   ⚠️ **Honest caveat**:
+    -   Numbers age in months, not years
+    -   Always check the model card and the leaderboard date
+    -   Saturation on MCQ benchmarks does not equal clinical safety
 :::
 :::::
 
 ::: notes
-As healthcare professionals, we're used to rigorously evaluating new tools and therapies before adoption. LLMs should be no different. Let's analyze how to quantitatively measure their performance in clinical settings.
+As healthcare professionals, we are used to rigorously evaluating new tools and therapies before adoption. LLMs should be no different. So let's talk about how to quantitatively measure their performance in clinical settings.
 
-Key metrics we need to consider include accuracy - how correct is the medical information provided; consistency - how reliable are responses to similar queries; hallucination rate - how often the model invents information; and clinical relevance - how applicable are the responses to patient care.
+The key metrics we care about are: accuracy (is the medical information correct), consistency (does the model give the same answer to similar queries), hallucination rate (how often does it invent information), and clinical relevance (is the answer actually useful at the bedside).
 
-To evaluate these metrics, we can use several methods. Expert review panels, where specialists evaluate responses, are the gold standard but time-consuming. Comparison with recognized standards, like guidelines or medical texts, is more efficient. Inter-model consistency checks can reveal informational discrepancies. And structured clinical scenarios allow standardized testing on specific cases.
+To evaluate these metrics, we can use several approaches. Expert review panels are the gold standard but they are slow. Comparison against guidelines is faster. Inter-model consistency checks help flag suspicious answers. Structured clinical scenarios allow reproducible testing.
 
-The table shows some comparative results from a recent study of ours. Notice how models specialized for medicine, like Med-PaLM, tend to outperform generic models. The hallucination rate is particularly important - it represents how often the model generates false but plausible information.
+I want to be honest about benchmarks. I deliberately do not show a fixed table of accuracy numbers here, because in this field the leaderboard changes every few weeks. By the time slides are printed, the numbers are already wrong. What I want you to remember is the list of relevant benchmarks: MedQA, MedMCQA, PubMedQA for clinical knowledge MCQs, HealthBench released by OpenAI in 2025 for realistic clinical conversations, the medical subset of MMLU-Pro, and the medical subset of Humanity's Last Exam for very hard cases.
 
-These data suggest we're reaching interesting performance levels, but we're still far from 100% accuracy. That's why human verification remains essential, especially for information critical to patient care.
-
-When implementing these tools in your contexts, I recommend conducting similar evaluations, specific to your use cases, to understand the strengths and limitations of the models you choose.
+The other thing I want you to internalize is that scoring 95 percent on a multiple choice exam does not mean a model is safe in your clinic. Benchmarks measure narrow tasks; clinical safety requires evaluation on your own data, in your own workflow, on the specific decisions you delegate. Always run your own eval on your own cases before trusting any number.
 :::
 
 ------------------------------------------------------------------------
@@ -1520,7 +1565,7 @@ Choosing between commercial and open depends on your priorities:\
 
 ::: {style="font-size: 0.85em;"}
 | 🏥 **Scenario** | 🚀 **Recommended Approach** |
-|:--------------------------|:--------------------------------------------|
+|:---|:---|
 | Rapid prototyping or brainstorming | **Commercial model** (easy access, strong performance) |
 | Handling sensitive patient data | **Open-source model** (self-hosted, private) |
 | Need for strong clinical language precision | **Fine-tuned open-source model** (customizable) |
@@ -1590,31 +1635,35 @@ In the next practical module, we'll see precisely how to configure LM Studio for
 
 ------------------------------------------------------------------------
 
-### [LM Studio & WebLLM: Local LLMs for Clinical Use]{style="color:#884EA0;"}
+### [Tools to Run LLMs Locally]{style="color:#884EA0;"}
 
-#### [Run AI models privately and offline]{style="color:#117A65;"}
+#### [LM Studio, Ollama, WebLLM]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
--   🖥️ **LM Studio**:
+-   🖥️ **LM Studio** (used in the practical session):
     -   Desktop app for Windows, macOS, Linux
-    -   Download and run open-source models locally
-    -   Offers chat interface and API server
-    -   Ideal for offline, privacy-sensitive tasks
+    -   GUI to download and run open-weight models locally
+    -   Built-in OpenAI-compatible API server
+-   🐚 **Ollama**:
+    -   Command-line oriented, very popular among developers
+    -   Same idea (local models + local API), more scriptable
+    -   Easy to embed in workflows and pipelines
 -   🌐 **WebLLM**:
-    -   Runs LLMs directly in your browser
-    -   No installation or backend needed
-    -   Powered by WebGPU for fast inference
-    -   Great for lightweight, portable deployments
+    -   Runs LLMs directly in your browser via WebGPU
+    -   No installation, no backend
+    -   Smaller models, but zero footprint on the device
 :::
 
 ::: notes
-Let’s now explore two powerful tools that allow you to run large language models locally: **LM Studio** and **WebLLM**.
+Let's now look at the most common ways to run LLMs locally. We will use **LM Studio** in the practical session, but you should know there are several good options today.
 
-**LM Studio** is a desktop application compatible with Windows, macOS, and Linux. It enables you to download and run open-source models directly on your machine. With its user-friendly chat interface and built-in API server, LM Studio is ideal for offline tasks where data privacy is paramount.
+**LM Studio** is a desktop application for Windows, macOS, and Linux with a friendly graphical interface. You browse a catalogue of open-weight models, download the one you want, and run it locally. It also exposes a local API server that is OpenAI-compatible, which means existing client code works out of the box. We will use it in the hands-on part.
 
-On the other hand, **WebLLM** operates entirely within your web browser. It leverages WebGPU to run models efficiently without any installation or backend infrastructure. This makes it perfect for lightweight and portable applications.
+**Ollama** is the other very popular option, especially among developers. It is command-line oriented, very lightweight, and integrates well with scripts and pipelines. Many of the open-source clinical NLP projects on GitHub now use Ollama as their default backend. If LM Studio is the "GUI" experience, Ollama is the "Unix philosophy" experience.
 
-The key advantage of both tools is the **full control over your data and models**, eliminating the need for cloud services and enhancing privacy and security in clinical settings.
+**WebLLM** is a different beast: it runs the model directly in the browser via WebGPU. No installation, no backend, the model runs on the user's device. It only works with smaller models, but for very simple summarization or Q&A on a clinician's laptop, it can be a zero-deployment solution.
+
+The shared advantage of all three is **full control over data**: nothing leaves your machine or your network. This is the main reason these tools are interesting for healthcare.
 :::
 
 ------------------------------------------------------------------------
@@ -1712,31 +1761,63 @@ In our testing, these techniques reduced hallucinations by over 60% and improved
 
 ### [Legal framework for AI in healthcare]{style="color:#117A65;"}
 
-::: {style="font-size: 0.85em;"}
+::: {style="font-size: 0.8em;"}
 -   🏛️ **Key regulations**:
-    -   HIPAA (US): Protected Health Information requirements
-    -   GDPR (EU): Special category data processing restrictions
-    -   MDR (EU): AI as medical device classification
--   ⚖️ **Compliance challenges**:
-    -   Data residency requirements for processing PHI
-    -   Right to explanation for AI-assisted decisions
-    -   Audit trails for AI-generated content
+    -   **EU AI Act** (Reg. 2024/1689) - risk-based framework
+    -   **GDPR** - health data is "special category"
+    -   **MDR / IVDR** - AI as medical device
+    -   **HIPAA** (US) - Protected Health Information
+-   ⚖️ Recurring challenges: data residency, right to explanation, audit trails, post-market monitoring
 :::
 
-::: callout-warning
-Always check if your LLM usage requires: 1. Patient consent 2. Data processing agreements 3. Classification as a medical device
+::: {.callout-warning style="font-size: 0.8em;"}
+Before deploying: 1) patient consent, 2) data processing agreements, 3) MDR/IVDR classification, 4) AI Act high-risk status.
 :::
 
 ::: notes
-This slide introduces the key regulatory frameworks that apply to healthcare AI applications.
+This slide gives the big picture of the regulatory frameworks that apply to healthcare AI in Europe and the US.
 
-For HIPAA compliance, the key concern is whether PHI is being transmitted to third-party servers when using commercial models. This is why on-premise models are often necessary for clinical applications.
+The most important new piece, and the one that probably did not exist when many of you last looked at this topic, is the **EU AI Act**, Regulation 2024/1689. It is a horizontal, risk-based framework that applies to any AI system placed on the EU market, including LLMs used in healthcare. We will spend the next slide on it because it directly affects what you can and cannot do.
 
-Under GDPR, health data is considered "special category data" with additional protections. AI systems must be transparent, and patients generally have the right to know when AI is being used and how it affects decisions.
+GDPR is still the baseline for personal data, and remember that health data is "special category" data: you need a specific legal basis and stronger safeguards. AI systems must also respect transparency: patients generally have the right to know when AI is involved in a decision that affects them.
 
-The Medical Device Regulation in Europe and similar FDA frameworks in the US may classify certain AI applications as medical devices requiring certification, especially if they're used for diagnosis or treatment planning.
+The Medical Device Regulation, MDR, and the In Vitro Diagnostic Regulation, IVDR, define when a piece of software, including an AI system, is itself a medical device. If your LLM application gives diagnostic, prognostic, or therapeutic information that directly informs clinical decisions, it is very likely a medical device, regardless of whether it runs in the cloud or on-premise.
 
-These regulatory issues directly impact decisions about which models to use and how to deploy them.
+In the US, HIPAA is the main concern: the question is always whether PHI is being transmitted to third-party servers and under what agreement. This is why local deployment or BAA-covered cloud services are often the only viable options.
+
+These regulations directly drive your model choice, your deployment architecture, and your documentation duties.
+:::
+
+------------------------------------------------------------------------
+
+## [The EU AI Act and Clinical LLMs]{style="color:#2E86C1;"}
+
+### [What changes in 2026-2027]{style="color:#117A65;"}
+
+::: {style="font-size: 0.8em;"}
+-   📅 **Key dates**:
+    -   **2 Aug 2026**: most high-risk AI obligations apply
+    -   **2 Aug 2027**: AI in CE-marked medical devices (MDR/IVDR)
+-   🚨 Healthcare AI = **automatically high-risk** if part of an MDR/IVDR device
+-   🧾 Main obligations: risk management, data governance, human oversight, accuracy & robustness, post-market monitoring
+:::
+
+::: {.callout-note style="font-size: 0.8em;"}
+**Rule of thumb**: if your LLM informs a clinical decision, assume it is high-risk and design for it from day one.
+:::
+
+::: notes
+Let's spend a few minutes on the EU AI Act because it is the most important regulatory change you will face if you build or buy LLM-based tools in Europe.
+
+The Act was adopted in 2024 and is being phased in. The dates you need to remember are these. Since February 2025, certain AI practices are already prohibited. Since August 2025, the rules on general-purpose AI models, the so-called GPAI rules that apply to providers of large foundation models, are in force. The big date is **August 2, 2026**, which is essentially a few months from today: most high-risk AI obligations enter into application. And then **August 2, 2027** is the date by which AI embedded in CE-marked medical devices under MDR or IVDR has to comply.
+
+There is an ongoing discussion at EU level, the "Digital Omnibus", that may extend these dates by about one year. As of today, I would not bet my project plan on the extension; I would treat the original dates as binding and prepare accordingly.
+
+Now, what counts as "high-risk" for us. The short version: any AI system that is itself a medical device under MDR or IVDR, or that is a safety component of one, is automatically high-risk under the AI Act. That covers diagnostic imaging software, software as a medical device for patient monitoring, AI-driven clinical decision support that goes beyond purely informational use, and so on. An LLM that summarizes discharge letters for the doctor to review may or may not be a device, depending on use. An LLM that suggests therapy adjustments almost certainly is.
+
+If your system is high-risk, you have a long list of obligations as a provider or deployer: a documented risk management process across the lifecycle, data governance for the training and evaluation data, technical documentation, logging, human oversight by design, demonstrated accuracy, robustness and cybersecurity, plus post-market monitoring and serious incident reporting.
+
+My practical advice: if you are even considering building an LLM tool that touches a clinical decision, **assume it is high-risk from day one** and design for it. Retrofitting compliance later is much more expensive than baking it in.
 :::
 
 ------------------------------------------------------------------------
@@ -1810,8 +1891,10 @@ This is still an evolving area legally, but maintaining clear documentation and 
 #### [ROI considerations for medical implementations]{style="color:#117A65;"}
 
 ::: {style="font-size: 0.85em;"}
--   💰 **Cost factors**:
-    -   API costs: \$0.50-\$20 per 1,000 clinical notes (model dependent)
+-   💰 **Cost factors (May 2026)**:
+    -   Mini/Flash models: a few cents per 1,000 clinical notes
+    -   Frontier models (Opus, GPT-5.5 Pro, Gemini 3.x Pro): \$0.50-\$5 per 1,000 notes
+    -   Self-hosted open-weight (Llama 4, Qwen 3): hardware cost, near-zero per query
     -   Staff time saved: 20-40% reduction in documentation time
     -   Training & implementation: 40-80 hours per department
 -   📊 **Real-world ROI examples**:
@@ -1827,7 +1910,7 @@ ROI is typically reached within 3-6 months when focusing on high-volume document
 ::: notes
 Let's move to the practical aspects of implementing LLMs in clinical settings - specifically, cost-benefit analysis. Hospital directors and laboratory managers constantly ask me: "Are these tools worth the investment?"
 
-Let's examine the main cost factors. API costs vary significantly depending on the model - we can spend from 50 cents up to \$20 to process 1,000 clinical notes. This depends on the complexity of the model and the provider.
+Let's examine the main cost factors. API costs have collapsed in the last 18 months. With the latest mini and flash models (GPT-5-mini, Claude Haiku 4.5, Gemini Flash 3.x), 1,000 clinical notes cost just a few cents. With frontier models like Claude Opus 4.6, GPT-5.5 Pro, or Gemini 3.1 Pro, you are typically in the range of 50 cents to a few dollars per 1,000 notes. And if you self-host an open-weight model like Llama 4 or Qwen 3, your marginal cost per query is essentially zero, you only pay for the hardware. The cost is no longer a barrier; the bottleneck is governance and validation.
 
 The main savings come from staff time. We're seeing 20-40% reductions in time spent on documentation. Think about what this means for doctors and specialists who spend hours each day writing notes.
 

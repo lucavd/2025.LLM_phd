@@ -11,7 +11,7 @@
 
 <meta name="author" content="LV" />
 
-<meta name="date" content="2025-04-30" />
+<meta name="date" content="2026-05-18" />
 
 <title>LLM Practical Session: Clinical Applications</title>
 
@@ -1304,8 +1304,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -1316,7 +1317,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -1559,7 +1560,7 @@ border-radius: 0px;
 <h1 class="title toc-ignore">LLM Practical Session: Clinical
 Applications</h1>
 <h4 class="author">LV</h4>
-<h4 class="date">2025-04-30</h4>
+<h4 class="date">2026-05-18</h4>
 
 </div>
 
@@ -1603,20 +1604,29 @@ intuitive graphical interface for interacting with models.</p>
 </blockquote></li>
 <li><p><strong>Launch LM Studio and Download a Model</strong></p>
 <ul>
-<li>Recommended models:
+<li>Recommended models (May 2026):
 <ul>
-<li>Qwen3 0.6B</li>
-<li>Llama 3 8B Instruct</li>
-<li>Gemma 7B Instruct</li>
+<li><strong>Qwen 3 (8B or 14B Instruct)</strong> - solid
+general-purpose, multilingual</li>
+<li><strong>Llama 4 (8B / Scout)</strong> - latest Meta open-weight
+family</li>
+<li><strong>Gemma 3 (4B / 12B)</strong> - small, fast, surprisingly
+capable</li>
+<li><strong>Phi-4 (Microsoft)</strong> - very strong for its size on
+reasoning</li>
+<li><strong>DeepSeek R1 Distill (7B / 14B)</strong> - small
+<em>reasoning</em> model, useful for diagnostic chains</li>
 </ul></li>
-<li>These models balance capability and reasonable hardware
-requirements</li>
+<li>For machines with limited RAM (≤ 16 GB) pick the 4B-8B variants</li>
+<li>These balance capability and reasonable hardware requirements</li>
 </ul>
 <blockquote>
-<p>The model size (7B, 8B) refers to the number of parameters in
+<p>The model size (4B, 8B, 14B) refers to the number of parameters in
 billions. Larger models are generally more capable but require more
-hardware resources. For medical contexts, models from the Mistral and
-Llama families tend to perform well even in more compact versions.</p>
+hardware. Note that DeepSeek R1 Distill is a “reasoning” model: it
+produces a hidden chain of thought before answering. Our R helper
+function already handles this case (see <code>remove_thinking</code>
+parameter later in the session).</p>
 </blockquote></li>
 <li><p><strong>Start the Local Server</strong></p>
 <ul>
@@ -2322,13 +2332,16 @@ guidelines</li>
 </blockquote></li>
 <li><p><strong>Comparison with Commercial Models</strong></p>
 <ul>
-<li>How do these local models compare to commercial ones like
-GPT-4?</li>
+<li>How do these local models compare to current commercial ones
+(GPT-5.5, Claude Opus 4.x, Gemini 3.x)?</li>
 <li>In what scenarios might a local model be preferable?</li>
 </ul>
 <blockquote>
-<p><strong>Trade-offs:</strong> Commercial models (like GPT-4, Claude)
-are generally more capable, but have disadvantages in terms of costs,
+<p><strong>Trade-offs:</strong> Frontier commercial models (GPT-5.5,
+Claude Opus 4.6/4.7, Gemini 3.1 Pro) are still measurably more capable
+on complex tasks than what you can run on a laptop, but the gap has
+narrowed dramatically with open-weight models like Llama 4, Qwen 3, and
+DeepSeek R1. Commercial models still have disadvantages in cost,
 internet dependency, and privacy. Local models are preferable when:</p>
 <ul>
 <li>Patient data should not leave the local system</li>
@@ -2359,19 +2372,31 @@ setting</li>
 <h2>📚 Resources</h2>
 <ul>
 <li><a href="https://lmstudio.ai/docs">LM Studio Documentation</a></li>
-<li><a href="https://docs.mistral.ai">Mistral AI Documentation</a></li>
+<li><a href="https://ollama.com">Ollama</a> - CLI alternative to LM
+Studio</li>
+<li><a href="https://huggingface.co/models">Hugging Face open-weight
+model hub</a></li>
 <li><a href="https://platform.openai.com/docs/api-reference">OpenAI API
 Reference</a> (for API format compatibility)</li>
+<li><a href="https://docs.anthropic.com">Anthropic API
+Reference</a></li>
 <li><a href="https://httr.r-lib.org">httr Package Documentation</a></li>
 <li><a href="https://cran.r-project.org/web/packages/jsonlite/index.html">jsonlite
 Package Documentation</a></li>
 </ul>
 <blockquote>
-<p><strong>Additional Resources:</strong> - <a href="https://sites.google.com/view/clinical-llm-challenge-neurips/">NeurIPS
-Clinical LLM Challenge</a> - Contains datasets and examples of clinical
-prompts - <a href="https://blog.google/technology/health/medpalm-2-research-large-language-models-medical-knowledge/">MedPaLM
-2</a> - Research on medicine-specific LLMs - <a href="https://www.nature.com/articles/s41746-023-00873-0">Chatbots for
-Clinical Informatics</a> - Paper on clinical use of LLMs</p>
+<p><strong>Additional Resources:</strong></p>
+<ul>
+<li><a href="https://openai.com/index/healthbench/">HealthBench (OpenAI,
+2025)</a> - benchmark for realistic clinical conversations</li>
+<li><a href="https://cloud.google.com/healthcare/docs/concepts/medlm">MedGemini
+/ MedLM (Google)</a> - current medical-specific LLM family</li>
+<li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">EU AI Act,
+Reg. 2024/1689 - official text</a></li>
+<li><a href="https://www.nature.com/articles/s44387-025-00047-1">Large
+language models in biomedicine and healthcare</a> - npj AI 2025
+review</li>
+</ul>
 </blockquote>
 </div>
 </div>

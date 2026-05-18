@@ -6,9 +6,8 @@
 <script src="LLM_Course_slides_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="LLM_Course_slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="LLM_Course_slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="LLM_Course_slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="LLM_Course_slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.57">
+<link href="LLM_Course_slides_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.26">
 
   <title>Generative AI and LLMs in Clinical and Laboratory Medicine</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,7 +28,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="LLM_Course_slides_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="LLM_Course_slides_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="styles.css">
   <link href="LLM_Course_slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="LLM_Course_slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -37,204 +36,6 @@
   <link href="LLM_Course_slides_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
   <link href="LLM_Course_slides_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="LLM_Course_slides_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-
-  .callout {
-    margin-top: 1em;
-    margin-bottom: 1em;  
-    border-radius: .25rem;
-  }
-
-  .callout.callout-style-simple { 
-    padding: 0em 0.5em;
-    border-left: solid #acacac .3rem;
-    border-right: solid 1px silver;
-    border-top: solid 1px silver;
-    border-bottom: solid 1px silver;
-    display: flex;
-  }
-
-  .callout.callout-style-default {
-    border-left: solid #acacac .3rem;
-    border-right: solid 1px silver;
-    border-top: solid 1px silver;
-    border-bottom: solid 1px silver;
-  }
-
-  .callout .callout-body-container {
-    flex-grow: 1;
-  }
-
-  .callout.callout-style-simple .callout-body {
-    font-size: 1rem;
-    font-weight: 400;
-  }
-
-  .callout.callout-style-default .callout-body {
-    font-size: 0.9rem;
-    font-weight: 400;
-  }
-
-  .callout.callout-titled.callout-style-simple .callout-body {
-    margin-top: 0.2em;
-  }
-
-  .callout:not(.callout-titled) .callout-body {
-      display: flex;
-  }
-
-  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
-    padding-left: 1.6em;
-  }
-
-  .callout.callout-titled .callout-header {
-    padding-top: 0.2em;
-    margin-bottom: -0.2em;
-  }
-
-  .callout.callout-titled .callout-title  p {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-    
-  .callout.callout-titled.callout-style-simple .callout-content  p {
-    margin-top: 0;
-  }
-
-  .callout.callout-titled.callout-style-default .callout-content  p {
-    margin-top: 0.7em;
-  }
-
-  .callout.callout-style-simple div.callout-title {
-    border-bottom: none;
-    font-size: .9rem;
-    font-weight: 600;
-    opacity: 75%;
-  }
-
-  .callout.callout-style-default  div.callout-title {
-    border-bottom: none;
-    font-weight: 600;
-    opacity: 85%;
-    font-size: 0.9rem;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
-
-  .callout.callout-style-default div.callout-content {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
-
-  .callout.callout-style-simple .callout-icon::before {
-    height: 1rem;
-    width: 1rem;
-    display: inline-block;
-    content: "";
-    background-repeat: no-repeat;
-    background-size: 1rem 1rem;
-  }
-
-  .callout.callout-style-default .callout-icon::before {
-    height: 0.9rem;
-    width: 0.9rem;
-    display: inline-block;
-    content: "";
-    background-repeat: no-repeat;
-    background-size: 0.9rem 0.9rem;
-  }
-
-  .callout-title {
-    display: flex
-  }
-    
-  .callout-icon::before {
-    margin-top: 1rem;
-    padding-right: .5rem;
-  }
-
-  .callout.no-icon::before {
-    display: none !important;
-  }
-
-  .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
-  }
-
-  .callout.callout-titled .callout-icon::before {
-    margin-top: .5rem;
-    padding-right: .5rem;
-  }
-
-  .callout:not(.callout-titled) .callout-icon::before {
-    margin-top: 1rem;
-    padding-right: .5rem;
-  }
-
-  /* Callout Types */
-
-  div.callout-note {
-    border-left-color: #4582ec !important;
-  }
-
-  div.callout-note .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
-  }
-
-  div.callout-note.callout-style-default .callout-title {
-    background-color: #dae6fb
-  }
-
-  div.callout-important {
-    border-left-color: #d9534f !important;
-  }
-
-  div.callout-important .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
-  }
-
-  div.callout-important.callout-style-default .callout-title {
-    background-color: #f7dddc
-  }
-
-  div.callout-warning {
-    border-left-color: #f0ad4e !important;
-  }
-
-  div.callout-warning .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
-  }
-
-  div.callout-warning.callout-style-default .callout-title {
-    background-color: #fcefdc
-  }
-
-  div.callout-tip {
-    border-left-color: #02b875 !important;
-  }
-
-  div.callout-tip .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
-  }
-
-  div.callout-tip.callout-style-default .callout-title {
-    background-color: #ccf1e3
-  }
-
-  div.callout-caution {
-    border-left-color: #fd7e14 !important;
-  }
-
-  div.callout-caution .callout-icon::before {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
-  }
-
-  div.callout-caution.callout-style-default .callout-title {
-    background-color: #ffe5d0
-  }
-
-  </style>
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -1201,8 +1002,8 @@ This makes Transformers very powerful — they handle long-range dependencies an
 <h4 id="pros-and-cons"><span style="color:#117A65;">Pros and Cons</span></h4>
 <table class="caption-top">
 <colgroup>
-<col style="width: 48%">
-<col style="width: 51%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1294,15 +1095,105 @@ This makes Transformers very powerful — they handle long-range dependencies an
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
+<blockquote>
+
 <ul>
-<li class="fragment">A fluent, confident answer <strong>can still be wrong</strong>.</li>
-<li class="fragment">LLMs are <strong>rewarded</strong> for sounding helpful, not for being accurate.</li>
-<li class="fragment">In clinical and laboratory applications: <strong>always validate</strong> before trusting.</li>
+<li>A fluent, confident answer <strong>can still be wrong</strong>.</li>
+<li>LLMs are <strong>rewarded</strong> for sounding helpful, not for being accurate.</li>
+<li>In clinical and laboratory applications: <strong>always validate</strong> before trusting.</li>
+</ul>
+
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<h3 id="reasoning-models-let-the-model-think"><span style="color:#884EA0;">Reasoning Models: Let the Model Think</span></h3>
+<h4 id="the-big-shift-of-2024-2026"><span style="color:#117A65;">The big shift of 2024-2026</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🧠 <strong>Reasoning models</strong> spend extra compute “thinking” before answering
+<ul>
+<li>Generate a long internal chain of thought, then a final answer</li>
+</ul></li>
+<li>⏱️ Trade-off: <strong>slower and more expensive</strong>, but better on complex tasks</li>
+<li>🩺 Strong on tasks that need multi-step logic:
+<ul>
+<li>Differential diagnosis from a long history</li>
+<li>Drug interaction reasoning</li>
+<li>Interpreting non-trivial lab panels</li>
+</ul></li>
+<li>🔧 Current examples (May 2026):
+<ul>
+<li>OpenAI <strong>o3 / GPT-5.5 thinking</strong> mode</li>
+<li>Anthropic <strong>Claude with extended thinking</strong></li>
+<li><strong>DeepSeek R1</strong> (open-weight reasoning model)</li>
+<li><strong>Gemini 3.x Thinking</strong></li>
+</ul></li>
 </ul>
 </div>
+<aside class="notes">
+<p>For the last decade, neural networks were “feed-forward”: you push input in, you get output out, and the amount of compute spent per answer is roughly fixed.</p>
+<p>The big shift of the last two years is <strong>reasoning models</strong>, also called <strong>thinking models</strong>. The idea is simple but powerful: instead of producing the answer in one shot, the model first writes a long internal “chain of thought”, explores intermediate steps, sometimes backtracks, and only then produces the final answer. The user usually sees only a short summary of this reasoning, or none of it at all.</p>
+<p>The trade-off is clear: these models are <strong>slower and more expensive per query</strong> than the previous generation, because they spend many tokens on reasoning that you never see. In exchange, they are much better on tasks that require multi-step logic, exactly the kind of tasks medicine is full of: building a differential diagnosis from a complex history, reasoning about drug-drug interactions, interpreting a panel of labs that, taken individually, look normal but together suggest a syndrome.</p>
+<p>The big names in May 2026 are: OpenAI’s <strong>o3</strong> and the “thinking” mode of <strong>GPT-5.5</strong>; Anthropic’s <strong>Claude with extended thinking</strong>; <strong>DeepSeek R1</strong>, which is particularly important because it is open-weight, meaning hospitals can self-host it; and Google’s <strong>Gemini 3.x Thinking</strong>.</p>
+<p>Practical advice. For quick summarization, use a fast non-reasoning model. For clinical reasoning, complex diagnostics, or anything where you want the model to “think twice”, switch to a reasoning model. The latency is higher, but the accuracy gain is real, and the cost is still negligible compared to a clinician’s time.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<h3 id="retrieval-augmented-generation-rag"><span style="color:#884EA0;">Retrieval-Augmented Generation (RAG)</span></h3>
+<h4 id="anchor-the-model-to-real-documents"><span style="color:#117A65;">Anchor the model to real documents</span></h4>
+<div style="font-size: 0.85em;">
+<ul>
+<li>🧠 <strong>Problem</strong>: a plain LLM only knows what it saw during training
+<ul>
+<li>No new guidelines, no internal protocols, no patient EHR</li>
+</ul></li>
+<li>📚 <strong>RAG</strong>: before answering, the system <strong>retrieves</strong> relevant documents
+<ul>
+<li>Local guidelines, hospital protocols, scientific papers, patient records</li>
+<li>These documents are added to the prompt as context</li>
+</ul></li>
+<li>🎯 <strong>Why it matters in medicine</strong>:
+<ul>
+<li>Reduces hallucinations (the model cites real text)</li>
+<li>Keeps the model up to date without retraining</li>
+<li>Allows answers grounded in <strong>your</strong> institution’s data</li>
+</ul></li>
+<li>🛠️ Typical stack: vector database + embeddings + LLM (e.g., Llama 4 + pgvector)</li>
+</ul>
 </div>
-</div>
-</div>
+<aside class="notes">
+<p>Even the best LLM has two big limits: it only knows what was in its training data, and it has no access to your specific documents (your hospital’s protocols, your local guidelines, your patient records). For most serious clinical applications, this is a deal-breaker.</p>
+<p>The standard solution today is called <strong>Retrieval-Augmented Generation</strong>, RAG. The idea is simple. Before sending a question to the LLM, a separate system <strong>retrieves the documents most relevant to the question</strong> from a curated collection. Those documents are added to the prompt, and the LLM is instructed to answer <strong>based on them</strong>, and to cite them. This is what every serious medical AI product is doing under the hood, from clinical decision support tools to literature search assistants.</p>
+<p>The advantages in medicine are huge. First, you can ground the answer in <strong>your</strong> institution’s data: local protocols, your formulary, your guidelines, even individual patient records, without retraining the model. Second, you reduce hallucinations dramatically, because the model is now answering with real text in front of it, not from memory. Third, you can update knowledge by simply updating the document collection: when a guideline changes, you do not retrain a billion-parameter model, you just re-index the new document.</p>
+<p>The typical technical stack is: a vector database to store the documents, an embedding model to encode them so you can find “semantically similar” passages, and an LLM to generate the answer. You can build this fully on-premise with open-weight models like Llama 4, which is essential for patient data.</p>
+<p>If you remember one thing from this part of the course: a plain LLM is a brilliant but amnesiac generalist. RAG is what turns it into a useful clinical assistant grounded in real evidence.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2 center">
 
@@ -1545,11 +1436,11 @@ It extracts key visual features: - Objects - Text - Positions - General patterns
 </ul>
 </div></div>
 <aside class="notes">
-<p>Let’s enter the exciting territory of multimodal models - LLMs that can process both text and images. This is a true revolution for medicine, where visual information is often crucial.</p>
-<p>Models like GPT-4V, Claude 3, and Gemini can literally “see” medical images and discuss them in clinical context. The applications are enormous: they can describe radiological images, interpret ECG patterns, analyze microscopy slides, and even read handwritten medical notes that traditional OCR systems would struggle to decipher.</p>
+<p>Let’s enter the territory of multimodal models, LLMs that can process text, images, and increasingly audio. For medicine, where visual information is often crucial, this matters a lot.</p>
+<p>Today’s frontier models, GPT-5.5, Claude Opus 4.6 and 4.7, and Gemini 3.1 Pro, are natively multimodal: they were trained on text, images, and in some cases audio and video together. They can describe radiological images, interpret ECG patterns, analyze microscopy slides, and read handwritten notes that traditional OCR cannot decipher. GPT-5.5 in particular added native audio input, which means you can talk to it and it preserves prosody and accent without a separate transcription step.</p>
 <p>The workflow is intuitive: you upload an image, add a clinical question, and the model integrates both modalities in its response. For example, you can upload a chest X-ray and ask “What do you see in this X-ray of a 65-year-old patient with shortness of breath?” The model will describe the visible findings considering the clinical context provided.</p>
 <p>This is particularly powerful because it combines visual analysis with medical knowledge. It doesn’t just describe the image, but interprets it in light of the clinical history.</p>
-<p>Of course, there are important limitations. These systems are not FDA-approved for diagnosis - they are assistance tools, not substitutes for clinical judgment. Performance varies significantly between different imaging modalities and image types. And every output requires clinical verification.</p>
+<p>Of course, there are important limitations. These systems are not approved as standalone diagnostic devices, neither by FDA nor under EU MDR. They are assistance tools, not substitutes for clinical judgment. Performance varies significantly across imaging modalities and image types. And every output requires clinical verification.</p>
 <p>But the potential is undeniable. We’re seeing radiologists use these tools to generate preliminary report drafts, pathologists using them to compare samples with similar cases, and cardiologists accelerating routine ECG interpretation.</p>
 <p>The key is to use them as intelligent assistants, not as substitutes for expert judgment.</p>
 <style type="text/css">
@@ -1577,8 +1468,8 @@ Trained on vast internet data ➔ Versatile but shallow in medicine.<br>
 <hr>
 <ul>
 <li>🩺 <strong>Medical-specific LLMs</strong><br>
-Trained on clinical records, guidelines, scientific papers ➔ Accurate but less flexible.<br>
-<strong>Examples</strong>: PathChat, BrainGPT, LiVersa.</li>
+Trained or fine-tuned on clinical records, guidelines, scientific papers ➔ Better in-domain, less flexible outside.<br>
+<strong>Examples</strong>: MedGemini / MedLM (Google), OpenAI Health (GPT-5 based, 2026), PathChat (pathology), Open-Medical-LLaMA, BioMistral.</li>
 </ul>
 <hr>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -1604,8 +1495,8 @@ These models are trained on massive amounts of general internet data.<br>
 This makes them extremely <strong>versatile</strong> — they can reason, summarize, improvise across many domains.<br>
 But here’s the catch: they don’t really <strong>understand medicine</strong>.<br>
 They can sound <strong>very confident</strong> even when they use the wrong terminology or miss important clinical nuances.</p>
-<p>On the other side, we have the <strong>medical-specific models</strong>, such as PathChat, BrainGPT, and LiVersa.<br>
-These models are trained <strong>exclusively</strong> on clinical datasets: patient records, guidelines, and scientific papers.<br>
+<p>On the other side, we have the <strong>medical-specific models</strong>, such as Google’s MedGemini and MedLM, OpenAI Health (released in January 2026 and built on GPT-5.2), PathChat for pathology, and open alternatives like Open-Medical-LLaMA and BioMistral.<br>
+These models are trained or fine-tuned on clinical datasets: patient records, guidelines, and scientific papers.<br>
 The result?<br>
 - Much better <strong>medical terminology</strong>,<br>
 - Stronger <strong>contextual accuracy</strong>,<br>
@@ -1678,21 +1569,23 @@ When choosing an LLM for clinical work, you have to <strong>balance two needs</s
 
 <h3 id="chat-mode-vs-api-mode"><span style="color:#154360;">Chat Mode vs API Mode</span></h3>
 <h4 id="two-ways-to-interact-with-llms"><span style="color:#117A65;">Two ways to interact with LLMs</span></h4>
-<div style="font-size: 0.9em;">
+<div class="columns">
+<div class="column" style="font-size: 0.8em;">
+<p><strong>💬 Chat Mode</strong></p>
 <ul>
-<li>💬 <strong>Chat Mode</strong>:<br>
-➔ Interactive, no coding required.<br>
-➔ Best for brainstorming, exploration.<br>
-➔ ❗ Less control and reproducibility.</li>
+<li>Interactive, no coding required</li>
+<li>Best for brainstorming, exploration</li>
+<li>❗ Less control and reproducibility</li>
 </ul>
-<hr>
+</div><div class="column" style="font-size: 0.8em;">
+<p><strong>🔗 API Mode</strong></p>
 <ul>
-<li>🔗 <strong>API Mode</strong>:<br>
-➔ Structured programmatic queries.<br>
-➔ Best for automation, scalability.<br>
-➔ ✅ Full control over outputs.</li>
+<li>Structured programmatic queries</li>
+<li>Best for automation, scalability</li>
+<li>✅ Full control over outputs</li>
 </ul>
-</div>
+</div></div>
+<div style="font-size: 0.85em;">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1702,9 +1595,8 @@ When choosing an LLM for clinical work, you have to <strong>balance two needs</s
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>⚡ <strong>Key Tip</strong>:<br>
-Use <strong>Chat Mode</strong> to explore.<br>
-Use <strong>API Mode</strong> to automate.</p>
+<p>⚡ Use <strong>Chat Mode</strong> to explore. Use <strong>API Mode</strong> to automate.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1757,9 +1649,8 @@ Instead, it <strong>re-reads the entire conversation history</strong>, plus your
 <p>At every turn, the model receives: - All previous messages - Plus the new user input</p>
 <p>It processes the entire combined text from scratch — as if it were seeing it for the first time.</p>
 <p>This means: - <strong>Cost</strong> increases because more tokens are processed. - <strong>Response time</strong> increases because more text has to be analyzed. - <strong>Risk of exceeding the context window</strong> increases.</p>
-<p>And very importantly:<br>
-<strong>The model does not have persistent memory</strong> between chats or sessions.<br>
-Everything it knows is only what you send <strong>right now</strong> in the current context.</p>
+<p>And very importantly: <strong>The model itself does not have persistent memory</strong> between chats or sessions. Everything it knows is only what you send right now in the current context.</p>
+<p>A note for completeness: products like ChatGPT, Claude (via Projects), and Gemini now offer “memory” features that store notes about the user across sessions. This is implemented <strong>on top</strong> of the model, not inside it: the product saves snippets in a database and injects them into the context at every new conversation. From a clinical compliance point of view this is important, because that stored memory is patient data and falls under GDPR.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1790,7 +1681,7 @@ Everything it knows is only what you send <strong>right now</strong> in the curr
 the <strong>context window</strong> of a language model.</p>
 <p>The context window defines the <strong>maximum number of tokens</strong> the model can handle at once.<br>
 This includes both: - The text you write (the prompt) - And the text the model generates (the response)</p>
-<p>For example: - GPT-3.5 has a limit of about <strong>4,096 tokens</strong>. - GPT-4 can handle up to <strong>8,192</strong> or even <strong>32,768 tokens</strong> in some versions. - Local models like Mistral typically handle <strong>4,000 to 8,000 tokens</strong>.</p>
+<p>For example: most current frontier models (GPT-5.5, Claude Opus 4.x, Gemini 3.x) handle from <strong>200,000 up to 2 million tokens</strong>. Open-weight models you can run locally (Llama 4, Qwen 3, DeepSeek V4) typically handle around <strong>128,000 tokens</strong>.</p>
 <p>But what happens if your conversation becomes longer than this limit?</p>
 <p><strong>The model starts to forget.</strong><br>
 Older tokens are dropped automatically.<br>
@@ -1823,57 +1714,45 @@ That means: if your chat is too long, the model might forget important details f
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">🤖 GPT-3.5</td>
-<td style="text-align: left;">~4,096 tokens</td>
-<td style="text-align: left;">~10 pages</td>
+<td style="text-align: left;">🤖 GPT-5.5</td>
+<td style="text-align: left;">~400,000 tokens</td>
+<td style="text-align: left;">~1,000 pages</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">🧠 GPT-4 (standard)</td>
-<td style="text-align: left;">~8,192 tokens</td>
-<td style="text-align: left;">~20 pages</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">🧠 GPT-4 (extended)</td>
-<td style="text-align: left;">~32,768 tokens</td>
-<td style="text-align: left;">~80 pages</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">🤯 Claude 3</td>
+<td style="text-align: left;">🧠 Claude Opus 4.6/4.7</td>
 <td style="text-align: left;">~200,000 tokens</td>
 <td style="text-align: left;">~500 pages</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">🌟 Gemini 2.5 Pro</td>
-<td style="text-align: left;">~2,000,000 tokens</td>
-<td style="text-align: left;">~5,000 pages</td>
+<td style="text-align: left;">🌟 Gemini 3.1 Pro</td>
+<td style="text-align: left;">~1-2M tokens</td>
+<td style="text-align: left;">~3,000-5,000 pages</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">🧩 Mistral 7B</td>
-<td style="text-align: left;">~8,192 tokens</td>
-<td style="text-align: left;">~20 pages</td>
+<td style="text-align: left;">🐋 DeepSeek V4</td>
+<td style="text-align: left;">~128,000 tokens</td>
+<td style="text-align: left;">~320 pages</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">🦙 Llama 2 13B</td>
-<td style="text-align: left;">~4,096 tokens</td>
-<td style="text-align: left;">~10 pages</td>
+<td style="text-align: left;">🦙 Llama 4 (open)</td>
+<td style="text-align: left;">~128,000 tokens</td>
+<td style="text-align: left;">~320 pages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">🧩 Qwen 3 (open)</td>
+<td style="text-align: left;">~128,000 tokens</td>
+<td style="text-align: left;">~320 pages</td>
 </tr>
 </tbody>
 </table>
 </div>
 <aside class="notes">
-<p>Let’s now update our view of context window sizes — and make it practical by thinking in terms of book pages.</p>
-<p><strong>GPT-3.5</strong>, the classic model behind ChatGPT, handles about <strong>4,000 tokens</strong> — roughly <strong>10 pages</strong> of text.</p>
-<p><strong>GPT-4</strong>, in its standard form, covers about <strong>8,000 tokens</strong>, or about <strong>20 pages</strong>.<br>
-Its extended version, available in premium services, can process about <strong>80 pages</strong> — really powerful for longer reasoning tasks.</p>
-<p><strong>Claude 3</strong>, by Anthropic, is remarkable: it can handle <strong>around 200,000 tokens</strong>, roughly <strong>500 pages</strong> — that’s almost a full textbook.</p>
-<p><strong>Gemini 2.5 Pro</strong>, Google’s latest model, is even more extreme:<br>
-It claims to process <strong>2 million tokens</strong> — about <strong>5,000 pages</strong>.<br>
-At that scale, you could feed entire research libraries into the model.</p>
-<p><strong>Mistral 7B</strong>, a popular open-source model, handles around <strong>8,000 tokens</strong>, comparable to GPT-4 standard.</p>
-<p><strong>Llama 2 13B</strong> — another open model — handles around <strong>4,000 tokens</strong>.</p>
-<p>The big takeaway is simple:<br>
-Modern models vary enormously in how much information they can “see” at once.<br>
-Choosing the right model and designing prompts that fit the context window are key to success, especially in clinical, legal, or academic settings.</p>
+<p>Let’s look at the current context window sizes (May 2026), translated into book pages for practical intuition.</p>
+<p><strong>GPT-5.5</strong> by OpenAI handles around <strong>400,000 tokens</strong>, roughly <strong>1,000 pages</strong> of text. Its smaller siblings like GPT-5-mini and GPT-5-nano keep the same window but at a fraction of the cost.</p>
+<p><strong>Claude Opus 4.6 and 4.7</strong> by Anthropic keep the <strong>200,000 token</strong> window that was already standard in the Claude 3 family, around <strong>500 pages</strong>, but pair it with much stronger reasoning and tool use.</p>
+<p><strong>Gemini 3.1 Pro</strong> by Google still leads on raw size, with windows up to <strong>1 to 2 million tokens</strong>, which is in the order of <strong>thousands of pages</strong>. At that scale you can ingest entire textbooks, registries, or longitudinal patient records.</p>
+<p><strong>DeepSeek V4</strong>, <strong>Llama 4</strong>, and <strong>Qwen 3</strong> are the most capable open-weight models you can self-host today. They settled around <strong>128,000 tokens</strong>, which is plenty for most clinical documents.</p>
+<p>Two practical takeaways. First, the context window is no longer the bottleneck it was two years ago. Second, “long context does not mean perfect recall”: all models still degrade in the middle of very long inputs. So even with a 1 million token window, you should organize the prompt carefully, and not assume the model has read every detail with equal attention.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1944,7 +1823,7 @@ Choosing the right model and designing prompts that fit the context window are k
 <p>This slide illustrates the practical implications of context window limitations when working with clinical documents.</p>
 <p>Medical records tend to be lengthy, and important information is often distributed throughout the document. When a model can only “see” part of the document due to token limitations, critical information may be missed.</p>
 <p>In the example shown, medication instructions placed at the end of a discharge summary could be lost entirely if the context window is too small, potentially leading to treatment errors.</p>
-<p>This directly impacts how we should structure prompts for clinical applications, and highlights why newer models with larger context windows (like Claude and GPT-4) represent significant improvements for healthcare applications.</p>
+<p>This directly impacts how we should structure prompts for clinical applications, and explains why the move from 4K-8K token windows of a few years ago to today’s 200K-2M token windows in models like Claude Opus 4.x, GPT-5.5, and Gemini 3.x has been a significant practical improvement for healthcare use cases.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2071,47 +1950,27 @@ You send a structured request, usually through a simple script, and you get a st
 </ul>
 </div><div class="column" style="font-size: 0.85em;">
 <ul>
-<li>📈 <strong>Sample results comparison</strong>:</li>
+<li>📈 <strong>Where to look (May 2026)</strong>:
+<ul>
+<li>MedQA, MedMCQA, PubMedQA</li>
+<li>HealthBench (OpenAI, 2025)</li>
+<li>MMLU-Pro Medicine subset</li>
+<li>HLE (Humanity’s Last Exam) medical subset</li>
+</ul></li>
+<li>⚠️ <strong>Honest caveat</strong>:
+<ul>
+<li>Numbers age in months, not years</li>
+<li>Always check the model card and the leaderboard date</li>
+<li>Saturation on MCQ benchmarks does not equal clinical safety</li>
+</ul></li>
 </ul>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Model</th>
-<th style="text-align: center;">Accuracy</th>
-<th style="text-align: center;">Hallucination Rate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">GPT-4</td>
-<td style="text-align: center;">89%</td>
-<td style="text-align: center;">4.5%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Claude 3</td>
-<td style="text-align: center;">91%</td>
-<td style="text-align: center;">3.2%</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Mistral</td>
-<td style="text-align: center;">85%</td>
-<td style="text-align: center;">6.7%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Med-PaLM</td>
-<td style="text-align: center;">93%</td>
-<td style="text-align: center;">2.8%</td>
-</tr>
-</tbody>
-</table>
 </div></div>
 <aside class="notes">
-<p>As healthcare professionals, we’re used to rigorously evaluating new tools and therapies before adoption. LLMs should be no different. Let’s analyze how to quantitatively measure their performance in clinical settings.</p>
-<p>Key metrics we need to consider include accuracy - how correct is the medical information provided; consistency - how reliable are responses to similar queries; hallucination rate - how often the model invents information; and clinical relevance - how applicable are the responses to patient care.</p>
-<p>To evaluate these metrics, we can use several methods. Expert review panels, where specialists evaluate responses, are the gold standard but time-consuming. Comparison with recognized standards, like guidelines or medical texts, is more efficient. Inter-model consistency checks can reveal informational discrepancies. And structured clinical scenarios allow standardized testing on specific cases.</p>
-<p>The table shows some comparative results from a recent study of ours. Notice how models specialized for medicine, like Med-PaLM, tend to outperform generic models. The hallucination rate is particularly important - it represents how often the model generates false but plausible information.</p>
-<p>These data suggest we’re reaching interesting performance levels, but we’re still far from 100% accuracy. That’s why human verification remains essential, especially for information critical to patient care.</p>
-<p>When implementing these tools in your contexts, I recommend conducting similar evaluations, specific to your use cases, to understand the strengths and limitations of the models you choose.</p>
+<p>As healthcare professionals, we are used to rigorously evaluating new tools and therapies before adoption. LLMs should be no different. So let’s talk about how to quantitatively measure their performance in clinical settings.</p>
+<p>The key metrics we care about are: accuracy (is the medical information correct), consistency (does the model give the same answer to similar queries), hallucination rate (how often does it invent information), and clinical relevance (is the answer actually useful at the bedside).</p>
+<p>To evaluate these metrics, we can use several approaches. Expert review panels are the gold standard but they are slow. Comparison against guidelines is faster. Inter-model consistency checks help flag suspicious answers. Structured clinical scenarios allow reproducible testing.</p>
+<p>I want to be honest about benchmarks. I deliberately do not show a fixed table of accuracy numbers here, because in this field the leaderboard changes every few weeks. By the time slides are printed, the numbers are already wrong. What I want you to remember is the list of relevant benchmarks: MedQA, MedMCQA, PubMedQA for clinical knowledge MCQs, HealthBench released by OpenAI in 2025 for realistic clinical conversations, the medical subset of MMLU-Pro, and the medical subset of Humanity’s Last Exam for very hard cases.</p>
+<p>The other thing I want you to internalize is that scoring 95 percent on a multiple choice exam does not mean a model is safe in your clinic. Benchmarks measure narrow tasks; clinical safety requires evaluation on your own data, in your own workflow, on the specific decisions you delegate. Always run your own eval on your own cases before trusting any number.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2244,8 +2103,8 @@ Choosing between commercial and open depends on your priorities:<br>
 <div style="font-size: 0.85em;">
 <table class="caption-top">
 <colgroup>
-<col style="width: 37%">
-<col style="width: 62%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -2359,31 +2218,36 @@ then <strong>open-source models</strong> are the way to go — at the cost of a 
 </section>
 <section class="slide level2 center">
 
-<h3 id="lm-studio-webllm-local-llms-for-clinical-use"><span style="color:#884EA0;">LM Studio &amp; WebLLM: Local LLMs for Clinical Use</span></h3>
-<h4 id="run-ai-models-privately-and-offline"><span style="color:#117A65;">Run AI models privately and offline</span></h4>
+<h3 id="tools-to-run-llms-locally"><span style="color:#884EA0;">Tools to Run LLMs Locally</span></h3>
+<h4 id="lm-studio-ollama-webllm"><span style="color:#117A65;">LM Studio, Ollama, WebLLM</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
-<li>🖥️ <strong>LM Studio</strong>:
+<li>🖥️ <strong>LM Studio</strong> (used in the practical session):
 <ul>
 <li>Desktop app for Windows, macOS, Linux</li>
-<li>Download and run open-source models locally</li>
-<li>Offers chat interface and API server</li>
-<li>Ideal for offline, privacy-sensitive tasks</li>
+<li>GUI to download and run open-weight models locally</li>
+<li>Built-in OpenAI-compatible API server</li>
+</ul></li>
+<li>🐚 <strong>Ollama</strong>:
+<ul>
+<li>Command-line oriented, very popular among developers</li>
+<li>Same idea (local models + local API), more scriptable</li>
+<li>Easy to embed in workflows and pipelines</li>
 </ul></li>
 <li>🌐 <strong>WebLLM</strong>:
 <ul>
-<li>Runs LLMs directly in your browser</li>
-<li>No installation or backend needed</li>
-<li>Powered by WebGPU for fast inference</li>
-<li>Great for lightweight, portable deployments</li>
+<li>Runs LLMs directly in your browser via WebGPU</li>
+<li>No installation, no backend</li>
+<li>Smaller models, but zero footprint on the device</li>
 </ul></li>
 </ul>
 </div>
 <aside class="notes">
-<p>Let’s now explore two powerful tools that allow you to run large language models locally: <strong>LM Studio</strong> and <strong>WebLLM</strong>.</p>
-<p><strong>LM Studio</strong> is a desktop application compatible with Windows, macOS, and Linux. It enables you to download and run open-source models directly on your machine. With its user-friendly chat interface and built-in API server, LM Studio is ideal for offline tasks where data privacy is paramount.</p>
-<p>On the other hand, <strong>WebLLM</strong> operates entirely within your web browser. It leverages WebGPU to run models efficiently without any installation or backend infrastructure. This makes it perfect for lightweight and portable applications.</p>
-<p>The key advantage of both tools is the <strong>full control over your data and models</strong>, eliminating the need for cloud services and enhancing privacy and security in clinical settings.</p>
+<p>Let’s now look at the most common ways to run LLMs locally. We will use <strong>LM Studio</strong> in the practical session, but you should know there are several good options today.</p>
+<p><strong>LM Studio</strong> is a desktop application for Windows, macOS, and Linux with a friendly graphical interface. You browse a catalogue of open-weight models, download the one you want, and run it locally. It also exposes a local API server that is OpenAI-compatible, which means existing client code works out of the box. We will use it in the hands-on part.</p>
+<p><strong>Ollama</strong> is the other very popular option, especially among developers. It is command-line oriented, very lightweight, and integrates well with scripts and pipelines. Many of the open-source clinical NLP projects on GitHub now use Ollama as their default backend. If LM Studio is the “GUI” experience, Ollama is the “Unix philosophy” experience.</p>
+<p><strong>WebLLM</strong> is a different beast: it runs the model directly in the browser via WebGPU. No installation, no backend, the model runs on the user’s device. It only works with smaller models, but for very simple summarization or Q&amp;A on a clinician’s laptop, it can be a zero-deployment solution.</p>
+<p>The shared advantage of all three is <strong>full control over data</strong>: nothing leaves your machine or your network. This is the main reason these tools are interesting for healthcare.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2500,22 +2364,19 @@ All the processing happens locally — nothing is sent to external servers.</p>
 <section id="regulatory-considerations" class="slide level2 center">
 <h2><span style="color:#2E86C1;">Regulatory Considerations</span></h2>
 <h3 id="legal-framework-for-ai-in-healthcare"><span style="color:#117A65;">Legal framework for AI in healthcare</span></h3>
-<div style="font-size: 0.85em;">
+<div style="font-size: 0.8em;">
 <ul>
 <li>🏛️ <strong>Key regulations</strong>:
 <ul>
-<li>HIPAA (US): Protected Health Information requirements</li>
-<li>GDPR (EU): Special category data processing restrictions</li>
-<li>MDR (EU): AI as medical device classification</li>
+<li><strong>EU AI Act</strong> (Reg. 2024/1689) - risk-based framework</li>
+<li><strong>GDPR</strong> - health data is “special category”</li>
+<li><strong>MDR / IVDR</strong> - AI as medical device</li>
+<li><strong>HIPAA</strong> (US) - Protected Health Information</li>
 </ul></li>
-<li>⚖️ <strong>Compliance challenges</strong>:
-<ul>
-<li>Data residency requirements for processing PHI</li>
-<li>Right to explanation for AI-assisted decisions</li>
-<li>Audit trails for AI-generated content</li>
-</ul></li>
+<li>⚖️ Recurring challenges: data residency, right to explanation, audit trails, post-market monitoring</li>
 </ul>
 </div>
+<div style="font-size: 0.8em;">
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2525,16 +2386,66 @@ All the processing happens locally — nothing is sent to external servers.</p>
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>Always check if your LLM usage requires: 1. Patient consent 2. Data processing agreements 3. Classification as a medical device</p>
+<p>Before deploying: 1) patient consent, 2) data processing agreements, 3) MDR/IVDR classification, 4) AI Act high-risk status.</p>
+</div>
 </div>
 </div>
 </div>
 <aside class="notes">
-<p>This slide introduces the key regulatory frameworks that apply to healthcare AI applications.</p>
-<p>For HIPAA compliance, the key concern is whether PHI is being transmitted to third-party servers when using commercial models. This is why on-premise models are often necessary for clinical applications.</p>
-<p>Under GDPR, health data is considered “special category data” with additional protections. AI systems must be transparent, and patients generally have the right to know when AI is being used and how it affects decisions.</p>
-<p>The Medical Device Regulation in Europe and similar FDA frameworks in the US may classify certain AI applications as medical devices requiring certification, especially if they’re used for diagnosis or treatment planning.</p>
-<p>These regulatory issues directly impact decisions about which models to use and how to deploy them.</p>
+<p>This slide gives the big picture of the regulatory frameworks that apply to healthcare AI in Europe and the US.</p>
+<p>The most important new piece, and the one that probably did not exist when many of you last looked at this topic, is the <strong>EU AI Act</strong>, Regulation 2024/1689. It is a horizontal, risk-based framework that applies to any AI system placed on the EU market, including LLMs used in healthcare. We will spend the next slide on it because it directly affects what you can and cannot do.</p>
+<p>GDPR is still the baseline for personal data, and remember that health data is “special category” data: you need a specific legal basis and stronger safeguards. AI systems must also respect transparency: patients generally have the right to know when AI is involved in a decision that affects them.</p>
+<p>The Medical Device Regulation, MDR, and the In Vitro Diagnostic Regulation, IVDR, define when a piece of software, including an AI system, is itself a medical device. If your LLM application gives diagnostic, prognostic, or therapeutic information that directly informs clinical decisions, it is very likely a medical device, regardless of whether it runs in the cloud or on-premise.</p>
+<p>In the US, HIPAA is the main concern: the question is always whether PHI is being transmitted to third-party servers and under what agreement. This is why local deployment or BAA-covered cloud services are often the only viable options.</p>
+<p>These regulations directly drive your model choice, your deployment architecture, and your documentation duties.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-eu-ai-act-and-clinical-llms" class="slide level2 center">
+<h2><span style="color:#2E86C1;">The EU AI Act and Clinical LLMs</span></h2>
+<h3 id="what-changes-in-2026-2027"><span style="color:#117A65;">What changes in 2026-2027</span></h3>
+<div style="font-size: 0.8em;">
+<ul>
+<li>📅 <strong>Key dates</strong>:
+<ul>
+<li><strong>2 Aug 2026</strong>: most high-risk AI obligations apply</li>
+<li><strong>2 Aug 2027</strong>: AI in CE-marked medical devices (MDR/IVDR)</li>
+</ul></li>
+<li>🚨 Healthcare AI = <strong>automatically high-risk</strong> if part of an MDR/IVDR device</li>
+<li>🧾 Main obligations: risk management, data governance, human oversight, accuracy &amp; robustness, post-market monitoring</li>
+</ul>
+</div>
+<div style="font-size: 0.8em;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Rule of thumb</strong>: if your LLM informs a clinical decision, assume it is high-risk and design for it from day one.</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Let’s spend a few minutes on the EU AI Act because it is the most important regulatory change you will face if you build or buy LLM-based tools in Europe.</p>
+<p>The Act was adopted in 2024 and is being phased in. The dates you need to remember are these. Since February 2025, certain AI practices are already prohibited. Since August 2025, the rules on general-purpose AI models, the so-called GPAI rules that apply to providers of large foundation models, are in force. The big date is <strong>August 2, 2026</strong>, which is essentially a few months from today: most high-risk AI obligations enter into application. And then <strong>August 2, 2027</strong> is the date by which AI embedded in CE-marked medical devices under MDR or IVDR has to comply.</p>
+<p>There is an ongoing discussion at EU level, the “Digital Omnibus”, that may extend these dates by about one year. As of today, I would not bet my project plan on the extension; I would treat the original dates as binding and prepare accordingly.</p>
+<p>Now, what counts as “high-risk” for us. The short version: any AI system that is itself a medical device under MDR or IVDR, or that is a safety component of one, is automatically high-risk under the AI Act. That covers diagnostic imaging software, software as a medical device for patient monitoring, AI-driven clinical decision support that goes beyond purely informational use, and so on. An LLM that summarizes discharge letters for the doctor to review may or may not be a device, depending on use. An LLM that suggests therapy adjustments almost certainly is.</p>
+<p>If your system is high-risk, you have a long list of obligations as a provider or deployer: a documented risk management process across the lifecycle, data governance for the training and evaluation data, technical documentation, logging, human oversight by design, demonstrated accuracy, robustness and cybersecurity, plus post-market monitoring and serious incident reporting.</p>
+<p>My practical advice: if you are even considering building an LLM tool that touches a clinical decision, <strong>assume it is high-risk from day one</strong> and design for it. Retrofitting compliance later is much more expensive than baking it in.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -2642,9 +2553,11 @@ All the processing happens locally — nothing is sent to external servers.</p>
 <h4 id="roi-considerations-for-medical-implementations"><span style="color:#117A65;">ROI considerations for medical implementations</span></h4>
 <div style="font-size: 0.85em;">
 <ul>
-<li>💰 <strong>Cost factors</strong>:
+<li>💰 <strong>Cost factors (May 2026)</strong>:
 <ul>
-<li>API costs: $0.50-$20 per 1,000 clinical notes (model dependent)</li>
+<li>Mini/Flash models: a few cents per 1,000 clinical notes</li>
+<li>Frontier models (Opus, GPT-5.5 Pro, Gemini 3.x Pro): $0.50-$5 per 1,000 notes</li>
+<li>Self-hosted open-weight (Llama 4, Qwen 3): hardware cost, near-zero per query</li>
 <li>Staff time saved: 20-40% reduction in documentation time</li>
 <li>Training &amp; implementation: 40-80 hours per department</li>
 </ul></li>
@@ -2671,7 +2584,7 @@ All the processing happens locally — nothing is sent to external servers.</p>
 </div>
 <aside class="notes">
 <p>Let’s move to the practical aspects of implementing LLMs in clinical settings - specifically, cost-benefit analysis. Hospital directors and laboratory managers constantly ask me: “Are these tools worth the investment?”</p>
-<p>Let’s examine the main cost factors. API costs vary significantly depending on the model - we can spend from 50 cents up to $20 to process 1,000 clinical notes. This depends on the complexity of the model and the provider.</p>
+<p>Let’s examine the main cost factors. API costs have collapsed in the last 18 months. With the latest mini and flash models (GPT-5-mini, Claude Haiku 4.5, Gemini Flash 3.x), 1,000 clinical notes cost just a few cents. With frontier models like Claude Opus 4.6, GPT-5.5 Pro, or Gemini 3.1 Pro, you are typically in the range of 50 cents to a few dollars per 1,000 notes. And if you self-host an open-weight model like Llama 4 or Qwen 3, your marginal cost per query is essentially zero, you only pay for the hardware. The cost is no longer a barrier; the bottleneck is governance and validation.</p>
 <p>The main savings come from staff time. We’re seeing 20-40% reductions in time spent on documentation. Think about what this means for doctors and specialists who spend hours each day writing notes.</p>
 <p>Implementation typically requires between 40 and 80 hours per department, including training and integration into workflows.</p>
 <p>But let’s look at some concrete examples. A hospital we collaborate with reduced discharge note writing time by 50% - that’s 15 minutes saved per patient. Multiply that by hundreds of patients per month.</p>
@@ -2690,15 +2603,15 @@ All the processing happens locally — nothing is sent to external servers.</p>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<div class="quarto-auto-generated-content">
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="images/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
-</div>
-</section>
-    </div>
-  </div>
+</div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
   <script src="LLM_Course_slides_files/libs/revealjs/dist/reveal.js"></script>
@@ -2728,7 +2641,8 @@ All the processing happens locally — nothing is sent to external servers.</p>
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
  
@@ -2883,7 +2797,7 @@ All the processing happens locally — nothing is sent to external servers.</p>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -2910,192 +2824,173 @@ All the processing happens locally — nothing is sent to external servers.</p>
       });
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
           }
+          return false;
         }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
           }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
           for (const childEl of codeEl.children) {
             if (isCodeAnnotation(childEl)) {
               childEl.remove();
             }
           }
           return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        // For code content inside modals, clipBoardJS needs to be initialized with a container option
-        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
             }
           }
-        }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
           }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
           }
-        } else {
-          return undefined;
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
         }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
-              }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>

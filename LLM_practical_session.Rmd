@@ -42,13 +42,16 @@ This hands-on session will guide you through exploring Large Language Models (LL
 
 2.  **Launch LM Studio and Download a Model**
 
-    -   Recommended models:
-        -   Qwen3 0.6B
-        -   Llama 3 8B Instruct
-        -   Gemma 7B Instruct
-    -   These models balance capability and reasonable hardware requirements
+    -   Recommended models (May 2026):
+        -   **Qwen 3 (8B or 14B Instruct)** - solid general-purpose, multilingual
+        -   **Llama 4 (8B / Scout)** - latest Meta open-weight family
+        -   **Gemma 3 (4B / 12B)** - small, fast, surprisingly capable
+        -   **Phi-4 (Microsoft)** - very strong for its size on reasoning
+        -   **DeepSeek R1 Distill (7B / 14B)** - small *reasoning* model, useful for diagnostic chains
+    -   For machines with limited RAM (≤ 16 GB) pick the 4B-8B variants
+    -   These balance capability and reasonable hardware requirements
 
-    > The model size (7B, 8B) refers to the number of parameters in billions. Larger models are generally more capable but require more hardware resources. For medical contexts, models from the Mistral and Llama families tend to perform well even in more compact versions.
+    > The model size (4B, 8B, 14B) refers to the number of parameters in billions. Larger models are generally more capable but require more hardware. Note that DeepSeek R1 Distill is a "reasoning" model: it produces a hidden chain of thought before answering. Our R helper function already handles this case (see `remove_thinking` parameter later in the session).
 
 3.  **Start the Local Server**
 
@@ -657,10 +660,10 @@ final_table
 
 3.  **Comparison with Commercial Models**
 
-    -   How do these local models compare to commercial ones like GPT-4?
+    -   How do these local models compare to current commercial ones (GPT-5.5, Claude Opus 4.x, Gemini 3.x)?
     -   In what scenarios might a local model be preferable?
 
-    > **Trade-offs:** Commercial models (like GPT-4, Claude) are generally more capable, but have disadvantages in terms of costs, internet dependency, and privacy. Local models are preferable when:
+    > **Trade-offs:** Frontier commercial models (GPT-5.5, Claude Opus 4.6/4.7, Gemini 3.1 Pro) are still measurably more capable on complex tasks than what you can run on a laptop, but the gap has narrowed dramatically with open-weight models like Llama 4, Qwen 3, and DeepSeek R1. Commercial models still have disadvantages in cost, internet dependency, and privacy. Local models are preferable when:
     >
     > -   Patient data should not leave the local system
     > -   An offline solution is needed
@@ -683,9 +686,16 @@ final_table
 ## 📚 Resources
 
 -   [LM Studio Documentation](https://lmstudio.ai/docs)
--   [Mistral AI Documentation](https://docs.mistral.ai)
+-   [Ollama](https://ollama.com) - CLI alternative to LM Studio
+-   [Hugging Face open-weight model hub](https://huggingface.co/models)
 -   [OpenAI API Reference](https://platform.openai.com/docs/api-reference) (for API format compatibility)
+-   [Anthropic API Reference](https://docs.anthropic.com)
 -   [httr Package Documentation](https://httr.r-lib.org)
 -   [jsonlite Package Documentation](https://cran.r-project.org/web/packages/jsonlite/index.html)
 
-> **Additional Resources:** - [NeurIPS Clinical LLM Challenge](https://sites.google.com/view/clinical-llm-challenge-neurips/) - Contains datasets and examples of clinical prompts - [MedPaLM 2](https://blog.google/technology/health/medpalm-2-research-large-language-models-medical-knowledge/) - Research on medicine-specific LLMs - [Chatbots for Clinical Informatics](https://www.nature.com/articles/s41746-023-00873-0) - Paper on clinical use of LLMs
+> **Additional Resources:**
+>
+> -   [HealthBench (OpenAI, 2025)](https://openai.com/index/healthbench/) - benchmark for realistic clinical conversations
+> -   [MedGemini / MedLM (Google)](https://cloud.google.com/healthcare/docs/concepts/medlm) - current medical-specific LLM family
+> -   [EU AI Act, Reg. 2024/1689 - official text](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
+> -   [Large language models in biomedicine and healthcare](https://www.nature.com/articles/s44387-025-00047-1) - npj AI 2025 review

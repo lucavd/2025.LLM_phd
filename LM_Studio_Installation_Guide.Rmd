@@ -72,9 +72,11 @@ Open LM Studio after installation. You may need to accept terms of service and a
 2. Go to the **Models** tab
 3. Search for and download a model
    - You can filter by size, rating, and other parameters
-4. For beginners, start with a smaller model:
-   - Qwen models are available in 8 sizes - you can start with the smallest one (0.6B) which is ~1GB
-   - Other good starter models include Phi-2, Mistral 7B, or TinyLlama
+4. For beginners, start with a smaller model (May 2026):
+   - **Qwen 3** is available in multiple sizes; the 0.6B variant (~1 GB) runs on almost any laptop
+   - **Gemma 3 (4B)** is a great small all-rounder
+   - **Phi-4** (Microsoft) punches well above its weight on reasoning
+   - **DeepSeek R1 Distill (7B)** if you want to try a small "reasoning" model
 
 ![Model Selection Screen](images/lm_studio/image3.png)
 
